@@ -1,0 +1,57 @@
+{
+  "code": 0,
+  "message": "success",
+  "data": {
+    "list": [
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/85225562",
+        "nickname": "前端梦工厂",
+        "position": "前端开发",
+        "introduction": "专注前端技术领域的全栈开发者，喜欢分享技术，欢迎关注。",
+        "city": "",
+        "skills": [
+          {
+            "tag": "github",
+            "url": "https://github.com/anyup"
+          },
+          {
+            "tag": "gitee",
+            "url": "https://gitee.com/anyup"
+          },
+          {
+            "tag": "csdn",
+            "url": "https://blog.csdn.net/qq_24956515?type=blog"
+          },
+          {
+            "tag": "link",
+            "url": "https://juejin.cn/user/4230576472589976/posts"
+          }
+        ],
+        "type": 2,
+        "isAuthor": true,
+        "isActive": true,
+        "sort": 0
+      },
+      {
+        "avatar": "https://avatars.githubusercontent.com/u/106022674",
+        "nickname": "Bin",
+        "position": "前端开发",
+        "introduction": "立志成为一名优秀的前端开发工程师，梦想加入开源社区，为开源贡献力量。",
+        "city": "",
+        "skills": [
+          {
+            "tag": "link",
+            "url": "https://ffgenius.netlify.app/"
+          },
+          {
+            "tag": "github",
+            "url": "https://github.com/ffgenius"
+          }
+        ],
+        "type": 2,
+        "isActive": true,
+        "sort": 1
+      }
+    ]
+  }
+}

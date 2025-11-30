@@ -1,0 +1,98 @@
+:root {
+  --vp-layout-max-width: 100%;
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #3445fe 30%,
+    #41d1ff
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #3445fe 50%,
+    #47caff 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+}
+
+/* 自定义 sidebar 样式 */
+.VPSidebar {
+  border-right: 1px solid #eaeefb;
+  /* background-color: var(--vp-c-bg) !important; */
+}
+.VPSidebarItem > .item > .text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.VPSidebarItem > .item .link > .text {
+  font-size: 14px;
+  margin: 2px;
+}
+
+.VPSidebarItem.is-link > .item .link > .text {
+  font-size: 14px;
+  margin: 2px;
+}
+
+.VPSidebarItem.is-active > .item .link > .text {
+  color: #fff !important;
+  background-color: var(--vp-c-brand-1);
+  border-radius: 7px;
+  padding: 4px 5px;
+  font-size: 14px;
+  margin-left: -3px;
+}
+
+/* 自定义 Navbar */
+.VPNavBarMenuLink.active {
+  margin-bottom: -2px;
+  border-bottom: 2px solid var(--vp-c-brand-1);
+}
+
+/* 布局样式 */
+.VPDoc {
+  padding: 0 !important;
+}
+
+.VPDoc .content {
+  padding: 40px !important;
+}
+
+.VPDoc.has-aside .container,
+.VPDoc.has-aside .container > .content,
+.VPDoc.has-aside .container > .content > .content-container {
+  max-width: 100% !important;
+}
+
+@media (max-width: 1920px) {
+  .VPDoc .aside {
+    max-width: 350px !important;
+  }
+  .demo-preview .VPDoc .aside {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 1920px) {
+  .VPDoc .aside {
+    min-width: 350px !important;
+  }
+  .demo-preview .VPDoc .aside {
+    visibility: visible;
+    min-width: 600px !important;
+  }
+}

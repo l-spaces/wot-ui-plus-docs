@@ -1,0 +1,22 @@
+{
+  "key": "wot-ui-plus_tips_release_v305",
+  "title": "新版本已发布：v3.0.5",
+  "subtitle": "更新日期：2025-11-30",
+  "description": "3.0.5 带来多主题体系、暗黑模式与主题管理能力的全面升级，推荐尽快体验与迁移。",
+  "reasons": [
+    "实现自定义多主题与运行时主题切换，支持多套主题并兼容单主题场景。支持安卓/iOS/鸿蒙，小程序等多平台。"
+  ],
+  "proceed": "进入文档",
+  "actions": [
+    {
+      "text": "进入文档",
+      "type": "default"
+    },
+    {
+      "text": "点亮 GitHub ",
+      "icon": "custom-icon custom-icon-github",
+      "type": "primary",
+      "url": "https://github.com/anyup/wot-ui-plus"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "key": "wot-ui-plus_tips_checked_v1",
+  "tipsTopKey": "wot-ui-plus_tipsTop_checked_v1",
+  "title": "wot-ui-plus 需要您的支持",
+  "subtitle": "支持开源，鼓励维护与迭代",
+  "description": "开源不易，wot-ui-plus 需要您的支持！",
+  "reasons": [
+    "我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧！",
+    "<a href=\"https://gitee.com/activity/2025opensource?ident=ILNYWO\" target=\"_blank\">投票链接：https://gitee.com/activity/2025opensource?ident=ILNYWO</a>"
+  ],
+  "proceed": "进入文档",
+  "actions": [
+    {
+      "text": "已经投票",
+      "type": "default",
+      "url": "https://gitee.com/activity/2025opensource?ident=ILNYWO"
+    },
+    {
+      "text": "去投票",
+      "type": "primary",
+      "url": "https://gitee.com/activity/2025opensource?ident=ILNYWO"
+    }
+  ]
+}

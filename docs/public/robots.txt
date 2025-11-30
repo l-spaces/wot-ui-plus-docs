@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wot-ui-plus.cn/sitemap.xml
