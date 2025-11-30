@@ -15,7 +15,7 @@ import { version } from '../../../package.json'
 //   })
 // }
 
-class Menu<T> {
+class Menu {
   locale: string
   localeStr: string
   constructor(locale: string) {
@@ -33,32 +33,31 @@ class Menu<T> {
       },
       {
         text: '组件',
-        activeMatch: `${this.localeStr}/components`,
-        // link: `${this.localeStr}/components/intro`
+        activeMatch: `${this.localeStr}/wot`,
         items: [
           {
             text: '组件总览',
-            link: `${this.localeStr}/components/intro`
+            link: `${this.localeStr}/wot/intro`
           },
           {
             text: '基础组件',
-            link: `${this.localeStr}/components/button`
+            link: `${this.localeStr}/wot/button`
           },
           {
             text: '导航组件',
-            link: `${this.localeStr}/components/pagination`
+            link: `${this.localeStr}/wot/pagination`
           },
           {
             text: '数据输入',
-            link: `${this.localeStr}/components/calendar`
+            link: `${this.localeStr}/wot/calendar`
           },
           {
             text: '反馈组件',
-            link: `${this.localeStr}/components/action-sheet`
+            link: `${this.localeStr}/wot/action-sheet`
           },
           {
             text: '数据展示',
-            link: `${this.localeStr}/components/badge`
+            link: `${this.localeStr}/wot/badge`
           }
         ]
       },
@@ -111,11 +110,11 @@ class Menu<T> {
   // 侧边栏
   sidebar(): DefaultTheme.Sidebar {
     return {
-      '/zh/guide/': { base: `${this.localeStr}/guide/`, items: this.sidebarGuide() },
-      '/zh/tools/': { base: `${this.localeStr}/tools/`, items: this.sidebarTools() },
-      '/zh/layout/': { base: `${this.localeStr}/layout/`, items: this.sidebarLayout() },
-      '/zh/components/': {
-        base: `${this.localeStr}/components/`,
+      '/components/guide/': { base: `${this.localeStr}/guide/`, items: this.sidebarGuide() },
+      '/components/tools/': { base: `${this.localeStr}/tools/`, items: this.sidebarTools() },
+      '/components/layout/': { base: `${this.localeStr}/layout/`, items: this.sidebarLayout() },
+      '/components/wot/': {
+        base: `${this.localeStr}/wot/`,
         items: this.sidebarComponents()
       }
     }

@@ -6,7 +6,7 @@ import { defineConfig, type DefaultTheme } from 'vitepress'
 import Menu from './menu'
 // const require = createRequire(import.meta.url)
 // const pkg = require('vitepress/package.json')
-const menu = new Menu('zh')
+const menu = new Menu('components')
 
 export const zh = defineConfig({
   lang: 'zh-Hans',

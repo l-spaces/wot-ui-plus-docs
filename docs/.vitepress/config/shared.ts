@@ -128,7 +128,7 @@ export const shared = defineConfig({
   ],
 
   themeConfig: {
-    logo: { src: '/images/logo-new.png', width: 24, height: 24 },
+    logo: { src: '/images/logo.png', width: 24, height: 24 },
 
     // 社交链接 配置
     socialLinks: [

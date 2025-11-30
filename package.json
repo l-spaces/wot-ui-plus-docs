@@ -4,6 +4,8 @@
   "description": "wot-ui 官方文档",
   "main": "index.js",
   "scripts": {
+    "outdated": "pnpm outdated",
+    "store:prune": "pnpm store prune",
     "dev": "vitepress dev docs --port 8888",
     "build": "vitepress build docs && node ./scripts/llms-full-to-jsonl.js",
     "preview": "vitepress preview docs",
