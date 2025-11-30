@@ -4,7 +4,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
-const visible = ref(false)
+const visible = ref(true)
 const rootEl = ref<HTMLElement | null>(null)
 // storage key can be provided by JSON (tipsTopKey). Use fallback.
 const storageKeyName = ref('wot_docs_tipsTop_closed_v3')

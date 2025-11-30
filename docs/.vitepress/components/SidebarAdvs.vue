@@ -1,7 +1,6 @@
-
 /**
- * 侧边栏广告
- */
+* 侧边栏广告
+*/
 <template>
   <div>
     <p class="sidebar-advs-placeholder" @click="linkMe">成为赞助商</p>
@@ -56,6 +55,7 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .sidebar-advs-placeholder {
+  font-size: 14px;
   width: 100%;
   height: 50px;
   line-height: 50px;

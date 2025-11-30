@@ -1,11 +1,22 @@
 /**
- * 首页 侧边栏广告
- */
+* 首页 侧边栏广告
+*/
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
 
 const data = ref([
+    {
+        "tier": "Platinum",
+        "size": "large",
+        "items": [
+            {
+                "name": "wot-ui-plus",
+                "img": "",
+                "url": "https://github.com/anyup/wot-ui-plus"
+            },
+        ]
+    },
     {
         "tier": "Gold",
         "size": "large",
@@ -24,6 +35,7 @@ const superSponsors = computed(() => {
     return data.value?.find(sponsor => sponsor.tier === 'Platinum')
 })
 
+// 金牌赞助
 const goldSponsors = computed(() => {
     return data.value?.find(sponsor => sponsor.tier === 'Gold')
 })
@@ -38,7 +50,7 @@ const isGoldSponsorsOdd = computed(() => {
     <div class="VPDocAsideSponsors">
         <a class="sponsors-aside-text" href="/reward/sponsor">赞助位</a>
         <div class="VPSponsors vp-sponsor">
-            
+
             <section class="vp-sponsor-section" v-if="superSponsors?.items.length">
                 <div class="VPSponsorsGrid vp-sponsor-grid mini" data-vp-grid="1">
                     <div class="vp-sponsor-grid-item" v-for="sponsor in superSponsors.items" :key="sponsor.name">

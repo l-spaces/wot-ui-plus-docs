@@ -9,6 +9,8 @@ import BadgeNpm from '../components/BadgeNpm.vue'
 import AsideAds from '../components/AsideAds.vue'
 import MessageBox from '../components/MessageBox.vue'
 import TipsTop from '../components/TipsTop.vue'
+import SidebarAdvs from '../components/SidebarAdvs.vue'
+import Version from '../components/Version.vue'
 
 const { isDark } = useData()
 const tipsRef = ref()
@@ -42,7 +44,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   document.documentElement.animate(
     { clipPath: isDark.value ? clipPath.reverse() : clipPath },
     {
-      duration: 300,
+      duration: 100,
       easing: 'ease-in',
       pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
     }
@@ -67,12 +69,13 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     </template>
     <!-- 导航栏LOGO后置内容 -->
     <template #nav-bar-title-after>
-      <!-- <BadgeNpm /> -->
+      <Version />
     </template>
     <!-- 导航栏内容后置内容 -->
     <template #nav-bar-content-after>
       <TipsDialog :tips-key="['release', 'support']" ref="tipsRef" />
-      <MessageBox @click-tips="tipsRef.showDialog($event)" />
+      <!-- 导航栏消息中心 -->
+      <!-- <MessageBox @click-tips="tipsRef.showDialog($event)" /> -->
     </template>
     <!-- 布局顶部内容 -->
     <template #layout-top>
@@ -87,7 +90,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     </template>
     <!-- 侧边栏内容后置内容 -->
     <template #aside-outline-after>
-      <!-- <AsideAds />-->
+      <AsideAds />
     </template>
     <!-- end 当 layout: 'doc' (默认) 在 frontmatter 中被启用时 -->
 

@@ -2,8 +2,10 @@
  * 首页 合作伙伴
  */
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import VPFeature from 'vitepress/dist/client/theme-default/components/VPFeature.vue'
+
+const open = ref(true)
 
 const data: any[] = [
   // {
@@ -36,8 +38,8 @@ const grid = computed(() => {
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="friendly-title">合作伙伴</h1>
+  <div v-if="open" class="container">
+    <h1 class="friendly-title">友情链接</h1>
 
     <div class="items">
       <div

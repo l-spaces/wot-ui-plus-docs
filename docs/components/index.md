@@ -1,4 +1,4 @@
----
+<!-- ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 title: wot ui plus
@@ -14,40 +14,40 @@ hero:
   actions:
     - theme: brand
       text: 开发指南
-      link: /zh/guide/intro
+      link: /components/guide/intro
     - theme: brand
       text: 快速起步
-      link: /zh/components/install
+      link: /components/install
     - theme: brand
       text: 组件总览
-      link: /zh/components/intro
+      link: /components/wot/intro
     - theme: alt
       text: 💪 交流反馈
-      link: /zh/resource/about
+      link: /components/resource/about
     - theme: alt
       text: 📖 常见问题
-      link: /zh/guide/faq
+      link: /components/guide/faq
 
 features:
   - icon: "🖥️"
     title: 跨平台兼容
     details: 一套代码，全面兼容H5、小程序、App等多端，极大提升开发效率与维护性。
-    link: /zh/guide/intro.html
+    link: /components/guide/intro.html
     linkText: 多平台支持
   - icon: "📦"
     title: 80+ 高质量组件
     details: 覆盖业务常用场景，组件丰富、灵活易用，满足多样化项目需求。
-    link: /zh/components/intro.html
+    link: /components/wot/intro.html
     linkText: 精选组件
   - icon: "🛠️"
     title: 实用工具库
     details: 内置多种开发辅助工具，提升开发体验，助力高效交付。
-    link: /zh/tools/intro.html
+    link: /components/tools/intro.html
     linkText: 便捷工具
   - icon: "📑"
     title: 常用业务模板
     details: 提供多套业务模板，快速搭建项目骨架，降低重复劳动。
-    link: /zh/layout/intro.html
+    link: /components/layout/intro.html
     linkText: 常用模板
   - icon: "📝"
     title: TypeScript 全面支持
@@ -61,6 +61,6 @@ features:
   - icon: "🤝"
     title: 专业社区支持
     details: 遇到问题可随时反馈，官方与社区共同维护，持续优化升级。
-    link: /zh/resource/about.html
+    link: /components/resource/about.html
     linkText: 加入交流群
----
+--- -->

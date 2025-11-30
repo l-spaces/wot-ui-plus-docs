@@ -76,7 +76,7 @@ export const shared = defineConfig({
       'import.meta.env.VITE_BASE_URL': JSON.stringify(baseUrl),
       'import.meta.env.VITE_BASE': JSON.stringify(base)
     },
-    plugins: llmsPlugins
+    // plugins: llmsPlugins
   },
   title: 'wot-ui-plus',
   description: seo.description,
@@ -109,22 +109,22 @@ export const shared = defineConfig({
   /* prettier-ignore */
   head: [
     ...seoHead,
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4522599_t4534k2ng8.css' }],
-    ['script', { src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js' }],
-    [
-      'script',
-      {},
-      `
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?289111bbd14c9e3627c47c5fd328710d";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-        `
-    ]
+    ['link', { rel: 'icon', href: '/favicon.svg' }],
+    // ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4522599_t4534k2ng8.css' }],
+    // ['script', { src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js' }],
+    // [
+    //   'script',
+    //   {},
+    //   `
+    //     var _hmt = _hmt || [];
+    //     (function() {
+    //         var hm = document.createElement("script");
+    //         hm.src = "https://hm.baidu.com/hm.js?289111bbd14c9e3627c47c5fd328710d";
+    //         var s = document.getElementsByTagName("script")[0]; 
+    //         s.parentNode.insertBefore(hm, s);
+    //     })();
+    //     `
+    // ]
   ],
 
   themeConfig: {
@@ -132,7 +132,7 @@ export const shared = defineConfig({
 
     // 社交链接 配置
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/l-spaces/wot-ui-plus' },
+      { icon: 'gitee', link: 'https://github.com/l-spaces/wot-ui-plus' },
       {
         icon: 'github',
         link: 'https://github.com/l-spaces/wot-ui-plus',

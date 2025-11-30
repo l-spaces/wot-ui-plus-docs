@@ -1,3 +1,4 @@
+<demo-model url="/components/wot/button"></demo-model>
 # wd-button 按钮组件
 
 ## 组件概述

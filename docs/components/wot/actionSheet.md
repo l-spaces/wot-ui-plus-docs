@@ -1,3 +1,4 @@
+<demo-model url="/components/wot/actionSheet"></demo-model>
 # wd-action-sheet 动作面板组件
 
 ## 组件概述

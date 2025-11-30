@@ -3,7 +3,7 @@
  */
 <template>
   <div class="demo-preview-wrap">
-    <img src="/anyup/images/iphone.png" />
+    <img src="/images/iphone.png" />
     <span class="demo-time">{{ currentTime() }}</span>
     <iframe scrolling="auto" frameborder="0" :src="`${baseUrl}${url}`" />
   </div>

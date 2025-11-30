@@ -12,7 +12,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Partners from '../components/Partners.vue'
+</script>
 
 <style scoped>
 .home-page {

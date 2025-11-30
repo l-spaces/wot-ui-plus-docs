@@ -39,6 +39,7 @@ import Overview from '../components/Overview.vue'
 import Partners from '../components/Partners.vue'
 import RainbowSwitcher from '../components/RainbowSwitcher.vue'
 import RainbowAnimationSwitcher from '../components/RainbowAnimationSwitcher.vue'
+import Version from '../components/Version.vue'
 
 let homePageStyle = undefined
 
@@ -108,6 +109,8 @@ export default {
     app.component('RainbowSwitcher', RainbowSwitcher)
     // 彩虹动画开关
     app.component('RainbowAnimationSwitcher', RainbowAnimationSwitcher)
+    // 版本号
+    app.component('Version', Version)
     
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')
