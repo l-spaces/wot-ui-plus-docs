@@ -54,34 +54,61 @@ export default {
       locale: zhCn
     })
     // 注册自定义全局组件
+    // 扫码演示
     app.component('DemoScan', DemoScan)
+    // 预览演示
     app.component('DemoPreview', DemoPreview)
+    // 页脚信息
     app.component('FooterInfo', FooterInfo)
+    // 文章页脚
     app.component('ArticleFooter', ArticleFooter)
+    // 自定义图标
     app.component('CustomIcon', CustomIcon)
+    // 站点访问量
     app.component('SitePV', SitePV)
+    // 颜色选择器
     app.component('ColorPicker', ColorPicker)
+    // 项目信息
     app.component('ProjectInfo', ProjectInfo)
+    // 提示弹窗
     app.component('TipsDialog', TipsDialog)
+    // 模型演示
     app.component('DemoModel', DemoModel)
+    // 交流群
     app.component('ChatGroup', ChatGroup)
+    // 捐赠
     app.component('Donation', Donation)
+    // 主题生成
     app.component('ThemeGenerate', ThemeGenerate)
+    // 主题批量生成
     app.component('ThemesGenerate', ThemesGenerate)
+    // 模板下载
     app.component('TemplateDownload', TemplateDownload)
+    // 版本徽章
     app.component('BadgeVersion', BadgeVersion)
+    // 文本徽章
     app.component('BadgeText', BadgeText)
+    // API 跳转
     app.component('ToApi', ToApi)
+    // 图标列表
     app.component('IconList', IconList)
+    // 自定义块
     app.component('CustomBlock', CustomBlock)
+    // 侧边栏广告
     app.component('SidebarAdvs', SidebarAdvs)
+    // 贡献者
     app.component('Contributors', Contributors)
+    // 开发者
     app.component('Developers', Developers)
+    // 概览
     app.component('Overview', Overview)
+    // 合作伙伴
     app.component('Partners', Partners)
+    // 彩虹开关
     app.component('RainbowSwitcher', RainbowSwitcher)
+    // 彩虹动画开关
     app.component('RainbowAnimationSwitcher', RainbowAnimationSwitcher)
-
+    
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')
 

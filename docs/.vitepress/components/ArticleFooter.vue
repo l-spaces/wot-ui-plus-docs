@@ -83,12 +83,12 @@ const getLinkType = (link: any) => {
 // 获取链接名称
 const getLinkName = (info: any) => {
   const key = getLinkType(info) || 'juejin'
-  return LinkConfig[key]?.name ?? '稀土掘金'
+  return LinkConfig[key as keyof typeof LinkConfig]?.name ?? '稀土掘金'
 }
 // 获取链接颜色
 const getLinkColor = (info: any) => {
   const key = getLinkType(info) || 'juejin'
-  return LinkConfig[key]?.color ?? '#1e80ff'
+  return LinkConfig[key as keyof typeof LinkConfig]?.color ?? '#1e80ff'
 }
 </script>
 

@@ -1,7 +1,7 @@
 {
-  "name": "uView-Pro-Docs",
-  "version": "0.4.1",
-  "description": "uView Pro 官方文档",
+  "name": "wot-ui-docs",
+  "version": "1.0.0",
+  "description": "wot-ui 官方文档",
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev docs --port 8888",
@@ -45,6 +45,6 @@
     "library",
     "components"
   ],
-  "author": "anyup",
+  "author": "哈哈先生",
   "license": "MIT"
 }
