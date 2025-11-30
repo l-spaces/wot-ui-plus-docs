@@ -6,5 +6,3 @@ wot-ui-plus 是一个基于 Vue3+TS 开发的 uni-app 组件库，提供 87+ 高
 
 
 ## 总览
-
-<Overview></Overview>
