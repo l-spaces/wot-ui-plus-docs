@@ -42,23 +42,23 @@ class Menu<T> {
           },
           {
             text: '基础组件',
-            link: `${this.localeStr}/component/button`
+            link: `${this.localeStr}/components/button`
           },
           {
             text: '导航组件',
-            link: `${this.localeStr}/component/pagination`
+            link: `${this.localeStr}/components/pagination`
           },
           {
             text: '数据输入',
-            link: `${this.localeStr}/component/calendar`
+            link: `${this.localeStr}/components/calendar`
           },
           {
             text: '反馈组件',
-            link: `${this.localeStr}/component/action-sheet`
+            link: `${this.localeStr}/components/action-sheet`
           },
           {
             text: '数据展示',
-            link: `${this.localeStr}/component/badge`
+            link: `${this.localeStr}/components/badge`
           }
         ]
       },
