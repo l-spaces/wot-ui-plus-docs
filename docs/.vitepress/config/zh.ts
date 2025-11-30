@@ -1,4 +1,3 @@
-
 /**
  * 中文环境变量配置
  */
@@ -25,8 +24,8 @@ export const zh = defineConfig({
     // },
 
     footer: {
-      message: '备案许可：<a style="color:#4e6e8e;" rel="noopener noreferrer" target="_blank" href="https://beian.miit.gov.cn/">鲁ICP备2021040594号-5</a>',
-      copyright: `Copyright © ${new Date().getFullYear()} <a target="_blank" href="https://github.com/anyup"> wot-ui-plus </a>`
+      message: `📖  Released under the MIT License`, // 版权前显示的信息
+      copyright: 'Copyright © 2025 Wot UI Plus' // 实际的版权文本
     },
 
     docFooter: {
@@ -37,11 +36,25 @@ export const zh = defineConfig({
     outline: {
       label: '页面导航'
     },
+    // 社交链接 配置
+    // socialLinks: [
+    //   { icon: 'github', link: 'https://github.com/l-spaces/wot-ui-plus' },
+    //   {
+    //     icon: 'github',
+    //     link: 'https://github.com/l-spaces/wot-ui-plus',
+    //     ariaLabel: 'GitHub'
+    //   }
+    // ],
 
+    // 编辑链接 配置
+    editLink: {
+      pattern: 'https://github.com/l-spaces/wot-ui-plus/:path',
+      text: '为此页提供修改建议'
+    },
     lastUpdated: {
-      text: '最后更新于',
+      text: '更新时间',
       formatOptions: {
-        dateStyle: 'full',
+        dateStyle: 'medium'
       }
     },
 
