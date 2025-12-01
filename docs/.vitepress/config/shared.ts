@@ -109,22 +109,7 @@ export const shared = defineConfig({
   /* prettier-ignore */
   head: [
     ...seoHead,
-    ['link', { rel: 'icon', href: '/favicon.svg' }],
-    // ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/c/font_4522599_t4534k2ng8.css' }],
-    // ['script', { src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js' }],
-    // [
-    //   'script',
-    //   {},
-    //   `
-    //     var _hmt = _hmt || [];
-    //     (function() {
-    //         var hm = document.createElement("script");
-    //         hm.src = "https://hm.baidu.com/hm.js?289111bbd14c9e3627c47c5fd328710d";
-    //         var s = document.getElementsByTagName("script")[0]; 
-    //         s.parentNode.insertBefore(hm, s);
-    //     })();
-    //     `
-    // ]
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
 
   themeConfig: {

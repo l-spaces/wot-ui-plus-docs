@@ -32,7 +32,7 @@ import ToApi from '../components/ToApi.vue'
 import IconList from '../components/IconList.vue'
 import CustomBlock from '../components/CustomBlock.vue'
 import SidebarAdvs from '../components/SidebarAdvs.vue'
-import CSSLayout from './CSSLayout.vue'
+import Layout from './Layout.vue'
 import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
 import Overview from '../components/Overview.vue'
@@ -41,15 +41,15 @@ import RainbowSwitcher from '../components/RainbowSwitcher.vue'
 import RainbowAnimationSwitcher from '../components/RainbowAnimationSwitcher.vue'
 import Version from '../components/Version.vue'
 
-let homePageStyle = undefined
+let homePageStyle: HTMLStyleElement | undefined = undefined
 
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
   Layout() {
-    return h(CSSLayout)
+    return h(Layout)
   },
-  enhanceApp({ app, router }) {
+  enhanceApp({ app, router }: { app: any; router: any }) {
     // 注册ElementPlus
     app.use(ElementPlus, {
       locale: zhCn
@@ -140,19 +140,22 @@ export default {
 
     watch(
       () => router.route.data.relativePath,
-      // () => {
-      //   updateHomePageStyle(location.pathname === '/')
-      //   setTimeout(() => {
-      //     triggerStats(location.pathname === '/')
-      //   }, 300)
-      // },
+      () => {
+        updateHomePageStyle(location.pathname === '/')
+        setTimeout(() => {
+          triggerStats(location.pathname === '/')
+        }, 300)
+      },
       { immediate: true }
     )
+  },
+  setup() {
+
   }
 }
 
 // Speed up the rainbow animation on home page
-function updateHomePageStyle(value) {
+function updateHomePageStyle(value: any) {
   if (value) {
     if (homePageStyle) return
 
