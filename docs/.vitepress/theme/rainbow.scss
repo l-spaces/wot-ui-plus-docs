@@ -1,4 +1,11 @@
-@keyframes rainbow {
+/*
+ * 文件概述：品牌颜色彩虹渐变动画样式文件，通过CSS动画实现品牌颜色的平滑过渡效果
+ * 设计思路：定义一个40秒的线性动画，在不同关键帧修改品牌颜色变量，实现彩虹渐变效果
+ * 核心功能：实现品牌主色、亮色、更亮色、暗色、更暗色和下一个品牌色的彩虹渐变动画
+ */
+
+/* 定义彩虹渐变动画：40秒线性过渡，无限循环 */
+/* @keyframes rainbow {
   0% {
     --vp-c-brand-1: #00a98e;
     --vp-c-brand-light: #4ad1b4;
@@ -647,11 +654,13 @@
     --vp-c-brand-darker: #005d47;
     --vp-c-brand-next: #009ff7;
   }
-}
-
+} */
+/**
+* 品牌主色动画
+*/
 :root {
-  --vp-c-brand-1: #00a98e;
-  --vp-c-brand-light: #4ad1b4;
+  --vp-c-brand-1: #000000;
+  --vp-c-brand-light: #0066ff;
   --vp-c-brand-lighter: #78fadc;
   --vp-c-brand-dark: #008269;
   --vp-c-brand-darker: #005d47;
@@ -659,6 +668,9 @@
   animation: rainbow 40s linear infinite;
 }
 
+/**
+* 品牌主色动画：禁用状态
+*/
 html:not(.rainbow) {
   --vp-c-brand-1: #009dfa;
   --vp-c-brand-light: #5ac3ff;

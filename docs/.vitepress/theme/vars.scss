@@ -1,0 +1,125 @@
+/**
+ * VitePress 主题自定义变量配置
+ * 用于覆盖默认主题样式，实现个性化设计
+ * 参考：https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/**
+ * 颜色系统配置
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* 布局间距相关变量 */
+  --vp-c-gutter: var(--vp-c-divider); /*  gutter 颜色与分割线保持一致 */
+  
+  /* 代码块相关变量 */
+  --vp-code-block-bg: rgb(125 125 125 / 0.04); /* 代码块背景色，轻微灰度 */
+  --vp-code-tab-divider: var(--vp-c-divider); /* 代码标签分割线颜色 */
+  --vp-code-copy-code-bg: rgb(125 125 125 / 0.1); /* 代码复制按钮背景色 */
+  --vp-code-copy-code-hover-bg: rgb(125 125 125 / 0.2); /* 代码复制按钮悬停背景色 */
+  --vp-code-copy-code-active-text: var(--vp-c-text-2); /* 代码复制按钮激活状态文字颜色 */
+  
+  /* 代码标签相关变量 */
+  --vp-code-tab-text-color: var(--vp-c-text-2); /* 代码标签默认文字颜色 */
+  --vp-code-tab-active-text-color: var(--vp-c-text-1); /* 代码标签激活状态文字颜色 */
+  --vp-code-tab-hover-text-color: var(--vp-c-text-1); /* 代码标签悬停状态文字颜色 */
+  
+  /* 其他通用变量 */
+  --vp-c-disabled-bg: rgb(125 125 125 / 0.2); /* 禁用状态背景色 */
+  --vp-c-text-dark-3: rgb(56 56 56 / 0.8); /* 深色文本第三层级 */
+  --vp-c-brand-lightest: var(--vp-c-brand-1); /* 品牌色最浅色调，与品牌主色一致 */
+  
+  /* 高亮样式变量 */
+  --vp-c-highlight-bg: var(--vp-c-brand-light); /* 高亮背景色 */
+  --vp-c-highlight-text: var(--vp-c-bg); /* 高亮文字颜色 */
+  
+  /* 布局相关变量 */
+  --vp-layout-max-width: 100%; /* 布局最大宽度，设为100%实现全屏布局 */
+  --vp-sidebar-bg-color: var(--vp-c-bg); /* 侧边栏背景色，与页面背景一致 */
+
+  // scrollbar-width: none; /* 隐藏滚动条 */
+}
+
+/* 深色模式特定配置 */
+.dark {
+  --vp-code-block-bg: rgb(0 0 0 / 0.2); /* 深色模式下代码块背景色 */
+  --vp-c-text-code: #c0cec0; /* 深色模式下代码文字颜色 */
+}
+
+/**
+ * 按钮组件配置
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* 品牌按钮样式变量 */
+  --vp-button-brand-border: var(--vp-c-brand-light); /* 按钮边框颜色 */
+  --vp-button-brand-text: var(--vp-c-white); /* 按钮文字颜色 */
+  --vp-button-brand-bg: var(--vp-c-brand-1); /* 按钮背景色 */
+  --vp-button-brand-hover-border: var(--vp-c-brand-light); /* 按钮悬停边框颜色 */
+  --vp-button-brand-hover-text: var(--vp-c-white); /* 按钮悬停文字颜色 */
+  --vp-button-brand-hover-bg: var(--vp-c-brand-light); /* 按钮悬停背景色 */
+  --vp-button-brand-active-border: var(--vp-c-brand-light); /* 按钮激活边框颜色 */
+  --vp-button-brand-active-text: var(--vp-c-white); /* 按钮激活文字颜色 */
+  --vp-button-brand-active-bg: var(--vp-button-brand-bg); /* 按钮激活背景色，恢复默认 */
+}
+
+/**
+ * 首页组件配置
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* 首页英雄区域文字样式 */
+  --vp-home-hero-name-color: transparent; /* 英雄区域名称文字颜色设为透明，使用背景渐变 */
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--vp-c-brand-1) 30%, var(--vp-c-brand-next)); /* 英雄区域名称背景渐变 */
+  
+  /* 首页英雄区域图片样式 */
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--vp-c-brand-1) 30%, var(--vp-c-brand-next)); /* 英雄区域图片背景渐变 */
+  --vp-home-hero-image-filter: blur(80px); /* 英雄区域图片模糊效果 */
+}
+
+/* 响应式配置：平板及以上设备 */
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px); /* 增大模糊效果，增强视觉冲击力 */
+  }
+}
+
+/* 响应式配置：桌面设备 */
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px); /* 保持一致的模糊效果 */
+  }
+}
+
+/* 浏览器兼容性处理：Safari 和 Firefox 对渐变和滤镜性能较差 */
+.browser-safari,
+.browser-firefox {
+  --vp-home-hero-image-background-image: transparent; /* 禁用背景渐变 */
+  --vp-home-hero-image-filter: ''; /* 禁用模糊效果 */
+}
+
+/**
+ * 自定义块组件配置
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* 提示块样式变量 */
+  --vp-custom-block-tip-border: var(--vp-c-brand-1); /* 提示块边框颜色 */
+  --vp-custom-block-tip-text: var(--vp-c-brand-darker); /* 提示块文字颜色 */
+  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm); /* 提示块背景色 */
+}
+
+/* 深色模式下提示块配置 */
+.dark {
+  --vp-custom-block-tip-border: var(--vp-c-brand-1); /* 深色模式下提示块边框颜色 */
+  --vp-custom-block-tip-text: var(--vp-c-brand-lightest); /* 深色模式下提示块文字颜色 */
+  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm); /* 深色模式下提示块背景色 */
+}
+
+/**
+ * Algolia 搜索组件配置
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand-1) !important; /* Algolia 搜索主题色，与品牌色保持一致 */
+}

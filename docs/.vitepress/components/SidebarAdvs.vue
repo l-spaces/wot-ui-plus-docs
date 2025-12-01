@@ -62,6 +62,7 @@ onMounted(() => {
   text-align: center;
   color: var(--vp-c-text-3);
   margin: 7px 0;
+  border-radius: 6px;
   background-color: var(--vp-c-bg-soft);
   transition: border-color 0.25s, background-color 0.25s;
   cursor: pointer;

@@ -66,7 +66,7 @@ const isGoldSponsorsOdd = computed(() => {
                 </div>
             </section>
 
-            <section class="vp-sponsor-section" v-if="goldSponsors?.items.length">
+            <!-- <section class="vp-sponsor-section" v-if="goldSponsors?.items.length">
                 <div class="VPSponsorsGrid vp-sponsor-grid xmini" data-vp-grid="2">
                     <div class="vp-sponsor-grid-item" v-for="sponsor in goldSponsors.items" :key="sponsor.name">
                         <a class="vp-sponsor-grid-link" :href="sponsor.url" target="_blank" rel="sponsored noopener">
@@ -87,9 +87,9 @@ const isGoldSponsorsOdd = computed(() => {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
-            <section class="vp-sponsor-section" v-if="!isGoldSponsorsOdd || !goldSponsors?.items.length">
+            <section class="vp-sponsor-section">
                 <div class="VPSponsorsGrid vp-sponsor-grid xmini" data-vp-grid="1">
                     <div class="vp-sponsor-grid-item">
                         <a class="vp-sponsor-grid-link" href="/reward/sponsor" rel="sponsored noopener">

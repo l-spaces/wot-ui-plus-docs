@@ -1,22 +1,33 @@
+/*
+ * 文件概述：VitePress主题样式覆盖文件，用于修改默认主题的样式，实现项目特定的视觉效果
+ * 设计思路：通过CSS选择器优先级覆盖默认样式，实现代码组、表格、提示块、英雄区等组件的自定义
+ * 核心功能：自定义代码组样式、表格样式、提示块样式、英雄区交互效果、深色模式链接样式、搜索框样式、侧边栏样式、导航栏样式和布局样式
+ */
+
+/* 代码组样式：设置代码组标签背景色为透明 */
 .vp-code-group .tabs label {
   background-color: transparent;
 }
 
+/* 表格样式：设置表格宽度为100%，确保表格完整显示 */
 table {
   width: 100% !important;
   display: table;
 }
 
+/* 提示块样式：设置提示块标题颜色为品牌主色 */
 .custom-block.tip .custom-block-title {
   color: var(--vp-c-brand-1);
 }
 
+/* 英雄区图片背景样式：设置层级、透明度和过渡效果 */
 .VPHero .image-bg {
   z-index: 1;
   opacity: 0.8;
   transition: opacity 1s ease;
 }
 
+/* 英雄区图片交互效果：鼠标悬停时图片背景透明度降低 */
 .VPHero .image-container:hover .image-bg {
   opacity: 0.2;
 }
@@ -52,36 +63,54 @@ table {
   transition: color 0.25s;
 }
 
-/* VitePress Search */
+/* VitePress 搜索框样式 */
 .VPLocalSearchBox .result {
+  /* 搜索结果背景色变量 */
   --vp-c-bg-search-result: var(--vp-c-bg);
   background: var(--vp-c-bg-search-result) !important;
   padding: 4px !important;
   border: 1px solid var(--vp-c-divider) !important;
 }
+
+/* 搜索结果选中状态样式 */
 .VPLocalSearchBox .result.selected {
+  /* 选中状态背景色变量 */
   --vp-c-bg-search-result: var(--vp-c-bg-soft) !important;
 }
+
+/* 搜索结果摘要顶部渐变效果 */
 .VPLocalSearchBox .result .excerpt-gradient-top {
   background: linear-gradient(var(--vp-c-bg-search-result), transparent) !important;
 }
+
+/* 搜索结果摘要底部渐变效果 */
 .VPLocalSearchBox .result .excerpt-gradient-bottom {
   background: linear-gradient(transparent, var(--vp-c-bg-search-result)) !important;
 }
+
+/* 隐藏搜索结果标题图标 */
 .VPLocalSearchBox .title-icon {
   display: none;
 }
+
+/* 调整搜索结果摘要容器外边距 */
 .VPLocalSearchBox .excerpt-wrapper {
   margin-top: 4px;
 }
 
-/* dark/light radial transition */
+// 调整赞助者网格项圆角
+.vp-sponsor {
+  border-radius: 5px;
+}
+
+/* 深色/浅色模式切换过渡效果 */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
+/* 设置过渡动画层级 */
 ::view-transition-old(root),
 .dark::view-transition-new(root) {
   z-index: 1;
@@ -96,6 +125,9 @@ table {
 .VPSidebar {
   border-right: 1px solid #eaeefb;
   /* background-color: var(--vp-c-bg) !important; */
+
+  scrollbar-width: none; /* 隐藏滚动条 */
+  //  scrollbar-color: #cecccc #ffffff; /* 滑块色 #888，轨道色 #f1f1f1 */
 }
 .VPSidebarItem > .item > .text {
   font-size: 16px;
@@ -165,6 +197,6 @@ table {
   }
 }
 
-button[role=switch][aria-checked="true"] {
+button[role='switch'][aria-checked='true'] {
   background-color: var(--vp-c-brand-1);
 }

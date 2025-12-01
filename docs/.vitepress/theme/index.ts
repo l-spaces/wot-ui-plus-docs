@@ -1,10 +1,10 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme'
 // 自定义样式
-import './rainbow.css'
-import './vars.css'
-import './overrides.css'
-import './iconfont.css'
+// import './iconfont.scss'
+import './overrides.scss'
+import './rainbow.scss'
+import './vars.scss'
 // 全局引入ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -14,7 +14,6 @@ import { h, watch } from 'vue'
 import DemoScan from '../components/DemoScan.vue'
 import DemoPreview from '../components/DemoPreview.vue'
 import FooterInfo from '../components/FooterInfo.vue'
-import ArticleFooter from '../components/ArticleFooter.vue'
 import CustomIcon from '../components/CustomIcon.vue'
 import SitePV from '../components/SitePV.vue'
 import ProjectInfo from '../components/ProjectInfo.vue'
@@ -32,7 +31,7 @@ import ToApi from '../components/ToApi.vue'
 import IconList from '../components/IconList.vue'
 import CustomBlock from '../components/CustomBlock.vue'
 import SidebarAdvs from '../components/SidebarAdvs.vue'
-import Layout from './Layout.vue'
+import Layout from '../components/Layout.vue'
 import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
 import Overview from '../components/Overview.vue'
@@ -61,8 +60,6 @@ export default {
     app.component('DemoPreview', DemoPreview)
     // 页脚信息
     app.component('FooterInfo', FooterInfo)
-    // 文章页脚
-    app.component('ArticleFooter', ArticleFooter)
     // 自定义图标
     app.component('CustomIcon', CustomIcon)
     // 站点访问量
