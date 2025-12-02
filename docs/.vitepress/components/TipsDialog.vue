@@ -76,8 +76,6 @@ const props = defineProps({
   tipsKey: { type: Object, default: [] }
 })
 
-// load tips by index and key (prop or URL query 'tips'), fallback to 'support'
-// optional keyArg overrides prop/query
 async function loadTipsByParam(keyArg) {
   try {
     const idxRes = await fetch('/json/tips.json', { cache: 'no-store' })
@@ -116,7 +114,7 @@ async function loadTipsByParam(keyArg) {
 
 // localStorage key to remember the user has clicked proceed
 const storageKey = ref('')
-const visible = ref(false)
+const visible = ref(true)
 const clickedLink = ref(false)
 const manually = ref(false)
 
@@ -163,13 +161,11 @@ function handleAction(url) {
     onProceed()
     return
   }
-  // mark that user clicked a star link so proceed button is enabled
   clickedLink.value = true
   try {
     if (!storageKey.value) return
     localStorage.setItem(storageKey.value, '1')
   } catch (e) { }
-  // open in new tab
   try {
     if (!url.startsWith('http')) {
       location.href = url
@@ -177,7 +173,6 @@ function handleAction(url) {
     }
     window.open(url, '_blank', 'noopener')
   } catch (e) {
-    // fallback
     location.href = url
   }
 }
