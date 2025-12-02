@@ -15,7 +15,6 @@ let sourceElement: Element | null = null
 let placeholder: Comment | null = null
 
 onMounted(() => {
-  console.log(fm)
   const target = document.querySelector('.VPHero .text')
   sourceElement = document.querySelector('#hero-text')
   if (target && sourceElement) {

@@ -24,22 +24,6 @@
     <br />
     如有遗漏，请及时联系我们，我们会尽快补充。
 
-    <el-popover
-      placement="top-start"
-      title="扫码添加：anyupxing"
-      :width="200"
-      trigger="hover"
-    >
-      <img
-        src="https://ik.imagekit.io/anyup/images/social/weixin-person.png"
-        alt=""
-        srcset=""
-      />
-      <template #reference>
-        <a class="cursor follow-us">微信搜索或扫码添加：anyupxing</a>
-      </template>
-    </el-popover>
-
     <br />
     <br />
 

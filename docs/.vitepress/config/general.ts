@@ -1,11 +1,13 @@
 /**
- * 共享配置
+ * 配置
  */
 import { defineConfig } from 'vitepress'
-import { search as zhSearch } from './zh'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { getEnvVar } from './env'
 import llmstxt from 'vitepress-plugin-llms'
+
+import Menu from './menu'
+const menu = new Menu()
 
 // SEO 优化配置
 export const seo = {
@@ -33,10 +35,7 @@ export const seoHead: [string, Record<string, string>][] = [
   ['meta', { property: 'og:title', content: seo.ogTitle }],
   ['meta', { property: 'og:description', content: seo.ogDescription }],
   ['meta', { property: 'og:url', content: seo.ogUrl }],
-  ['meta', { name: 'baidu_union_verify', content: seo.baiduUnion }],
-  ['meta', { name: 'baidu-site-verification', content: 'codeva-v20DwV5zvD' }],
   ['meta', { name: 'apple-mobile-web-app-title', content: 'wot-ui-plus官网' }],
-  ['meta', { name: 'algolia-site-verification', content: '4ECBFE6F077846E3' }],
   ['meta', { itemprop: 'image', content: seo.baiduImage }],
   ['meta', { property: 'og:image', content: seo.baiduImage }]
 ]
@@ -44,10 +43,6 @@ export const seoHead: [string, Record<string, string>][] = [
 // 获取环境变量
 const baseUrl = getEnvVar('VITE_BASE_URL', '/json')
 const base = getEnvVar('VITE_BASE', '/')
-
-console.log('Environment variables loaded:')
-console.log('VITE_BASE_URL:', baseUrl)
-console.log('VITE_BASE:', base)
 
 // Configure vitepress-plugin-llms and coerce types to avoid mismatched vite typings
 const llmsPlugins = llmstxt({
@@ -68,14 +63,16 @@ const llmsPlugins = llmstxt({
   }
 }) as unknown as any
 
-export const shared = defineConfig({
+export const general = defineConfig({
   base,
+  lang: 'zh-Hans',
+
   vite: {
     define: {
       // 将环境变量暴露给客户端
       'import.meta.env.VITE_BASE_URL': JSON.stringify(baseUrl),
       'import.meta.env.VITE_BASE': JSON.stringify(base)
-    },
+    }
     // plugins: llmsPlugins
   },
   title: 'wot-ui-plus',
@@ -115,6 +112,35 @@ export const shared = defineConfig({
   themeConfig: {
     logo: { src: '/images/logo.png', width: 24, height: 24 },
 
+    nav: menu.nav(),
+
+    sidebar: menu.sidebar(),
+
+    footer: {
+      message: `📖  Released under the MIT License`, // 版权前显示的信息
+      copyright: 'Copyright © 2025 Wot UI Plus' // 实际的版权文本
+    },
+
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
+
+    outline: {
+      label: '页面导航'
+    },
+    // 编辑链接 配置
+    editLink: {
+      pattern: 'https://github.com/l-spaces/wot-ui-plus-docs/blob/dev/docs/:path',
+      text: '为此页提供修改建议'
+    },
+    lastUpdated: {
+      text: '更新时间',
+      formatOptions: {
+        dateStyle: 'medium'
+      }
+    },
+
     // 社交链接 配置
     socialLinks: [
       { icon: 'gitee', link: 'https://github.com/l-spaces/wot-ui-plus' },
@@ -147,17 +173,64 @@ export const shared = defineConfig({
           }
         }
       }
-    }
+    },
     // search: {
     //   provider: 'algolia',
     //   options: {
     //     appId: '49TSLRH0UN',
     //     apiKey: '38f4ac30e2abb02c7a4194a03523ef40',
     //     indexName: 'wot-ui-plus',
-    //     // locales: { ...zhSearch }
+    //     locales: {
+    //       zh: {
+    //         placeholder: '搜索文档',
+    //         translations: {
+    //           button: {
+    //             buttonText: '搜索文档',
+    //             buttonAriaLabel: '搜索文档'
+    //           },
+    //           modal: {
+    //             searchBox: {
+    //               resetButtonTitle: '清除查询条件',
+    //               resetButtonAriaLabel: '清除查询条件',
+    //               cancelButtonText: '取消',
+    //               cancelButtonAriaLabel: '取消'
+    //             },
+    //             startScreen: {
+    //               recentSearchesTitle: '搜索历史',
+    //               noRecentSearchesText: '没有搜索历史',
+    //               saveRecentSearchButtonTitle: '保存至搜索历史',
+    //               removeRecentSearchButtonTitle: '从搜索历史中移除',
+    //               favoriteSearchesTitle: '收藏',
+    //               removeFavoriteSearchButtonTitle: '从收藏中移除'
+    //             },
+    //             errorScreen: {
+    //               titleText: '无法获取结果',
+    //               helpText: '你可能需要检查你的网络连接'
+    //             },
+    //             footer: {
+    //               selectText: '选择',
+    //               navigateText: '切换',
+    //               closeText: '关闭',
+    //               searchByText: '搜索提供者'
+    //             },
+    //             noResultsScreen: {
+    //               noResultsText: '无法找到相关结果',
+    //               suggestedQueryText: '你可以尝试查询',
+    //               reportMissingResultsText: '你认为该查询应该有结果？',
+    //               reportMissingResultsLinkText: '点击反馈'
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
     //   }
     // },
-
+    langMenuLabel: '多语言',
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到浅色模式',
+    darkModeSwitchTitle: '切换到深色模式'
     // carbonAds: { code: 'CEBDT27Y', placement: 'vuejsorg' }
   }
 })

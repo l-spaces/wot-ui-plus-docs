@@ -165,10 +165,10 @@ export default {
     // giscus配置
     giscusTalk(
       {
-        repo: 'l-spaces/wot-ui-plus-docs', //仓库
-        repoId: 'R_kgDOQgyhYw', //仓库ID
-        category: 'General', // 讨论分类
-        categoryId: 'DIC_kwDOQgyhY84CzR3J', //讨论分类ID
+        repo: 'l-spaces/wot-ui-plus-docs',
+        repoId: 'R_kgDOQgyhYw',
+        category: 'General',
+        categoryId: 'DIC_kwDOQgyhY84CzR3J',
         mapping: 'pathname',
         inputPosition: 'bottom',
         lang: 'zh-CN'

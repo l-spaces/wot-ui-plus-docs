@@ -39,8 +39,6 @@ export function getEnvVars() {
   const envFile = isProd ? '.env.production' : '.env'
   const envPath = resolve(process.cwd(), envFile)
   
-  console.log(`Loading environment: ${env}, file: ${envFile}`)
-  
   const envVars = parseEnvFile(envPath)
   
   // 合并 process.env 和文件中的环境变量

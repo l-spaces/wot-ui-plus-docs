@@ -30,14 +30,12 @@ const currentTime = () => {
 }
 
 onMounted(() => {
-  console.log('mounted')
   const appDiv = document.getElementById('app')
   if (appDiv && !appDiv.classList.contains('demo-preview')) {
     appDiv.classList.add('demo-preview')
   }
 })
 onUnmounted(() => {
-  console.log('unmounted')
   const appDiv = document.getElementById('app')
   if (appDiv && appDiv.classList.contains('demo-preview')) {
     appDiv.classList.remove('demo-preview')

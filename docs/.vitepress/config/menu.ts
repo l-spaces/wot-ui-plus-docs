@@ -16,12 +16,7 @@ import { version } from '../../../package.json'
 // }
 
 class Menu {
-  locale: string
-  localeStr: string
-  constructor(locale: string) {
-    this.locale = locale
-    this.localeStr = `/${this.locale}`
-  }
+  localeStr= 'components'
   // 导航栏
   nav(): DefaultTheme.NavItem[] {
     return [
