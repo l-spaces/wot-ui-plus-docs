@@ -46,6 +46,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     {
       duration: 1000,
       easing: 'ease-in',
+      fill: 'forwards',
       pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
     }
   )
@@ -76,6 +77,9 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
       <TipsDialog :tips-key="['release', 'support']" ref="tipsRef" />
       <!-- 导航栏消息中心 -->
       <!-- <MessageBox @click-tips="tipsRef.showDialog($event)" /> -->
+    </template>
+    <template #doc-footer-before>
+      <backtotop />
     </template>
     <!-- 布局顶部内容 -->
     <template #layout-top>

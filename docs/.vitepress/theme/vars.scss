@@ -7,6 +7,18 @@
 /**
  * 颜色系统配置
  * -------------------------------------------------------------------------- */
+/**
+* 品牌主色动画
+*/
+:root {
+  --vp-c-brand-1: #000000;
+  --vp-c-brand-light: #0066ff;
+  --vp-c-brand-lighter: #78fadc;
+  --vp-c-brand-dark: #008269;
+  --vp-c-brand-darker: #005d47;
+  --vp-c-brand-next: #009ff7;
+  animation: rainbow 40s linear infinite;
+}
 
 :root {
   /* 布局间距相关变量 */
@@ -37,7 +49,6 @@
   --vp-layout-max-width: 100%; /* 布局最大宽度，设为100%实现全屏布局 */
   --vp-sidebar-bg-color: var(--vp-c-bg); /* 侧边栏背景色，与页面背景一致 */
 
-  // scrollbar-width: none; /* 隐藏滚动条 */
 }
 
 /* 深色模式特定配置 */

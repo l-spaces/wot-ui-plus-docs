@@ -1,15 +1,20 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme'
+// giscusTalk 评论插件
+import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 自定义样式
 // import './iconfont.scss'
 import './overrides.scss'
-import './rainbow.scss'
+// import './rainbow.scss'
 import './vars.scss'
+import './scrollbar.scss'
 // 全局引入ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import { useData, useRoute } from 'vitepress'
 import { h, watch } from 'vue'
+
 // 自定义组件
 import DemoScan from '../components/DemoScan.vue'
 import DemoPreview from '../components/DemoPreview.vue'
@@ -31,7 +36,7 @@ import ToApi from '../components/ToApi.vue'
 import IconList from '../components/IconList.vue'
 import CustomBlock from '../components/CustomBlock.vue'
 import SidebarAdvs from '../components/SidebarAdvs.vue'
-import Layout from '../components/Layout.vue'
+import MyLayout from '../components/MyLayout.vue'
 import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
 import Overview from '../components/Overview.vue'
@@ -39,15 +44,15 @@ import Partners from '../components/Partners.vue'
 import RainbowSwitcher from '../components/RainbowSwitcher.vue'
 import RainbowAnimationSwitcher from '../components/RainbowAnimationSwitcher.vue'
 import Version from '../components/Version.vue'
+import Backtotop from '../components/backtotop.vue' //返回顶部
+import Underline from '../components/Underline.vue'
 
 let homePageStyle: HTMLStyleElement | undefined = undefined
 
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
-  Layout() {
-    return h(Layout)
-  },
+
   enhanceApp({ app, router }: { app: any; router: any }) {
     // 注册ElementPlus
     app.use(ElementPlus, {
@@ -108,7 +113,11 @@ export default {
     app.component('RainbowAnimationSwitcher', RainbowAnimationSwitcher)
     // 版本号
     app.component('Version', Version)
-    
+    // 返回顶部
+    app.component('Backtotop', Backtotop)
+    // 标题下划线
+    app.component('Underline', Underline)
+
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')
 
@@ -146,8 +155,33 @@ export default {
       { immediate: true }
     )
   },
-  setup() {
 
+  Layout() {
+    return h(MyLayout)
+  },
+  setup() {
+    const route = useRoute()
+    const { frontmatter } = useData()
+    // giscus配置
+    giscusTalk(
+      {
+        repo: 'Yiov/vitepress-doc', //仓库
+        repoId: 'R_kgDOGYFl1A', //仓库ID
+        category: 'General', // 讨论分类
+        categoryId: 'DIC_kwDOGYFl1M4CayLN', //讨论分类ID
+        mapping: 'pathname',
+        inputPosition: 'bottom',
+        lang: 'zh-CN'
+      },
+      {
+        frontmatter,
+        route
+      },
+      //默认值为true，表示已启用，此参数可以忽略；
+      //如果为false，则表示未启用
+      //您可以使用“comment:true”序言在页面上单独启用它
+      false
+    )
   }
 }
 

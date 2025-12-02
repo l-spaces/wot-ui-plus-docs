@@ -121,13 +121,19 @@ table {
   z-index: 9999;
 }
 
+/* VPFeatures 页卡悬浮效果 */
+.VPFeatures .items .item {
+  transition: transform 0.3s;
+}
+
+.VPFeatures .items .item:hover {
+  transform: translateY(-5px);
+}
+
 /* 自定义 sidebar 样式 */
 .VPSidebar {
   border-right: 1px solid #eaeefb;
   /* background-color: var(--vp-c-bg) !important; */
-
-  scrollbar-width: none; /* 隐藏滚动条 */
-  //  scrollbar-color: #cecccc #ffffff; /* 滑块色 #888，轨道色 #f1f1f1 */
 }
 .VPSidebarItem > .item > .text {
   font-size: 16px;
@@ -166,6 +172,7 @@ table {
 /* 布局样式 */
 .VPDoc {
   padding: 0 !important;
+  width: 95% !important;
 }
 
 .VPDoc .content {
@@ -176,6 +183,18 @@ table {
 .VPDoc.has-aside .container > .content,
 .VPDoc.has-aside .container > .content > .content-container {
   max-width: 100% !important;
+}
+
+/* 文档h1标题样式 */
+.VPDoc h1 {
+  background: -webkit-linear-gradient(10deg, #bd34fe 5%, #e43498 15%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vp-doc a {
+  color: var(--vp-c-brand-dark);
 }
 
 @media (max-width: 1920px) {
