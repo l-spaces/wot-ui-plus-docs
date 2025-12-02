@@ -6,14 +6,14 @@
   <div class="home-page VPFeatures VPHomeFeatures">
     <!-- <Contributors /> -->
     <!-- <ProjectInfo /> -->
-    <Partners />
+    <HomePartners />
     <!-- <SitePV /> -->
     <!-- <FooterInfo /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import Partners from '../components/Partners.vue'
+import HomePartners from './HomePartners.vue'
 </script>
 
 <style scoped>

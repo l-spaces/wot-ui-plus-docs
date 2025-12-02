@@ -1,5 +1,5 @@
 /**
-* 首页 侧边栏广告
+* 侧边栏广告
 */
 <script setup lang="ts">
 import { computed, ref } from 'vue'
@@ -13,7 +13,7 @@ const data = ref([
             {
                 "name": "wot-ui-plus",
                 "img": "",
-                "url": "https://github.com/anyup/wot-ui-plus"
+                "url": "https://gitee.com/my_spaces/wot-ui-plus"
             },
         ]
     },
@@ -48,7 +48,7 @@ const isGoldSponsorsOdd = computed(() => {
 
 <template>
     <div class="VPDocAsideSponsors">
-        <a class="sponsors-aside-text" href="/reward/sponsor">赞助位</a>
+        <a class="sponsors-aside-text" href="/reward/sponsor">广告位</a>
         <div class="VPSponsors vp-sponsor">
 
             <section class="vp-sponsor-section" v-if="superSponsors?.items.length">
@@ -94,7 +94,7 @@ const isGoldSponsorsOdd = computed(() => {
                     <div class="vp-sponsor-grid-item">
                         <a class="vp-sponsor-grid-link" href="/reward/sponsor" rel="sponsored noopener">
                             <article class="vp-sponsor-grid-box">
-                                <span class="vp-sponsor-grid-text">成为赞助商</span>
+                                <span class="vp-sponsor-grid-text">广告位</span>
                             </article>
                         </a>
                     </div>

@@ -114,7 +114,7 @@ async function loadTipsByParam(keyArg) {
 
 // localStorage key to remember the user has clicked proceed
 const storageKey = ref('')
-const visible = ref(true)
+const visible = ref(false)
 const clickedLink = ref(false)
 const manually = ref(false)
 

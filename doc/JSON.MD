@@ -10,6 +10,7 @@
 - [developers.json](#developersjson)
 - [donation.json](#donationjson)
 - [messages.json](#messagesjson)
+- [sponsor.json](#sponsorjson)
 - [tips.json](#tipsjson)
 - [tips-release.json](#tips-releasejson)
 - [tips-star.json](#tips-starjson)
@@ -378,6 +379,51 @@ Star提示信息配置文件，用于引导用户为项目点赞。
 | 字段名 | 数据类型 | 含义 | 约束条件 |
 |-------|---------|------|---------|
 | `tipsTopKey` | 字符串 | 顶部提示唯一标识符 | 可选 |
+
+## sponsor.json
+
+### 文件路径
+`docs/public/json/sponsor.json`
+
+### 结构概述
+
+赞助商信息配置文件，包含项目赞助商的详细信息，用于在网站首页展示赞助商列表。
+
+### 详细结构
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "data": [
+    {
+      "type": "super",
+      "title": "赞助商1",
+      "imageUrl": "https://haowallpaper.com/link/common/file/previewFileImg/17873560258071936",
+      "link": "https://nbtab.com",
+      "hidden": false
+    }
+  ]
+}
+```
+
+#### 字段说明
+
+| 字段名 | 数据类型 | 含义 | 约束条件 |
+|-------|---------|------|---------|
+| `code` | 整数 | 响应状态码 | 0表示成功 |
+| `message` | 字符串 | 响应消息 | 通常为"success" |
+| `data` | 数组 | 赞助商列表 | 包含多个赞助商对象 |
+
+#### 赞助商对象字段说明
+
+| 字段名 | 数据类型 | 含义 | 约束条件 |
+|-------|---------|------|---------|
+| `type` | 字符串 | 赞助商类型 | 可选，取值为"super"或"gold"，分别表示铂金赞助商和钻石赞助商 |
+| `title` | 字符串 | 赞助商名称 | 不能为空 |
+| `imageUrl` | 字符串 | 赞助商logo图片URL | 不能为空，必须是有效的URL |
+| `link` | 字符串 | 赞助商链接 | 不能为空，必须是有效的URL |
+| `hidden` | 布尔值 | 是否隐藏赞助商 | 可选，默认为false |
 
 ## 数据关系图
 

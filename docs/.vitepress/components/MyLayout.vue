@@ -2,15 +2,14 @@
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide, ref } from 'vue'
-import HomePage from '../components/HomePage.vue'
-import TipsDialog from '../components/TipsDialog.vue'
-import HomeStar from '../components/HomeStar.vue'
-import BadgeNpm from '../components/BadgeNpm.vue'
-import AsideAds from '../components/AsideAds.vue'
-import MessageBox from '../components/MessageBox.vue'
-import TipsTop from '../components/TipsTop.vue'
-import SidebarAdvs from '../components/SidebarAdvs.vue'
-import Version from '../components/Version.vue'
+import HomePage from './HomePage.vue'
+import TipsDialog from './TipsDialog.vue'
+import HomeStar from './HomeStar.vue'
+import AdsRightAside from './AdsRightAside.vue'
+import TipsTop from './TipsTop.vue'
+import AdsLeftAside from './AdsLeftAside.vue'
+import HomeVersion from './HomeVersion.vue'
+import AdsHome from './AdsHome.vue'
 
 const { isDark } = useData()
 const tipsRef = ref()
@@ -55,46 +54,59 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 <template>
   <DefaultTheme.Layout>
-    <!-- start 当 layout: 'home' 在 frontmatter 中被启用时 -->
-    <template #home-features-after>
-      <HomePage />
-    </template>
-    <template #home-hero-info-after>
-      <HomeStar />
-    </template>
-    <!-- end 当 layout: 'home' 在 frontmatter 中被启用时 -->
 
-    <!-- start 总是启用 -->
     <!-- 导航栏LOGO前置内容 -->
     <template #nav-bar-title-before>
     </template>
     <!-- 导航栏LOGO后置内容 -->
     <template #nav-bar-title-after>
-      <Version />
+      <HomeVersion />
     </template>
     <!-- 导航栏内容后置内容 -->
     <template #nav-bar-content-after>
-      <TipsDialog :tips-key="['release', 'support']" ref="tipsRef" />
+      <!-- <TipsDialog :tips-key="['release', 'support']" ref="tipsRef" /> -->
       <!-- 导航栏消息中心 -->
       <!-- <MessageBox @click-tips="tipsRef.showDialog($event)" /> -->
     </template>
+
+    <template #home-hero-info-before>
+      <HomeUnderline />
+    </template>
+    <template #home-hero-info-after>
+      <HomeStar />
+    </template>
+
+    <template #home-hero-actions-after>
+    </template>
+
+     <!-- 广告位 -->
+    <template #home-hero-after>
+      <AdsHome />
+    </template>
+    <template #home-features-before>
+    </template>
+
+    <template #home-features-after>
+      <HomePage />
+    </template>
+
     <template #doc-footer-before>
       <backtotop />
     </template>
     <!-- 布局顶部内容 -->
     <template #layout-top>
-      <TipsTop />
+      <!-- <TipsTop /> -->
     </template>
     <!-- end 总是启用 -->
 
     <!-- start 当 layout: 'doc' (默认) 在 frontmatter 中被启用时 -->
     <!-- 菜单栏前置内容 -->
     <template #sidebar-nav-before>
-      <SidebarAdvs />
+      <AdsLeftAside />
     </template>
     <!-- 侧边栏内容后置内容 -->
     <template #aside-outline-after>
-      <AsideAds />
+      <AdsRightAside />
     </template>
     <!-- end 当 layout: 'doc' (默认) 在 frontmatter 中被启用时 -->
 

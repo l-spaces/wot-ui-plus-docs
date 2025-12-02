@@ -18,34 +18,26 @@ import { h, watch } from 'vue'
 // 自定义组件
 import DemoScan from '../components/DemoScan.vue'
 import DemoPreview from '../components/DemoPreview.vue'
-import FooterInfo from '../components/FooterInfo.vue'
+import HomeFooter from '../components/HomeFooter.vue'
 import CustomIcon from '../components/CustomIcon.vue'
 import SitePV from '../components/SitePV.vue'
 import ProjectInfo from '../components/ProjectInfo.vue'
 import TipsDialog from '../components/TipsDialog.vue'
-import ColorPicker from '../components/ColorPicker.vue'
 import DemoModel from '../components/DemoModel.vue'
 import ChatGroup from '../components/ChatGroup.vue'
 import Donation from '../components/Donation.vue'
-import ThemeGenerate from '../components/ThemeGenerate.vue'
-import ThemesGenerate from '../components/ThemesGenerate.vue'
 import TemplateDownload from '../components/TemplateDownload.vue'
-import BadgeVersion from '../components/BadgeVersion.vue'
-import BadgeText from '../components/BadgeText.vue'
 import ToApi from '../components/ToApi.vue'
 import IconList from '../components/IconList.vue'
 import CustomBlock from '../components/CustomBlock.vue'
-import SidebarAdvs from '../components/SidebarAdvs.vue'
+import AdsLeftAside from '../components/AdsLeftAside.vue'
 import MyLayout from '../components/MyLayout.vue'
 import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
-import Overview from '../components/Overview.vue'
-import Partners from '../components/Partners.vue'
-import RainbowSwitcher from '../components/RainbowSwitcher.vue'
-import RainbowAnimationSwitcher from '../components/RainbowAnimationSwitcher.vue'
-import Version from '../components/Version.vue'
+import HomePartners from '../components/HomePartners.vue'
+import HomeVersion from '../components/HomeVersion.vue'
 import Backtotop from '../components/backtotop.vue' //返回顶部
-import Underline from '../components/Underline.vue'
+import HomeUnderline from '../components/HomeUnderline.vue'
 
 let homePageStyle: HTMLStyleElement | undefined = undefined
 
@@ -64,13 +56,11 @@ export default {
     // 预览演示
     app.component('DemoPreview', DemoPreview)
     // 页脚信息
-    app.component('FooterInfo', FooterInfo)
+    app.component('HomeFooter', HomeFooter)
     // 自定义图标
     app.component('CustomIcon', CustomIcon)
     // 站点访问量
     app.component('SitePV', SitePV)
-    // 颜色选择器
-    app.component('ColorPicker', ColorPicker)
     // 项目信息
     app.component('ProjectInfo', ProjectInfo)
     // 提示弹窗
@@ -81,16 +71,8 @@ export default {
     app.component('ChatGroup', ChatGroup)
     // 捐赠
     app.component('Donation', Donation)
-    // 主题生成
-    app.component('ThemeGenerate', ThemeGenerate)
-    // 主题批量生成
-    app.component('ThemesGenerate', ThemesGenerate)
     // 模板下载
     app.component('TemplateDownload', TemplateDownload)
-    // 版本徽章
-    app.component('BadgeVersion', BadgeVersion)
-    // 文本徽章
-    app.component('BadgeText', BadgeText)
     // API 跳转
     app.component('ToApi', ToApi)
     // 图标列表
@@ -98,25 +80,19 @@ export default {
     // 自定义块
     app.component('CustomBlock', CustomBlock)
     // 侧边栏广告
-    app.component('SidebarAdvs', SidebarAdvs)
+    app.component('AdsLeftAside', AdsLeftAside)
     // 贡献者
     app.component('Contributors', Contributors)
     // 开发者
     app.component('Developers', Developers)
-    // 概览
-    app.component('Overview', Overview)
     // 合作伙伴
-    app.component('Partners', Partners)
-    // 彩虹开关
-    app.component('RainbowSwitcher', RainbowSwitcher)
-    // 彩虹动画开关
-    app.component('RainbowAnimationSwitcher', RainbowAnimationSwitcher)
+    app.component('HomePartners', HomePartners)
     // 版本号
-    app.component('Version', Version)
+    app.component('HomeVersion', HomeVersion)
     // 返回顶部
     app.component('Backtotop', Backtotop)
     // 标题下划线
-    app.component('Underline', Underline)
+    app.component('HomeUnderline', HomeUnderline)
 
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')

@@ -2,6 +2,13 @@
   "code": 0,
   "message": "success",
   "data": {
-    "list": []
+    "list": [
+      {
+        "type": "精美浏览器插件",
+        "imageUrl": "https://haowallpaper.com/link/common/file/previewFileImg/17873560258071936",
+        "link": "https://nbtab.com",
+        "hidden": false
+      }
+    ]
   }
 }

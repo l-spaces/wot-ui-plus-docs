@@ -4,7 +4,7 @@
  */
 <template>
   <a :href="'#' + anchor" class="anchor">
-    <img src="https://ik.imagekit.io/anyup/wot-ui-plus/docs/common/to_api.png" />
+    <img src="" />
   </a>
 </template>
 
