@@ -3,7 +3,7 @@
 */
 <template>
   <div>
-    <p class="sidebar-advs-placeholder" @click="linkMe">广告位</p>
+    <p class="sidebar-advs-placeholder" @click="linkMe">赞助商</p>
     <el-carousel v-if="advList.length > 0" class="sidebar-advs" height="90px" :interval="3000"
       indicator-position="outside">
       <el-carousel-item v-for="item in advList" :key="item.imageUrl">

@@ -48,7 +48,7 @@ const isGoldSponsorsOdd = computed(() => {
 
 <template>
     <div class="VPDocAsideSponsors">
-        <a class="sponsors-aside-text" href="/reward/sponsor">广告位</a>
+        <a class="sponsors-aside-text" href="/reward/sponsor">赞助商</a>
         <div class="VPSponsors vp-sponsor">
 
             <section class="vp-sponsor-section" v-if="superSponsors?.items.length">
@@ -94,7 +94,7 @@ const isGoldSponsorsOdd = computed(() => {
                     <div class="vp-sponsor-grid-item">
                         <a class="vp-sponsor-grid-link" href="/reward/sponsor" rel="sponsored noopener">
                             <article class="vp-sponsor-grid-box">
-                                <span class="vp-sponsor-grid-text">广告位</span>
+                                <span class="vp-sponsor-grid-text">赞助商</span>
                             </article>
                         </a>
                     </div>
