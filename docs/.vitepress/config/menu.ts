@@ -48,7 +48,7 @@ class Menu {
           },
           {
             text: '反馈组件',
-            link: `${this.localeStr}/wot/action-sheet`
+            link: `${this.localeStr}/wot/actionSheet`
           },
           {
             text: '数据展示',
@@ -172,7 +172,7 @@ class Menu {
               text: 'Text 文本'
             },
             {
-              link: 'root-portal',
+              link: 'rootPortal',
               text: 'RootPortal 根节点'
             }
           ]
