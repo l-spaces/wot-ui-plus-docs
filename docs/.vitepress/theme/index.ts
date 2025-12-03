@@ -23,7 +23,6 @@ import { h, watch } from 'vue'
 import DemoScan from '../components/DemoScan.vue'
 import DemoPreview from '../components/DemoPreview.vue'
 import HomeFooter from '../components/HomeFooter.vue'
-import CustomIcon from '../components/CustomIcon.vue'
 import SitePV from '../components/SitePV.vue'
 import ProjectInfo from '../components/ProjectInfo.vue'
 import TipsDialog from '../components/TipsDialog.vue'
@@ -32,7 +31,6 @@ import ChatGroup from '../components/ChatGroup.vue'
 import Donation from '../components/Donation.vue'
 import TemplateDownload from '../components/TemplateDownload.vue'
 import ToApi from '../components/ToApi.vue'
-import IconList from '../components/IconList.vue'
 import CustomBlock from '../components/CustomBlock.vue'
 import AdsLeftAside from '../components/AdsLeftAside.vue'
 import MyLayout from '../components/MyLayout.vue'
@@ -40,7 +38,7 @@ import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
 import HomePartners from '../components/HomePartners.vue'
 import HomeVersion from '../components/HomeVersion.vue'
-import Backtotop from '../components/backtotop.vue' //返回顶部
+import Backtotop from '../components/Backtotop.vue' //返回顶部
 import HomeUnderline from '../components/HomeUnderline.vue'
 
 let homePageStyle: HTMLStyleElement | undefined = undefined
@@ -61,8 +59,6 @@ export default {
     app.component('DemoPreview', DemoPreview)
     // 页脚信息
     app.component('HomeFooter', HomeFooter)
-    // 自定义图标
-    app.component('CustomIcon', CustomIcon)
     // 站点访问量
     app.component('SitePV', SitePV)
     // 项目信息
@@ -79,8 +75,6 @@ export default {
     app.component('TemplateDownload', TemplateDownload)
     // API 跳转
     app.component('ToApi', ToApi)
-    // 图标列表
-    app.component('IconList', IconList)
     // 自定义块
     app.component('CustomBlock', CustomBlock)
     // 侧边栏广告

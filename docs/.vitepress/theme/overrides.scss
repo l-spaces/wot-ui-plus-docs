@@ -163,6 +163,10 @@ table {
   margin-bottom: 50px !important;
 }
 
+.VPSocialLink.no-icon {
+  color: var(--vp-c-brand-light);
+}
+
 /* 自定义 Navbar */
 .VPNavBarMenuLink.active {
   margin-bottom: -2px;
@@ -187,7 +191,7 @@ table {
 
 /* 文档h1标题样式 */
 .VPDoc h1 {
-  background: -webkit-linear-gradient(10deg, #bd34fe 5%, #e43498 15%);
+  background: -webkit-linear-gradient(10deg, var(--vp-c-brand-light) 5%, var(--vp-c-brand-next) 15%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
