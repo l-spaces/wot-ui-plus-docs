@@ -26,8 +26,8 @@ function urlToLocalPath(url) {
 
     const candidates = [
       path.join(workspaceRoot, 'docs', p),
-      path.join(workspaceRoot, 'docs', 'zh', p),
-      path.join(workspaceRoot, 'docs', p.replace(/^zh\//, '')),
+      path.join(workspaceRoot, 'docs', 'components', p),
+      path.join(workspaceRoot, 'docs', p.replace(/^components\//, '')),
     ]
     return candidates
   } catch (e) {
