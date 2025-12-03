@@ -27,6 +27,19 @@ table {
   transition: opacity 1s ease;
 }
 
+@media (min-width: 960px) {
+  .VPHero .image-bg {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .image-src {
+    max-width: 360px;
+    max-height: 360px;
+  }
+}
 /* 英雄区图片交互效果：鼠标悬停时图片背景透明度降低 */
 .VPHero .image-container:hover .image-bg {
   opacity: 0.2;
@@ -191,7 +204,8 @@ table {
 
 /* 文档h1标题样式 */
 .VPDoc h1 {
-  background: -webkit-linear-gradient(10deg, var(--vp-c-brand-light) 5%, var(--vp-c-brand-next) 15%);
+ // background: -webkit-linear-gradient(10deg, var(--vp-c-brand-light) 5%, var(--vp-c-brand-next) 15%);
+  background-image: linear-gradient(to bottom right, var(--vp-c-brand-light), var(--vp-c-brand-next));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

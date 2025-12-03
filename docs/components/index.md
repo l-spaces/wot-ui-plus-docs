@@ -9,7 +9,7 @@ hero:
   text: "多平台快速开发UI框架"
   tagline:  全面支持 Vue3.0、TypeScript 的 uni-app 生态框架，提供 80+ 精选 UI 组件、便捷工具、常用模板
   image:
-    src: /images/logo.png
+    src: /images/wot-logo.png
     alt: wot-ui-plus
   actions:
     - theme: brand

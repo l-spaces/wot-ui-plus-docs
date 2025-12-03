@@ -126,7 +126,7 @@ export const general = defineConfig({
   ],
 
   themeConfig: {
-    logo: { src: '/images/logo.png', width: 24, height: 24 },
+    logo: { src: '/images/wot-logo.png', width: 24, height: 24 },
 
     nav: menu.nav(),
 
