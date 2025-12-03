@@ -82,15 +82,22 @@ export const general = defineConfig({
   metaChunk: true, // 将页面元数据提取到单独的 JavaScript 块中，而不是内联在初始 HTML 中
   ignoreDeadLinks: true,
   markdown: {
+    // 启用数学公式解析
     math: true,
+    //行号显示
+    lineNumbers: false,
+    // 使用 `!!code` 防止转换
     codeTransformers: [
-      // We use `[!!code` in demo to prevent transformation, here we revert it back.
       {
         postprocess(code) {
           return code.replace(/\[\!\!code/g, '[!code')
         }
       }
     ],
+    // 开启图片懒加载
+    image: {
+      lazyLoading: true
+    },
     config(md) {
       md.use(groupIconMdPlugin)
     }
