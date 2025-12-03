@@ -48,14 +48,13 @@ onUnmounted(() => {
   position: fixed;
   z-index: 29;
   right: 20px;
-  top: calc(50vh - 300px + 1.8rem);
   width: 330px;
   height: 600px;
   box-sizing: border-box;
   border-radius: 30px;
   margin: 0 !important;
 
-  top: calc(50vh - 350px + 1.8rem);
+  top: calc(50vh - 280px + 1rem);
   height: 100vh;
   min-height: 600px;
   max-height: 700px;

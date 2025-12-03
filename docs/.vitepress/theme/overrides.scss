@@ -132,7 +132,7 @@ table {
 
 /* 自定义 sidebar 样式 */
 .VPSidebar {
-  border-right: 1px solid #eaeefb;
+  // border-right: 1px solid #eaeefb;
   /* background-color: var(--vp-c-bg) !important; */
 }
 .VPSidebarItem > .item > .text {
@@ -172,7 +172,7 @@ table {
 /* 布局样式 */
 .VPDoc {
   padding: 0 !important;
-  width: 95% !important;
+  width: 100% !important;
 }
 
 .VPDoc .content {
@@ -212,7 +212,7 @@ table {
   }
   .demo-preview .VPDoc .aside {
     visibility: visible;
-    min-width: 600px !important;
+    min-width: 650px !important;
   }
 }
 

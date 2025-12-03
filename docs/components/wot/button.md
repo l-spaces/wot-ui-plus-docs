@@ -65,7 +65,7 @@ wd-button 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台按钮�
 
 ### 基础用法
 
-```vue  [Index.vue]
+```vue
 <template>
   <view class="demo-button">
     <wd-button type="primary" @click="handleClick">主要按钮</wd-button>

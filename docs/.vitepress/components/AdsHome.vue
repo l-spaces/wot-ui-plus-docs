@@ -143,7 +143,11 @@ onMounted(() => {
 // 不同类型赞助商的差异化样式
 .vp-sponsor-super {
   // border: 1px solid var(--vp-c-brand);
-  background-color: ghostwhite;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.dark .vp-sponsor-super {
+  background-color: var(--vp-c-bg-soft);
 }
 
 .vp-sponsor-gold {

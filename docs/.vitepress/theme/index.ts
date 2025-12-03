@@ -3,16 +3,15 @@ import DefaultTheme from 'vitepress/theme'
 // giscusTalk 评论插件
 import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 自定义样式
-// 代码组样式
 import 'virtual:group-icons.css'
-//  import './vp-code-group.scss'
-// import './iconfont.scss'
+import './vp-code-group.scss'
+import './vp-code.scss'
+import './vp-code-title.scss'
+import './vp-hidden.scss'
+import './vp-scrollbar.scss'
 import './overrides.scss'
-// import './rainbow.scss'
 import './vars.scss'
-import './scrollbar.scss'
-// 隐藏样式
-import './hidden.scss'
+
 // 全局引入ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
