@@ -2,7 +2,7 @@
  * 配置
  */
 import { defineConfig } from 'vitepress'
-import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { getEnvVar } from './env'
 import vitepressProtectPlugin from 'vitepress-protect-plugin'
 import llmstxt from 'vitepress-plugin-llms'
@@ -68,21 +68,6 @@ export const general = defineConfig({
   base,
   lang: 'zh-Hans',
 
-  vite: {
-    define: {
-      // 将环境变量暴露给客户端
-      'import.meta.env.VITE_BASE_URL': JSON.stringify(baseUrl),
-      'import.meta.env.VITE_BASE': JSON.stringify(base)
-    },
-    plugins: [
-      vitepressProtectPlugin({
-        disableF12: false, // 禁用F12开发者模式
-        disableCopy: false, // 禁用文本复制
-        disableSelect: false // 禁用文本选择
-      })
-    ]
-    // plugins: llmsPlugins
-  },
   title: 'wot-ui-plus',
   description: seo.description,
   lastUpdated: true,
@@ -106,12 +91,27 @@ export const general = defineConfig({
     image: {
       lazyLoading: true
     },
-    config: (md) => {
+    config(md) {
       //代码组图标
       md.use(groupIconMdPlugin)
     }
   },
-
+  vite: {
+    define: {
+      // 将环境变量暴露给客户端
+      'import.meta.env.VITE_BASE_URL': JSON.stringify(baseUrl),
+      'import.meta.env.VITE_BASE': JSON.stringify(base)
+    },
+    plugins: [
+      groupIconVitePlugin(),
+      vitepressProtectPlugin({
+        disableF12: false, // 禁用F12开发者模式
+        disableCopy: false, // 禁用文本复制
+        disableSelect: false // 禁用文本选择
+      })
+    ] as any
+    // plugins: llmsPlugins
+  },
   sitemap: {
     hostname: 'https://wot-ui-plus.cn',
     transformItems(items) {

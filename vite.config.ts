@@ -5,19 +5,7 @@ import UnoCSS from 'unocss/vite'
 import { groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    visualizer(),
-    UnoCSS(),
-    //代码组图标
-    groupIconVitePlugin({
-      customIcon: {
-        js: 'logos:javascript', //js图标
-        md: 'logos:markdown', //markdown图标
-        css: 'logos:css-3' //css图标
-      }
-    })
-  ],
+  plugins: [vue(), visualizer(), UnoCSS()],
   build: {
     chunkSizeWarningLimit: 1600,
     rollupOptions: {

@@ -65,7 +65,6 @@ wd-button 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台按钮�
 
 ### 基础用法
 
-::: code-group
 ```vue  [Index.vue]
 <template>
   <view class="demo-button">
@@ -77,9 +76,7 @@ wd-button 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台按钮�
     <wd-button type="default" @click="handleClick">默认按钮</wd-button>
   </view>
 </template>
-```
 
-```ts
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -88,9 +85,7 @@ function handleClick(event: any) {
   console.log('按钮被点击', event)
 }
 </script>
-```
 
-```css
 <style scoped>
 .demo-button {
   padding: 20px;
@@ -102,7 +97,6 @@ function handleClick(event: any) {
 }
 </style>
 ```
-:::
 
 ### 不同尺寸
 

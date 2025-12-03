@@ -4,7 +4,8 @@ import DefaultTheme from 'vitepress/theme'
 import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 自定义样式
 // 代码组样式
-import './vp-code-group.scss'
+import 'virtual:group-icons.css'
+//  import './vp-code-group.scss'
 // import './iconfont.scss'
 import './overrides.scss'
 // import './rainbow.scss'
