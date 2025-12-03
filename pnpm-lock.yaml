@@ -56,6 +56,9 @@ importers:
       vitepress-plugin-llms:
         specifier: ^1.8.0
         version: 1.8.0
+      vitepress-protect-plugin:
+        specifier: ^1.0.6
+        version: 1.0.6(vite@7.1.5(@types/node@24.5.1)(jiti@2.5.1)(sass@1.26.2)(terser@5.44.0))
       vue:
         specifier: ^3.4.38
         version: 3.5.21
@@ -2027,6 +2030,11 @@ packages:
 
   vitepress-plugin-llms@1.8.0:
     resolution: {integrity: sha512-JQR2j+4OpB0GlmXSJCdTHYIx4AcOZ0LVLRwQVId1wvNRRRGTVs17S5YkBNV0oj8t0zTgJ+TE61f58CJC8CTe4w==}
+
+  vitepress-protect-plugin@1.0.6:
+    resolution: {integrity: sha512-4gO5NYNrAaD99+/5Qp/QPURTZC2MZ6UMl/gnxfBAIRasxw6r/mdjcluUNLxEFT8WUMX19KgGu4SSLFcKwfeBtQ==}
+    peerDependencies:
+      vite: ^2.0.0 || ^3.0.0 || ^4.0.0
 
   vitepress@1.6.4:
     resolution: {integrity: sha512-+2ym1/+0VVrbhNyRoFFesVvBvHAVMZMK0rw60E3X/5349M1GuVdKeazuksqopEdvkKwKGs21Q729jX81/bkBJg==}
@@ -4238,6 +4246,10 @@ snapshots:
       unist-util-visit: 5.0.0
     transitivePeerDependencies:
       - supports-color
+
+  vitepress-protect-plugin@1.0.6(vite@7.1.5(@types/node@24.5.1)(jiti@2.5.1)(sass@1.26.2)(terser@5.44.0)):
+    dependencies:
+      vite: 7.1.5(@types/node@24.5.1)(jiti@2.5.1)(sass@1.26.2)(terser@5.44.0)
 
   vitepress@1.6.4(@algolia/client-search@5.37.0)(@types/node@24.5.1)(async-validator@4.2.5)(axios@1.12.2)(markdown-it-mathjax3@4.3.2)(postcss@8.5.6)(sass@1.26.2)(search-insights@2.17.3)(terser@5.44.0):
     dependencies:

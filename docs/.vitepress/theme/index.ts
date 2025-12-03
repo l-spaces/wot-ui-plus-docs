@@ -3,11 +3,15 @@ import DefaultTheme from 'vitepress/theme'
 // giscusTalk 评论插件
 import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 自定义样式
+// 代码组样式
+import './vp-code-group.scss'
 // import './iconfont.scss'
 import './overrides.scss'
 // import './rainbow.scss'
 import './vars.scss'
 import './scrollbar.scss'
+// 隐藏样式
+import './hidden.scss'
 // 全局引入ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -153,7 +157,7 @@ export default {
         frontmatter,
         route
       },
-      true  // 是否启用评论功能；
+      true // 是否启用评论功能；
     )
   }
 }

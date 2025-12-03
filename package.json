@@ -33,6 +33,7 @@
     "vitepress-plugin-comment-with-giscus": "^1.1.15",
     "vitepress-plugin-group-icons": "^1.6.3",
     "vitepress-plugin-llms": "^1.8.0",
+    "vitepress-protect-plugin": "^1.0.6",
     "vue": "^3.4.38"
   },
   "keywords": [

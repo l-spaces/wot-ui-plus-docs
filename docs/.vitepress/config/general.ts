@@ -4,6 +4,7 @@
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { getEnvVar } from './env'
+import vitepressProtectPlugin from 'vitepress-protect-plugin'
 import llmstxt from 'vitepress-plugin-llms'
 
 import Menu from './menu'
@@ -72,7 +73,14 @@ export const general = defineConfig({
       // 将环境变量暴露给客户端
       'import.meta.env.VITE_BASE_URL': JSON.stringify(baseUrl),
       'import.meta.env.VITE_BASE': JSON.stringify(base)
-    }
+    },
+    plugins: [
+      vitepressProtectPlugin({
+        disableF12: false, // 禁用F12开发者模式
+        disableCopy: false, // 禁用文本复制
+        disableSelect: false // 禁用文本选择
+      })
+    ]
     // plugins: llmsPlugins
   },
   title: 'wot-ui-plus',
@@ -98,7 +106,8 @@ export const general = defineConfig({
     image: {
       lazyLoading: true
     },
-    config(md) {
+    config: (md) => {
+      //代码组图标
       md.use(groupIconMdPlugin)
     }
   },
@@ -106,7 +115,7 @@ export const general = defineConfig({
   sitemap: {
     hostname: 'https://wot-ui-plus.cn',
     transformItems(items) {
-      return items.filter(item => !item.url.includes('migration'))
+      return items.filter((item) => !item.url.includes('migration'))
     }
   },
 
