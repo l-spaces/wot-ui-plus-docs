@@ -4,13 +4,13 @@ import DefaultTheme from 'vitepress/theme'
 import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 自定义样式
 import 'virtual:group-icons.css'
+import './vars.scss'
+import './overrides.scss'
 import './vp-code-group.scss'
 import './vp-code.scss'
 import './vp-code-title.scss'
 import './vp-hidden.scss'
 import './vp-scrollbar.scss'
-import './overrides.scss'
-import './vars.scss'
 
 // 全局引入ElementPlus
 import ElementPlus from 'element-plus'

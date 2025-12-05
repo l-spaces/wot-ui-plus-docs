@@ -4,6 +4,18 @@
  * 核心功能：自定义代码组样式、表格样式、提示块样式、英雄区交互效果、深色模式链接样式、搜索框样式、侧边栏样式、导航栏样式和布局样式
  */
 
+/* 英雄区图片背景样式：设置层级、透明度和过渡效果 */
+.VPHero .image-bg {
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 1s ease;
+}
+
+/* 英雄区图片交互效果：鼠标悬停时图片背景透明度降低 */
+.VPHero .image-container:hover .image-bg {
+  opacity: 0.2;
+}
+
 /* 代码组样式：设置代码组标签背景色为透明 */
 .vp-code-group .tabs label {
   background-color: transparent;
@@ -20,30 +32,6 @@ table {
   color: var(--vp-c-brand-1);
 }
 
-/* 英雄区图片背景样式：设置层级、透明度和过渡效果 */
-.VPHero .image-bg {
-  z-index: 1;
-  opacity: 0.8;
-  transition: opacity 1s ease;
-}
-
-@media (min-width: 960px) {
-  .VPHero .image-bg {
-    width: 360px;
-    height: 360px;
-  }
-}
-
-@media (min-width: 960px) {
-  .VPHero .image-src {
-    max-width: 360px;
-    max-height: 360px;
-  }
-}
-/* 英雄区图片交互效果：鼠标悬停时图片背景透明度降低 */
-.VPHero .image-container:hover .image-bg {
-  opacity: 0.2;
-}
 
 /**
  * VitePress: Custom fix
@@ -55,19 +43,19 @@ table {
   over scoped class data attribute.
 */
 .dark .vp-doc a,
-.dark .vp-doc a > code,
+.dark .vp-doc a>code,
 .dark .VPNavBarMenuLink.VPNavBarMenuLink:hover,
 .dark .VPNavBarMenuLink.VPNavBarMenuLink.active,
 .dark .link.link:hover,
 .dark .link.link.active,
 .dark .edit-link-button.edit-link-button,
 .dark .pager-link .title {
-  color: var(--vp-c-brand-lighter);
+  color: var(--vp-c-indigo-1);
 }
 
 .dark .vp-doc a:hover,
-.dark .vp-doc a > code:hover {
-  color: var(--vp-c-brand-lightest);
+.dark .vp-doc a>code:hover {
+  color: var(--vp-c-brand-1);
   opacity: 1;
 }
 
@@ -144,31 +132,32 @@ table {
 }
 
 /* 自定义 sidebar 样式 */
-// .VPSidebar {
-//   // border-right: 1px solid #eaeefb;
-//   // background-color: var(--vp-c-bg) !important;
-// }
-.VPSidebarItem > .item > .text {
+.VPSidebar {
+ border-right: 0px solid ;
+ background-color: var(--vp-c-bg) !important;
+}
+.VPSidebarItem>.item>.text {
   font-size: 16px;
   font-weight: bold;
 }
 
-.VPSidebarItem > .item .link > .text {
+.VPSidebarItem>.item .link>.text {
   font-size: 14px;
   margin: 2px;
 }
 
-.VPSidebarItem.is-link > .item .link > .text {
+.VPSidebarItem.is-link>.item .link>.text {
   font-size: 14px;
   margin: 2px;
 }
 
 .VPSidebarItem.is-active > .item .link > .text {
-  color: #fff !important;
-  background-color: var(--vp-c-brand-1);
+  color: var(-zdy-3) !important;
+  //  background-color: var(--zdy-3);
   border-radius: 7px;
   padding: 4px 5px;
   font-size: 14px;
+  font-weight: bold;
   margin-left: -3px;
 }
 
@@ -177,13 +166,13 @@ table {
 }
 
 .VPSocialLink.no-icon {
-  color: var(--vp-c-brand-light);
+  color: var(---zdy-3);
 }
 
 /* 自定义 Navbar */
 .VPNavBarMenuLink.active {
   margin-bottom: -2px;
-  border-bottom: 2px solid var(--vp-c-brand-1);
+  border-bottom: 2px solid var(--zdy-3);
 }
 
 /* 布局样式 */
@@ -197,15 +186,15 @@ table {
 }
 
 .VPDoc.has-aside .container,
-.VPDoc.has-aside .container > .content,
-.VPDoc.has-aside .container > .content > .content-container {
+.VPDoc.has-aside .container>.content,
+.VPDoc.has-aside .container>.content>.content-container {
   max-width: 100% !important;
 }
 
 /* 文档h1标题样式 */
 .VPDoc h1 {
- // background: -webkit-linear-gradient(10deg, var(--vp-c-brand-light) 5%, var(--vp-c-brand-next) 15%);
-  background-image: linear-gradient(to bottom right, var(--vp-c-brand-light), var(--vp-c-brand-next));
+  // background: -webkit-linear-gradient(10deg, var(--vp-c-brand-light) 5%, var(--vp-c-purple-3) 15%);
+  background-image: linear-gradient(to bottom right, var(--vp-c-purple-3), var(--vp-c-red-3));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -215,10 +204,25 @@ table {
   color: var(--vp-c-brand-dark);
 }
 
+@media (min-width: 960px) {
+  .VPHero .image-bg {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .image-src {
+    max-width: 360px;
+    max-height: 360px;
+  }
+}
+
 @media (max-width: 1920px) {
   .VPDoc .aside {
     max-width: 350px !important;
   }
+
   .demo-preview .VPDoc .aside {
     visibility: hidden;
   }
@@ -228,6 +232,7 @@ table {
   .VPDoc .aside {
     min-width: 350px !important;
   }
+
   .demo-preview .VPDoc .aside {
     visibility: visible;
     min-width: 650px !important;
@@ -236,4 +241,39 @@ table {
 
 button[role='switch'][aria-checked='true'] {
   background-color: var(--vp-c-brand-1);
+}
+
+
+/* 响应式配置：平板及以上设备 */
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+    /* 增大模糊效果，增强视觉冲击力 */
+  }
+}
+
+/* 响应式配置：桌面设备 */
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+    /* 保持一致的模糊效果 */
+  }
+}
+
+/* 浏览器兼容性处理：Safari 和 Firefox 对渐变和滤镜性能较差 */
+.browser-safari,
+.browser-firefox {
+  --vp-home-hero-image-background-image: transparent;
+  /* 禁用背景渐变 */
+  --vp-home-hero-image-filter: '';
+  /* 禁用模糊效果 */
+}
+
+/**
+ * Algolia 搜索组件配置
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+  /* Algolia 搜索主题色，与品牌色保持一致 */
 }

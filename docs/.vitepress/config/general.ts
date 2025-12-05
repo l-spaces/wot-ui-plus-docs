@@ -8,7 +8,7 @@ import vitepressProtectPlugin from 'vitepress-protect-plugin'
 import llmstxt from 'vitepress-plugin-llms'
 
 import Menu from './menu'
-const menu = new Menu()
+const menu = new Menu('components')
 
 // SEO 优化配置
 export const seo = {

@@ -15,8 +15,13 @@ import { version } from '../../../package.json'
 //   })
 // }
 
-class Menu {
-  localeStr = 'components'
+class Menu<T> {
+  locale: string
+  localeStr: string
+  constructor(locale: string) {
+    this.locale = locale
+    this.localeStr = `/${this.locale}`
+  }
   // 导航栏
   nav(): DefaultTheme.NavItem[] {
     return [
@@ -113,10 +118,7 @@ class Menu {
       '/components/guide/': { base: `${this.localeStr}/guide/`, items: this.sidebarGuide() },
       '/components/tools/': { base: `${this.localeStr}/tools/`, items: this.sidebarTools() },
       '/components/layout/': { base: `${this.localeStr}/layout/`, items: this.sidebarLayout() },
-      '/components/wot/': {
-        base: `${this.localeStr}/wot/`,
-        items: this.sidebarComponents()
-      }
+      '/components/wot/': { base: `${this.localeStr}/wot/`, items: this.sidebarComponents() }
     }
   }
   // guide 文档

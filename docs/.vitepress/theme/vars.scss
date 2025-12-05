@@ -4,128 +4,631 @@
  * 参考：https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
-/**
- * 颜色系统配置
- * -------------------------------------------------------------------------- */
 
 /**
- * 品牌主色动画：默认状态
+ * 自定义颜色
  */
 :root {
-  --vp-c-brand-1: #000000;
-  --vp-c-brand-light: #1E85EE;
-  --vp-c-brand-lighter: #56D7FA;
-  --vp-c-brand-dark: #02187C;
-  --vp-c-brand-darker: #8B5CF6;
-  --vp-c-brand-next: #EC4899;
-  animation: rainbow 40s linear infinite;
-}
-
-:root {
-  /* 布局间距相关变量 */
-  --vp-c-gutter: var(--vp-c-divider); /*  gutter 颜色与分割线保持一致 */
-  
-  /* 代码块相关变量 */
-  --vp-code-block-bg: rgb(125 125 125 / 0.04); /* 代码块背景色，轻微灰度 */
-  --vp-code-tab-divider: var(--vp-c-divider); /* 代码标签分割线颜色 */
-  --vp-code-copy-code-bg: rgb(125 125 125 / 0.1); /* 代码复制按钮背景色 */
-  --vp-code-copy-code-hover-bg: rgb(125 125 125 / 0.2); /* 代码复制按钮悬停背景色 */
-  --vp-code-copy-code-active-text: var(--vp-c-text-2); /* 代码复制按钮激活状态文字颜色 */
-  
-  /* 代码标签相关变量 */
-  --vp-code-tab-text-color: var(--vp-c-text-2); /* 代码标签默认文字颜色 */
-  --vp-code-tab-active-text-color: var(--vp-c-text-1); /* 代码标签激活状态文字颜色 */
-  --vp-code-tab-hover-text-color: var(--vp-c-text-1); /* 代码标签悬停状态文字颜色 */
-  
-  /* 其他通用变量 */
-  --vp-c-disabled-bg: rgb(125 125 125 / 0.2); /* 禁用状态背景色 */
-  --vp-c-text-dark-3: rgb(56 56 56 / 0.8); /* 深色文本第三层级 */
-  --vp-c-brand-lightest: var(--vp-c-brand-1); /* 品牌色最浅色调，与品牌主色一致 */
-  
-  /* 高亮样式变量 */
-  --vp-c-highlight-bg: var(--vp-c-brand-light); /* 高亮背景色 */
-  --vp-c-highlight-text: var(--vp-c-bg); /* 高亮文字颜色 */
-  
-  /* 布局相关变量 */
-  --vp-layout-max-width: 100%; /* 布局最大宽度，设为100%实现全屏布局 */
-  --vp-sidebar-bg-color: var(--vp-c-bg); /* 侧边栏背景色，与页面背景一致 */
-
+  --zdy-1: #000000;
+  --zdy-2: #ffffff;
+  --zdy-3: #1E85EE;
+  --zdy-4: #8B5CF6;
+  --zdy-5: #18794e;
+  --zdy-6: #EC4899;
 }
 
 /**
- * 按钮组件配置
+ * 基础纯色变量
  * -------------------------------------------------------------------------- */
 
 :root {
-  /* 品牌按钮样式变量 */
-  --vp-button-brand-border: var(--vp-c-brand-light); /* 按钮边框颜色 */
-  --vp-button-brand-text: var(--vp-c-white); /* 按钮文字颜色 */
-  --vp-button-brand-bg: var(--vp-c-brand-1); /* 按钮背景色 */
-  --vp-button-brand-hover-border: var(--vp-c-brand-light); /* 按钮悬停边框颜色 */
-  --vp-button-brand-hover-text: var(--vp-c-white); /* 按钮悬停文字颜色 */
-  --vp-button-brand-hover-bg: var(--vp-c-brand-light); /* 按钮悬停背景色 */
-  --vp-button-brand-active-border: var(--vp-c-brand-light); /* 按钮激活边框颜色 */
-  --vp-button-brand-active-text: var(--vp-c-white); /* 按钮激活文字颜色 */
-  --vp-button-brand-active-bg: var(--vp-button-brand-bg); /* 按钮激活背景色，恢复默认 */
+  /**
+   * 基础白色，用于浅色主题背景和文本
+   */
+  --vp-c-white: #ffffff;
+  
+  /**
+   * 基础黑色，用于深色主题背景和文本
+   */
+  --vp-c-black: #000000;
+
+  /**
+   * 中性色，根据主题模式动态变化
+   */
+  --vp-c-neutral: var(--vp-c-black);
+  
+  /**
+   * 中性色反转，根据主题模式动态变化
+   */
+  --vp-c-neutral-inverse: var(--vp-c-white);
 }
 
 /**
- * 首页组件配置
+ * 深色主题基础纯色重写
+ */
+.dark {
+  --vp-c-neutral: var(--vp-c-white);
+  --vp-c-neutral-inverse: var(--vp-c-black);
+}
+
+/**
+ * 颜色调色板
  * -------------------------------------------------------------------------- */
 
+/**
+ * 调色板是主题的基础颜色系统，包含多种颜色的不同级别变体
+ * 
+ */
+
 :root {
-  /* 首页英雄区域文字样式 */
+  /* 灰色系列 - 用于中性元素 */
+  --vp-c-gray-1: #dddde3; /* 灰色文本和边框 */
+  --vp-c-gray-2: #e4e4e9; /* 灰色元素悬停状态 */
+  --vp-c-gray-3: #ebebef; /* 灰色背景 */
+  --vp-c-gray-soft: rgba(142, 150, 170, 0.14); /* 柔和灰色背景 */
+
+  /* 靛蓝色系列 - 主题主色调 */
+  --vp-c-indigo-1: #3451b2; /* 靛蓝色文本、链接 */
+  --vp-c-indigo-2: #3a5ccc; /* 靛蓝色按钮悬停 */
+  --vp-c-indigo-3: #5672cd; /* 靛蓝色按钮背景 */
+  --vp-c-indigo-soft: rgba(100, 108, 255, 0.14); /* 柔和靛蓝色背景 */
+
+  /* 紫色系列 - 用于重要信息 */
+  --vp-c-purple-1: #6f42c1; /* 紫色文本 */
+  --vp-c-purple-2: #7e4cc9; /* 紫色按钮悬停 */
+  --vp-c-purple-3: #8e5cd9; /* 紫色按钮背景 */
+  --vp-c-purple-soft: rgba(159, 122, 234, 0.14); /* 柔和紫色背景 */
+
+  /* 绿色系列 - 用于成功状态 */
+  --vp-c-green-1: #18794e; /* 绿色文本 */
+  --vp-c-green-2: #299764; /* 绿色按钮悬停 */
+  --vp-c-green-3: #30a46c; /* 绿色按钮背景 */
+  --vp-c-green-soft: rgba(16, 185, 129, 0.14); /* 柔和绿色背景 */
+
+  /* 黄色系列 - 用于警告信息 */
+  --vp-c-yellow-1: #915930; /* 黄色文本 */
+  --vp-c-yellow-2: #946300; /* 黄色按钮悬停 */
+  --vp-c-yellow-3: #9f6a00; /* 黄色按钮背景 */
+  --vp-c-yellow-soft: rgba(234, 179, 8, 0.14); /* 柔和黄色背景 */
+
+  /* 红色系列 - 用于危险/错误状态 */
+  --vp-c-red-1: #b8272c; /* 红色文本 */
+  --vp-c-red-2: #d5393e; /* 红色按钮悬停 */
+  --vp-c-red-3: #e0575b; /* 红色按钮背景 */
+  --vp-c-red-soft: rgba(244, 63, 94, 0.14); /* 柔和红色背景 */
+
+  /* 赞助商颜色 */
+  --vp-c-sponsor: #db2777; /* 赞助商相关元素颜色 */
+}
+
+/**
+ * 深色主题调色板重写
+ */
+.dark {
+  /* 深色主题灰色系列 */
+  --vp-c-gray-1: #515c67; /* 灰色文本和边框 */
+  --vp-c-gray-2: #414853; /* 灰色元素悬停状态 */
+  --vp-c-gray-3: #32363f; /* 灰色背景 */
+  --vp-c-gray-soft: rgba(101, 117, 133, 0.16); /* 柔和灰色背景 */
+
+  /* 深色主题靛蓝色系列 */
+  --vp-c-indigo-1: #a8b1ff; /* 靛蓝色文本、链接 */
+  --vp-c-indigo-2: #5c73e7; /* 靛蓝色按钮悬停 */
+  --vp-c-indigo-3: #3e63dd; /* 靛蓝色按钮背景 */
+  --vp-c-indigo-soft: rgba(100, 108, 255, 0.16); /* 柔和靛蓝色背景 */
+
+  /* 深色主题紫色系列 */
+  --vp-c-purple-1: #c8abfa; /* 紫色文本 */
+  --vp-c-purple-2: #a879e6; /* 紫色按钮悬停 */
+  --vp-c-purple-3: #8e5cd9; /* 紫色按钮背景 */
+  --vp-c-purple-soft: rgba(159, 122, 234, 0.16); /* 柔和紫色背景 */
+
+  /* 深色主题绿色系列 */
+  --vp-c-green-1: #3dd68c; /* 绿色文本 */
+  --vp-c-green-2: #30a46c; /* 绿色按钮悬停 */
+  --vp-c-green-3: #298459; /* 绿色按钮背景 */
+  --vp-c-green-soft: rgba(16, 185, 129, 0.16); /* 柔和绿色背景 */
+
+  /* 深色主题黄色系列 */
+  --vp-c-yellow-1: #f9b44e; /* 黄色文本 */
+  --vp-c-yellow-2: #da8b17; /* 黄色按钮悬停 */
+  --vp-c-yellow-3: #a46a0a; /* 黄色按钮背景 */
+  --vp-c-yellow-soft: rgba(234, 179, 8, 0.16); /* 柔和黄色背景 */
+
+  /* 深色主题红色系列 */
+  --vp-c-red-1: #f66f81; /* 红色文本 */
+  --vp-c-red-2: #f14158; /* 红色按钮悬停 */
+  --vp-c-red-3: #b62a3c; /* 红色按钮背景 */
+  --vp-c-red-soft: rgba(244, 63, 94, 0.16); /* 柔和红色背景 */
+}
+
+/**
+ * 背景色配置
+ */
+
+:root {
+  --vp-c-bg: #ffffff; /* 主背景色 - 白色 */
+  --vp-c-bg-alt: #ffffff; /* 替代背景色 - 浅灰色 */
+  --vp-c-bg-elv: #ffffff; /* 悬浮元素背景色 - 白色 */
+  --vp-c-bg-soft: #f6f6f7; /* 柔和背景色 - 浅灰色 */
+}
+
+.dark {
+  --vp-c-bg: #1b1b1f; /* 深色主题主背景色 - 深灰色 */
+  --vp-c-bg-alt: #161618; /* 深色主题替代背景色 - 更深灰色 */
+  --vp-c-bg-elv: #202127; /* 深色主题悬浮元素背景色 - 中灰色 */
+  --vp-c-bg-soft: #202127; /* 深色主题柔和背景色 - 中灰色 */
+}
+
+/**
+ * 边框色配置
+ */
+
+:root {
+  --vp-c-border: #c2c2c4; /* 交互组件边框色 - 浅灰色 */
+  --vp-c-divider: #e2e2e3; /* 分隔线颜色 - 更浅灰色 */
+  --vp-c-gutter: #e2e2e3; /* 组件间分隔色 - 更浅灰色 */
+}
+
+.dark {
+  --vp-c-border: #3c3f44; /* 深色主题交互组件边框色 - 深灰色 */
+  --vp-c-divider: #2e2e32; /* 深色主题分隔线颜色 - 中深灰色 */
+  --vp-c-gutter: #000000; /* 深色主题组件间分隔色 - 黑色 */
+}
+
+/**
+ * 文本色配置
+ */
+
+:root {
+  --vp-c-text-1: #3c3c43; /* 主要文本色 - 深灰色 */
+  --vp-c-text-2: #67676c; /* 次要文本色 - 中灰色 */
+  --vp-c-text-3: #929295; /* 微妙文本色 - 浅灰色 */
+}
+
+.dark {
+  --vp-c-text-1: #dfdfd6; /* 深色主题主要文本色 - 浅灰色 */
+  --vp-c-text-2: #98989f; /* 深色主题次要文本色 - 中灰色 */
+  --vp-c-text-3: #6a6a71; /* 深色主题微妙文本色 - 深灰色 */
+}
+
+/**
+ * 功能色配置
+ */
+
+:root {
+  /* 默认颜色 - 基于灰色系列 */
+  --vp-c-default-1: var(--vp-c-gray-1);
+  --vp-c-default-2: var(--vp-c-gray-2);
+  --vp-c-default-3: var(--vp-c-gray-3);
+  --vp-c-default-soft: var(--vp-c-gray-soft);
+
+  /* 品牌主色 - 基于靛蓝色系列 */
+  --vp-c-brand-1: var(--vp-c-indigo-1);
+  --vp-c-brand-2: var(--vp-c-indigo-2);
+  --vp-c-brand-3: var(--vp-c-indigo-3);
+  --vp-c-brand-soft: var(--vp-c-indigo-soft);
+
+  /* 废弃的品牌色变量，使用 --vp-c-brand-1 替代 */
+  --vp-c-brand: var(--vp-c-brand-1);
+
+  /* 提示信息色 - 基于品牌色系列 */
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  /* 注释信息色 - 基于品牌色系列 */
+  --vp-c-note-1: var(--vp-c-brand-1);
+  --vp-c-note-2: var(--vp-c-brand-2);
+  --vp-c-note-3: var(--vp-c-brand-3);
+  --vp-c-note-soft: var(--vp-c-brand-soft);
+
+  /* 成功状态色 - 基于绿色系列 */
+  --vp-c-success-1: var(--vp-c-green-1);
+  --vp-c-success-2: var(--vp-c-green-2);
+  --vp-c-success-3: var(--vp-c-green-3);
+  --vp-c-success-soft: var(--vp-c-green-soft);
+
+  /* 重要信息色 - 基于紫色系列 */
+  --vp-c-important-1: var(--vp-c-purple-1);
+  --vp-c-important-2: var(--vp-c-purple-2);
+  --vp-c-important-3: var(--vp-c-purple-3);
+  --vp-c-important-soft: var(--vp-c-purple-soft);
+
+  /* 警告信息色 - 基于黄色系列 */
+  --vp-c-warning-1: var(--vp-c-yellow-1);
+  --vp-c-warning-2: var(--vp-c-yellow-2);
+  --vp-c-warning-3: var(--vp-c-yellow-3);
+  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+
+  /* 危险/错误色 - 基于红色系列 */
+  --vp-c-danger-1: var(--vp-c-red-1);
+  --vp-c-danger-2: var(--vp-c-red-2);
+  --vp-c-danger-3: var(--vp-c-red-3);
+  --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  /* 谨慎色 - 基于红色系列 */
+  --vp-c-caution-1: var(--vp-c-red-1);
+  --vp-c-caution-2: var(--vp-c-red-2);
+  --vp-c-caution-3: var(--vp-c-red-3);
+  --vp-c-caution-soft: var(--vp-c-red-soft);
+}
+
+/**
+ * 排版配置
+ */
+
+:root {
+  /* 基础字体族 - 用于正文和标题 */
+  --vp-font-family-base:
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  
+  /* 等宽字体族 - 用于代码和技术内容 */
+  --vp-font-family-mono:
+    ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono',
+    'Courier New', monospace;
+  
+  /* 字体光学尺寸调整 - 自动 */
+  font-optical-sizing: auto;
+}
+
+/* 中文环境下的基础字体族配置 */
+:root:where(:lang(zh)) {
+  --vp-font-family-base:
+    'Punctuation SC', 'Inter', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/**
+ * 阴影配置
+ */
+
+:root {
+  --vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06); /* 轻微阴影 */
+  --vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07); /* 较轻微阴影 */
+  --vp-shadow-3: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08); /* 中等阴影 */
+  --vp-shadow-4: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12); /* 较深阴影 */
+  --vp-shadow-5:
+    0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16); /* 最深阴影 */
+}
+
+/**
+ * Z-index 层级配置
+ */
+
+:root {
+  --vp-z-index-footer: 10; /* 页脚层级 */
+  --vp-z-index-local-nav: 20; /* 本地导航层级 */
+  --vp-z-index-nav: 30; /* 主导航层级 */
+  --vp-z-index-layout-top: 40; /* 布局顶部层级 */
+  --vp-z-index-backdrop: 50; /* 背景遮罩层级 */
+  --vp-z-index-sidebar: 60; /* 侧边栏层级 - 移动端 */
+}
+
+/* 大屏幕下的侧边栏层级调整 */
+@media (min-width: 960px) {
+  :root {
+    --vp-z-index-sidebar: 25; /* 侧边栏层级 - 桌面端 */
+  }
+}
+
+/**
+ * 布局配置
+ */
+
+:root {
+  --vp-layout-max-width: 100%; /* 主题最大宽度 */
+}
+
+/**
+ * 组件：标题锚点
+ */
+
+:root {
+  --vp-header-anchor-symbol: '#'; /* 标题锚点符号 */
+}
+
+/**
+ * 组件：代码
+ */
+
+:root {
+  /* 行内代码基础样式 */
+  --vp-code-line-height: 1.7; /* 代码行高 */
+  --vp-code-font-size: 0.875em; /* 代码字号 */
+  --vp-code-color: var(--vp-c-brand-1); /* 行内代码文本颜色 */
+  --vp-code-link-color: var(--vp-c-brand-1); /* 行内代码链接颜色 */
+  --vp-code-link-hover-color: var(--vp-c-brand-2); /* 行内代码链接悬停颜色 */
+  --vp-code-bg: var(--vp-c-default-soft); /* 行内代码背景色 */
+
+  /* 代码块样式 */
+  --vp-code-block-color: var(--vp-c-text-2); /* 代码块文本颜色 */
+  --vp-code-block-bg: rgb(125 125 125 / 0.04); /* 代码块背景色 */
+  --vp-code-block-divider-color: var(--vp-c-gutter); /* 代码块分隔线颜色 */
+
+  --vp-code-lang-color: var(--vp-c-text-2); /* 代码语言标签颜色 */
+
+  /* 代码行样式 */
+  --vp-code-line-highlight-color: var(--vp-c-default-soft); /* 代码行高亮背景色 */
+  --vp-code-line-number-color: var(--vp-c-text-2); /* 代码行号颜色 */
+
+  --vp-code-line-diff-add-color: var(--vp-c-success-soft); /* 代码添加行背景色 */
+  --vp-code-line-diff-add-symbol-color: var(--vp-c-success-1); /* 代码添加符号颜色 */
+
+  --vp-code-line-diff-remove-color: var(--vp-c-danger-soft); /* 代码删除行背景色 */
+  --vp-code-line-diff-remove-symbol-color: var(--vp-c-danger-1); /* 代码删除符号颜色 */
+
+  --vp-code-line-warning-color: var(--vp-c-warning-soft); /* 代码警告行背景色 */
+  --vp-code-line-error-color: var(--vp-c-danger-soft); /* 代码错误行背景色 */
+
+  /* 代码复制按钮样式 */
+  --vp-code-copy-code-border-color: var(--vp-c-divider); /* 复制按钮边框颜色 */
+  --vp-code-copy-code-bg: var(--vp-c-bg-soft); /* 复制按钮背景色 */
+  --vp-code-copy-code-hover-border-color: var(--vp-c-divider); /* 复制按钮悬停边框颜色 */
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg); /* 复制按钮悬停背景色 */
+  --vp-code-copy-code-active-text: var(--vp-c-text-2); /* 复制按钮激活文本颜色 */
+  --vp-code-copy-copied-text-content: 'Copied'; /* 复制成功提示文本 */
+
+  /* 代码标签页样式 */
+  --vp-code-tab-divider: var(--vp-code-block-divider-color); /* 标签页分隔线颜色 */
+  --vp-code-tab-text-color: var(--vp-c-text-2); /* 标签页文本颜色 */
+  --vp-code-tab-bg: var(--vp-code-block-bg); /* 标签页背景色 */
+  --vp-code-tab-hover-text-color: var(--vp-c-text-1); /* 标签页悬停文本颜色 */
+  --vp-code-tab-active-text-color: var(--vp-c-text-1); /* 标签页激活文本颜色 */
+  --vp-code-tab-active-bar-color: var(--vp-c-brand-1); /* 标签页激活条颜色 */
+}
+
+/**
+ * 多语言代码复制提示文本
+ */
+
+/* 西班牙语和葡萄牙语环境下的复制成功提示 */
+:lang(es),
+:lang(pt) {
+  --vp-code-copy-copied-text-content: 'Copiado';
+}
+
+/* 波斯语环境下的复制成功提示 */
+:lang(fa) {
+  --vp-code-copy-copied-text-content: 'کپی شد';
+}
+
+/* 韩语环境下的复制成功提示 */
+:lang(ko) {
+  --vp-code-copy-copied-text-content: '복사됨';
+}
+
+/* 俄语环境下的复制成功提示 */
+:lang(ru) {
+  --vp-code-copy-copied-text-content: 'Скопировано';
+}
+
+/* 中文环境下的复制成功提示 */
+:lang(zh) {
+  --vp-code-copy-copied-text-content: '已复制';
+}
+
+/**
+ * 组件：按钮
+ */
+
+:root {
+  /* 品牌按钮样式 */
+  --vp-button-brand-border: transparent; /* 品牌按钮边框颜色 */
+  --vp-button-brand-text: var(--vp-c-white); /* 品牌按钮文本颜色 */
+  --vp-button-brand-bg: var(--vp-c-brand-3); /* 品牌按钮背景颜色 */
+  --vp-button-brand-hover-border: transparent; /* 品牌按钮悬停边框颜色 */
+  --vp-button-brand-hover-text: var(--vp-c-white); /* 品牌按钮悬停文本颜色 */
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2); /* 品牌按钮悬停背景颜色 */
+  --vp-button-brand-active-border: transparent; /* 品牌按钮激活边框颜色 */
+  --vp-button-brand-active-text: var(--vp-c-white); /* 品牌按钮激活文本颜色 */
+  --vp-button-brand-active-bg: var(--vp-c-brand-1); /* 品牌按钮激活背景颜色 */
+
+  /* 替代按钮样式 */
+  --vp-button-alt-border: transparent; /* 替代按钮边框颜色 */
+  --vp-button-alt-text: var(--vp-c-text-1); /* 替代按钮文本颜色 */
+  --vp-button-alt-bg: var(--vp-c-default-3); /* 替代按钮背景颜色 */
+  --vp-button-alt-hover-border: transparent; /* 替代按钮悬停边框颜色 */
+  --vp-button-alt-hover-text: var(--vp-c-text-1); /* 替代按钮悬停文本颜色 */
+  --vp-button-alt-hover-bg: var(--vp-c-default-2); /* 替代按钮悬停背景颜色 */
+  --vp-button-alt-active-border: transparent; /* 替代按钮激活边框颜色 */
+  --vp-button-alt-active-text: var(--vp-c-text-1); /* 替代按钮激活文本颜色 */
+  --vp-button-alt-active-bg: var(--vp-c-default-1); /* 替代按钮激活背景颜色 */
+
+  /* 赞助商按钮样式 */
+  --vp-button-sponsor-border: var(--vp-c-text-2); /* 赞助商按钮边框颜色 */
+  --vp-button-sponsor-text: var(--vp-c-text-2); /* 赞助商按钮文本颜色 */
+  --vp-button-sponsor-bg: transparent; /* 赞助商按钮背景颜色 */
+  --vp-button-sponsor-hover-border: var(--vp-c-sponsor); /* 赞助商按钮悬停边框颜色 */
+  --vp-button-sponsor-hover-text: var(--vp-c-sponsor); /* 赞助商按钮悬停文本颜色 */
+  --vp-button-sponsor-hover-bg: transparent; /* 赞助商按钮悬停背景颜色 */
+  --vp-button-sponsor-active-border: var(--vp-c-sponsor); /* 赞助商按钮激活边框颜色 */
+  --vp-button-sponsor-active-text: var(--vp-c-sponsor); /* 赞助商按钮激活文本颜色 */
+  --vp-button-sponsor-active-bg: transparent; /* 赞助商按钮激活背景颜色 */
+}
+
+/**
+ * 组件：自定义块
+ */
+
+:root {
+  /* 自定义块基础字体大小 */
+  --vp-custom-block-font-size: 14px; /* 自定义块文本字体大小 */
+  --vp-custom-block-code-font-size: 13px; /* 自定义块内代码字体大小 */
+
+  /* 信息块样式 */
+  --vp-custom-block-info-border: transparent; /* 信息块边框颜色 */
+  --vp-custom-block-info-text: var(--vp-c-text-1); /* 信息块文本颜色 */
+  --vp-custom-block-info-bg: var(--vp-c-default-soft); /* 信息块背景颜色 */
+  --vp-custom-block-info-code-bg: var(--vp-c-default-soft); /* 信息块内代码背景颜色 */
+
+  /* 注释块样式 */
+  --vp-custom-block-note-border: transparent; /* 注释块边框颜色 */
+  --vp-custom-block-note-text: var(--vp-c-text-1); /* 注释块文本颜色 */
+  --vp-custom-block-note-bg: var(--vp-c-default-soft); /* 注释块背景颜色 */
+  --vp-custom-block-note-code-bg: var(--vp-c-default-soft); /* 注释块内代码背景颜色 */
+
+  /* 提示块样式 */
+  --vp-custom-block-tip-border: transparent; /* 提示块边框颜色 */
+  --vp-custom-block-tip-text: var(--vp-c-text-1); /* 提示块文本颜色 */
+  --vp-custom-block-tip-bg: var(--vp-c-tip-soft); /* 提示块背景颜色 */
+  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft); /* 提示块内代码背景颜色 */
+
+  /* 重要块样式 */
+  --vp-custom-block-important-border: transparent; /* 重要块边框颜色 */
+  --vp-custom-block-important-text: var(--vp-c-text-1); /* 重要块文本颜色 */
+  --vp-custom-block-important-bg: var(--vp-c-important-soft); /* 重要块背景颜色 */
+  --vp-custom-block-important-code-bg: var(--vp-c-important-soft); /* 重要块内代码背景颜色 */
+
+  /* 警告块样式 */
+  --vp-custom-block-warning-border: transparent; /* 警告块边框颜色 */
+  --vp-custom-block-warning-text: var(--vp-c-text-1); /* 警告块文本颜色 */
+  --vp-custom-block-warning-bg: var(--vp-c-warning-soft); /* 警告块背景颜色 */
+  --vp-custom-block-warning-code-bg: var(--vp-c-warning-soft); /* 警告块内代码背景颜色 */
+
+  /* 危险块样式 */
+  --vp-custom-block-danger-border: transparent; /* 危险块边框颜色 */
+  --vp-custom-block-danger-text: var(--vp-c-text-1); /* 危险块文本颜色 */
+  --vp-custom-block-danger-bg: var(--vp-c-danger-soft); /* 危险块背景颜色 */
+  --vp-custom-block-danger-code-bg: var(--vp-c-danger-soft); /* 危险块内代码背景颜色 */
+
+  /* 谨慎块样式 */
+  --vp-custom-block-caution-border: transparent; /* 谨慎块边框颜色 */
+  --vp-custom-block-caution-text: var(--vp-c-text-1); /* 谨慎块文本颜色 */
+  --vp-custom-block-caution-bg: var(--vp-c-caution-soft); /* 谨慎块背景颜色 */
+  --vp-custom-block-caution-code-bg: var(--vp-c-caution-soft); /* 谨慎块内代码背景颜色 */
+
+  /* 详情块样式（默认与信息块相同） */
+  --vp-custom-block-details-border: var(--vp-custom-block-info-border); /* 详情块边框颜色 */
+  --vp-custom-block-details-text: var(--vp-custom-block-info-text); /* 详情块文本颜色 */
+  --vp-custom-block-details-bg: var(--vp-custom-block-info-bg); /* 详情块背景颜色 */
+  --vp-custom-block-details-code-bg: var(--vp-custom-block-info-code-bg); /* 详情块内代码背景颜色 */
+}
+
+/**
+ * 组件：输入框
+ */
+
+:root {
+  --vp-input-border-color: var(--vp-c-border); /* 输入框边框颜色 */
+  --vp-input-bg-color: var(--vp-c-bg-alt); /* 输入框背景颜色 */
+
+  --vp-input-switch-bg-color: var(--vp-c-default-soft); /* 开关控件背景颜色 */
+}
+
+/**
+ * 组件：导航栏
+ */
+
+:root {
+  --vp-nav-height: 64px; /* 导航栏高度 */
+  --vp-nav-bg-color: var(--vp-c-bg); /* 导航栏背景颜色 */
+  --vp-nav-screen-bg-color: var(--vp-c-bg); /* 移动端菜单屏幕背景颜色 */
+  --vp-nav-logo-height: 24px; /* 导航栏Logo高度 */
+}
+
+/* 隐藏导航栏的样式覆盖 */
+.hide-nav {
+  --vp-nav-height: 0px; /* 隐藏导航栏时的高度 */
+}
+
+/* 隐藏导航栏时侧边栏的导航高度调整 */
+.hide-nav .VPSidebar {
+  --vp-nav-height: 22px; /* 隐藏导航栏时侧边栏的导航高度 */
+}
+
+/**
+ * 组件：本地导航
+ */
+
+:root {
+  --vp-local-nav-bg-color: var(--vp-c-bg); /* 本地导航背景颜色 */
+}
+
+/**
+ * 组件：侧边栏
+ */
+
+:root {
+  --vp-sidebar-width: 272px; /* 侧边栏宽度 */
+  --vp-sidebar-bg-color: var(--vp-c-bg-alt); /* 侧边栏背景颜色 */
+}
+
+/**
+ * 背景遮罩颜色
+ */
+
+:root {
+  --vp-backdrop-bg-color: rgba(0, 0, 0, 0.6); /* 背景遮罩颜色 */
+}
+
+/**
+ * 组件：首页
+ * 首页组件的样式配置，用于网站首页的英雄区域
+ */
+
+:root {
   --vp-home-hero-name-color: transparent; /* 英雄区域名称文字颜色设为透明，使用背景渐变 */
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--vp-c-brand-light) 20%, var(--vp-c-brand-next)); /* 英雄区域名称背景渐变 */
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--zdy-6) 20%, var(--zdy-3)); /* 英雄区域名称背景渐变 */
   
-  /* 首页英雄区域图片样式 */
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--vp-c-brand-light) 20%, var(--vp-c-brand-next)); /* 英雄区域图片背景渐变 */
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--zdy-6) 20%, var(--zdy-3)); /* 英雄区域图片背景渐变 */
   --vp-home-hero-image-filter: blur(80px); /* 英雄区域图片模糊效果 */
 }
 
-/* 响应式配置：平板及以上设备 */
-@media (min-width: 640px) {
-  :root {
-    --vp-home-hero-image-filter: blur(120px); /* 增大模糊效果，增强视觉冲击力 */
-  }
-}
-
-/* 响应式配置：桌面设备 */
-@media (min-width: 960px) {
-  :root {
-    --vp-home-hero-image-filter: blur(120px); /* 保持一致的模糊效果 */
-  }
-}
-
-/* 浏览器兼容性处理：Safari 和 Firefox 对渐变和滤镜性能较差 */
-.browser-safari,
-.browser-firefox {
-  --vp-home-hero-image-background-image: transparent; /* 禁用背景渐变 */
-  --vp-home-hero-image-filter: ''; /* 禁用模糊效果 */
-}
-
 /**
- * 自定义块组件配置
- * -------------------------------------------------------------------------- */
+ * 组件：徽章
+ */
 
 :root {
-  /* 提示块样式变量 */
-  --vp-custom-block-tip-border: var(--vp-c-brand-1); /* 提示块边框颜色 */
-  --vp-custom-block-tip-text: var(--vp-c-brand-darker); /* 提示块文字颜色 */
-  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm); /* 提示块背景色 */
-}
+  /* 信息徽章样式 */
+  --vp-badge-info-border: transparent; /* 信息徽章边框颜色 */
+  --vp-badge-info-text: var(--vp-c-text-2); /* 信息徽章文本颜色 */
+  --vp-badge-info-bg: var(--vp-c-default-soft); /* 信息徽章背景颜色 */
 
-/* 深色模式下提示块配置 */
-.dark {
-  --vp-custom-block-tip-border: var(--vp-c-brand-1); /* 深色模式下提示块边框颜色 */
-  --vp-custom-block-tip-text: var(--vp-c-brand-lightest); /* 深色模式下提示块文字颜色 */
-  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm); /* 深色模式下提示块背景色 */
+  /* 提示徽章样式 */
+  --vp-badge-tip-border: transparent; /* 提示徽章边框颜色 */
+  --vp-badge-tip-text: var(--vp-c-tip-1); /* 提示徽章文本颜色 */
+  --vp-badge-tip-bg: var(--vp-c-tip-soft); /* 提示徽章背景颜色 */
+
+  /* 警告徽章样式 */
+  --vp-badge-warning-border: transparent; /* 警告徽章边框颜色 */
+  --vp-badge-warning-text: var(--vp-c-warning-1); /* 警告徽章文本颜色 */
+  --vp-badge-warning-bg: var(--vp-c-warning-soft); /* 警告徽章背景颜色 */
+
+  /* 危险徽章样式 */
+  --vp-badge-danger-border: transparent; /* 危险徽章边框颜色 */
+  --vp-badge-danger-text: var(--vp-c-danger-1); /* 危险徽章文本颜色 */
+  --vp-badge-danger-bg: var(--vp-c-danger-soft); /* 危险徽章背景颜色 */
 }
 
 /**
- * Algolia 搜索组件配置
+ * 组件：Carbon Ads 广告
  * -------------------------------------------------------------------------- */
 
-.DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand-1) !important; /* Algolia 搜索主题色，与品牌色保持一致 */
+/**
+ * Carbon Ads 广告组件的样式配置，用于显示第三方广告内容
+ */
+
+:root {
+  --vp-carbon-ads-text-color: var(--vp-c-text-1); /* 广告文本颜色 */
+  --vp-carbon-ads-poweredby-color: var(--vp-c-text-2); /* 广告来源文本颜色 */
+  --vp-carbon-ads-bg-color: var(--vp-c-bg-soft); /* 广告背景颜色 */
+  --vp-carbon-ads-hover-text-color: var(--vp-c-brand-1); /* 鼠标悬停时的广告文本颜色 */
+  --vp-carbon-ads-hover-poweredby-color: var(--vp-c-text-1); /* 鼠标悬停时的广告来源文本颜色 */
+}
+
+/**
+ * 组件：本地搜索
+ */
+
+:root {
+  --vp-local-search-bg: var(--vp-c-bg); /* 搜索框背景颜色 */
+  --vp-local-search-result-bg: var(--vp-c-bg); /* 搜索结果面板背景颜色 */
+  --vp-local-search-result-border: var(--vp-c-divider); /* 搜索结果项边框颜色 */
+  --vp-local-search-result-selected-bg: var(--vp-c-bg); /* 选中的搜索结果项背景颜色 */
+  --vp-local-search-result-selected-border: var(--vp-c-brand-1); /* 选中的搜索结果项边框颜色 */
+  --vp-local-search-highlight-bg: var(--vp-c-brand-1); /* 搜索关键词高亮背景颜色 */
+  --vp-local-search-highlight-text: var(--vp-c-neutral-inverse); /* 搜索关键词高亮文本颜色 */
 }
