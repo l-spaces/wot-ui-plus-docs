@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { nextTick, provide, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, provide, ref } from 'vue'
 import HomePage from './HomePage.vue'
 import TipsDialog from './TipsDialog.vue'
 import HomeStar from './HomeStar.vue'
@@ -11,8 +11,11 @@ import AdsLeftAside from './AdsLeftAside.vue'
 import HomeVersion from './HomeVersion.vue'
 import AdsHome from './AdsHome.vue'
 
+import { ElNotification } from 'element-plus'
+
 const { isDark } = useData()
 const tipsRef = ref()
+
 
 function enableTransitions() {
   return (
@@ -50,6 +53,28 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     }
   )
 })
+
+const open = () => {
+  ElNotification({
+    title: '📢注意',
+    offset: 50,
+    dangerouslyUseHTMLString: true,
+    message: '<strong>💡 此文档由 <i style="color: #409eff;">AI</i> 生成，如有问题，请可联系作者🔔<u style="color: #E4080A;">反馈</u>🤝</strong>',
+    type: 'primary',
+    showClose: false,
+    duration: 10000,
+  })
+}
+
+onMounted(() => {
+  open()
+  setInterval(() => {
+    open();
+  }, 60000 * 5);
+});
+
+onUnmounted(() => {
+});
 </script>
 
 <template>
@@ -79,7 +104,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     <template #home-hero-actions-after>
     </template>
 
-     <!-- 广告位 -->
+    <!-- 广告位 -->
     <template #home-hero-after>
       <AdsHome />
     </template>

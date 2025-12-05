@@ -1,3 +1,4 @@
+<demo-model url="/pages/componentsA/avatar/index"></demo-model>
 # Button 按钮
 
 ## 组件概况

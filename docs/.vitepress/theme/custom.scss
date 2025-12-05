@@ -97,14 +97,3 @@
   }
 }
 
-/* 隐藏VPSidebar滚动条，但保持滚动功能 */
-html,
-.VPSidebar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-html::-webkit-scrollbar,
-.VPSidebar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}

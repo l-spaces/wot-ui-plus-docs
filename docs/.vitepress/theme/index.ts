@@ -16,6 +16,9 @@ import './vp-scrollbar.scss'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+import WotIcon from '../components/WotIcon.vue'
+
 import { useData, useRoute } from 'vitepress'
 import { h, watch } from 'vue'
 
@@ -91,6 +94,8 @@ export default {
     app.component('Backtotop', Backtotop)
     // 标题下划线
     app.component('HomeUnderline', HomeUnderline)
+    // 图标组件
+    app.component('WotIcon', WotIcon)
 
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')

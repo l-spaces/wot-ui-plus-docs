@@ -7,25 +7,25 @@ titleTemplate: 快速上手中文教程
 hero:
   name: "wot ui plus"
   text: "多平台快速开发UI框架"
-  tagline:  全面支持 Vue3.0、TypeScript 的 uni-app 生态框架，提供 80+ 精选 UI 组件、便捷工具、常用模板
+  tagline:  全面支持 Vue3.0、TypeScript 的 uni-app 生态框架，提供 88+ 精选 UI 组件、便捷工具、常用模板
   image:
     src: /images/wot-logo.svg
     alt: wot ui plus
   actions:
     - theme: brand
-      text: 开发指南
+      text: 📖 开发指南
       link: /components/guide/intro
     - theme: brand
-      text: 快速起步
+      text: 📜 快速起步
       link: /components/wot/install
     - theme: brand
-      text: 组件总览
-      link: /components/wot/intro
+      text: 🧩 组件列表
+      link: /components/wot/a
     - theme: alt
-      text: 💪 交流反馈
+      text: 👥 交流反馈
       link: /components/resource/about
     - theme: alt
-      text: 📖 常见问题
+      text: 🔍 常见问题
       link: /components/guide/faq
 
 features:

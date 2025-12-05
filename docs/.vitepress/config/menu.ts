@@ -42,7 +42,7 @@ class Menu<T> {
         items: [
           {
             text: '组件总览',
-            link: `${this.localeStr}/wot/intro`
+            link: `${this.localeStr}/wot/a`
           },
           {
             text: '基础组件',
@@ -140,8 +140,8 @@ class Menu<T> {
   sidebarComponents(): DefaultTheme.SidebarItem[] {
     return [
       {
-        text: '介绍',
-        link: 'intro'
+        text: '总览',
+        link: 'a'
       },
       {
         text: '基础',

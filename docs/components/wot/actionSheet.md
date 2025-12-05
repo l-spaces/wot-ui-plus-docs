@@ -1,3 +1,4 @@
+<demo-model url="/pages/componentsA/avatar/index"></demo-model>
 # ActionSheet 动作面板
 
 ## 组件概况

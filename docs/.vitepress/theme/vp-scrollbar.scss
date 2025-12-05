@@ -9,11 +9,11 @@
 }
 
 // scrollbar
-* {
-  scrollbar-color: var(--el-scrollbar-bg-color) var(--el-fill-color-light);
-}
+// * {
+//   scrollbar-color: var(--el-scrollbar-bg-color) var(--el-fill-color-light);
+// }
 
-::-webkit-scrollbar {
+.VPSidebar::-webkit-scrollbar {
   width: 1px;
 }
 
@@ -35,6 +35,18 @@
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
+
+/* 隐藏VPSidebar滚动条，但保持滚动功能 */
+// html,
+// .VPSidebar {
+//   scrollbar-width: none; /* Firefox */
+//   -ms-overflow-style: none; /* IE and Edge */
+// }
+
+// html::-webkit-scrollbar,
+// .VPSidebar::-webkit-scrollbar {
+//   display: none; /* Chrome, Safari, Opera */
+// }
 
 
 .dark {
