@@ -1,228 +1,217 @@
-# Swiper 轮播图
+# Swiper 轮播
 
-## 组件概述
+## 组件概况
 
-Swiper 是一个功能强大的轮播组件，支持图片、视频等多种媒体类型，提供丰富的配置选项和交互效果，适用于首页轮播、商品展示、广告投放等多种场景。
+### 组件概述
+Swiper 是轮播组件，用于实现图片、视频等内容的轮播展示。它支持自动播放、循环播放、自定义指示器、垂直轮播等功能，支持图片和视频混合轮播，适用于各种需要轮播展示的场景。
 
-### 功能特点
+### 详细功能描述
 - 支持图片和视频轮播
-- 支持水平和垂直方向切换
-- 支持自动播放和循环播放
-- 提供多种指示器样式和位置
-- 支持自定义边距和显示数量
-- 支持视频自动播放和静音控制
-- 支持动态调整高度
-- 提供丰富的事件回调
+- 支持自动播放和手动切换
+- 支持循环播放
+- 支持水平和垂直两种方向
+- 支持自定义指示器样式和位置
+- 支持前后边距设置
+- 支持同时显示多个轮播项
+- 支持视频自动播放和静音播放
+- 支持自定义样式和类名
+- 支持自定义内容插槽
+- 跨平台兼容
 
-### 适用场景
-- 首页轮播图展示
-- 商品详情图片预览
-- 广告位轮播
+### 适用业务场景
+- 首页轮播图
+- 商品详情页轮播图
 - 视频轮播展示
 - 图片画廊
+- 广告轮播
+- 任何需要轮播展示的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| autoplay | boolean | true | 否 | 是否自动播放轮播图 |
-| current | number | 0 | 否 | 当前轮播在哪一项（下标） |
-| direction | string | 'horizontal' | 否 | 轮播滑动方向，可选值：'horizontal'（水平）或'vertical'（垂直） |
-| displayMultipleItems | number | 1 | 否 | 同时显示的滑块数量 |
-| duration | number | 300 | 否 | 滑动动画时长，单位为毫秒 |
-| easingFunction | string | 'default' | 否 | 指定 swiper 切换缓动动画类型，可选值：'default' | 'linear' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
-| height | number/string | '192' | 否 | 轮播的高度 |
-| interval | number | 5000 | 否 | 轮播间隔时间，单位为毫秒 |
-| list | array | [] | 否 | 图片列表，可以是一个图片对象数组或字符串数组 |
-| loop | boolean | true | 否 | 是否循环播放轮播图 |
-| videoLoop | boolean | true | 否 | 视频是否循环播放 |
-| muted | boolean | true | 否 | 视频是否静音播放 |
-| nextMargin | number/string | '0' | 否 | 后边距 |
-| previousMargin | number/string | '0' | 否 | 前边距 |
-| snapToEdge | boolean | false | 否 | 是否应用边距到第一个、最后一个元素 |
-| indicator | boolean/object | true | 否 | 指示器全部配置，可以是布尔值或指示器配置对象 |
-| indicatorPosition | string | 'bottom' | 否 | 指示器位置，可选值：'left' | 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right' | 'right' |
-| imageMode | string | 'aspectFill' | 否 | 图片裁剪、缩放的模式 |
-| valueKey | string | 'value' | 否 | 选项对象中，value 对应的 key |
-| textKey | string | 'text' | 否 | 选项对象中，标题 text 对应的 key |
-| autoplayVideo | boolean | true | 否 | 视频是否自动播放 |
-| stopPreviousVideo | boolean | true | 否 | 切换轮播项时是否停止上一个视频的播放 |
-| stopAutoplayWhenVideoPlay | boolean | false | 否 | 视频播放时是否停止自动轮播 |
-| adjustHeight | string | 'highest' | 否 | 自动以指定滑块的高度为整个容器的高度，仅支付宝小程序支持，可选值：'first' | 'current' | 'highest' | 'none' |
-| adjustVerticalHeight | boolean | false | 否 | vertical 为 true 时强制使 adjust-height 生效，仅支付宝小程序支持 |
-| customClass | string | '' | 否 | 自定义类名，用于覆盖组件样式 |
-| customStyle | object | {} | 否 | 自定义样式，直接应用到组件根元素 |
-| customIndicatorClass | string | '' | 否 | 自定义指示器类名 |
-| customImageClass | string | '' | 否 | 自定义图片类名 |
-| customPrevImageClass | string | '' | 否 | 自定义上一个图片类名 |
-| customNextImageClass | string | '' | 否 | 自定义下一个图片类名 |
-| customItemClass | string | '' | 否 | 自定义swiper子项类名 |
-| customPrevClass | string | '' | 否 | 自定义上一个子项类名 |
-| customNextClass | string | '' | 否 | 自定义下一个子项类名 |
-| customTextClass | string | '' | 否 | 自定义文字标题类名 |
-| customTextStyle | string | '' | 否 | 自定义文字标题样式 |
+| 名称                      | 类型           | 默认值     | 必填 | 描述                                                                                               |
+| ------------------------- | -------------- | ---------- | ---- | -------------------------------------------------------------------------------------------------- |
+| autoplay                  | boolean        | true       | 否   | 是否自动播放轮播图                                                                                 |
+| current                   | number         | 0          | 否   | 当前轮播在哪一项（下标）                                                                           |
+| direction                 | string         | horizontal | 否   | 轮播滑动方向，可选值：horizontal（水平）、vertical（垂直）                                         |
+| displayMultipleItems      | number         | 1          | 否   | 同时显示的滑块数量                                                                                 |
+| duration                  | number         | 300        | 否   | 滑动动画时长，单位为毫秒                                                                           |
+| easingFunction            | string         | default    | 否   | 指定 swiper 切换缓动动画类型，可选值：default、linear、easeInCubic、easeOutCubic、easeInOutCubic   |
+| height                    | number/string  | 192        | 否   | 轮播的高度                                                                                         |
+| interval                  | number         | 5000       | 否   | 轮播间隔时间，单位为毫秒                                                                           |
+| list                      | array          | []         | 否   | 轮播项列表，可以是字符串数组或对象数组                                                             |
+| loop                      | boolean        | true       | 否   | 是否循环播放轮播图                                                                                 |
+| videoLoop                 | boolean        | true       | 否   | 视频是否循环播放                                                                                   |
+| muted                     | boolean        | true       | 否   | 视频是否静音播放                                                                                   |
+| nextMargin                | number/string  | 0          | 否   | 后边距                                                                                             |
+| indicatorPosition         | string         | bottom     | 否   | 页码信息展示位置，可选值：left、top-left、top、top-right、bottom-left、bottom、bottom-right、right |
+| previousMargin            | number/string  | 0          | 否   | 前边距                                                                                             |
+| snapToEdge                | boolean        | false      | 否   | 是否应用边距到第一个、最后一个元素                                                                 |
+| indicator                 | boolean/object | true       | 否   | 指示器全部配置，可以是布尔值或指示器配置对象                                                       |
+| imageMode                 | string         | aspectFill | 否   | 图片裁剪、缩放的模式                                                                               |
+| valueKey                  | string         | value      | 否   | 选项对象中，value 对应的 key                                                                       |
+| textKey                   | string         | text       | 否   | 选项对象中，标题 text 对应的 key                                                                   |
+| autoplayVideo             | boolean        | true       | 否   | 视频是否自动播放                                                                                   |
+| stopPreviousVideo         | boolean        | true       | 否   | 切换轮播项时是否停止上一个视频的播放                                                               |
+| stopAutoplayWhenVideoPlay | boolean        | false      | 否   | 视频播放时是否停止自动轮播                                                                         |
+| adjustHeight              | string         | highest    | 否   | 自动以指定滑块的高度为整个容器的高度，仅支付宝小程序支持，可选值：first、current、highest、none    |
+| adjustVerticalHeight      | boolean        | false      | 否   | vertical 为 true 时强制使 adjust-height 生效，仅支付宝小程序支持                                   |
+| customIndicatorClass      | string         | -          | 否   | 自定义指示器类名                                                                                   |
+| customImageClass          | string         | -          | 否   | 自定义图片类名                                                                                     |
+| customPrevImageClass      | string         | -          | 否   | 自定义上一个图片类名                                                                               |
+| customNextImageClass      | string         | -          | 否   | 自定义下一个图片类名                                                                               |
+| customItemClass           | string         | -          | 否   | 自定义swiper子项类名                                                                               |
+| customPrevClass           | string         | -          | 否   | 自定义上一个子项类名                                                                               |
+| customNextClass           | string         | -          | 否   | 自定义下一个子项类名                                                                               |
+| customTextClass           | string         | -          | 否   | 自定义文字标题类名                                                                                 |
+| customTextStyle           | string         | -          | 否   | 自定义文字标题样式                                                                                 |
+| customStyle               | string         | -          | 否   | 自定义根节点样式                                                                                   |
+| customClass               | string         | -          | 否   | 自定义根节点样式类                                                                                 |
 
-### Events
+### Events事件
 
-| 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| click | 点击轮播项时触发 | { index: number, item: any }，index 为点击项的索引，item 为点击项的内容 |
-| change | 轮播滑块切换时触发 | { current: number, source: string }，current 为当前索引，source 为切换来源（'autoplay' | 'touch' | 'navigate'） |
-| animationfinish | 滑块动画结束时触发 | { current: number, source: string }，current 为当前索引，source 为切换来源 |
-| update:current | 当前轮播项变化时触发 | current: number，当前轮播项的索引 |
+| 事件名          | 触发条件             | 参数说明                                                                   |
+| --------------- | -------------------- | -------------------------------------------------------------------------- |
+| click           | 点击轮播项时         | `{ index: 点击的滑块下标, item: 点击的滑块内容 }`                            |
+| change          | 轮播项切换时         | `{ current: 当前轮播项索引, source: 切换方式（autoplay、touch、navigate） }` |
+| animationfinish | 轮播项切换动画结束时 | `{ current: 当前轮播项索引, source: 切换方式（autoplay、touch、navigate） }` |
+| update:current  | 轮播项索引变化时     | value: 新的轮播项索引                                                      |
 
-### Methods
+### Methods方法
 
-该组件未对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | { item, index } | 默认插槽，用于自定义轮播项内容，item 为当前轮播项数据，index 为索引 |
-| indicator | { current, total } | 自定义指示器插槽，current 为当前索引，total 为总数量 |
+| 插槽名    | 作用域变量         | 使用说明                                                  |
+| --------- | ------------------ | --------------------------------------------------------- |
+| default   | `{ item, index }`    | 自定义轮播项内容，item 为当前轮播项数据，index 为当前索引 |
+| indicator | `{ current, total }` | 自定义指示器，current 为当前索引，total 为总数量          |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <wd-swiper :list="list" height="300" />
+  <view class="swiper-demo">
+    <wd-swiper :list="imageList" height="300"></wd-swiper>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const list = ref([
-  'https://cdn.webdurian.com/test/swiper/1.jpg',
-  'https://cdn.webdurian.com/test/swiper/2.jpg',
-  'https://cdn.webdurian.com/test/swiper/3.jpg'
-])
-</script>
-```
-
-### 自定义指示器
-
-```vue
-<template>
-  <wd-swiper :list="list" height="300" :indicator="indicatorConfig" />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const list = ref([
-  'https://cdn.webdurian.com/test/swiper/1.jpg',
-  'https://cdn.webdurian.com/test/swiper/2.jpg',
-  'https://cdn.webdurian.com/test/swiper/3.jpg'
-])
-
-const indicatorConfig = ref({
-  type: 'dots', // 指示器类型：dots | lines | numbers
-  indicatorPosition: 'bottom-right', // 指示器位置
-  showControls: true // 是否显示左右控制按钮
-})
-</script>
-```
-
-### 视频轮播
-
-```vue
-<template>
-  <wd-swiper :list="videoList" height="400" />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const videoList = ref([
-  {
-    value: 'https://cdn.webdurian.com/test/video/1.mp4',
-    type: 'video',
-    poster: 'https://cdn.webdurian.com/test/swiper/1.jpg'
-  },
-  {
-    value: 'https://cdn.webdurian.com/test/video/2.mp4',
-    type: 'video',
-    poster: 'https://cdn.webdurian.com/test/swiper/2.jpg'
-  }
-])
-</script>
-```
-
-### 垂直轮播
-
-```vue
-<template>
-  <wd-swiper 
-    :list="list" 
-    height="200" 
-    direction="vertical" 
-    :indicator-position="'right'" 
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const list = ref([
-  'https://cdn.webdurian.com/test/swiper/1.jpg',
-  'https://cdn.webdurian.com/test/swiper/2.jpg',
-  'https://cdn.webdurian.com/test/swiper/3.jpg'
-])
-</script>
-```
-
-### 自定义轮播项
-
-```vue
-<template>
-  <wd-swiper :list="list" height="300">
-    <template #default="{ item, index }">
-      <view class="custom-swiper-item">
-        <image :src="item" mode="aspectFill" style="width: 100%; height: 100%;" />
-        <view class="swiper-text">
-          第 {{ index + 1 }} 张图片
-        </view>
-      </view>
-    </template>
-    <template #indicator="{ current, total }">
-      <view class="custom-indicator">
-        {{ current + 1 }} / {{ total }}
-      </view>
-    </template>
-  </wd-swiper>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const list = ref([
-  'https://cdn.webdurian.com/test/swiper/1.jpg',
-  'https://cdn.webdurian.com/test/swiper/2.jpg',
-  'https://cdn.webdurian.com/test/swiper/3.jpg'
+const imageList = ref([
+  'https://example.com/image1.jpg',
+  'https://example.com/image2.jpg',
+  'https://example.com/image3.jpg'
 ])
 </script>
 
 <style scoped>
-.custom-swiper-item {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-text {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.swiper-demo {
   padding: 20rpx;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  font-size: 28rpx;
+  background-color: #f5f5f5;
+}
+</style>
+```
+
+### 2. 图片和视频混合轮播
+
+```vue
+<template>
+  <view class="swiper-demo">
+    <wd-swiper :list="mixedList" height="400"></wd-swiper>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const mixedList = ref([
+  { value: 'https://example.com/image1.jpg', type: 'image' },
+  { 
+    value: 'https://example.com/video1.mp4', 
+    type: 'video',
+    poster: 'https://example.com/poster1.jpg'
+  },
+  { value: 'https://example.com/image2.jpg', type: 'image' }
+])
+</script>
+
+<style scoped>
+.swiper-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+</style>
+```
+
+### 3. 垂直轮播
+
+```vue
+<template>
+  <view class="swiper-demo">
+    <wd-swiper 
+      :list="verticalList" 
+      direction="vertical" 
+      height="200" 
+      :indicator-position="'right'"
+      :display-multiple-items="2"
+    ></wd-swiper>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const verticalList = ref([
+  { value: 'https://example.com/image1.jpg', text: '轮播项 1' },
+  { value: 'https://example.com/image2.jpg', text: '轮播项 2' },
+  { value: 'https://example.com/image3.jpg', text: '轮播项 3' },
+  { value: 'https://example.com/image4.jpg', text: '轮播项 4' }
+])
+</script>
+
+<style scoped>
+.swiper-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+</style>
+```
+
+### 4. 自定义指示器
+
+```vue
+<template>
+  <view class="swiper-demo">
+    <wd-swiper :list="imageList" height="300">
+      <template #indicator="{ current, total }">
+        <view class="custom-indicator">
+          <text class="indicator-text">{{ current + 1 }} / {{ total }}</text>
+        </view>
+      </template>
+    </wd-swiper>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const imageList = ref([
+  'https://example.com/image1.jpg',
+  'https://example.com/image2.jpg',
+  'https://example.com/image3.jpg'
+])
+</script>
+
+<style scoped>
+.swiper-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
 }
 
 .custom-indicator {
@@ -231,126 +220,229 @@ const list = ref([
   right: 20rpx;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
-  padding: 8rpx 16rpx;
+  padding: 10rpx 20rpx;
   border-radius: 20rpx;
   font-size: 24rpx;
 }
 </style>
 ```
 
-### 带边距的轮播
+### 5. 自定义轮播项内容
 
 ```vue
 <template>
-  <wd-swiper 
-    :list="list" 
-    height="200" 
-    :previous-margin="'50rpx'" 
-    :next-margin="'50rpx'" 
-    :display-multiple-items="2" 
-  />
+  <view class="swiper-demo">
+    <wd-swiper :list="customList" height="300">
+      <template #default="{ item, index }">
+        <view class="custom-swiper-item">
+          <image :src="item.image" mode="aspectFill" class="custom-image"></image>
+          <view class="custom-content">
+            <text class="custom-title">{{ item.title }}</text>
+            <text class="custom-desc">{{ item.desc }}</text>
+            <wd-button size="small" type="primary" @click="handleButtonClick(index)">查看详情</wd-button>
+          </view>
+        </view>
+      </template>
+    </wd-swiper>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const list = ref([
-  'https://cdn.webdurian.com/test/swiper/1.jpg',
-  'https://cdn.webdurian.com/test/swiper/2.jpg',
-  'https://cdn.webdurian.com/test/swiper/3.jpg',
-  'https://cdn.webdurian.com/test/swiper/4.jpg'
+const customList = ref([
+  {
+    image: 'https://example.com/image1.jpg',
+    title: '轮播项 1',
+    desc: '这是第一个自定义轮播项'
+  },
+  {
+    image: 'https://example.com/image2.jpg',
+    title: '轮播项 2',
+    desc: '这是第二个自定义轮播项'
+  },
+  {
+    image: 'https://example.com/image3.jpg',
+    title: '轮播项 3',
+    desc: '这是第三个自定义轮播项'
+  }
 ])
+
+const handleButtonClick = (index: number) => {
+  console.log('点击了第', index + 1, '个轮播项的按钮')
+}
 </script>
+
+<style scoped>
+.swiper-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.custom-swiper-item {
+  position: relative;
+  height: 300rpx;
+  overflow: hidden;
+  border-radius: 12rpx;
+}
+
+.custom-image {
+  width: 100%;
+  height: 100%;
+}
+
+.custom-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30rpx;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: #fff;
+}
+
+.custom-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.custom-desc {
+  display: block;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.9;
+}
+</style>
 ```
 
-## 样式定制
+## 样式定制指南
 
-### 自定义类名
+### 1. 使用customStyle自定义样式
 
 ```vue
-<wd-swiper 
-  :list="list" 
-  height="300" 
-  custom-class="my-swiper" 
-  custom-image-class="my-swiper-image" 
-/>
+<template>
+  <wd-swiper 
+    :list="imageList" 
+    height="300"
+    customStyle="border-radius: 16rpx; overflow: hidden; box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);"
+  ></wd-swiper>
+</template>
 ```
 
-### 自定义样式
+### 2. 使用customClass自定义类名
 
 ```vue
-<wd-swiper 
-  :list="list" 
-  height="300" 
-  :custom-style="{ borderRadius: '10rpx', overflow: 'hidden' }" 
-/>
+<template>
+  <wd-swiper 
+    :list="imageList" 
+    height="300"
+    customClass="my-swiper"
+  ></wd-swiper>
+</template>
+
+<style scoped>
+:deep(.my-swiper) {
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+</style>
 ```
 
-### CSS 变量
+### 3. 自定义指示器样式
 
-组件支持以下 CSS 变量进行样式定制：
+```vue
+<template>
+  <wd-swiper 
+    :list="imageList" 
+    height="300"
+    :indicator="{ type: 'dots', showControls: true }"
+    customIndicatorClass="my-indicator"
+  ></wd-swiper>
+</template>
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --swiper-background-color | #ffffff | 轮播背景色 |
-| --swiper-indicator-dot-size | 8px | 指示器圆点大小 |
-| --swiper-indicator-dot-color | rgba(255, 255, 255, 0.5) | 指示器圆点默认颜色 |
-| --swiper-indicator-dot-active-color | #ffffff | 指示器圆点激活颜色 |
-| --swiper-indicator-dot-spacing | 8px | 指示器圆点间距 |
-| --swiper-text-color | #ffffff | 轮播文字颜色 |
-| --swiper-text-font-size | 28rpx | 轮播文字字体大小 |
-| --swiper-text-background-color | rgba(0, 0, 0, 0.3) | 轮播文字背景色 |
+<style scoped>
+:deep(.my-indicator .wd-swiper-nav__dots-item) {
+  width: 16rpx;
+  height: 16rpx;
+  margin: 0 8rpx;
+}
+
+:deep(.my-indicator .wd-swiper-nav__dots-item.active) {
+  background-color: #1989fa;
+  width: 32rpx;
+  border-radius: 8rpx;
+}
+</style>
+```
+
+### 4. 自定义轮播项样式
+
+```vue
+<template>
+  <wd-swiper 
+    :list="imageList" 
+    height="300"
+    customItemClass="my-swiper-item"
+  ></wd-swiper>
+</template>
+
+<style scoped>
+:deep(.my-swiper-item) {
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+:deep(.my-swiper-item image) {
+  border-radius: 16rpx;
+}
+</style>
+```
 
 ## 注意事项
 
-1. **性能优化**：
-   - 长列表轮播时，建议限制列表长度，避免过多 DOM 元素
-   - 图片资源建议进行压缩和懒加载
-   - 视频轮播时，建议设置 `stopPreviousVideo: true` 以节省资源
+1. **轮播数据格式**：
+   - 可以是字符串数组，直接存放图片或视频URL
+   - 也可以是对象数组，每个对象包含value（URL）、type（类型）、poster（视频封面）等属性
 
-2. **视频处理**：
-   - 视频自动播放需要满足浏览器/平台的自动播放策略
-   - 建议为视频设置合适的封面图 `poster`
-   - 视频播放时可通过 `stopAutoplayWhenVideoPlay` 停止自动轮播
+2. **视频轮播**：
+   - 视频默认静音播放，可以通过muted属性控制
+   - 视频默认自动播放，可以通过autoplayVideo属性控制
+   - 切换轮播项时会自动停止上一个视频，可以通过stopPreviousVideo属性控制
 
-3. **平台兼容性**：
-   - 所有平台均支持基本功能
-   - `adjustHeight` 和 `adjustVerticalHeight` 属性仅支持支付宝小程序
-   - 视频自动播放在不同平台的表现可能略有差异
+3. **自动播放**：
+   - 默认自动播放，可以通过autoplay属性关闭
+   - 视频播放时可以设置停止自动轮播，通过stopAutoplayWhenVideoPlay属性控制
 
-4. **指示器配置**：
-   - 指示器类型支持 'dots'、'lines'、'numbers' 三种
-   - 可通过 `indicatorPosition` 调整指示器位置
-   - 可通过 `showControls` 显示左右控制按钮
+4. **高度设置**：
+   - 建议显式设置height属性，确保轮播组件正常显示
+   - height属性支持数字和字符串格式，默认单位为px
 
-5. **事件处理**：
-   - `change` 事件在轮播切换过程中触发
-   - `animationfinish` 事件在轮播动画结束后触发
-   - 点击事件返回当前索引和项数据
+5. **指示器配置**：
+   - indicator属性可以是布尔值，控制指示器显示与否
+   - 也可以是对象，配置指示器类型、位置等
+   - 支持自定义指示器，通过indicator插槽实现
 
-6. **自定义内容**：
-   - 使用默认插槽时，需注意保持轮播项的高度一致
-   - 自定义指示器时，需自行处理样式和交互
+6. **性能优化**：
+   - 避免轮播项过多，建议控制在5-10个以内
+   - 图片和视频URL建议使用CDN加速
+   - 视频建议使用适当的压缩格式和分辨率
 
-### 状态流转
-- 初始状态：`current = 0`，显示第一张轮播图
-- 自动播放：`autoplay = true` 时，每隔 `interval` 毫秒自动切换到下一张
-- 手动滑动：用户触摸滑动时，触发 `change` 事件，更新 `current` 值
-- 视频播放：视频播放时，根据 `stopAutoplayWhenVideoPlay` 决定是否停止自动轮播
+7. **跨平台兼容性**：
+   - 组件在H5、App和小程序平台表现一致
+   - 在微信小程序平台，组件内部使用scroll-view包裹，以解决某些机型的滑动问题
 
-## 常见问题
+8. **事件处理**：
+   - change事件在轮播项切换时触发
+   - animationfinish事件在轮播动画结束时触发
+   - 可以根据需要选择使用
 
-### Q: 轮播图高度如何自适应？
-A: 可以使用 `adjustHeight` 属性（仅支付宝小程序支持），或通过监听图片加载动态设置高度
+9. **自定义内容**：
+   - 通过default插槽可以完全自定义轮播项内容
+   - 可以在插槽中使用任意组件和样式
 
-### Q: 如何自定义指示器样式？
-A: 可以使用 `indicator` 属性配置指示器，或通过 `indicator` 插槽完全自定义
-
-### Q: 视频为什么无法自动播放？
-A: 请检查是否满足平台自动播放策略，建议设置 `muted: true` 并确保视频有封面图
-
-### Q: 如何实现轮播图点击跳转？
-A: 可以监听 `click` 事件，在事件处理函数中执行跳转逻辑
-
-### Q: 如何禁止自动播放？
-A: 设置 `autoplay: false` 即可禁止自动播放
+10. **指示器位置**：
+    - 可以通过indicatorPosition属性设置指示器位置
+    - 支持8种位置：left、top-left、top、top-right、bottom-left、bottom、bottom-right、right

@@ -1,355 +1,261 @@
-# wd-img 图片
+# Img 图片
 
-## 组件概述
+## 组件概况
 
-图片组件是一个用于展示图片的通用组件，支持多种填充模式、懒加载、预览功能等。组件采用 Vue3 + TypeScript + UniApp 技术栈实现，具有轻量、易用、灵活等特点。
+### 组件概述
+Img 组件是一个功能增强的图片组件，基于原生 image 组件封装，提供了加载状态、错误处理、图片预览、懒加载等增强功能，同时支持多种图片填充模式和样式定制。
 
-### 功能描述
-- 支持多种填充模式
+### 核心功能
+- 支持图片加载状态显示
+- 支持图片加载错误处理
+- 支持图片预览功能
 - 支持懒加载
-- 支持图片预览
+- 支持多种填充模式
 - 支持圆形图片
-- 支持自定义宽高和圆角
-- 支持加载中状态和错误状态的自定义插槽
-- 支持长按识别小程序码（仅微信小程序）
-- 轻量级设计，性能开销小
+- 支持圆角设置
+- 支持长按显示菜单（微信小程序）
 
-### 适用场景
+### 适用业务场景
 - 商品图片展示
-- 用户头像展示
+- 用户头像显示
 - 文章配图
-- 图片列表
-- 任何需要展示图片的场景
+- 轮播图图片
+- 列表图片
+- 需要懒加载的长列表图片
 
-## API 参考
+## 完整API参考
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填项 | 描述 |
 | --- | --- | --- | --- | --- |
+| customImage | string | '' | 否 | 自定义图片样式类 |
 | src | string | - | 否 | 图片链接 |
-| previewSrc | string | - | 否 | 预览图片链接，默认使用 src |
+| previewSrc | string | - | 否 | 预览图片链接 |
 | round | boolean | false | 否 | 是否显示为圆形 |
-| mode | string | 'scaleToFill' | 否 | 填充模式，可选值：'scaleToFill'、'aspectFit'、'aspectFill'、'widthFix'、'heightFix'、'top'、'bottom'、'center'、'left'、'right'、'top left'、'top right'、'bottom left'、'bottom right' |
+| mode | string | 'scaleToFill' | 否 | 填充模式，可选值：'top left' / 'top right' / 'bottom left' / 'bottom right' / 'right' / 'left' / 'center' / 'bottom' / 'top' / 'heightFix' / 'widthFix' / 'aspectFill' / 'aspectFit' / 'scaleToFill' |
 | lazyLoad | boolean | false | 否 | 是否懒加载 |
-| width | number/string | - | 否 | 宽度，默认单位为px |
-| height | number/string | - | 否 | 高度，默认单位为px |
-| radius | number/string | - | 否 | 圆角大小，默认单位为px |
+| width | number / string | - | 否 | 宽度，默认单位为px |
+| height | number / string | - | 否 | 高度，默认单位为px |
+| radius | number / string | - | 否 | 圆角大小，默认单位为px |
 | enablePreview | boolean | false | 否 | 是否允许预览 |
 | showMenuByLongpress | boolean | false | 否 | 开启长按图片显示识别小程序码菜单，仅在微信小程序平台有效 |
-| customImage | string | '' | 否 | 自定义图片类名 |
-| customClass | string | - | 否 | 自定义类名，用于覆盖组件默认样式 |
-| customStyle | string/object | - | 否 | 自定义样式，支持字符串和对象两种格式 |
+| customStyle | string | '' | 否 | 自定义样式，对象格式 |
+| customClass | string | '' | 否 | 自定义类名 |
 
 ### Events
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| error | 图片加载失败时 | 事件对象 |
-| click | 点击图片时 | 事件对象 |
-| load | 图片加载成功时 | 事件对象 |
+| error | 图片加载失败时触发 | event: 事件对象 |
+| click | 点击图片时触发 | event: 事件对象 |
+| load | 图片加载成功时触发 | event: 事件对象 |
 
 ### Methods
-组件未对外暴露任何方法。
+Img 组件不直接对外暴露方法。
 
 ### Slots
 | 插槽名 | 作用域变量 | 使用说明 |
 | --- | --- | --- |
-| loading | - | 加载中状态的自定义内容 |
-| error | - | 加载失败状态的自定义内容 |
+| loading | - | 图片加载中时显示的内容 |
+| error | - | 图片加载失败时显示的内容 |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="container">
-    <wd-img 
-      src="https://example.com/image.jpg" 
-      width="200" 
-      height="200"
-    />
-  </view>
+  <wd-img src="https://example.com/image.jpg" />
 </template>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-</style>
 ```
 
-### 不同填充模式
+### 自定义尺寸和填充模式
 
 ```vue
 <template>
-  <view class="container">
-    <view class="mode-item">
-      <text class="mode-label">scaleToFill</text>
-      <wd-img 
-        src="https://example.com/image.jpg" 
-        width="150" 
-        height="150"
-        mode="scaleToFill"
-      />
-    </view>
-    <view class="mode-item">
-      <text class="mode-label">aspectFit</text>
-      <wd-img 
-        src="https://example.com/image.jpg" 
-        width="150" 
-        height="150"
-        mode="aspectFit"
-      />
-    </view>
-    <view class="mode-item">
-      <text class="mode-label">aspectFill</text>
-      <wd-img 
-        src="https://example.com/image.jpg" 
-        width="150" 
-        height="150"
-        mode="aspectFill"
-      />
-    </view>
-    <view class="mode-item">
-      <text class="mode-label">widthFix</text>
-      <wd-img 
-        src="https://example.com/image.jpg" 
-        width="150"
-        mode="widthFix"
-      />
-    </view>
-  </view>
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    width="200" 
+    height="200" 
+    mode="aspectFit"
+  />
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    width="200" 
+    height="200" 
+    mode="aspectFill"
+  />
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    width="200" 
+    mode="widthFix"
+  />
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.mode-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.mode-label {
-  font-size: 14px;
-  color: #666;
-}
-</style>
 ```
 
 ### 圆形图片和圆角图片
 
 ```vue
 <template>
-  <view class="container">
-    <view class="img-item">
-      <text class="img-label">圆形图片</text>
-      <wd-img 
-        src="https://example.com/avatar.jpg" 
-        width="100" 
-        height="100"
-        round
-      />
-    </view>
-    <view class="img-item">
-      <text class="img-label">圆角图片</text>
-      <wd-img 
-        src="https://example.com/image.jpg" 
-        width="150" 
-        height="150"
-        :radius="20"
-      />
-    </view>
-  </view>
+  <!-- 圆形头像 -->
+  <wd-img 
+    src="https://example.com/avatar.jpg" 
+    width="80" 
+    height="80" 
+    round
+  />
+  
+  <!-- 圆角图片 -->
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    width="200" 
+    height="150" 
+    :radius="12"
+  />
+</template>
+```
+
+### 带加载和错误状态
+
+```vue
+<template>
+  <wd-img src="https://example.com/image.jpg">
+    <template #loading>
+      <view class="img-loading">
+        <wd-icon name="loading" size="32" color="#1989fa" />
+        <text>加载中...</text>
+      </view>
+    </template>
+    <template #error>
+      <view class="img-error">
+        <wd-icon name="error" size="32" color="#ff4d4f" />
+        <text>加载失败</text>
+      </view>
+    </template>
+  </wd-img>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  gap: 40px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  align-items: center;
-}
-
-.img-item {
+.img-loading,
+.img-error {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  width: 200px;
+  height: 150px;
+  background-color: #f5f7fa;
+  color: #909399;
 }
 
-.img-label {
+.img-loading text,
+.img-error text {
+  margin-top: 8px;
   font-size: 14px;
-  color: #666;
 }
 </style>
 ```
 
-### 图片预览
+### 图片预览功能
 
 ```vue
 <template>
-  <view class="container">
+  <wd-img 
+    src="https://example.com/thumbnail.jpg" 
+    :enable-preview="true" 
+    preview-src="https://example.com/full-size.jpg"
+    width="200"
+    height="150"
+  />
+</template>
+```
+
+### 懒加载图片
+
+```vue
+<template>
+  <view>
+    <!-- 长列表中的图片使用懒加载 -->
     <wd-img 
-      src="https://example.com/image.jpg" 
-      width="200" 
+      v-for="item in imageList" 
+      :key="item.id" 
+      :src="item.src" 
+      :lazy-load="true" 
+      width="100%"
       height="200"
-      enable-preview
-      preview-src="https://example.com/preview.jpg"
+      mode="aspectFill"
     />
   </view>
 </template>
 
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-</style>
-```
-
-### 自定义加载和错误状态
-
-```vue
-<template>
-  <view class="container">
-    <wd-img 
-      src="https://example.com/invalid-image.jpg" 
-      width="200" 
-      height="200"
-    >
-      <template #loading>
-        <view class="loading-slot">
-          <text class="loading-text">加载中...</text>
-        </view>
-      </template>
-      <template #error>
-        <view class="error-slot">
-          <text class="error-text">加载失败</text>
-        </view>
-      </template>
-    </wd-img>
-  </view>
-</template>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.loading-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-}
-
-.loading-text {
-  font-size: 14px;
-  color: #999;
-}
-
-.error-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-}
-
-.error-text {
-  font-size: 14px;
-  color: #ee0a24;
-}
-</style>
+<script setup lang="ts">
+const imageList = [
+  { id: 1, src: 'https://example.com/image1.jpg' },
+  { id: 2, src: 'https://example.com/image2.jpg' },
+  { id: 3, src: 'https://example.com/image3.jpg' },
+  // 更多图片...
+]
+</script>
 ```
 
 ## 样式定制指南
 
-### customClass 用法
-```vue
-<wd-img 
-  src="https://example.com/image.jpg" 
-  custom-class="my-img"
-/>
+### 使用 customImage 自定义图片样式
 
-<style>
-.my-img {
-  /* 自定义样式 */
-  border: 2px solid #e5e5e5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+```vue
+<template>
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    custom-image="my-custom-image"
+    width="200"
+    height="150"
+  />
+</template>
+
+<style scoped>
+.my-custom-image {
+  border: 2px solid #1989fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 </style>
 ```
 
-### customStyle 用法
+### 使用 customStyle 自定义容器样式
+
 ```vue
-<wd-img 
-  src="https://example.com/image.jpg" 
-  :custom-style="{
-    border: '2px solid #e5e5e5',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-    margin: '10px'
-  }"
-/>
-```
-
-### CSS 变量
-组件支持通过 CSS 变量自定义样式，常用变量如下：
-
-```css
-.wd-img {
-  /* 自定义宽度 */
-  --img-width: auto;
-  /* 自定义高度 */
-  --img-height: auto;
-  /* 自定义圆角 */
-  --img-border-radius: 0;
-}
+<template>
+  <wd-img 
+    src="https://example.com/image.jpg" 
+    :custom-style="{
+      borderRadius: '8px',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+      border: '1px solid #e4e7ed'
+    }"
+    width="200"
+    height="150"
+  />
+</template>
 ```
 
 ## 注意事项
 
-1. **性能优化**：
-   - 对于大量图片场景，建议开启 `lazyLoad` 属性，减少初始加载时间
-   - 合理设置图片尺寸，避免过大图片影响加载性能
-   - 考虑使用图片压缩和 CDN 加速，提高图片加载速度
+1. **填充模式**：mode 属性支持多种填充模式，需根据实际需求选择合适的模式：
+   - `scaleToFill`：不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素
+   - `aspectFit`：保持纵横比缩放图片，使图片的长边能完全显示出来
+   - `aspectFill`：保持纵横比缩放图片，只保证图片的短边能完全显示出来
+   - `widthFix`：宽度不变，高度自动变化，保持原图宽高比不变
+   - `heightFix`：高度不变，宽度自动变化，保持原图宽高比不变
 
-2. **跨端兼容**：
-   - 组件在不同平台上的表现基本一致
-   - `showMenuByLongpress` 属性仅在微信小程序平台有效
-   - 懒加载功能在不同平台上的实现机制可能略有差异
+2. **懒加载**：lazyLoad 属性仅在 scroll-view、list-view 或 swiper 组件中有效，需要确保图片在滚动容器内。
 
-3. **使用限制**：
-   - `src` 属性是图片显示的必要条件，必须提供有效的图片地址
-   - 预览功能需要 `enablePreview` 属性设置为 `true`
-   - 圆形图片需要同时设置 `width` 和 `height` 属性，且值相等
+3. **图片预览**：enablePreview 属性为 true 时，点击图片会触发预览功能，若未设置 previewSrc，则使用 src 作为预览图片链接。
 
-4. **最佳实践**：
-   - 为不同场景选择合适的 `mode` 属性，如头像使用 `aspectFill`，列表图片使用 `widthFix`
-   - 为图片设置适当的 `width` 和 `height`，避免布局抖动
-   - 结合 `loading` 和 `error` 插槽，提供良好的用户体验
-   - 对于需要频繁更换的图片，建议使用动态绑定 `src` 属性
+4. **圆形图片**：round 属性为 true 时，会忽略 radius 属性，将图片显示为圆形。
 
-5. **常见问题**：
-   - 问题：图片不显示
-     解决方案：检查 `src` 属性是否正确，图片地址是否可访问
-   - 问题：图片变形
-     解决方案：选择合适的 `mode` 属性，或同时设置 `width` 和 `height`
-   - 问题：预览功能不生效
-     解决方案：检查 `enablePreview` 属性是否设置为 `true`
+5. **长按菜单**：showMenuByLongpress 属性仅在微信小程序平台有效，用于开启长按图片显示识别小程序码菜单。
+
+6. **性能优化**：
+   - 对于长列表中的图片，建议使用懒加载以提高性能
+   - 合理设置图片尺寸，避免图片过大导致加载缓慢
+   - 使用合适的填充模式，避免图片变形或拉伸
+
+7. **错误处理**：通过 error 事件可以捕获图片加载错误，并进行相应的处理，如显示默认图片或重试加载。

@@ -1,275 +1,194 @@
-# wd-circle 环形进度条组件
+# Circle 圆形进度条
 
-## 组件概述
+## 组件概况
 
-wd-circle 是一个基于 Canvas 实现的环形进度条组件，支持自定义颜色、大小、进度、动画速度等属性，可用于展示进度、百分比等数据。该组件提供了丰富的配置选项，满足各种业务场景的需求。
+### 组件概述
+Circle 圆形进度条是一个用于展示进度或百分比数据的可视化组件，通过 Canvas 技术实现流畅的动画效果，支持多种样式定制和交互方式。
 
-### 适用场景
-- 进度展示：如文件上传进度、任务完成进度等
-- 百分比展示：如考试成绩、满意度评分等
-- 数据可视化：如仪表盘、统计图表等
-- 状态指示：如设备电量、信号强度等
-- 任何需要展示环形进度的场景
+### 详细功能描述
+- 支持自定义圆环直径、进度条宽度和颜色
+- 支持渐变色进度条配置
+- 提供顺时针/逆时针两种动画方向
+- 支持三种进度条端点形状（butt/round/square）
+- 内置平滑动画效果，可调节动画速度
+- 支持自定义文字内容或使用插槽插入复杂内容
+- 响应式设计，适配不同尺寸需求
 
-## API 参考
+### 适用业务场景
+- 任务完成进度展示
+- 资源加载状态指示
+- 评分或等级可视化
+- 数据统计仪表盘
+- 倒计时进度显示
+- 健康数据指标展示
+
+## 完整API参考
 
 ### Props
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| model-value | Number | 0 | 否 | 当前进度，取值范围为 0-100 |
-| size | Number | 100 | 否 | 圆环直径，默认单位为 px |
-| color | String / Object | #4d80f0 | 否 | 进度条颜色，传入对象格式可以定义渐变色 |
-| layer-color | String | #EBEEF5 | 否 | 轨道颜色 |
-| fill | String | - | 否 | 填充颜色 |
-| speed | Number | 50 | 否 | 动画速度（单位为 rate/s） |
-| text | String | - | 否 | 文字内容，显示在圆环中心 |
-| stroke-width | Number | 10 | 否 | 进度条宽度，单位为 px |
-| stroke-linecap | String | round | 否 | 进度条端点的形状，可选值：butt / round / square |
-| clockwise | Boolean | true | 否 | 是否顺时针增加 |
-| custom-class | String | - | 否 | 根节点自定义类名，用于自定义整个环形进度条的样式 |
-| custom-style | String / Object | - | 否 | 根节点自定义样式，用于自定义整个环形进度条的内联样式 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| --- | --- | --- | --- | --- |
+| modelValue | number | 0 | 否 | 当前进度，取值范围0-100 |
+| size | number | 100 | 否 | 圆环直径，默认单位为 px |
+| color | string \| object | '#4d80f0' | 否 | 进度条颜色，传入对象格式可以定义渐变色 |
+| layerColor | string | '#EBEEF5' | 否 | 轨道颜色 |
+| fill | string | - | 否 | 填充颜色 |
+| speed | number | 50 | 否 | 动画速度（单位为 rate/s） |
+| text | string | - | 否 | 文字 |
+| strokeWidth | number | 10 | 否 | 进度条宽度，单位px |
+| strokeLinecap | string | 'round' | 否 | 进度条端点的形状，可选值为 "butt" \| "round" \| "square" |
+| clockwise | boolean | true | 否 | 是否顺时针增加 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
+| customClass | string | - | 否 | 自定义类名 |
 
 ### Events
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+该组件不触发任何自定义事件。
 
 ### Methods
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+该组件没有对外暴露的方法。
 
 ### Slots
-| 插槽名 | 作用域变量 | 使用说明 |
-|--------|------------|----------|
-| default | - | 自定义提示内容，当 text 属性为空时显示 |
+| 名称 | 作用域变量 | 说明 |
+| --- | --- | --- |
+| default | - | 自定义提示内容，当text属性为空时显示 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 ```vue
 <template>
-  <view class="container">
-    <wd-circle v-model="progress" />
+  <view class="demo-container">
+    <!-- 基础圆形进度条 -->
+    <wd-circle :model-value="30"></wd-circle>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(50)
+<script lang="ts" setup>
+// 导入组件
+import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.demo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 </style>
 ```
 
-### 自定义大小和颜色
+### 2. 自定义样式
 ```vue
 <template>
-  <view class="container">
+  <view class="demo-container">
+    <!-- 自定义尺寸、颜色和线宽 -->
     <wd-circle 
-      v-model="progress" 
+      :model-value="60" 
       :size="150" 
-      color="#67c23a" 
-      layer-color="#e6f7ff"
-    />
+      color="#67C23A" 
+      :stroke-width="20"
+    ></wd-circle>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(75)
+<script lang="ts" setup>
+import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.demo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 </style>
 ```
 
-### 带文字的环形进度条
+### 3. 渐变色进度条
 ```vue
 <template>
-  <view class="container">
+  <view class="demo-container">
+    <!-- 渐变色进度条 -->
     <wd-circle 
-      v-model="progress" 
-      text="75%" 
-      :stroke-width="15"
-    />
+      :model-value="75" 
+      :color="gradientColor"
+    ></wd-circle>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
+import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 
-const progress = ref(75)
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
-```
-
-### 渐变色环形进度条
-```vue
-<template>
-  <view class="container">
-    <wd-circle 
-      v-model="progress" 
-      :color="gradientColor" 
-      :stroke-width="12"
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(80)
-
-// 渐变色配置
+// 定义渐变色
 const gradientColor = ref({
-  '0%': '#4d80f0',
-  '100%': '#67c23a'
+  0: '#FF6B6B',
+  50: '#4ECDC4',
+  100: '#45B7D1'
 })
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.demo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 </style>
 ```
 
-### 自定义端点形状
+### 4. 自定义文字内容
 ```vue
 <template>
-  <view class="container">
+  <view class="demo-container">
+    <!-- 使用text属性自定义文字 -->
     <wd-circle 
-      v-model="progress" 
-      stroke-linecap="butt" 
-      :stroke-width="10"
-    />
+      :model-value="80" 
+      text="80%"
+    ></wd-circle>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(60)
+<script lang="ts" setup>
+import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.demo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 </style>
 ```
 
-### 逆时针方向
+### 5. 使用插槽自定义内容
 ```vue
 <template>
-  <view class="container">
-    <wd-circle 
-      v-model="progress" 
-      :clockwise="false" 
-      color="#f56c6c"
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(45)
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
-```
-
-### 自定义动画速度
-```vue
-<template>
-  <view class="container">
-    <wd-circle 
-      v-model="progress" 
-      :speed="100" 
-      color="#e6a23c"
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(90)
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
-```
-
-### 自定义插槽内容
-```vue
-<template>
-  <view class="container">
-    <wd-circle v-model="progress" :stroke-width="8">
+  <view class="demo-container">
+    <!-- 使用插槽插入复杂内容 -->
+    <wd-circle :model-value="90">
       <view class="custom-content">
-        <text class="percent">{{ progress }}%</text>
-        <text class="desc">完成度</text>
+        <text class="percent">90%</text>
+        <text class="label">完成率</text>
       </view>
     </wd-circle>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(70)
+<script lang="ts" setup>
+import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.demo-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .custom-content {
@@ -280,145 +199,94 @@ const progress = ref(70)
 }
 
 .percent {
-  font-size: 36rpx;
+  font-size: 24px;
   font-weight: bold;
-  color: #303133;
+  color: #4d80f0;
 }
 
-.desc {
-  font-size: 24rpx;
-  color: #909399;
-  margin-top: 8rpx;
+.label {
+  font-size: 14px;
+  color: #606266;
+  margin-top: 4px;
 }
 </style>
 ```
 
-## 样式定制
+## 样式定制指南
 
-### 自定义类名
-通过 `custom-class` 属性可以为组件根节点添加自定义类名，用于覆盖默认样式：
+### customStyle 自定义样式
+通过 `customStyle` 属性可以直接设置组件的内联样式，用于调整组件的位置、边距等。
 
 ```vue
-<template>
-  <wd-circle v-model="progress" custom-class="my-circle" />
-</template>
+<wd-circle 
+  :model-value="50" 
+  :custom-style="{ margin: '20px', padding: '10px' }"
+></wd-circle>
+```
 
-<style scoped>
+### customClass 自定义类名
+通过 `customClass` 属性可以为组件添加自定义类名，结合外部样式表进行更复杂的样式定制。
+
+```vue
+<wd-circle 
+  :model-value="50" 
+  custom-class="my-circle"
+></wd-circle>
+```
+
+```scss
 .my-circle {
-  /* 自定义样式 */
-  margin: 20rpx;
+  // 自定义类样式
+  margin: 20px;
+  
+  .wd-circle__text {
+    // 自定义文字样式
+    font-size: 16px;
+    color: #67C23A;
+  }
 }
-
-.my-circle .wd-circle__text {
-  /* 自定义文字样式 */
-  font-size: 32rpx;
-  color: #409eff;
-  font-weight: bold;
-}
-</style>
-```
-
-### 自定义内联样式
-通过 `custom-style` 属性可以直接为组件根节点添加内联样式：
-
-```vue
-<template>
-  <wd-circle 
-    v-model="progress" 
-    :custom-style="{ margin: '20rpx', padding: '10rpx' }"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(50)
-</script>
-```
-
-### 自定义渐变色
-通过 `color` 属性传入对象格式可以定义渐变色：
-
-```vue
-<template>
-  <wd-circle 
-    v-model="progress" 
-    :color="{ '0%': '#4d80f0', '100%': '#67c23a' }"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const progress = ref(80)
-</script>
 ```
 
 ## 注意事项
 
-1. **进度范围**：
-   - `model-value` 属性的取值范围为 0-100
-   - 当进度为 0 时，会渲染一个圆点
-   - 当进度为 100 时，会渲染一个完整的圆环
+### 常见问题解决方案
+1. **Canvas 在某些平台显示异常**：
+   - 确保 Canvas 组件的 ID 唯一
+   - 检查是否正确设置了宽高属性
+   - 对于微信小程序，需使用 2D Canvas 上下文
 
-2. **颜色配置**：
-   - `color` 属性支持字符串和对象格式
-   - 字符串格式用于设置单一颜色
-   - 对象格式用于设置渐变色，键为百分比，值为颜色值
-   - 渐变色的键需要按从小到大的顺序排列
+2. **动画效果不流畅**：
+   - 适当降低动画速度（speed 属性）
+   - 减少 Canvas 尺寸
+   - 避免在组件渲染时进行大量计算
 
-3. **动画速度**：
-   - `speed` 属性用于控制动画速度，单位为 rate/s
-   - 当 `speed` 为 0 或大于 1000 时，不使用动画，直接渲染最终状态
-   - 建议 `speed` 值在 10-200 之间，以获得良好的动画效果
+3. **渐变色不生效**：
+   - 确保 color 属性传入的是正确格式的对象
+   - 渐变色对象的键值应为数字类型的百分比
 
-4. **端点形状**：
-   - `stroke-linecap` 属性用于设置进度条端点的形状
-   - 支持三种形状：butt（平角）、round（圆角）、square（方角）
-   - 默认形状为 round（圆角）
+### 性能优化建议
+- 避免频繁修改组件的 size 属性，这会导致 Canvas 重新渲染
+- 对于静态进度展示，可将 speed 设置为 0 以关闭动画
+- 多个 Circle 组件同时使用时，注意控制总数量，避免性能问题
 
-5. **性能优化**：
-   - 当圆环数量较多时，建议适当降低 `speed` 值，减少动画渲染次数
-   - 避免频繁更新 `model-value` 属性，建议使用防抖或节流处理
-   - 在不需要动画效果时，可以将 `speed` 设置为 0，直接渲染最终状态
+### 使用限制条件
+- 组件依赖 Canvas API，不支持纯文本渲染环境
+- 进度值范围限制在 0-100 之间，超出范围会被自动截断
+- 渐变色仅支持线性渐变，不支持径向渐变
+- 文字内容过多时可能会超出组件边界，需自行控制文字大小
 
-6. **多端适配**：
-   - 该组件基于 Canvas 实现，在不同平台上的渲染效果可能存在差异
-   - 建议在各平台上进行充分测试，确保良好的显示效果
-   - 在小程序平台上，Canvas 的渲染性能可能不如 H5 和 App 平台
+## 组件源码
+组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-circle/` 目录下，包含以下文件：
+- `wd-circle.vue`：组件主文件，实现核心逻辑和模板
+- `types.ts`：类型定义文件，包含 props 类型声明
+- `index.scss`：组件样式文件
 
-7. **自定义内容**：
-   - 使用默认插槽自定义内容时，需要注意内容的尺寸和样式，确保良好的视觉效果
-   - 自定义内容时，组件的默认文字样式（如 `wd-circle__text` 类）仍然生效
+## 版本更新记录
 
-## 组件依赖
-
-- 依赖 `canvas2dAdapter` 工具函数，用于适配微信小程序的 Canvas 2D API
-- 依赖 `getSystemInfo` 工具函数，用于获取设备的像素比
-- 依赖 `uuid` 工具函数，用于生成唯一的 Canvas ID
-
-## 常见问题
-
-1. **Q：如何实现渐变色效果？**
-   A：可以通过 `color` 属性传入对象格式实现渐变色，例如：`:color="{ '0%': '#4d80f0', '100%': '#67c23a' }"`。
-
-2. **Q：如何调整圆环的大小？**
-   A：可以通过 `size` 属性调整圆环的直径，单位为 px。
-
-3. **Q：如何调整进度条的宽度？**
-   A：可以通过 `stroke-width` 属性调整进度条的宽度，单位为 px。
-
-4. **Q：如何关闭动画效果？**
-   A：可以将 `speed` 属性设置为 0，直接渲染最终状态。
-
-5. **Q：如何自定义圆环中心的文字？**
-   A：可以通过 `text` 属性设置文字内容，或者使用默认插槽自定义更复杂的内容。
-
-6. **Q：如何实现逆时针方向的进度条？**
-   A：可以将 `clockwise` 属性设置为 `false`。
-
-7. **Q：如何自定义进度条的端点形状？**
-   A：可以通过 `stroke-linecap` 属性设置端点形状，支持 butt、round、square 三种形状。
-
-8. **Q：为什么在小程序上的渲染效果与 H5 不同？**
-   A：不同平台的 Canvas API 存在差异，建议在各平台上进行充分测试，必要时针对特定平台进行样式调整。
+| 版本 | 更新内容 |
+| --- | --- |
+| 1.0.0 | 初始版本，实现基础圆形进度条功能 |
+| 1.1.0 | 新增渐变色支持和端点形状配置 |
+| 1.2.0 | 优化动画效果和性能 |
+| 1.3.0 | 支持微信小程序 2D Canvas |
+| 1.4.0 | 修复跨平台兼容性问题 |

@@ -1,43 +1,43 @@
-# wd-popup 弹出层组件
+# Popup 弹出层
 
-## 组件概述
+## 组件概况
 
-wd-popup 是一个功能强大的弹出层组件，支持多种弹出位置和动画效果，可用于展示模态框、侧边栏、底部弹窗等。组件基于 Vue 3 + TypeScript + UniApp 开发，提供了丰富的配置选项和灵活的自定义能力，能够满足各种复杂的弹出层需求。
+### 组件概述
+Popup 组件是一种在页面中弹出的容器，用于显示临时内容，通常用于模态框、抽屉、侧边栏、底部弹出菜单等场景。wd-popup 组件提供了灵活的配置选项，支持多种弹出位置、动画效果、遮罩控制、关闭方式等功能。
 
-### 功能特点
-
-- 支持 5 种弹出位置（居中、顶部、底部、左侧、右侧）
-- 提供多种动画效果（淡入淡出、滑动、缩放等）
+### 详细功能描述
+- 支持多种弹出位置：center、top、right、bottom、left
+- 支持多种动画效果：fade、slide、zoom 等
+- 支持遮罩显示/隐藏控制
 - 支持点击遮罩关闭
-- 支持自定义遮罩样式和弹出层样式
-- 支持底部安全区域适配
+- 支持显示关闭按钮
+- 支持自定义层级
+- 支持自定义动画时长
 - 支持懒渲染
 - 支持锁定滚动
-- 支持从页面中脱离出来（解决 fixed 定位问题）
-- 提供完整的过渡动画事件
-- 跨平台兼容（H5、小程序、App）
+- 支持根节点脱离文档流
+- 支持底部安全距离适配
+- 支持丰富的过渡事件
 
-### 适用场景
+### 适用业务场景
+- 模态框
+- 抽屉组件
+- 侧边栏
+- 底部弹出菜单
+- 通知提示
+- 确认对话框
 
-- 模态对话框
-- 底部操作菜单
-- 侧边栏导航
-- 顶部通知栏
-- 全屏加载提示
-- 图片预览
-- 其他需要弹出层的场景
+## 完整API参考
 
-## API 参考
-
-### Props
+### Props属性
 
 | 名称 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| transition | string | - | 否 | 动画类型，参见 wd-transition 组件的 name，可选值：fade / fade-up / fade-down / fade-left / fade-right / slide-up / slide-down / slide-left / slide-right / zoom-in |
+| transition | string | - | 否 | 动画类型，可选值：fade / fade-up / fade-down / fade-left / fade-right / slide-up / slide-down / slide-left / slide-right / zoom-in |
 | closable | boolean | false | 否 | 是否显示关闭按钮 |
-| position | 'center' \| 'top' \| 'right' \| 'bottom' \| 'left' | 'center' | 否 | 弹出框的位置 |
+| position | string | 'center' | 否 | 弹出框的位置，可选值：center / top / right / bottom / left |
 | closeOnClickModal | boolean | true | 否 | 点击遮罩是否关闭 |
-| duration | number \| boolean | 300 | 否 | 动画持续时间 |
+| duration | number / boolean | 300 | 否 | 动画持续时间 |
 | modal | boolean | true | 否 | 是否显示遮罩 |
 | zIndex | number | 10 | 否 | 设置层级 |
 | hideWhenClose | boolean | true | 否 | 是否当关闭时将弹出层隐藏（display: none) |
@@ -47,49 +47,46 @@ wd-popup 是一个功能强大的弹出层组件，支持多种弹出位置和�
 | lazyRender | boolean | true | 否 | 弹层内容懒渲染，触发展示时才渲染内容 |
 | lockScroll | boolean | true | 否 | 是否锁定滚动 |
 | rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
 |--------|----------|----------|
-| update:modelValue | 弹出层显示状态变化时 | 新的显示状态（boolean） |
-| before-enter | 进入前触发 | - |
-| enter | 进入中触发 | - |
-| after-enter | 进入后触发 | - |
-| before-leave | 离开前触发 | - |
-| leave | 离开中触发 | - |
-| after-leave | 离开后触发 | - |
-| click-modal | 点击遮罩时触发 | - |
-| close | 关闭弹出层时触发 | - |
+| update:modelValue | 弹出层显示状态改变时 | value: boolean - 弹出层显示状态 |
+| before-enter | 进入过渡开始之前 | - |
+| enter | 进入过渡开始 | - |
+| after-enter | 进入过渡结束 | - |
+| before-leave | 离开过渡开始之前 | - |
+| leave | 离开过渡开始 | - |
+| after-leave | 离开过渡结束 | - |
+| click-modal | 点击遮罩层时 | - |
+| close | 关闭弹出层时 | - |
 
-### Methods
+### Methods方法
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| close | - | - | 关闭弹出层 |
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
+| 插槽名 | 作用域变量 | 使用说明 |
+|--------|------------|----------|
 | default | - | 弹出层内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
 ### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示弹出层</wd-button>
-    
+  <view class="popup-demo">
+    <wd-button @click="show = true">显示弹出层</wd-button>
     <wd-popup v-model="show" position="center">
       <view class="popup-content">
-        <view class="popup-title">弹出层标题</view>
-        <view class="popup-text">这是一个简单的弹出层内容</view>
-        <wd-button type="primary" size="small" @click="show = false">确定</wd-button>
+        <view class="popup-title">居中弹出层</view>
+        <view class="popup-text">这是一个居中显示的弹出层</view>
+        <wd-button size="small" @click="show = false">关闭</wd-button>
       </view>
     </wd-popup>
   </view>
@@ -101,42 +98,50 @@ import { ref } from 'vue'
 const show = ref(false)
 </script>
 
-<style lang="scss">
+<style scoped>
+.popup-demo {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
 .popup-content {
   width: 300px;
   padding: 20px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-text {
+  font-size: 14px;
+  color: #666;
   text-align: center;
-  
-  .popup-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .popup-text {
-    font-size: 14px;
-    color: #606266;
-    margin-bottom: 20px;
-  }
 }
 </style>
 ```
 
-### 2. 底部弹出层
+### 2. 底部弹出
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示底部弹出层</wd-button>
-    
-    <wd-popup v-model="show" position="bottom" :safe-area-inset-bottom="true">
-      <view class="bottom-popup">
-        <view class="popup-item">选项一</view>
-        <view class="popup-item">选项二</view>
-        <view class="popup-item">选项三</view>
-        <wd-button type="danger" block @click="show = false">取消</wd-button>
+  <view class="popup-demo">
+    <wd-button @click="show = true">底部弹出</wd-button>
+    <wd-popup v-model="show" position="bottom" closable>
+      <view class="popup-content bottom-popup">
+        <view class="popup-title">底部弹出层</view>
+        <view class="popup-text">这是一个从底部弹出的弹出层</view>
       </view>
     </wd-popup>
   </view>
@@ -148,59 +153,54 @@ import { ref } from 'vue'
 const show = ref(false)
 </script>
 
-<style lang="scss">
-.bottom-popup {
-  background-color: white;
-  border-radius: 16px 16px 0 0;
+<style scoped>
+.popup-demo {
   padding: 20px;
-  
-  .popup-item {
-    padding: 15px 0;
-    text-align: center;
-    font-size: 16px;
-    border-bottom: 1px solid #e4e7ed;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-  
-  .wd-button {
-    margin-top: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.bottom-popup {
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  padding: 30px 20px;
+}
+
+.popup-content {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-text {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
 }
 </style>
 ```
 
-### 3. 侧边栏
+### 3. 自定义动画
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button type="primary" @click="showLeft = true">左侧弹出</wd-button>
-    <wd-button type="primary" @click="showRight = true">右侧弹出</wd-button>
-    
-    <!-- 左侧侧边栏 -->
-    <wd-popup v-model="showLeft" position="left" :closable="true">
-      <view class="sidebar left-sidebar">
-        <view class="sidebar-title">左侧侧边栏</view>
-        <view class="sidebar-content">
-          <view class="sidebar-item">菜单项一</view>
-          <view class="sidebar-item">菜单项二</view>
-          <view class="sidebar-item">菜单项三</view>
-        </view>
-      </view>
-    </wd-popup>
-    
-    <!-- 右侧侧边栏 -->
-    <wd-popup v-model="showRight" position="right" :closable="true">
-      <view class="sidebar right-sidebar">
-        <view class="sidebar-title">右侧侧边栏</view>
-        <view class="sidebar-content">
-          <view class="sidebar-item">菜单项一</view>
-          <view class="sidebar-item">菜单项二</view>
-          <view class="sidebar-item">菜单项三</view>
-        </view>
+  <view class="popup-demo">
+    <wd-button @click="show = true">自定义动画</wd-button>
+    <wd-popup v-model="show" position="center" transition="zoom-in">
+      <view class="popup-content">
+        <view class="popup-title">缩放动画</view>
+        <view class="popup-text">这是一个使用缩放动画的弹出层</view>
+        <wd-button size="small" @click="show = false">关闭</wd-button>
       </view>
     </wd-popup>
   </view>
@@ -209,267 +209,165 @@ const show = ref(false)
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const showLeft = ref(false)
-const showRight = ref(false)
+const show = ref(false)
+</script>
+```
+
+### 4. 无遮罩模式
+
+```vue
+<template>
+  <view class="popup-demo">
+    <wd-button @click="show = true">无遮罩模式</wd-button>
+    <wd-popup v-model="show" position="right" modal="false">
+      <view class="popup-content right-popup">
+        <view class="popup-title">侧边栏</view>
+        <view class="popup-text">这是一个没有遮罩的侧边栏</view>
+        <wd-button size="small" @click="show = false">关闭</wd-button>
+      </view>
+    </wd-popup>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const show = ref(false)
 </script>
 
-<style lang="scss">
-.sidebar {
+<style scoped>
+.popup-demo {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.right-popup {
   width: 250px;
   height: 100%;
-  background-color: white;
-  padding: 20px;
-  
-  .sidebar-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .sidebar-content {
-    .sidebar-item {
-      padding: 15px 0;
-      font-size: 16px;
-      border-bottom: 1px solid #e4e7ed;
-      
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-}
-</style>
-```
-
-### 4. 自定义动画和遮罩
-
-```vue
-<template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示自定义弹出层</wd-button>
-    
-    <wd-popup 
-      v-model="show" 
-      position="center" 
-      transition="zoom-in" 
-      :modal-style="{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }"
-      :closable="true"
-    >
-      <view class="custom-popup">
-        <view class="popup-title">自定义弹出层</view>
-        <view class="popup-text">这是一个使用了自定义动画和遮罩样式的弹出层</view>
-        <wd-button type="primary" size="small" @click="show = false">确定</wd-button>
-      </view>
-    </wd-popup>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-</script>
-
-<style lang="scss">
-.custom-popup {
-  width: 300px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 12px;
-  text-align: center;
-  
-  .popup-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .popup-text {
-    font-size: 14px;
-    color: #606266;
-    margin-bottom: 20px;
-  }
-}
-</style>
-```
-
-### 5. 顶部弹出通知
-
-```vue
-<template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示顶部通知</wd-button>
-    
-    <wd-popup v-model="show" position="top" :modal="false" :duration="200">
-      <view class="top-notification">
-        <wd-icon name="success-circle" color="#67C23A" />
-        <text class="notification-text">操作成功</text>
-      </view>
-    </wd-popup>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-</script>
-
-<style lang="scss">
-.top-notification {
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 12px 20px;
+  border-radius: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  
-  .notification-text {
-    margin-left: 8px;
-    font-size: 14px;
-    color: #303133;
-  }
+  gap: 20px;
+  padding: 20px;
+}
+
+.popup-content {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-text {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
 }
 </style>
+```
+
+### 5. 底部安全距离适配
+
+```vue
+<template>
+  <view class="popup-demo">
+    <wd-button @click="show = true">底部安全距离</wd-button>
+    <wd-popup v-model="show" position="bottom" safe-area-inset-bottom>
+      <view class="popup-content bottom-popup">
+        <view class="popup-title">底部安全距离</view>
+        <view class="popup-text">这是一个适配底部安全距离的弹出层</view>
+        <wd-button size="small" @click="show = false">关闭</wd-button>
+      </view>
+    </wd-popup>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const show = ref(false)
+</script>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customClass 和 customStyle
+### customStyle 用法
+使用 customStyle 属性可以自定义弹出层的内联样式。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示</wd-button>
-    
-    <wd-popup 
-      v-model="show" 
-      custom-class="my-popup"
-      :custom-style="{ backgroundColor: '#f5f7fa', border: '1px solid #e4e7ed' }"
-    >
-      <view class="popup-content">
-        <view class="popup-title">自定义样式</view>
-        <view class="popup-text">这是一个使用了自定义样式的弹出层</view>
-        <wd-button type="primary" size="small" @click="show = false">确定</wd-button>
-      </view>
-    </wd-popup>
-  </view>
-</template>
+<wd-popup 
+  v-model="show" 
+  position="center"
+  custom-style="width: 80%; max-width: 400px;"
+>
+  <!-- 内容 -->
+</wd-popup>
+```
 
-<style lang="scss">
-.my-popup {
-  // 自定义类样式
-  .wd-popup__close {
-    color: #f56c6c;
-    font-size: 20px;
-  }
+### customClass 用法
+使用 customClass 属性可以为弹出层添加自定义样式类。
+
+```vue
+<wd-popup 
+  v-model="show" 
+  position="center"
+  custom-class="my-popup"
+>
+  <!-- 内容 -->
+</wd-popup>
+
+<style scoped>
+:deep(.my-popup) {
+  --wd-popup-bg-color: #f0f9ff;
+  --wd-popup-border-radius: 12px;
+  --wd-popup-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 </style>
 ```
 
-### 2. 自定义遮罩样式
+### 遮罩样式定制
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示</wd-button>
-    
-    <wd-popup 
-      v-model="show" 
-      :modal-style="{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }"
-    >
-      <view class="popup-content">
-        <view class="popup-title">自定义遮罩</view>
-        <view class="popup-text">这是一个使用了自定义遮罩样式的弹出层</view>
-        <wd-button type="primary" size="small" @click="show = false">确定</wd-button>
-      </view>
-    </wd-popup>
-  </view>
-</template>
-```
-
-### 3. 自定义弹出层位置和尺寸
-
-```vue
-<template>
-  <view class="demo">
-    <wd-button type="primary" @click="show = true">点击显示</wd-button>
-    
-    <wd-popup v-model="show" position="center">
-      <view class="custom-position-popup">
-        <view class="popup-title">自定义位置和尺寸</view>
-        <view class="popup-text">这是一个使用了自定义位置和尺寸的弹出层</view>
-        <wd-button type="primary" size="small" @click="show = false">确定</wd-button>
-      </view>
-    </wd-popup>
-  </view>
-</template>
-
-<style lang="scss">
-.custom-position-popup {
-  width: 80%;
-  max-width: 400px;
-  padding: 30px;
-  background-color: white;
-  border-radius: 16px;
-  text-align: center;
-  
-  .popup-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .popup-text {
-    font-size: 16px;
-    color: #606266;
-    margin-bottom: 25px;
-  }
-}
-</style>
+<wd-popup 
+  v-model="show" 
+  position="center"
+  modal-style="background-color: rgba(0, 0, 0, 0.3);"
+>
+  <!-- 内容 -->
+</wd-popup>
 ```
 
 ## 注意事项
 
-1. **弹出位置**：
-   - 支持 5 种弹出位置（居中、顶部、底部、左侧、右侧）
-   - 不同位置对应不同的默认动画效果
+1. **position 属性**：position 决定了弹出层的显示位置，支持 center、top、right、bottom、left 五种位置。
 
-2. **动画效果**：
-   - 可以通过 transition 属性自定义动画类型
-   - 支持多种预定义动画效果
+2. **transition 属性**：transition 决定了弹出层的动画效果，支持多种过渡动画类型。
 
-3. **性能优化**：
-   - 开启 lazyRender 属性可以实现懒渲染，提高初始加载性能
-   - 频繁显示/隐藏的弹出层，建议使用 v-if 而非 v-show
+3. **modal 属性**：modal 控制是否显示遮罩，当 modal 为 false 时，点击弹出层外部不会关闭弹出层。
 
-4. **跨平台兼容**：
-   - 组件在不同平台上的表现可能略有差异
-   - 特别是在定位和动画效果方面
+4. **closeOnClickModal 属性**：closeOnClickModal 控制点击遮罩是否关闭弹出层，当 closeOnClickModal 为 false 时，点击遮罩不会关闭弹出层。
 
-5. **关闭机制**：
-   - 点击遮罩可以关闭弹出层（可通过 closeOnClickModal 属性控制）
-   - 可以通过 closable 属性显示关闭按钮
-   - 支持通过 close 方法手动关闭
+5. **rootPortal 属性**：rootPortal 用于解决弹出层在某些场景下 fixed 定位失效的问题，支持 H5、APP 和小程序。
 
-6. **底部安全区域**：
-   - 在 iPhone X 等机型上，建议设置 safeAreaInsetBottom 为 true
-   - 确保弹出层内容不会被底部安全区域遮挡
+6. **safeAreaInsetBottom 属性**：safeAreaInsetBottom 用于适配 iPhone X 等机型的底部安全距离，当 safeAreaInsetBottom 为 true 时，弹出层底部会自动添加安全距离。
 
-7. **滚动锁定**：
-   - 默认情况下会锁定背景滚动
-   - 可以通过 lockScroll 属性控制
+7. **lazyRender 属性**：lazyRender 用于控制弹出层内容的渲染时机，当 lazyRender 为 true 时，只有在弹出层显示时才会渲染内容。
 
-8. **rootPortal 属性**：
-   - 用于解决 fixed 定位在某些场景下失效的问题
-   - 在不同平台上有不同的实现方式
+8. **lockScroll 属性**：lockScroll 用于控制是否锁定页面滚动，当 lockScroll 为 true 时，弹出层显示时会阻止页面滚动。
 
-9. **过渡动画事件**：
-   - 提供了完整的过渡动画事件，可以用于实现复杂的交互效果
-   - 包括 before-enter、enter、after-enter、before-leave、leave 和 after-leave
+9. **过渡事件**：组件提供了丰富的过渡事件，包括 before-enter、enter、after-enter、before-leave、leave、after-leave，可以用于在过渡过程中执行自定义逻辑。
 
-10. **遮罩样式**：
-    - 可以通过 modalStyle 属性自定义遮罩样式
-    - 支持设置背景色、透明度等
+10. **性能优化**：对于复杂的弹出层内容，建议使用 lazyRender 属性，避免不必要的渲染开销。
+
+11. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在根节点脱离文档流和过渡动画方面。

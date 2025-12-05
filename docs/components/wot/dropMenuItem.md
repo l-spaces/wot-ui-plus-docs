@@ -1,646 +1,337 @@
-# wd-drop-menu-item
+# DropMenuItem 下拉菜单项
 
-## 组件概述
+## 组件概况
 
-wd-drop-menu-item是下拉菜单的子组件，与`wd-drop-menu`配合使用，用于实现单个菜单项的下拉选择功能。该组件提供了灵活的配置选项，支持自定义内容、样式、图标等，能够适应各种复杂的业务场景。
+### 组件概述
+DropMenuItem 是下拉菜单组件（DropMenu）的子组件，用于定义单个下拉菜单项的内容和行为。它支持自定义选项列表、选中状态、禁用状态以及自定义内容，是构建复杂下拉菜单的核心组件。
 
-### 功能描述
-- 支持自定义菜单项内容和样式
+### 详细功能描述
+- 支持自定义选项列表，格式为数组，每个选项可包含label、value、tip等属性
+- 支持双向绑定选中值
 - 支持禁用状态
-- 支持自定义图标和选中状态
-- 支持选项数据动态加载
-- 支持自定义弹出层样式和高度
-- 支持从页面中脱离，解决fixed失效问题
+- 支持自定义选中图标
+- 支持自定义菜单标题和图标
+- 支持自定义菜单图标大小
+- 支持自定义点击事件钩子函数
+- 支持自定义选项对象的key映射
+- 支持自定义弹出层样式和类名
+- 支持自定义弹出层高度
+- 支持从页面中脱离出来，解决fixed失效问题
 
 ### 适用业务场景
-- 商品分类筛选
-- 数据排序选择
-- 状态筛选
-- 地区选择
-- 任何需要下拉菜单选择的场景
+- 页面顶部筛选栏的单个筛选项
+- 数据列表的排序选项
+- 导航菜单的下拉选项
+- 表单中的下拉选择器选项
+- 自定义内容的下拉菜单
 
-## API参考
+## 完整API参考
 
 ### Props
-
 | 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| modelValue | String / Number | - | 否 | 当前选中项对应选中的value |
-| options | Array<Record<string, any>> | [] | 否 | 列表数据，对应数据结构 [{label: '标题', value: '0', tip: '提示文字'}] |
-| disabled | Boolean | false | 否 | 禁用菜单 |
-| iconName | String | 'check' | 否 | 选中的图标名称(可选名称在wd-icon组件中) |
-| title | String | - | 否 | 菜单标题 |
-| icon | String | 'arrow-down' | 否 | 菜单图标 |
-| iconSize | Number | - | 否 | 菜单图标大小 |
-| beforeToggle | Function | - | 否 | 自定义点击事件，接收(status, resolve)参数，resolve(true)允许打开/关闭，resolve(false)禁止打开/关闭 |
-| valueKey | String | 'value' | 否 | 选项对象中，value对应的key |
-| labelKey | String | 'label' | 否 | 选项对象中，展示的文本对应的key |
-| tipKey | String | 'tip' | 否 | 选项对象中，选项说明对应的key |
-| popupHeight | String | '' | 否 | 弹出层高度，设置后取该值 |
-| rootPortal | Boolean | false | 否 | 是否从页面中脱离出来，用于解决各种fixed失效问题 |
-| customTitle | String | '' | 否 | DropMenuItem左侧文字样式 |
-| customIcon | String | '' | 否 | DropMenuItem右侧icon样式 |
-| customPopupClass | String | '' | 否 | 自定义下拉菜单popup样式类 |
-| customPopupStyle | String | '' | 否 | 自定义下拉菜单popup样式 |
-| customClass | String | - | 否 | 自定义类名 |
-| customStyle | Object | - | 否 | 自定义样式 |
+| modelValue | string / number | - | 否 | 当前选中项对应选中的 value |
+| options | array | [] | 否 | 列表数据，对应数据结构 [{label: '标题', value: '0', tip: '提示文字'}] |
+| disabled | boolean | false | 否 | 禁用菜单 |
+| iconName | string | check | 选中的图标名称(可选名称在 wd-icon 组件中) |
+| title | string | - | 否 | 菜单标题 |
+| icon | string | arrow-down | 菜单图标 |
+| iconSize | string / number | - | 否 | 菜单图标大小 |
+| beforeToggle | function | - | 否 | 自定义点击事件，回调函数参数包含status和resolve，resolve(true)允许操作，resolve(false)禁止操作 |
+| valueKey | string | value | 否 | 选项对象中，value 对应的 key |
+| labelKey | string | label | 否 | 选项对象中，展示的文本对应的 key |
+| tipKey | string | tip | 否 | 选项对象中，选项说明对应的 key |
+| customPopupClass | string | '' | 否 | 自定义下拉菜单popup样式类 |
+| customPopupStyle | string | '' | 否 | 自定义下拉菜单popup样式 |
+| popupHeight | string | '' | 否 | 弹出层高度 |
+| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
+| customTitle | string | '' | 否 | DropMenuItem 左侧文字样式 |
+| customIcon | string | '' | 否 | DropMenuItem 右侧 icon 样式 |
 
 ### Events
-
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| open | 菜单打开前触发 | - |
-| opened | 菜单打开后触发 | - |
-| close | 菜单关闭前触发 | - |
-| closed | 菜单关闭后触发 | - |
-| update:modelValue | 选中值变化时触发 | value: 选中的value值 |
-| change | 选中值变化时触发 | event: { value: 选中的value值, selectedItem: 选中的选项对象 } |
+| update:modelValue | 选中值变化时触发 | value: string/number - 新的选中值 |
+| change | 选中值变化时触发 | { value: string/number, selectedItem: object } - 选中的值和对应的选项对象 |
+| open | 菜单打开时触发 | - |
+| opened | 菜单打开动画结束后触发 | - |
+| close | 菜单关闭时触发 | - |
+| closed | 菜单关闭动画结束后触发 | - |
 
 ### Methods
-
 | 方法名 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
 | open | - | - | 打开菜单 |
 | close | - | - | 关闭菜单 |
-| toggle | - | - | 切换菜单开关状态 |
-| getShowPop | - | Boolean | 获取菜单当前显示状态 |
+| toggle | - | - | 切换菜单的展开/收起状态 |
+| getShowPop | - | boolean | 获取菜单是否展开的状态 |
 
 ### Slots
-
 | 插槽名 | 作用域变量 | 使用说明 |
 | --- | --- | --- |
-| default | - | 自定义菜单项内容，当options为空时显示 |
+| default | - | 自定义菜单内容，当 options 为空时显示 |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
 ### 基础用法
-
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-drop-menu>
+      <!-- 基础下拉菜单项 -->
       <wd-drop-menu-item
-        v-model="selectedValue"
+        v-model="value"
         :options="options"
         title="选择项"
       />
     </wd-drop-menu>
-    <view class="content">
-      <text>当前选中：{{ selectedValue }}</text>
-    </view>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-// 选中值
-const selectedValue = ref('1')
+const value = ref('')
 
-// 选项数据
 const options = [
-  { label: '选项1', value: '0' },
-  { label: '选项2', value: '1' },
-  { label: '选项3', value: '2' },
-  { label: '选项4', value: '3' }
+  { label: '选项1', value: '1' },
+  { label: '选项2', value: '2' },
+  { label: '选项3', value: '3' }
 ]
 </script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-
-.content {
-  margin-top: 40rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
-}
-</style>
 ```
 
-### 自定义图标和样式
-
+### 带提示文字的选项
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-drop-menu>
+      <!-- 带提示文字的选项 -->
       <wd-drop-menu-item
-        v-model="selectedValue"
+        v-model="value"
         :options="options"
-        title="自定义图标"
-        icon-name="success"
-        icon="arrow-up"
-        icon-size="24"
-        custom-class="my-menu-item"
-        :custom-style="{ color: '#1989fa' }"
-      />
-    </wd-drop-menu>
-    <view class="content">
-      <text>当前选中：{{ selectedValue }}</text>
-    </view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 选中值
-const selectedValue = ref('1')
-
-// 选项数据
-const options = [
-  { label: '成功', value: '0' },
-  { label: '警告', value: '1' },
-  { label: '错误', value: '2' }
-]
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-
-.content {
-  margin-top: 40rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
-}
-
-/* 自定义菜单项样式 */
-:deep(.my-menu-item) {
-  font-weight: bold;
-}
-</style>
-```
-
-### 禁用状态和提示文字
-
-```vue
-<template>
-  <view class="container">
-    <wd-drop-menu>
-      <wd-drop-menu-item
-        v-model="selectedValue1"
-        :options="options1"
-        title="禁用示例"
-        :disabled="true"
-      />
-      <wd-drop-menu-item
-        v-model="selectedValue2"
-        :options="options2"
         title="带提示文字"
       />
     </wd-drop-menu>
-    <view class="content">
-      <text>禁用示例选中：{{ selectedValue1 }}</text>
-      <text>带提示文字选中：{{ selectedValue2 }}</text>
-    </view>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-// 禁用示例选中值
-const selectedValue1 = ref('0')
-const options1 = [
-  { label: '选项1', value: '0' },
-  { label: '选项2', value: '1' }
-]
+const value = ref('')
 
-// 带提示文字选中值
-const selectedValue2 = ref('1')
-const options2 = [
-  { label: '选项A', value: '0', tip: '提示文字A' },
-  { label: '选项B', value: '1', tip: '提示文字B' },
-  { label: '选项C', value: '2', tip: '提示文字C' }
+const options = [
+  { label: '选项1', value: '1', tip: '提示文字1' },
+  { label: '选项2', value: '2', tip: '提示文字2' },
+  { label: '选项3', value: '3', tip: '提示文字3' }
+]
+</script>
+```
+
+### 自定义图标和样式
+```vue
+<template>
+  <view>
+    <wd-drop-menu>
+      <!-- 自定义图标和样式 -->
+      <wd-drop-menu-item
+        v-model="value"
+        :options="options"
+        title="自定义图标"
+        icon="arrow-up"
+        icon-size="20"
+        icon-name="success"
+        custom-class="custom-menu-item"
+      />
+    </wd-drop-menu>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const value = ref('')
+
+const options = [
+  { label: '选项1', value: '1' },
+  { label: '选项2', value: '2' },
+  { label: '选项3', value: '3' }
 ]
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.custom-menu-item {
+  --wot-drop-menu-item-title-color: #333;
+  --wot-drop-menu-item-active-color: #1989fa;
+}
+</style>
+```
+
+### 自定义选项对象的key映射
+```vue
+<template>
+  <view>
+    <wd-drop-menu>
+      <!-- 自定义选项对象的key映射 -->
+      <wd-drop-menu-item
+        v-model="value"
+        :options="options"
+        title="自定义key映射"
+        value-key="id"
+        label-key="name"
+        tip-key="desc"
+      />
+    </wd-drop-menu>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const value = ref('')
+
+const options = [
+  { name: '选项1', id: '1', desc: '描述1' },
+  { name: '选项2', id: '2', desc: '描述2' },
+  { name: '选项3', id: '3', desc: '描述3' }
+]
+</script>
+```
+
+### 自定义内容
+```vue
+<template>
+  <view>
+    <wd-drop-menu>
+      <!-- 自定义内容 -->
+      <wd-drop-menu-item
+        v-model="value"
+        title="自定义内容"
+      >
+        <view class="custom-content">
+          <view class="custom-content-item" @click="select('custom1')">
+            <wd-icon name="star" /> 自定义选项1
+          </view>
+          <view class="custom-content-item" @click="select('custom2')">
+            <wd-icon name="heart" /> 自定义选项2
+          </view>
+          <view class="custom-content-item" @click="select('custom3')">
+            <wd-icon name="clock" /> 自定义选项3
+          </view>
+        </view>
+      </wd-drop-menu-item>
+    </wd-drop-menu>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const value = ref('')
+
+const select = (val: string) => {
+  value.value = val
+}
+</script>
+
+<style scoped>
+.custom-content {
+  padding: 10px;
 }
 
-.content {
-  margin-top: 40rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
+.custom-content-item {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.content text {
-  display: block;
-  margin-bottom: 10rpx;
+.custom-content-item:last-child {
+  border-bottom: none;
 }
 </style>
 ```
 
 ### 自定义弹出层样式和高度
-
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-drop-menu>
+      <!-- 自定义弹出层样式和高度 -->
       <wd-drop-menu-item
-        v-model="selectedValue"
-        :options="options"
+        v-model="value"
+        :options="longOptions"
         title="自定义弹出层"
-        popup-height="300rpx"
-        custom-popup-class="my-popup"
-        custom-popup-style="background-color: #f0f9ff; border-radius: 12rpx;"
+        popup-height="300px"
+        custom-popup-style="background-color: #f8f9fa; border-radius: 8px;"
+        custom-popup-class="custom-popup"
       />
     </wd-drop-menu>
-    <view class="content">
-      <text>当前选中：{{ selectedValue }}</text>
-    </view>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-// 选中值
-const selectedValue = ref('0')
+const value = ref('')
 
-// 生成大量选项数据
-const generateOptions = () => {
-  const options = []
-  for (let i = 0; i < 20; i++) {
-    options.push({
-      label: `选项${i + 1}`,
-      value: `${i}`
-    })
-  }
-  return options
-}
-
-const options = generateOptions()
+// 生成15个选项用于测试高度
+const longOptions = ref(
+  Array.from({ length: 15 }, (_, i) => ({
+    label: `选项${i + 1}`,
+    value: `${i + 1}`
+  }))
+)
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
-}
-
-.content {
-  margin-top: 40rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
-}
-
-/* 自定义弹出层样式 */
-:deep(.my-popup) {
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
-}
-
-/* 自定义选项样式 */
-:deep(.my-popup .wd-drop-item__option) {
-  padding: 24rpx 32rpx;
-  border-bottom: 1px solid #e6f7ff;
-}
-
-:deep(.my-popup .wd-drop-item__option:last-child) {
-  border-bottom: none;
-}
-
-/* 自定义选中状态 */
-:deep(.my-popup .wd-drop-item__option.is-active) {
-  background-color: #ecf5ff;
-  color: #1989fa;
-}
-</style>
-```
-
-### 自定义菜单项内容
-
-```vue
-<template>
-  <view class="container">
-    <wd-drop-menu>
-      <wd-drop-menu-item
-        v-model="selectedValue"
-        title="自定义内容"
-        ref="menuRef"
-      >
-        <view class="custom-content">
-          <view
-            v-for="item in customOptions"
-            :key="item.value"
-            @click="handleCustomSelect(item)"
-            :class="`custom-item ${selectedValue === item.value ? 'is-active' : ''}`"
-          >
-            <view class="custom-item__icon" :style="{ backgroundColor: item.color }"></view>
-            <view class="custom-item__info">
-              <text class="custom-item__label">{{ item.label }}</text>
-              <text class="custom-item__desc">{{ item.desc }}</text>
-            </view>
-            <wd-icon
-              v-if="selectedValue === item.value"
-              name="check"
-              custom-class="custom-item__check"
-            />
-          </view>
-        </view>
-      </wd-drop-menu-item>
-    </wd-drop-menu>
-    <view class="content">
-      <text>当前选中：{{ selectedValue }}</text>
-    </view>
-    <wd-button type="primary" @click="openMenu">手动打开菜单</wd-button>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 选中值
-const selectedValue = ref('0')
-
-// 菜单实例
-const menuRef = ref()
-
-// 自定义选项数据
-const customOptions = [
-  { 
-    label: '红色主题', 
-    value: '0', 
-    color: '#f56c6c',
-    desc: '热情活力的红色主题'
-  },
-  { 
-    label: '蓝色主题', 
-    value: '1', 
-    color: '#409eff',
-    desc: '冷静专业的蓝色主题'
-  },
-  { 
-    label: '绿色主题', 
-    value: '2', 
-    color: '#67c23a',
-    desc: '清新自然的绿色主题'
-  },
-  { 
-    label: '黄色主题', 
-    value: '3', 
-    color: '#e6a23c',
-    desc: '温暖明亮的黄色主题'
-  }
-]
-
-// 处理自定义选择
-const handleCustomSelect = (item: any) => {
-  selectedValue.value = item.value
-  menuRef.value.close()
-}
-
-// 手动打开菜单
-const openMenu = () => {
-  menuRef.value.open()
-}
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-
-.content {
-  margin-top: 40rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
-}
-
-/* 自定义内容样式 */
-.custom-content {
-  padding: 20rpx;
-}
-
-.custom-item {
-  display: flex;
-  align-items: center;
-  padding: 20rpx;
-  border-bottom: 1px solid #ebedf0;
-}
-
-.custom-item:last-child {
-  border-bottom: none;
-}
-
-.custom-item__icon {
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 50%;
-  margin-right: 20rpx;
-}
-
-.custom-item__info {
-  flex: 1;
-}
-
-.custom-item__label {
-  display: block;
-  font-size: 28rpx;
-  font-weight: bold;
-  margin-bottom: 8rpx;
-}
-
-.custom-item__desc {
-  display: block;
-  font-size: 24rpx;
-  color: #909399;
-}
-
-.custom-item__check {
-  color: #1989fa;
-}
-
-.custom-item.is-active {
-  background-color: #ecf5ff;
-  color: #1989fa;
-  border-radius: 8rpx;
+.custom-popup {
+  border: 1px solid #eee;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### 使用customClass定制样式
+### CSS变量
+组件支持以下CSS变量进行样式定制：
+- `--wot-drop-menu-item-title-color`: 菜单项标题颜色
+- `--wot-drop-menu-item-active-color`: 菜单项激活状态颜色
+- `--wot-drop-menu-item-disabled-color`: 菜单项禁用状态颜色
+- `--wot-drop-menu-item-option-background-color`: 选项背景色
+- `--wot-drop-menu-item-option-active-background-color`: 选项激活状态背景色
 
+### customStyle 和 customClass
+使用 `customStyle` 和 `customClass` 属性可以自定义组件的根节点样式：
 ```vue
-<template>
-  <view class="container">
-    <wd-drop-menu>
-      <wd-drop-menu-item
-        v-model="selectedValue"
-        :options="options"
-        title="自定义样式"
-        custom-class="my-menu-item"
-        custom-title="my-title"
-        custom-icon="my-icon"
-      />
-    </wd-drop-menu>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 选中值
-const selectedValue = ref('0')
-
-// 选项数据
-const options = [
-  { label: '选项1', value: '0' },
-  { label: '选项2', value: '1' },
-  { label: '选项3', value: '2' }
-]
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-
-/* 自定义菜单项样式 */
-:deep(.my-menu-item) {
-  background-color: #f0f9ff;
-  border-radius: 8rpx;
-  margin: 10rpx 0;
-}
-
-/* 自定义标题样式 */
-:deep(.my-title) {
-  font-weight: bold;
-  color: #1989fa;
-}
-
-/* 自定义图标样式 */
-:deep(.my-icon) {
-  font-size: 28rpx;
-  color: #67c23a;
-}
-</style>
+<wd-drop-menu-item 
+  custom-style="color: #333;"
+  custom-class="custom-menu-item"
+/>
 ```
 
-### 使用customStyle定制样式
-
+### 弹出层样式
+使用 `customPopupStyle` 和 `customPopupClass` 属性可以自定义弹出层的样式：
 ```vue
-<template>
-  <view class="container">
-    <wd-drop-menu>
-      <wd-drop-menu-item
-        v-model="selectedValue"
-        :options="options"
-        title="内联样式"
-        :custom-style="{ 
-          backgroundColor: '#fffbe6', 
-          border: '1px solid #ffeaa7',
-          borderRadius: '8rpx',
-          padding: '10rpx'
-        }"
-      />
-    </wd-drop-menu>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 选中值
-const selectedValue = ref('0')
-
-// 选项数据
-const options = [
-  { label: '警告选项1', value: '0' },
-  { label: '警告选项2', value: '1' },
-  { label: '警告选项3', value: '2' }
-]
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-</style>
-```
-
-### 自定义弹出层样式
-
-```vue
-<template>
-  <view class="container">
-    <wd-drop-menu>
-      <wd-drop-menu-item
-        v-model="selectedValue"
-        :options="options"
-        title="自定义弹出层"
-        custom-popup-class="my-popup"
-        custom-popup-style="background-color: #fafafa; border-radius: 12rpx; box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);"
-      />
-    </wd-drop-menu>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 选中值
-const selectedValue = ref('0')
-
-// 选项数据
-const options = Array.from({ length: 5 }, (_, i) => ({
-  label: `选项${i + 1}`,
-  value: `${i}`
-}))
-</script>
-
-<style scoped>
-.container {
-  padding: 20rpx;
-}
-
-/* 自定义弹出层选项样式 */
-:deep(.my-popup .wd-drop-item__option) {
-  padding: 24rpx 32rpx;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-:deep(.my-popup .wd-drop-item__option:last-child) {
-  border-bottom: none;
-}
-
-/* 自定义选中状态 */
-:deep(.my-popup .wd-drop-item__option.is-active) {
-  background-color: #ecf5ff;
-  color: #1989fa;
-}
-</style>
+<wd-drop-menu-item 
+  custom-popup-style="background-color: #f8f9fa; border-radius: 8px;"
+  custom-popup-class="custom-popup"
+/>
 ```
 
 ## 注意事项
 
-1. **组件依赖**：`wd-drop-menu-item` 必须作为 `wd-drop-menu` 的子组件使用，不支持单独使用。
-
-2. **数据格式**：`options` 属性必须是对象数组，每个对象必须包含 `label` 和 `value` 属性（或通过 `labelKey` 和 `valueKey` 指定）。
-
-3. **禁用状态**：设置 `disabled` 为 `true` 时，菜单项将无法点击和展开。
-
-4. **beforeToggle 钩子**：使用 `beforeToggle` 钩子时，必须调用 `resolve` 函数来允许或禁止菜单的打开/关闭，否则菜单将无法正常操作。
-
-5. **自定义内容**：当 `options` 为空时，可以使用默认插槽自定义菜单项内容，此时需要手动处理选中逻辑和关闭菜单。
-
-6. **性能优化**：当选项数据量较大时，建议限制 `popupHeight` 并使用虚拟滚动，避免一次性渲染大量数据影响性能。
-
-7. **底部安全距离**：在 iPhone X 等机型上，建议使用 `rootPortal` 属性来解决 fixed 定位失效问题。
-
-8. **事件触发**：`change` 事件会在选中值变化时触发，包含选中的 value 和选项对象。
-
-9. **样式隔离**：使用 `customClass` 定制样式时，需要使用 `:deep()` 或 `/deep/` 穿透样式隔离，才能生效。
-
-10. **方法调用**：可以通过 ref 获取组件实例，调用 `open()`、`close()`、`toggle()` 等方法手动控制菜单的显示和隐藏。
+1. **父子关系**: DropMenuItem 必须作为 DropMenu 的子组件使用，不能单独使用。
+2. **选项格式**: `options` 属性应为数组格式，每个选项可以是字符串或包含 label、value、tip 等属性的对象。
+3. **双向绑定**: 支持使用 `v-model` 双向绑定选中值。
+4. **禁用状态**: `disabled` 属性可禁用整个菜单项。
+5. **自定义内容**: 当 `options` 为空数组时，可以通过插槽自定义菜单内容。
+6. **beforeToggle**: 可以通过 `beforeToggle` 属性在菜单展开/收起前执行自定义逻辑，返回 `resolve(true)` 允许操作，`resolve(false)` 禁止操作。
+7. **key映射**: 当选项对象的key不是默认的 label、value、tip 时，可以通过 `labelKey`、`valueKey`、`tipKey` 属性自定义映射。
+8. **图标配置**: `icon` 属性控制菜单标题右侧的图标，`iconName` 属性控制选中项的图标。
+9. **rootPortal**: 当遇到 fixed 定位失效问题时，可以尝试设置 `rootPortal` 为 `true`。
+10. **性能优化**: 对于大量选项，建议设置 `popupHeight` 限制弹出层高度，避免渲染过多DOM节点。

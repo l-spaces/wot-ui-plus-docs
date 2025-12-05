@@ -1,212 +1,190 @@
 # Table 表格
 
-## 组件概述
+## 组件概况
 
-Table 是一个功能强大的数据展示组件，用于以表格形式展示结构化数据。它支持固定表头、列排序、斑马纹、索引列、固定列等多种功能，适用于各种数据展示场景。
+### 组件概述
+表格组件是用于展示结构化数据的重要UI组件，提供了丰富的功能和灵活的配置选项。wd-table组件支持固定表头、列排序、斑马纹、边框、索引列等多种特性，适用于各种数据展示场景。
 
-### 功能特点
-- 支持固定表头和列
-- 支持列排序功能
-- 支持斑马纹样式
-- 支持索引列
-- 支持文本溢出省略
-- 支持自定义空状态
-- 支持自定义列宽和行高
-- 支持边框显示控制
-- 支持响应式设计，内容可横向滚动
+### 详细功能描述
+- 支持固定表头，实现长表格滚动时表头固定
+- 支持列排序功能，可配置升序、降序和重置
+- 支持斑马纹表格样式，提高数据可读性
+- 支持表格边框配置
+- 支持显示/隐藏表头
+- 支持自动省略超出2行的文本
+- 支持显示索引列，可自定义索引列配置
+- 支持行高配置
+- 支持固定列功能
+- 支持自定义空数据显示文本
+- 支持自定义空数据区域高度
+- 支持自定义表格高度
 
-### 适用场景
+### 适用业务场景
 - 数据列表展示
-- 报表统计
-- 数据管理后台
-- 订单列表
-- 用户列表
-- 商品列表
+- 数据分析报表
+- 后台管理系统数据展示
+- 任何需要结构化数据展示的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| data | array | - | 是 | 显示的数据，数组中的每个对象代表一行数据 |
-| border | boolean | true | 否 | 是否显示表格边框 |
-| stripe | boolean | true | 否 | 是否显示斑马纹表格 |
-| height | number/string | - | 否 | 表格的高度，超出高度会显示纵向滚动条 |
-| rowHeight | number | 40 | 否 | 行高，单位为 px |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| data | Array<Record<string, any>> | - | 是 | 显示的数据 |
+| border | boolean | true | 否 | 是否带有边框 |
+| stripe | boolean | true | 否 | 是否为斑马纹表格 |
+| height | string / number | - | 否 | Table 的高度 |
+| rowHeight | number / string | 40 | 否 | 行高 |
 | showHeader | boolean | true | 否 | 是否显示表头 |
-| ellipsis | boolean | true | 否 | 是否超出 2 行隐藏，显示省略号 |
-| index | boolean/object | false | 否 | 是否显示索引列，可传入对象配置索引列属性 |
+| ellipsis | boolean | true | 否 | 是否超出2行隐藏 |
+| index | boolean / object | false | 否 | 是否显示索引列，支持对象配置 |
 | fixedHeader | boolean | true | 否 | 是否固定表头 |
-| emptyText | string | '暂无数据' | 否 | 空数据时显示的文本 |
-| emptyHeight | number/string | 100 | 否 | 空数据区域高度，单位为 px |
-| customClass | string | '' | 否 | 自定义类名，用于覆盖组件样式 |
-| customStyle | object | {} | 否 | 自定义样式，直接应用到组件根元素 |
+| emptyText | string | 暂无数据 | 否 | 空数据时显示的文本 |
+| emptyHeight | string / number | 100 | 否 | 空数据区域高度，单位为px |
+| customStyle | string / object | - | 否 | 自定义样式 |
+| customClass | string | - | 否 | 自定义类名 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| sort-method | 点击列排序按钮时触发 | column: TableColumn 对象，包含列信息和排序方向 |
-| row-click | 点击表格行时触发 | { rowIndex: number }，rowIndex 为点击行的索引 |
+|--------|----------|----------|
+| sort-method | 列排序状态变化时触发 | column: TableColumn - 包含列信息和排序方向 |
+| row-click | 行被点击时触发 | { rowIndex: number } - 点击行的索引 |
 
-### Methods
+### Methods方法
 
-该组件未对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 默认插槽，用于放置 `wd-table-col` 子组件 |
-| empty | - | 自定义空状态插槽，用于自定义无数据时的显示内容 |
+|--------|------------|----------|
+| default | - | 用于放置 TableCol 组件 |
+| empty | - | 自定义空数据显示内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
   <wd-table :data="tableData">
-    <wd-table-col prop="name" label="姓名" width="200" />
-    <wd-table-col prop="age" label="年龄" width="100" align="center" />
-    <wd-table-col prop="gender" label="性别" width="100" align="center" />
-    <wd-table-col prop="email" label="邮箱" width="300" />
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
   </wd-table>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
+// 模拟表格数据
 const tableData = ref([
-  { name: '张三', age: 25, gender: '男', email: 'zhangsan@example.com' },
-  { name: '李四', age: 30, gender: '女', email: 'lisi@example.com' },
-  { name: '王五', age: 28, gender: '男', email: 'wangwu@example.com' },
-  { name: '赵六', age: 35, gender: '女', email: 'zhaoliu@example.com' }
+  { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+  { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' },
+  { name: '王五', age: 28, gender: '男', address: '广州市天河区' },
+  { name: '赵六', age: 35, gender: '女', address: '深圳市南山区' },
+  { name: '孙七', age: 22, gender: '男', address: '杭州市西湖区' }
 ])
 </script>
 ```
 
-### 带排序功能
-
+### 2. 带排序功能的表格
 ```vue
 <template>
   <wd-table :data="tableData" @sort-method="handleSort">
-    <wd-table-col prop="name" label="姓名" width="200" />
-    <wd-table-col prop="age" label="年龄" width="100" align="center" sortable />
-    <wd-table-col prop="gender" label="性别" width="100" align="center" />
-    <wd-table-col prop="email" label="邮箱" width="300" />
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100" sortable></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
   </wd-table>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import type { TableColumn } from '@/uni_modules/wot-ui-plus/components/wd-table-col/types'
 
+// 模拟表格数据
 const tableData = ref([
-  { name: '张三', age: 25, gender: '男', email: 'zhangsan@example.com' },
-  { name: '李四', age: 30, gender: '女', email: 'lisi@example.com' },
-  { name: '王五', age: 28, gender: '男', email: 'wangwu@example.com' },
-  { name: '赵六', age: 35, gender: '女', email: 'zhaoliu@example.com' }
+  { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+  { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' },
+  { name: '王五', age: 28, gender: '男', address: '广州市天河区' },
+  { name: '赵六', age: 35, gender: '女', address: '深圳市南山区' },
+  { name: '孙七', age: 22, gender: '男', address: '杭州市西湖区' }
 ])
 
-const handleSort = (column: any) => {
-  console.log('排序字段:', column.prop, '排序方向:', column.sortDirection)
-  // 根据排序字段和方向处理数据
+// 处理排序事件
+const handleSort = (column: TableColumn) => {
+  console.log('Sort column:', column.prop, 'Direction:', column.sortDirection)
+  // 根据排序条件处理数据
+  if (column.sortDirection === 1) {
+    // 升序
+    tableData.value.sort((a, b) => a[column.prop] - b[column.prop])
+  } else if (column.sortDirection === -1) {
+    // 降序
+    tableData.value.sort((a, b) => b[column.prop] - a[column.prop])
+  }
 }
 </script>
 ```
 
-### 带索引列
-
+### 3. 带索引列的表格
 ```vue
 <template>
   <wd-table :data="tableData" :index="true">
-    <wd-table-col prop="name" label="姓名" width="200" />
-    <wd-table-col prop="age" label="年龄" width="100" align="center" />
-    <wd-table-col prop="gender" label="性别" width="100" align="center" />
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
   </wd-table>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
+// 模拟表格数据
 const tableData = ref([
-  { name: '张三', age: 25, gender: '男' },
-  { name: '李四', age: 30, gender: '女' },
-  { name: '王五', age: 28, gender: '男' }
+  { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+  { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' },
+  { name: '王五', age: 28, gender: '男', address: '广州市天河区' },
+  { name: '赵六', age: 35, gender: '女', address: '深圳市南山区' },
+  { name: '孙七', age: 22, gender: '男', address: '杭州市西湖区' }
 ])
 </script>
 ```
 
-### 自定义列内容
-
+### 4. 自定义索引列和空数据
 ```vue
 <template>
-  <wd-table :data="tableData">
-    <wd-table-col prop="name" label="姓名" width="200" />
-    <wd-table-col prop="status" label="状态" width="150" align="center">
-      <template #value="{ row }">
-        <wd-tag :type="row.status === 'active' ? 'success' : 'danger'">
-          {{ row.status === 'active' ? '激活' : '禁用' }}
-        </wd-tag>
-      </template>
-    </wd-table-col>
-    <wd-table-col label="操作" width="200" align="center">
-      <template #value="{ row }">
-        <wd-button size="small" type="primary" @click="handleEdit(row)">编辑</wd-button>
-        <wd-button size="small" type="danger" @click="handleDelete(row)">删除</wd-button>
-      </template>
-    </wd-table-col>
-  </wd-table>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const tableData = ref([
-  { name: '张三', status: 'active' },
-  { name: '李四', status: 'disabled' },
-  { name: '王五', status: 'active' }
-])
-
-const handleEdit = (row: any) => {
-  console.log('编辑:', row)
-}
-
-const handleDelete = (row: any) => {
-  console.log('删除:', row)
-}
-</script>
-```
-
-### 自定义空状态
-
-```vue
-<template>
-  <wd-table :data="emptyData">
-    <wd-table-col prop="name" label="姓名" width="200" />
-    <wd-table-col prop="age" label="年龄" width="100" align="center" />
+  <wd-table :data="emptyData" :index="{ label: '序号', width: '80rpx' }">
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
     <template #empty>
       <view class="custom-empty">
-        <image src="https://cdn.example.com/empty.png" style="width: 100rpx; height: 100rpx; margin-bottom: 20rpx;" />
-        <text style="color: #909399;">暂无数据，点击刷新</text>
-        <wd-button type="primary" size="small" style="margin-top: 20rpx;" @click="refreshData">刷新</wd-button>
+        <wd-icon name="network" size="60"></wd-icon>
+        <text class="empty-text">暂无数据，请稍后重试</text>
+        <wd-button type="primary" size="small" @click="loadData">重新加载</wd-button>
       </view>
     </template>
   </wd-table>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
+// 初始为空数据
 const emptyData = ref([])
 
-const refreshData = () => {
-  // 模拟刷新数据
+// 加载数据函数
+const loadData = () => {
+  // 模拟异步加载数据
   setTimeout(() => {
     emptyData.value = [
-      { name: '张三', age: 25 },
-      { name: '李四', age: 30 }
+      { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+      { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' }
     ]
   }, 1000)
 }
@@ -218,104 +196,123 @@ const refreshData = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 200rpx;
+  padding: 40rpx;
+}
+
+.empty-text {
+  margin: 20rpx 0;
+  color: #969799;
 }
 </style>
 ```
 
-## 样式定制
-
-### 自定义类名
-
+### 5. 固定列和自定义行高
 ```vue
-<wd-table 
-  :data="tableData" 
-  custom-class="my-table" 
-  custom-style="{ borderRadius: '8rpx', overflow: 'hidden' }"
->
-  <!-- table columns -->
-</wd-table>
+<template>
+  <wd-table :data="tableData" :row-height="50">
+    <wd-table-col prop="name" label="姓名" width="150" fixed></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
+    <wd-table-col prop="phone" label="电话" width="200"></wd-table-col>
+    <wd-table-col prop="email" label="邮箱" width="250"></wd-table-col>
+    <wd-table-col prop="company" label="公司" width="200"></wd-table-col>
+    <wd-table-col prop="position" label="职位" width="200"></wd-table-col>
+  </wd-table>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 模拟大量数据
+const tableData = ref(
+  Array.from({ length: 20 }, (_, i) => ({
+    name: `用户${i + 1}`,
+    age: 20 + Math.floor(Math.random() * 30),
+    gender: Math.random() > 0.5 ? '男' : '女',
+    address: `北京市朝阳区街道${i + 1}号`,
+    phone: `1380013800${i % 10}`,
+    email: `user${i + 1}@example.com`,
+    company: `公司${i + 1}`,
+    position: `职位${i + 1}`
+  }))
+)
+</script>
 ```
 
-### CSS 变量
+## 样式定制指南
 
-组件支持以下 CSS 变量进行样式定制：
+### customStyle 用法
+```vue
+<template>
+  <wd-table 
+    :data="tableData" 
+    :custom-style="{ backgroundColor: '#f5f7fa', borderRadius: '8px' }"
+  >
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
+  </wd-table>
+</template>
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --table-background-color | #ffffff | 表格背景色 |
-| --table-border-color | #ebedf0 | 表格边框颜色 |
-| --table-header-background-color | #fafafa | 表头背景色 |
-| --table-header-text-color | #323233 | 表头文字颜色 |
-| --table-body-text-color | #646566 | 表格内容文字颜色 |
-| --table-stripe-background-color | #fafafa | 斑马纹背景色 |
-| --table-cell-padding | 12rpx 16rpx | 单元格内边距 |
-| --table-cell-font-size | 28rpx | 单元格字体大小 |
-| --table-header-font-weight | 500 | 表头字体粗细 |
-| --table-empty-text-color | #909399 | 空状态文字颜色 |
-| --table-shadow-color | rgba(0, 0, 0, 0.1) | 固定列阴影颜色 |
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const tableData = ref([
+  { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+  { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' }
+])
+</script>
+```
+
+### customClass 用法
+```vue
+<template>
+  <wd-table :data="tableData" custom-class="my-table">
+    <wd-table-col prop="name" label="姓名" width="150"></wd-table-col>
+    <wd-table-col prop="age" label="年龄" width="100"></wd-table-col>
+    <wd-table-col prop="gender" label="性别" width="100"></wd-table-col>
+    <wd-table-col prop="address" label="地址" width="300"></wd-table-col>
+  </wd-table>
+</template>
+
+<style lang="scss">
+.my-table {
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .wd-table__cell {
+    font-size: 28rpx;
+    
+    &.is-header {
+      background-color: #eef2f7;
+      font-weight: bold;
+    }
+  }
+}
+</style>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const tableData = ref([
+  { name: '张三', age: 25, gender: '男', address: '北京市朝阳区' },
+  { name: '李四', age: 30, gender: '女', address: '上海市浦东新区' }
+])
+</script>
+```
 
 ## 注意事项
 
-1. **父子组件关系**：
-   - `wd-table` 必须与 `wd-table-col` 配合使用
-   - `wd-table-col` 必须作为 `wd-table` 的直接子组件
-
-2. **数据格式**：
-   - `data` 属性必须是数组格式，每个元素是一个对象
-   - 对象的属性名应与 `wd-table-col` 的 `prop` 属性对应
-
-3. **性能优化**：
-   - 对于大量数据（超过 100 行），建议启用 `fixedHeader` 以提高滚动性能
-   - 可以通过 `height` 属性限制表格高度，避免一次性渲染过多行
-   - 避免在表格列中放置过多复杂组件，影响渲染性能
-
-4. **固定列注意事项**：
-   - 固定列会增加渲染复杂度，建议只固定必要的列
-   - 固定列的宽度应明确指定，避免自适应宽度
-
-5. **排序功能**：
-   - 排序功能需要配合 `sort-method` 事件使用，组件本身不处理数据排序
-   - 可以通过 `sort-method` 事件获取排序字段和方向，然后自行处理数据排序
-
-6. **自定义内容**：
-   - 可以通过 `wd-table-col` 的 `value` 插槽自定义列内容
-   - 自定义内容中可以访问行数据 `row` 和行索引 `index`
-
-7. **空状态**：
-   - 可以通过 `emptyText` 属性自定义空状态文本
-   - 也可以通过 `empty` 插槽完全自定义空状态内容
-
-### 状态流转
-- 初始状态：根据 props 初始化表格状态
-- 数据更新：监听 `data` 属性变化，重新渲染表格内容
-- 滚动事件：同步表头和内容的滚动位置
-- 排序事件：更新排序状态，触发 `sort-method` 事件
-- 点击事件：处理行点击，触发 `row-click` 事件
-
-## 与 wd-table-col 的关系
-
-`wd-table` 组件与 `wd-table-col` 组件是紧密集成的关系：
-
-1. **依赖关系**：`wd-table` 必须包含一个或多个 `wd-table-col` 子组件
-2. **通信方式**：通过 Vue 的 provide/inject API 进行通信
-3. **状态管理**：表格状态由 `wd-table` 统一管理，子组件根据状态更新自身样式
-4. **布局计算**：`wd-table` 根据子组件的宽度计算表格总宽度
-5. **事件处理**：子组件的事件通过父组件 `wd-table` 统一处理
-
-## 常见问题
-
-### Q: 为什么表格没有显示数据？
-A: 请检查 `data` 属性是否为数组格式，以及 `wd-table-col` 的 `prop` 属性是否与数据对象的属性名匹配。
-
-### Q: 如何自定义表格行高？
-A: 可以通过 `rowHeight` 属性设置行高，单位为 px。
-
-### Q: 如何实现表格数据的排序？
-A: 可以通过 `wd-table-col` 的 `sortable` 属性启用排序，然后监听 `wd-table` 的 `sort-method` 事件，在事件处理函数中自行处理数据排序。
-
-### Q: 如何固定某一列？
-A: 可以通过 `wd-table-col` 的 `fixed` 属性固定列，设置为 `true` 即可。
-
-### Q: 如何自定义表格的空状态？
-A: 可以通过 `emptyText` 属性自定义空状态文本，或通过 `empty` 插槽完全自定义空状态内容。
+1. 当表格数据量较大时，建议设置固定的`height`和`rowHeight`属性，以提高渲染性能
+2. 列宽度`width`属性建议使用数字或带单位的字符串，如`100`或`100px`
+3. 使用`sortable`属性时，需监听`sort-method`事件来自行处理数据排序
+4. 固定列功能在移动端可能影响性能，建议谨慎使用
+5. 当使用自定义索引列时，可通过`index`属性配置索引列的宽度、标题等
+6. 表格数据`data`属性应是一个数组对象，每个对象代表一行数据
+7. 空数据插槽`empty`可用于自定义空数据时的显示内容
+8. 表格组件内部使用了`scroll-view`组件，在某些场景下可能与页面其他滚动区域产生冲突
+9. 建议为每个`wd-table-col`组件提供唯一的`prop`属性
+10. 当表格高度超过容器高度时，表格内容会自动滚动

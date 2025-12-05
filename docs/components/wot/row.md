@@ -1,223 +1,281 @@
-# wd-row 行布局组件
+# Row
 
-## 组件概述
+## 组件概况
 
-wd-row 是一个行布局组件，用于创建行布局，通常与 wd-col 组件配合使用，实现灵活的栅格布局。组件基于 Vue 3 + TypeScript + UniApp 开发，支持跨平台使用。
+### 组件概述
+Row组件是一个栅格布局的行容器组件，用于配合Col组件实现响应式栅格系统。它提供了列间距控制和自动换行功能，帮助开发者快速构建灵活的网格布局。
 
-### 功能特点
-
-- 支持设置列间距
-- 支持自动换行
-- 与 wd-col 组件配合使用，实现栅格布局
+### 详细功能描述
+- 支持设置列之间的间距（gutter）
+- 支持自动换行（wrap）
+- 配合Col组件实现完整的栅格布局系统
 - 支持自定义样式和类名
-- 跨平台兼容（H5、小程序、App）
+- 响应式设计，适配不同屏幕尺寸
+- 支持多端适配
 
-### 适用场景
-
+### 适用业务场景
+- 页面布局设计
 - 表单布局
-- 卡片布局
-- 列表布局
-- 响应式布局
-- 任何需要行布局的场景
+- 卡片网格展示
+- 响应式导航栏
+- 商品列表展示
+- 复杂数据表格布局
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 参数 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| gutter | number | 0 | 否 | 列元素之间的间距（单位为px） |
+| gutter | number | 0 | 否 | 列元素之间的间距（单位为px），必须大于等于0 |
 | wrap | boolean | false | 否 | 是否自动换行 |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| customClass | string | - | 否 | 自定义类名 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
 
 ### Events
-
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+无
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+无
 
 ### Slots
+| 插槽名 | 作用域变量 | 说明 |
+|--------|------------|------|
+| default | - | 默认插槽，用于放置wd-col组件 |
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
-| default | - | 放置 wd-col 组件或其他内容 |
+## 多场景使用示例
 
-## 使用示例
-
-### 1. 基础用法
-
+### 基础用法
 ```vue
 <template>
-  <view class="demo">
+  <view>
     <wd-row>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
+      <wd-col span="12">
+        <view class="demo-col">span: 12</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
+      <wd-col span="12">
+        <view class="demo-col">span: 12</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
 
-<style lang="scss">
-.col-content {
-  height: 100px;
-  background-color: #4D80F0;
+<style scoped>
+.demo-col {
+  background-color: #409eff;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 设置列间距
+```vue
+<template>
+  <view>
+    <wd-row :gutter="20">
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<style scoped>
+.demo-col {
+  background-color: #67c23a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 自动换行
+```vue
+<template>
+  <view>
+    <wd-row :gutter="10" wrap>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-col">span: 8</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<style scoped>
+.demo-col {
+  background-color: #e6a23c;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 响应式布局
+```vue
+<template>
+  <view>
+    <wd-row :gutter="15" wrap>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
+        <view class="demo-col">响应式列</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<style scoped>
+.demo-col {
+  background-color: #f56c6c;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 嵌套行布局
+```vue
+<template>
+  <view>
+    <wd-row :gutter="10">
+      <wd-col span="12">
+        <view class="demo-col">
+          <wd-row :gutter="5" wrap>
+            <wd-col span="12">
+              <view class="demo-col demo-col-small">嵌套列 1</view>
+            </wd-col>
+            <wd-col span="12">
+              <view class="demo-col demo-col-small">嵌套列 2</view>
+            </wd-col>
+            <wd-col span="12">
+              <view class="demo-col demo-col-small">嵌套列 3</view>
+            </wd-col>
+            <wd-col span="12">
+              <view class="demo-col demo-col-small">嵌套列 4</view>
+            </wd-col>
+          </wd-row>
+        </view>
+      </wd-col>
+      <wd-col span="12">
+        <view class="demo-col">span: 12</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<style scoped>
+.demo-col {
+  background-color: #909399;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.demo-col-small {
+  padding: 10px;
+  margin: 5px 0;
+}
+</style>
+```
+
+## 样式定制指南
+
+### 自定义类名
+通过`customClass`属性可以为Row组件添加自定义类名，用于覆盖默认样式。
+
+```vue
+<wd-row custom-class="my-row">
+  <!-- 内容 -->
+</wd-row>
+
+<style>
+.my-row {
+  /* 自定义样式 */
+  background-color: #f0f2f5;
+  padding: 20px;
   border-radius: 8px;
 }
 </style>
 ```
 
-### 2. 设置列间距
+### 自定义样式对象
+通过`customStyle`属性可以直接设置组件的内联样式。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-row :gutter="20">
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-```
-
-### 3. 自动换行
-
-```vue
-<template>
-  <view class="demo">
-    <wd-row :gutter="20" :wrap="true">
-      <wd-col :span="12">
-        <view class="col-content">12</view>
-      </wd-col>
-      <wd-col :span="12">
-        <view class="col-content">12</view>
-      </wd-col>
-      <wd-col :span="12">
-        <view class="col-content">12</view>
-      </wd-col>
-      <wd-col :span="12">
-        <view class="col-content">12</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-```
-
-### 4. 复杂布局
-
-```vue
-<template>
-  <view class="demo">
-    <wd-row :gutter="20">
-      <wd-col :span="24">
-        <view class="col-content">24</view>
-      </wd-col>
-    </wd-row>
-    <wd-row :gutter="20" :wrap="true">
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="16">
-        <view class="col-content">16</view>
-      </wd-col>
-    </wd-row>
-    <wd-row :gutter="20">
-      <wd-col :span="6">
-        <view class="col-content">6</view>
-      </wd-col>
-      <wd-col :span="6">
-        <view class="col-content">6</view>
-      </wd-col>
-      <wd-col :span="6">
-        <view class="col-content">6</view>
-      </wd-col>
-      <wd-col :span="6">
-        <view class="col-content">6</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-```
-
-## 样式定制指南
-
-### 1. 使用 customClass 和 customStyle
-
-```vue
-<template>
-  <view class="demo">
-    <wd-row 
-      custom-class="custom-row" 
-      :custom-style="{ backgroundColor: '#f5f7fa', padding: '20px', borderRadius: '8px' }"
-    >
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="col-content">8</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-
-<style lang="scss">
-.custom-row {
-  // 自定义类样式
-  margin-bottom: 20px;
-}
-</style>
+<wd-row :custom-style="{ backgroundColor: '#f0f2f5', padding: '20px', borderRadius: '8px' }">
+  <!-- 内容 -->
+</wd-row>
 ```
 
 ## 注意事项
 
-1. **组件关系**：
-   - wd-row 组件通常与 wd-col 组件配合使用
-   - wd-row 作为容器，wd-col 作为子元素
+1. **与Col组件配合使用**：Row组件必须与Col组件配合使用才能实现完整的栅格布局功能。
 
-2. **栅格系统**：
-   - 基于 24 栅格系统，每个 wd-col 的 span 属性总和不应超过 24
-   - 支持响应式布局，可通过不同屏幕尺寸设置不同的 span 值
+2. **gutter参数限制**：gutter参数必须大于等于0，否则会在控制台输出警告信息。
 
-3. **列间距**：
-   - gutter 属性用于设置列之间的间距
-   - gutter 属性值必须大于或等于 0
-   - 间距会均匀分布在列的左右两侧
+3. **响应式设计**：结合Col组件的xs、sm、md、lg、xl属性，可以实现不同屏幕尺寸下的响应式布局。
 
-4. **自动换行**：
-   - wrap 属性用于控制是否自动换行
-   - 当 wrap 为 false 时，超出 24 栅格的列会被压缩在同一行
-   - 当 wrap 为 true 时，超出 24 栅格的列会自动换行
+4. **嵌套布局**：Row组件支持嵌套使用，但建议不要嵌套过深，以免影响性能和代码可读性。
 
-5. **性能考虑**：
-   - 避免嵌套过深的栅格布局
-   - 对于固定布局，建议直接使用 CSS 布局，避免使用栅格系统
+5. **样式隔离**：Row组件使用了`styleIsolation: 'shared'`，允许外部样式穿透到组件内部。
 
-6. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 但在某些平台上，flex 布局的表现可能略有差异
+6. **虚拟主机模式**：组件开启了`virtualHost: true`，在页面渲染时会被作为虚拟节点处理，不会生成额外的DOM元素。
+
+7. **多端适配**：组件支持H5、App、小程序等多端平台，但在不同平台上可能存在细微的样式差异。
+
+## 常见问题
+
+1. **Q: 为什么设置了gutter属性后，列元素之间没有间距？**
+   A: 请确保Row组件的直接子元素是Col组件，gutter属性只对直接子Col元素生效。
+
+2. **Q: 如何实现不等宽列布局？**
+   A: 通过设置Col组件的span属性为不同值，可以实现不等宽列布局。
+
+3. **Q: 为什么在小程序中Row组件的样式不生效？**
+   A: 请检查是否正确引入了组件样式，或者尝试使用自定义类名来覆盖默认样式。
+
+4. **Q: 如何实现垂直居中对齐？**
+   A: 可以通过自定义样式为Row组件添加`align-items: center`来实现垂直居中对齐。
+
+5. **Q: 支持的最大列数是多少？**
+   A: 栅格系统默认将一行分为24列，因此Col组件的span属性最大值为24。

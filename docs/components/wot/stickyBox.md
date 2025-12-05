@@ -1,747 +1,592 @@
-# wd-sticky-box 吸顶容器组件
+# StickyBox 吸顶容器
 
-## 组件概述
+## 组件概况
 
-吸顶容器组件是一个用于管理多个 `wd-sticky` 子组件的父容器，用于实现分组吸顶效果。它可以确保在滚动时，当前分组的吸顶元素固定在顶部，而其他分组的吸顶元素保持正常流布局。
+### 组件概述
+StickyBox 是吸顶容器组件，用于包裹多个 Sticky 组件，实现多个吸顶元素的堆叠效果。它会自动管理内部吸顶元素的位置和层级，确保吸顶元素在滚动时正确堆叠，适用于需要多个吸顶元素的场景。
 
-### 功能特点
-- 支持管理多个吸顶元素
-- 实现分组吸顶效果
-- 自动处理吸顶元素的层级关系
-- 响应式设计，自动调整尺寸
-- 平滑的吸顶切换效果
-- 支持自定义样式
+### 详细功能描述
+- 支持包裹多个 Sticky 组件
+- 自动管理内部吸顶元素的位置和层级
+- 实现多个吸顶元素的正确堆叠效果
+- 自动监听容器大小变化，适应动态内容
+- 支持自定义样式和类名
+- 跨平台兼容
 
-### 适用场景
-- 分类列表吸顶
-- 多区域内容吸顶
-- 分组导航吸顶
-- 复杂页面布局吸顶
-- 长页面多模块吸顶
+### 适用业务场景
+- 多级导航栏吸顶
+- 多个筛选条件吸顶
+- 复杂页面的多个吸顶元素
+- 任何需要多个吸顶元素堆叠的场景
 
-### 组件关系
-`wd-sticky-box` 组件作为父容器，用于包裹 `wd-sticky` 子组件，管理它们的吸顶状态。当滚动页面时，`wd-sticky-box` 会根据子组件的位置，自动调整它们的吸顶状态，实现分组吸顶效果。
+## 完整API参考
 
-## API 参考
+### Props属性
 
-### Props
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+### Events事件
 
-### Events
+该组件没有对外暴露的事件。
 
-该组件没有定义任何事件。
+### Methods方法
 
-### Methods
+该组件没有对外暴露的方法。
 
-该组件没有对外暴露任何方法。
-
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 用于放置 `wd-sticky` 子组件 |
+|--------|------------|----------|
+| default | - | 用于放置 Sticky 组件，实现多个吸顶元素的堆叠效果 |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
-```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">基础分组吸顶</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">滚动内容区域</view>
-        <wd-sticky-box>
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">分组1 - 吸顶标题</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组1内容，这里可以放置任意内容...</text>
-            </view>
-          </view>
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">分组2 - 吸顶标题</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组2内容，这里可以放置任意内容...</text>
-            </view>
-          </view>
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">分组3 - 吸顶标题</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组3内容，这里可以放置任意内容...</text>
-            </view>
-          </view>
-        </wd-sticky-box>
-      </view>
-    </view>
-  </view>
-</template>
-
-<script setup lang="ts">
-// 无需额外逻辑
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 200rpx;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  color: #666;
-}
-
-.demo-section {
-  margin-bottom: 20rpx;
-}
-
-.demo-sticky {
-  background-color: #1989fa;
-  color: #fff;
-  padding: 20rpx;
-  text-align: center;
-  font-size: 28rpx;
-}
-
-.demo-section-content {
-  height: 300rpx;
-  padding: 20rpx;
-  background-color: #fafafa;
-  font-size: 24rpx;
-  color: #666;
-}
-</style>
-```
-
-### 自定义样式吸顶容器
+### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式吸顶容器</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">滚动内容区域</view>
-        <wd-sticky-box custom-class="custom-sticky-box">
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">自定义样式 - 分组1</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组1内容...</text>
-            </view>
-          </view>
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">自定义样式 - 分组2</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组2内容...</text>
-            </view>
-          </view>
-        </wd-sticky-box>
-      </view>
-    </view>
-  </view>
-</template>
-
-<script setup lang="ts">
-// 无需额外逻辑
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 200rpx;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  color: #666;
-}
-
-.demo-section {
-  margin-bottom: 20rpx;
-}
-
-.demo-sticky {
-  background-color: #07c160;
-  color: #fff;
-  padding: 20rpx;
-  text-align: center;
-  font-size: 28rpx;
-  border-radius: 8rpx 8rpx 0 0;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-}
-
-.demo-section-content {
-  height: 300rpx;
-  padding: 20rpx;
-  background-color: #fafafa;
-  font-size: 24rpx;
-  color: #666;
-}
-
-/* 自定义吸顶容器样式 */
-.custom-sticky-box {
-  background-color: #fff;
-  border-radius: 8rpx;
-  overflow: hidden;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
-}
-</style>
-```
-
-### 带吸顶距离的分组吸顶
-
-```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">带吸顶距离的分组吸顶</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">滚动内容区域</view>
-        <wd-sticky-box>
-          <view class="demo-section">
-            <wd-sticky offset-top="30">
-              <view class="demo-sticky">吸顶距离30px - 分组1</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组1内容...</text>
-            </view>
-          </view>
-          <view class="demo-section">
-            <wd-sticky offset-top="30">
-              <view class="demo-sticky">吸顶距离30px - 分组2</view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>分组2内容...</text>
-            </view>
-          </view>
-        </wd-sticky-box>
-      </view>
-    </view>
-  </view>
-</template>
-
-<script setup lang="ts">
-// 无需额外逻辑
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 200rpx;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  color: #666;
-}
-
-.demo-section {
-  margin-bottom: 20rpx;
-}
-
-.demo-sticky {
-  background-color: #1989fa;
-  color: #fff;
-  padding: 20rpx;
-  text-align: center;
-  font-size: 28rpx;
-}
-
-.demo-section-content {
-  height: 300rpx;
-  padding: 20rpx;
-  background-color: #fafafa;
-  font-size: 24rpx;
-  color: #666;
-}
-</style>
-```
-
-### 复杂布局吸顶
-
-```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">复杂布局吸顶</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">
-          <text>复杂布局示例</text>
+  <view class="sticky-box-demo">
+    <wd-sticky-box>
+      <view class="content">
+        <view v-for="item in 20" :key="item" class="item">
+          <text>{{ item }}</text>
         </view>
-        <wd-sticky-box>
-          <!-- 分组1 -->
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">
-                <wd-icon name="calendar" size="32" color="#fff"></wd-icon>
-                <text>日期分组</text>
-              </view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <view class="demo-item" v-for="i in 5" :key="i">
-                <text>日期项目 {{ i }}</text>
-              </view>
-            </view>
+        <wd-sticky>
+          <view class="sticky-item">
+            第一个吸顶元素
           </view>
-          <!-- 分组2 -->
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">
-                <wd-icon name="location" size="32" color="#fff"></wd-icon>
-                <text>地点分组</text>
-              </view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <view class="demo-item" v-for="i in 5" :key="i">
-                <text>地点项目 {{ i }}</text>
-              </view>
-            </view>
+        </wd-sticky>
+        <view v-for="item in 20" :key="item" class="item">
+          <text>{{ item }}</text>
+        </view>
+        <wd-sticky>
+          <view class="sticky-item">
+            第二个吸顶元素
           </view>
-          <!-- 分组3 -->
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky">
-                <wd-icon name="tag" size="32" color="#fff"></wd-icon>
-                <text>标签分组</text>
-              </view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <view class="demo-item" v-for="i in 5" :key="i">
-                <text>标签项目 {{ i }}</text>
-              </view>
-            </view>
-          </view>
-        </wd-sticky-box>
+        </wd-sticky>
+        <view v-for="item in 40" :key="item" class="item">
+          <text>{{ item }}</text>
+        </view>
       </view>
-    </view>
+    </wd-sticky-box>
   </view>
 </template>
 
-<script setup lang="ts">
-// 无需额外逻辑
+<script lang="ts" setup>
+// 基础吸顶容器用法
 </script>
 
 <style scoped>
-.demo-container {
+.sticky-box-demo {
   padding: 20rpx;
 }
 
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 200rpx;
+.content {
   background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32rpx;
-  color: #333;
-  font-weight: bold;
-}
-
-.demo-section {
-  margin-bottom: 20rpx;
-}
-
-.demo-sticky {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10rpx;
-  background-color: #1989fa;
-  color: #fff;
+  border-radius: 12rpx;
   padding: 20rpx;
-  font-size: 28rpx;
 }
 
-.demo-section-content {
-  padding: 20rpx;
-  background-color: #fafafa;
-}
-
-.demo-item {
-  padding: 20rpx;
+.item {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
   background-color: #fff;
   border-radius: 8rpx;
-  margin-bottom: 10rpx;
-  font-size: 24rpx;
-  color: #666;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 20rpx;
+}
+
+.sticky-item {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #1989fa;
+  color: #fff;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
 }
 </style>
 ```
 
-### 分类列表吸顶
+### 2. 自定义样式
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">分类列表吸顶</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">商品分类</view>
-        <wd-sticky-box>
-          <view class="demo-category" v-for="(category, index) in categories" :key="index">
-            <wd-sticky>
-              <view class="demo-sticky">{{ category.title }}</view>
-            </wd-sticky>
-            <view class="demo-category-content">
-              <view class="demo-product" v-for="(product, pIndex) in category.products" :key="pIndex">
-                <text>{{ product.name }}</text>
-                <text class="demo-price">¥{{ product.price }}</text>
-              </view>
-            </view>
+  <view class="sticky-box-demo">
+    <wd-sticky-box customStyle="background-color: #f0f9ff; padding: 20rpx; border-radius: 16rpx;">
+      <view class="content">
+        <view v-for="item in 20" :key="item" class="item">
+          <text>{{ item }}</text>
+        </view>
+        <wd-sticky>
+          <view class="sticky-item">
+            自定义样式吸顶容器
           </view>
-        </wd-sticky-box>
+        </wd-sticky>
+        <view v-for="item in 40" :key="item" class="item">
+          <text>{{ item }}</text>
+        </view>
       </view>
-    </view>
+    </wd-sticky-box>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+// 自定义样式吸顶容器
+</script>
+
+<style scoped>
+.sticky-box-demo {
+  padding: 20rpx;
+}
+
+.content {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.item {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.sticky-item {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
+}
+</style>
+```
+
+### 3. 多级导航吸顶
+
+```vue
+<template>
+  <view class="sticky-box-demo">
+    <wd-sticky-box>
+      <view class="page-header">
+        <text class="page-title">多级导航吸顶</text>
+      </view>
+      
+      <!-- 一级导航 -->
+      <wd-sticky>
+        <view class="nav-level-1">
+          <view 
+            v-for="nav1 in navLevel1" 
+            :key="nav1"
+            class="nav-item nav-item-1"
+            :class="{ active: activeNav1 === nav1 }"
+            @click="activeNav1 = nav1"
+          >
+            <text>{{ nav1 }}</text>
+          </view>
+        </view>
+      </wd-sticky>
+      
+      <view v-for="item in 20" :key="item" class="item">
+        <text>内容 {{ item }}</text>
+      </view>
+      
+      <!-- 二级导航 -->
+      <wd-sticky>
+        <view class="nav-level-2">
+          <view 
+            v-for="nav2 in navLevel2" 
+            :key="nav2"
+            class="nav-item nav-item-2"
+            :class="{ active: activeNav2 === nav2 }"
+            @click="activeNav2 = nav2"
+          >
+            <text>{{ nav2 }}</text>
+          </view>
+        </view>
+      </wd-sticky>
+      
+      <view v-for="item in 40" :key="item" class="item">
+        <text>{{ activeNav1 }} - {{ activeNav2 }} - 内容 {{ item }}</text>
+      </view>
+    </wd-sticky-box>
+  </view>
+</template>
+
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 模拟商品分类数据
-const categories = ref([
-  {
-    title: '手机数码',
-    products: [
-      { name: '智能手机', price: 3999 },
-      { name: '平板电脑', price: 2999 },
-      { name: '笔记本电脑', price: 5999 },
-      { name: '智能手表', price: 1299 }
-    ]
-  },
-  {
-    title: '家居家电',
-    products: [
-      { name: '智能电视', price: 4999 },
-      { name: '冰箱', price: 3299 },
-      { name: '洗衣机', price: 2499 },
-      { name: '空调', price: 3599 }
-    ]
-  },
-  {
-    title: '服装鞋帽',
-    products: [
-      { name: 'T恤', price: 99 },
-      { name: '牛仔裤', price: 199 },
-      { name: '运动鞋', price: 399 },
-      { name: '连衣裙', price: 299 }
-    ]
-  }
-])
+const navLevel1 = ['推荐', '热门', '最新', '关注']
+const navLevel2 = ['全部', '视频', '图文', '问答']
+
+const activeNav1 = ref(navLevel1[0])
+const activeNav2 = ref(navLevel2[0])
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
+.sticky-box-demo {
+  padding: 0;
 }
 
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 150rpx;
-  background-color: #f5f5f5;
+.page-header {
+  height: 200rpx;
+  background-color: #1989fa;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32rpx;
-  color: #333;
+}
+
+.page-title {
+  font-size: 36rpx;
   font-weight: bold;
 }
 
-.demo-category {
-  margin-bottom: 20rpx;
+.nav-level-1 {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1rpx solid #ebedf0;
 }
 
-.demo-sticky {
-  background-color: #1989fa;
-  color: #fff;
-  padding: 20rpx;
+.nav-level-2 {
+  display: flex;
+  background-color: #f5f5f5;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.nav-item {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
   font-size: 28rpx;
+  color: #606266;
+  position: relative;
+}
+
+.nav-item.active {
+  color: #1989fa;
+}
+
+.nav-item-1.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background-color: #1989fa;
+  border-radius: 2rpx;
+}
+
+.nav-item-2.active {
+  background-color: rgba(25, 137, 250, 0.1);
+}
+
+.item {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1rpx solid #ebedf0;
+}
+</style>
+```
+
+### 4. 筛选条件吸顶
+
+```vue
+<template>
+  <view class="sticky-box-demo">
+    <wd-sticky-box>
+      <view class="page-header">
+        <text class="page-title">商品列表</text>
+      </view>
+      
+      <!-- 排序筛选 -->
+      <wd-sticky>
+        <view class="filter-bar">
+          <wd-sort-button title="综合" v-model="sortType"></wd-sort-button>
+          <wd-sort-button title="销量" v-model="salesSort"></wd-sort-button>
+          <wd-sort-button title="价格" v-model="priceSort"></wd-sort-button>
+          <wd-sort-button title="筛选" v-model="filterSort"></wd-sort-button>
+        </view>
+      </wd-sticky>
+      
+      <!-- 分类筛选 -->
+      <wd-sticky>
+        <view class="category-bar">
+          <view 
+            v-for="category in categories" 
+            :key="category"
+            class="category-item"
+            :class="{ active: activeCategory === category }"
+            @click="activeCategory = category"
+          >
+            <text>{{ category }}</text>
+          </view>
+        </view>
+      </wd-sticky>
+      
+      <view class="product-list">
+        <view v-for="item in 50" :key="item" class="product-item">
+          <text class="product-name">商品 {{ item }}</text>
+          <text class="product-price">¥ {{ (Math.random() * 1000).toFixed(2) }}</text>
+        </view>
+      </view>
+    </wd-sticky-box>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const sortType = ref(0)
+const salesSort = ref(0)
+const priceSort = ref(0)
+const filterSort = ref(0)
+
+const categories = ['全部', '手机', '电脑', '家电', '服装', '食品', '美妆', '家居']
+const activeCategory = ref(categories[0])
+</script>
+
+<style scoped>
+.sticky-box-demo {
+  padding: 0;
+}
+
+.page-header {
+  height: 150rpx;
+  background-color: #ff6b6b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-title {
+  font-size: 36rpx;
   font-weight: bold;
 }
 
-.demo-category-content {
-  padding: 20rpx;
-  background-color: #fafafa;
+.filter-bar {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1rpx solid #ebedf0;
 }
 
-.demo-product {
+.category-bar {
+  display: flex;
+  background-color: #f5f5f5;
+  border-bottom: 1rpx solid #ebedf0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.category-item {
+  display: inline-block;
+  padding: 0 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #606266;
+}
+
+.category-item.active {
+  color: #1989fa;
+  background-color: rgba(25, 137, 250, 0.1);
+}
+
+.product-list {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.product-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20rpx;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 10rpx;
-  font-size: 24rpx;
-  color: #666;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
 }
 
-.demo-price {
-  color: #f56c6c;
+.product-name {
+  font-size: 28rpx;
+  color: #303133;
+}
+
+.product-price {
+  font-size: 32rpx;
+  color: #ff6b6b;
   font-weight: bold;
 }
 </style>
 ```
 
-## 样式定制
-
-### CSS 变量
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --sticky-box-background-color | #ffffff | 吸顶容器背景颜色 |
-| --sticky-box-border-radius | 0 | 吸顶容器圆角 |
-| --sticky-box-padding | 0 | 吸顶容器内边距 |
-| --sticky-box-box-shadow | none | 吸顶容器阴影 |
-| --sticky-box-z-index | 1 | 吸顶容器层级 |
-
-### 自定义样式示例
+### 5. 动态内容吸顶容器
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式吸顶容器</text>
-    <view class="demo-content">
-      <view class="demo-scroll">
-        <view class="demo-header">滚动内容区域</view>
-        <wd-sticky-box custom-class="custom-sticky-box-style">
-          <view class="demo-section">
-            <wd-sticky>
-              <view class="demo-sticky-content">
-                <text>自定义容器</text>
-              </view>
-            </wd-sticky>
-            <view class="demo-section-content">
-              <text>容器内容...</text>
-            </view>
-          </view>
-        </wd-sticky-box>
+  <view class="sticky-box-demo">
+    <wd-sticky-box>
+      <view class="control-bar">
+        <wd-button size="small" @click="addSticky">添加吸顶元素</wd-button>
+        <wd-button size="small" type="warning" @click="removeSticky">移除吸顶元素</wd-button>
+        <text class="sticky-count">当前吸顶元素数量: {{ stickyCount }}</text>
       </view>
-    </view>
+      
+      <view v-for="item in 20" :key="item" class="item">
+        <text>初始内容 {{ item }}</text>
+      </view>
+      
+      <wd-sticky v-for="index in stickyCount" :key="index">
+        <view class="dynamic-sticky" :style="{ backgroundColor: getRandomColor() }">
+          <text>动态吸顶元素 {{ index }}</text>
+        </view>
+      </wd-sticky>
+      
+      <view v-for="item in 40" :key="item" class="item">
+        <text>后续内容 {{ item }}</text>
+      </view>
+    </wd-sticky-box>
   </view>
 </template>
 
-<script setup lang="ts">
-// 无需额外逻辑
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const stickyCount = ref(2)
+
+const addSticky = () => {
+  if (stickyCount.value < 5) {
+    stickyCount.value++
+  }
+}
+
+const removeSticky = () => {
+  if (stickyCount.value > 1) {
+    stickyCount.value--
+  }
+}
+
+const getRandomColor = () => {
+  const colors = ['#1989fa', '#4caf50', '#ff9800', '#f44336', '#9c27b0']
+  return colors[Math.floor(Math.random() * colors.length)]
+}
 </script>
 
 <style scoped>
-.demo-container {
+.sticky-box-demo {
   padding: 20rpx;
 }
 
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-content {
-  height: 500rpx;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-  border-radius: 8rpx;
-}
-
-.demo-scroll {
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.demo-header {
-  height: 200rpx;
-  background-color: #f5f5f5;
+.control-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  color: #666;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background-color: #f0f9ff;
+  border-radius: 12rpx;
 }
 
-.demo-section {
+.sticky-count {
+  font-size: 28rpx;
+  color: #606266;
+  margin-left: auto;
+}
+
+.item {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
   margin-bottom: 20rpx;
 }
 
-.demo-sticky-content {
-  padding: 20rpx;
-  background-color: #1989fa;
-  color: #fff;
+.dynamic-sticky {
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
-  font-size: 28rpx;
+  color: #fff;
+  border-radius: 8rpx;
+  margin-bottom: 20rpx;
 }
+</style>
+```
 
-.demo-section-content {
-  height: 300rpx;
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
+
+```vue
+<template>
+  <view class="sticky-box-demo">
+    <wd-sticky-box 
+      customStyle="background-color: #f0f9ff; padding: 20rpx; border-radius: 16rpx; box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);"
+    >
+      <!-- 内容 -->
+    </wd-sticky-box>
+  </view>
+</template>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <view class="sticky-box-demo">
+    <wd-sticky-box customClass="my-sticky-box">
+      <!-- 内容 -->
+    </wd-sticky-box>
+  </view>
+</template>
+
+<script lang="ts" setup>
+// 自定义类名示例
+</script>
+
+<style scoped>
+:deep(.my-sticky-box) {
+  background-color: #f0f9ff;
   padding: 20rpx;
-  background-color: #fafafa;
-  font-size: 24rpx;
-  color: #666;
-}
-
-/* 自定义吸顶容器样式 */
-.custom-sticky-box-style {
-  --sticky-box-background-color: #f0f9ff;
-  --sticky-box-border-radius: 12rpx;
-  --sticky-box-padding: 10rpx;
-  --sticky-box-box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-  --sticky-box-z-index: 10;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **组件关系**：`wd-sticky-box` 组件必须作为 `wd-sticky` 组件的父容器使用，才能实现分组吸顶效果。
+1. **组件关系**：StickyBox 组件主要用于包裹 Sticky 组件，单独使用没有实际意义。
 
-2. **子组件要求**：`wd-sticky-box` 组件的直接子元素应该是包含 `wd-sticky` 组件的容器，而不是 `wd-sticky` 组件本身。
+2. **多个吸顶元素**：当需要实现多个吸顶元素时，建议使用 StickyBox 组件包裹，以实现正确的堆叠效果。
 
-3. **尺寸限制**：当 `wd-sticky-box` 的高度小于或等于 `wd-sticky` 组件的高度时，吸顶效果可能会受到影响。
+3. **性能优化**：组件内部使用了 IntersectionObserver API 监听元素位置变化，性能较高，但在大量使用时仍需注意性能影响。
 
-4. **平台适配**：组件已针对不同平台进行了适配，包括 H5、APP-PLUS 等。
+4. **跨平台兼容性**：组件在 H5、App 和小程序平台表现一致，但在 H5 平台会自动计算导航栏高度。
 
-5. **性能优化**：使用 IntersectionObserver API 监听元素位置，性能优秀，不会造成页面卡顿。
+5. **布局注意**：StickyBox 组件的父容器应避免使用 `overflow: hidden` 或 `position: relative` 等可能影响吸顶效果的样式。
 
-6. **样式隔离**：组件使用了 `styleIsolation: 'shared'`，允许外部样式影响组件内部样式。
+6. **内容大小**：StickyBox 组件会自动适应内部内容大小，无需手动设置高度。
 
-7. **响应式设计**：组件使用 `wd-resize` 组件监听尺寸变化，自动调整吸顶容器的尺寸。
+7. **样式继承**：customStyle 和 customClass 会应用到 StickyBox 组件的根节点上，可以通过穿透选择器修改内部样式。
 
-## 常见问题
+8. **初始化位置**：组件会在初始化时计算元素位置，确保初始状态正确。
 
-### Q: 分组吸顶效果不生效？
-A: 请确保 `wd-sticky` 组件是 `wd-sticky-box` 组件的间接子组件，并且中间的容器元素没有影响布局的样式。
+9. **吸顶顺序**：Sticky 组件在 StickyBox 中的顺序决定了吸顶时的堆叠顺序，后面的 Sticky 组件会堆叠在前面的 Sticky 组件之上。
 
-### Q: 吸顶元素位置不正确？
-A: 请检查 `wd-sticky` 组件的 `offsetTop` 属性是否设置正确，或者是否有其他元素影响了吸顶元素的位置。
-
-### Q: 吸顶元素切换不流畅？
-A: 这可能是由于吸顶元素的高度不一致导致的，建议保持所有 `wd-sticky` 组件的高度一致。
-
-### Q: 自定义样式不生效？
-A: 请确保使用了正确的 CSS 变量名，或者通过 `customStyle` 属性直接设置样式。
-
-### Q: 组件在某些平台上显示异常？
-A: 组件已针对不同平台进行了适配，但如果遇到问题，可以尝试调整组件的样式，或者检查平台的兼容性。
+10. **嵌套限制**：不建议在 StickyBox 组件内部嵌套其他 StickyBox 组件，可能会导致吸顶效果异常。

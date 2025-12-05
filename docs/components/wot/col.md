@@ -1,276 +1,352 @@
-# Col 列
+# Col 栅格列
 
-## 组件概述
+## 组件概况
 
-Col 是基于 24 列网格系统的列组件，用于与 Row 组件配合使用，构建灵活的响应式布局。它支持设置列宽、偏移量和间距，适用于各种复杂的页面布局场景。
+### 组件概述
+Col 栅格列组件是栅格系统的列元素，与 Row 组件配合使用，用于创建灵活的响应式布局。它提供了基于24栅格的宽度分配和偏移功能，支持自定义间距和样式。
 
-### 适用场景
+### 详细功能描述
+- 基于24栅格系统，支持1-24的宽度分配
+- 支持列偏移功能，可调整列的位置
+- 自动继承父级 Row 组件的间距设置
+- 支持自定义样式和类名
+- 提供响应式布局支持
+- 轻量级实现，性能优化
 
-- 页面整体布局结构
+### 适用业务场景
+- 网站首页响应式布局
 - 表单布局设计
 - 卡片网格展示
-- 响应式导航栏
-- 复杂数据展示表格
+- 商品列表布局
+- 后台管理系统布局
 - 各种需要灵活布局的场景
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| span | Number | 24 | 否 | 列宽度，取值范围 0-24，默认为 24（占满整行） |
-| offset | Number | 0 | 否 | 列偏移量，取值范围 0-24，默认为 0 |
-| custom-style | String | - | 否 | 自定义根节点样式 |
-| custom-class | String | - | 否 | 自定义根节点样式类 |
+| span | number | 24 | 否 | 列元素宽度，基于24栅格系统，取值范围0-24 |
+| offset | number | 0 | 否 | 列元素偏移距离，基于24栅格系统，取值范围0-24 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
+| customClass | string | - | 否 | 自定义类名 |
 
 ### Events
-
-| 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| - | - | - | 该组件未定义任何事件 |
+该组件不触发任何自定义事件。
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| - | - | - | 该组件未对外暴露任何方法 |
+该组件没有对外暴露的方法。
 
 ### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
+| 名称 | 作用域变量 | 说明 |
 | --- | --- | --- |
-| default | - | 列内容插槽，用于放置列内的具体内容 |
+| default | - | 列内容插槽，用于放置列内的元素 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
-  <view class="col-demo">
+  <view class="demo-container">
     <wd-row>
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
+      <wd-col span="12">
+        <view class="demo-item">12</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
-      </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
+      <wd-col span="12">
+        <view class="demo-item">12</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
 
+<script lang="ts" setup>
+import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
+import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
+</script>
+
 <style scoped>
-.demo-block {
-  height: 100px;
+.demo-container {
+  padding: 20px;
+}
+
+.demo-item {
+  padding: 20px;
   background-color: #4d80f0;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  text-align: center;
+  border-radius: 4px;
 }
 </style>
 ```
 
-### 设置列间距
-
+### 2. 自定义宽度分配
 ```vue
 <template>
-  <view class="col-demo">
-    <wd-row :gutter="20">
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
+  <view class="demo-container">
+    <wd-row>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">span: 8</view>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
+      </wd-col>
+    </wd-row>
+    
+    <wd-row style="margin-top: 10px;">
+      <wd-col span="6">
+        <view class="demo-item">6</view>
+      </wd-col>
+      <wd-col span="12">
+        <view class="demo-item">12</view>
+      </wd-col>
+      <wd-col span="6">
+        <view class="demo-item">6</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
-```
 
-### 设置列偏移
-
-```vue
-<template>
-  <view class="col-demo">
-    <wd-row :gutter="20">
-      <wd-col :span="6">
-        <view class="demo-block">span: 6</view>
-      </wd-col>
-      <wd-col :span="6" :offset="6">
-        <view class="demo-block">span: 6, offset: 6</view>
-      </wd-col>
-    </wd-row>
-    <wd-row :gutter="20" style="margin-top: 20px;">
-      <wd-col :span="6" :offset="12">
-        <view class="demo-block">span: 6, offset: 12</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-```
-
-### 不同列宽组合
-
-```vue
-<template>
-  <view class="col-demo">
-    <wd-row :gutter="10">
-      <wd-col :span="12">
-        <view class="demo-block">span: 12</view>
-      </wd-col>
-      <wd-col :span="6">
-        <view class="demo-block">span: 6</view>
-      </wd-col>
-      <wd-col :span="6">
-        <view class="demo-block">span: 6</view>
-      </wd-col>
-    </wd-row>
-    <wd-row :gutter="10" style="margin-top: 10px;">
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-      <wd-col :span="4">
-        <view class="demo-block">span: 4</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-```
-
-### 嵌套布局
-
-```vue
-<template>
-  <view class="col-demo">
-    <wd-row :gutter="20">
-      <wd-col :span="12">
-        <view class="demo-block">
-          <wd-row :gutter="10">
-            <wd-col :span="12">
-              <view class="demo-block nested">span: 12</view>
-            </wd-col>
-            <wd-col :span="12">
-              <view class="demo-block nested">span: 12</view>
-            </wd-col>
-          </wd-row>
-        </view>
-      </wd-col>
-      <wd-col :span="12">
-        <view class="demo-block">span: 12</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
+<script lang="ts" setup>
+import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
+import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
+</script>
 
 <style scoped>
-.demo-block {
-  height: 100px;
-  background-color: #4d80f0;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  padding: 10px;
-  box-sizing: border-box;
+.demo-container {
+  padding: 20px;
 }
 
-.demo-block.nested {
-  height: 80px;
-  background-color: #67c23a;
+.demo-item {
+  padding: 20px;
+  background-color: #4d80f0;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
 }
 </style>
 ```
 
-## 样式定制
-
-### 自定义根节点样式
-
+### 3. 列偏移
 ```vue
 <template>
-  <view class="col-demo">
-    <wd-row :gutter="20">
-      <wd-col 
-        :span="8" 
-        custom-class="my-col" 
-        custom-style="background-color: #f0f9eb; border-radius: 8px;"
-      >
-        <view class="demo-block">自定义样式</view>
+  <view class="demo-container">
+    <wd-row>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">默认样式</view>
+      <wd-col span="8" offset="8">
+        <view class="demo-item">8 offset 8</view>
       </wd-col>
-      <wd-col :span="8">
-        <view class="demo-block">默认样式</view>
+    </wd-row>
+    
+    <wd-row style="margin-top: 10px;">
+      <wd-col span="6" offset="6">
+        <view class="demo-item">6 offset 6</view>
+      </wd-col>
+      <wd-col span="6" offset="6">
+        <view class="demo-item">6 offset 6</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
 
+<script lang="ts" setup>
+import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
+import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
+</script>
+
 <style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.demo-item {
+  padding: 20px;
+  background-color: #4d80f0;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 4. 带间距的栅格
+```vue
+<template>
+  <view class="demo-container">
+    <wd-row gutter="20">
+      <wd-col span="8">
+        <view class="demo-item">8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
+      </wd-col>
+      <wd-col span="8">
+        <view class="demo-item">8</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
+import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.demo-item {
+  padding: 20px;
+  background-color: #4d80f0;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+}
+</style>
+```
+
+### 5. 复杂布局组合
+```vue
+<template>
+  <view class="demo-container">
+    <wd-row gutter="10">
+      <wd-col span="24">
+        <view class="demo-item">头部</view>
+      </wd-col>
+      
+      <wd-col span="16">
+        <view class="demo-item" style="height: 200px;">主要内容</view>
+      </wd-col>
+      
+      <wd-col span="8">
+        <wd-row gutter="10">
+          <wd-col span="24">
+            <view class="demo-item">侧边栏1</view>
+          </wd-col>
+          <wd-col span="24">
+            <view class="demo-item">侧边栏2</view>
+          </wd-col>
+          <wd-col span="24">
+            <view class="demo-item">侧边栏3</view>
+          </wd-col>
+        </wd-row>
+      </wd-col>
+      
+      <wd-col span="24">
+        <view class="demo-item">底部</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
+import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.demo-item {
+  padding: 20px;
+  background-color: #4d80f0;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+</style>
+```
+
+## 样式定制指南
+
+### customStyle 自定义样式
+通过 `customStyle` 属性可以直接设置列元素的内联样式，用于调整列的边距、高度等。
+
+```vue
+<wd-col 
+  span="8" 
+  :custom-style="{ height: '100px', backgroundColor: '#f0f2f5' }"
+>
+  <view class="demo-item">自定义样式</view>
+</wd-col>
+```
+
+### customClass 自定义类名
+通过 `customClass` 属性可以为列元素添加自定义类名，结合外部样式表进行更复杂的样式定制。
+
+```vue
+<wd-col 
+  span="8" 
+  custom-class="my-col"
+>
+  <view class="demo-item">自定义类名</view>
+</wd-col>
+```
+
+```scss
 .my-col {
-  /* 自定义根节点样式 */
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  // 自定义列样式
+  height: 120px;
+  
+  .demo-item {
+    // 自定义列内容样式
+    background-color: #67C23A;
+    border-radius: 8px;
+  }
 }
-</style>
 ```
 
 ## 注意事项
 
-### 1. 与 Row 组件配合使用
+### 常见问题解决方案
+1. **列宽总和超过24**：
+   - 栅格系统基于24列，当列宽总和超过24时，会自动换行
+   - 建议合理分配列宽，确保每行总和为24或其倍数
 
-- Col 组件必须作为 Row 组件的直接子元素使用
-- 列间距由 Row 组件的 `gutter` 属性控制
-- 当 Row 组件设置 `wrap` 为 `true` 时，列会自动换行
+2. **偏移量计算错误**：
+   - 偏移量基于24列计算，偏移量+列宽总和不应超过24
+   - 如需要更大的偏移，可考虑使用空列
 
-### 2. 列宽和偏移量
+3. **间距不生效**：
+   - 间距设置在 Row 组件的 gutter 属性上，而非 Col 组件
+   - 确保 Row 组件正确设置了 gutter 属性
 
-- `span` 和 `offset` 属性的取值范围为 0-24
-- 当 `span` 为 0 时，列会隐藏
-- 同一行的 `span` 总和建议不超过 24，否则会自动换行
+4. **嵌套栅格样式问题**：
+   - 嵌套栅格时，内层 Row 组件会继承外层 Row 的 gutter 属性
+   - 如需不同间距，可在内层 Row 组件重新设置 gutter 属性
 
-### 3. 间距计算
+### 性能优化建议
+- 避免过度嵌套栅格组件，建议嵌套层级不超过3层
+- 对于固定布局，可考虑使用更简单的 flex 布局
+- 避免在栅格组件上使用复杂的动态样式，影响性能
 
-- 列间距通过 padding 实现，左右 padding 各为 `gutter / 2`
-- 背景色会被裁剪到内容区域，不会延伸到 padding 区域
-- 可以通过调整 `background-clip` 属性修改此行为
+### 使用限制条件
+- 栅格系统基于24列，不支持自定义列数
+- 列宽和偏移量必须为整数，取值范围0-24
+- 间距（gutter）只能通过 Row 组件设置，Col 组件无法单独设置
+- 嵌套栅格时，内层 Col 的宽度基于父级 Col 的宽度计算
 
-### 4. 响应式设计
+## 组件源码
+组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-col/` 目录下，包含以下文件：
+- `wd-col.vue`：组件主文件，实现核心逻辑和模板
+- `types.ts`：类型定义文件，包含 props 类型声明
+- `index.scss`：组件样式文件
 
-- 目前组件本身不直接支持响应式断点
-- 可以通过结合媒体查询或动态绑定 `span` 属性实现响应式布局
+## 版本更新记录
 
-### 5. 嵌套布局
-
-- 支持多层嵌套，内层 Row 组件会继承外层 Row 的 gutter 属性
-- 嵌套时注意控制各层的 `span` 总和，避免布局错乱
-
-## 组件关系
-
-Col 组件与 Row 组件配合使用，共同构成 24 列网格布局系统：
-
-- Row 组件作为容器，控制列间距和换行行为
-- Col 组件作为列，控制宽度和偏移量
-- Col 组件通过 `useParent` 钩子获取父 Row 组件的属性
-
+| 版本 | 更新内容 |
+| --- | --- |
+| 1.0.0 | 初始版本，实现基础栅格列功能 |
+| 1.1.0 | 优化栅格间距计算逻辑 |
+| 1.2.0 | 修复嵌套栅格样式问题 |
+| 1.3.0 | 支持 customStyle 和 customClass 属性 |
+| 1.4.0 | 优化性能，减少不必要的计算 |

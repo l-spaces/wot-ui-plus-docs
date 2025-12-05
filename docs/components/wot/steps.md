@@ -1,488 +1,306 @@
-# wd-steps 步骤条组件
+# Steps 步骤条
 
-## 组件概述
+## 组件概况
 
-步骤条组件是一个用于展示流程步骤的UI组件，作为 `wd-step` 组件的父容器，用于管理整体布局和当前激活步骤。它提供了水平和垂直两种布局方式，支持自定义样式和间距，帮助用户清晰地了解当前所处的流程位置和进度。
+### 组件概述
+Steps 是步骤条组件，用于配合 Step 组件实现分步展示功能。它可以统一管理多个步骤项，控制当前激活的步骤，设置布局方向和样式，适用于各种流程引导和状态展示场景。
 
-### 功能特点
+### 详细功能描述
 - 支持水平和垂直两种布局方式
-- 支持点状步骤条样式
-- 可自定义步骤间距
-- 支持水平居中对齐
-- 管理子步骤的激活状态
-- 与 `wd-step` 组件紧密配合使用
+- 支持设置当前激活的步骤
+- 支持点状和数字两种步骤样式
+- 支持自定义步骤之间的间距
+- 支持水平居中显示
+- 支持自定义样式和类名
+- 自动管理子组件 Step 的状态
 
-### 适用场景
-- 注册流程引导
+### 适用业务场景
+- 表单提交流程
+- 注册登录流程
+- 引导用户完成任务的步骤
 - 订单状态跟踪
-- 支付流程引导
-- 表单分步填写
-- 任务进度展示
-- 多步骤操作引导
+- 任何需要分步展示的场景
 
-### 组件关系
-`wd-steps` 作为父组件，用于包裹 `wd-step` 子组件，控制整体布局和当前激活步骤。`wd-step` 组件必须在 `wd-steps` 组件内部使用才能正常工作。
+## 完整API参考
 
-## API 参考
+### Props属性
 
-### Props
-
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | active | number | 0 | 否 | 当前激活的步骤进度，以数字表示 |
 | vertical | boolean | false | 否 | 是否为垂直方向的步骤条 |
 | dot | boolean | false | 否 | 是否为点状步骤条样式 |
-| space | string | 自动计算 | 否 | 步骤条之间的间距，默认为自动计算 |
+| space | string | - | 否 | 步骤条之间的间距，默认为自动计算 |
 | alignCenter | boolean | false | 否 | 是否将步骤条水平居中显示，只对横向步骤条有效 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
-该组件没有定义任何事件。
+该组件没有对外暴露的事件。
 
-### Methods
+### Methods方法
 
-该组件没有对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 用于放置 `wd-step` 子组件 |
+|--------|------------|----------|
+| default | - | 用于放置 Step 组件，作为步骤条的子项 |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">基础步骤条</text>
-    <wd-steps :active="activeStep">
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
-      <wd-step title="步骤四" description="第四步描述" />
+  <view class="steps-demo">
+    <wd-steps :active="active">
+      <wd-step title="步骤一" description="这是步骤一的描述"></wd-step>
+      <wd-step title="步骤二" description="这是步骤二的描述"></wd-step>
+      <wd-step title="步骤三" description="这是步骤三的描述"></wd-step>
     </wd-steps>
     
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 3">下一步</wd-button>
+    <view class="steps-demo__actions">
+      <wd-button size="small" @click="prevStep" :disabled="active === 0">上一步</wd-button>
+      <wd-button size="small" type="primary" @click="nextStep" :disabled="active === 2">下一步</wd-button>
     </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(0)
+const active = ref(0)
 
-// 上一步
 const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
+  if (active.value > 0) {
+    active.value--
   }
 }
 
-// 下一步
 const nextStep = () => {
-  if (activeStep.value < 3) {
-    activeStep.value++
+  if (active.value < 2) {
+    active.value++
   }
 }
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
+.steps-demo {
+  padding: 40rpx;
 }
 
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
-}
-
-.demo-actions {
+.steps-demo__actions {
+  margin-top: 40rpx;
   display: flex;
   gap: 20rpx;
-  margin-top: 40rpx;
   justify-content: center;
 }
 </style>
 ```
 
-### 垂直步骤条
+### 2. 垂直布局
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">垂直步骤条</text>
-    <wd-steps :active="activeStep" vertical>
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
-      <wd-step title="步骤四" description="第四步描述" />
+  <view class="steps-demo">
+    <wd-steps :active="active" vertical>
+      <wd-step title="步骤一" description="这是步骤一的描述内容，垂直布局下可以显示更多的描述信息"></wd-step>
+      <wd-step title="步骤二" description="这是步骤二的描述内容，垂直布局下可以显示更多的描述信息"></wd-step>
+      <wd-step title="步骤三" description="这是步骤三的描述内容，垂直布局下可以显示更多的描述信息"></wd-step>
     </wd-steps>
-    
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 3">下一步</wd-button>
-    </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(1)
-
-// 上一步
-const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
-  }
-}
-
-// 下一步
-const nextStep = () => {
-  if (activeStep.value < 3) {
-    activeStep.value++
-  }
-}
+const active = ref(1)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
-}
-
-.demo-actions {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 40rpx;
-  justify-content: center;
+.steps-demo {
+  padding: 40rpx;
 }
 </style>
 ```
 
-### 点状步骤条
+### 3. 点状样式
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">点状步骤条</text>
-    <wd-steps :active="activeStep" dot>
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
-      <wd-step title="步骤四" description="第四步描述" />
+  <view class="steps-demo">
+    <wd-steps :active="active" dot>
+      <wd-step title="步骤一" description="这是点状样式的步骤一"></wd-step>
+      <wd-step title="步骤二" description="这是点状样式的步骤二"></wd-step>
+      <wd-step title="步骤三" description="这是点状样式的步骤三"></wd-step>
     </wd-steps>
-    
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 3">下一步</wd-button>
-    </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(2)
-
-// 上一步
-const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
-  }
-}
-
-// 下一步
-const nextStep = () => {
-  if (activeStep.value < 3) {
-    activeStep.value++
-  }
-}
+const active = ref(1)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
-}
-
-.demo-actions {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 40rpx;
-  justify-content: center;
+.steps-demo {
+  padding: 40rpx;
 }
 </style>
 ```
 
-### 自定义间距
+### 4. 自定义间距
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义间距步骤条</text>
-    <wd-steps :active="activeStep" space="20%">
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
+  <view class="steps-demo">
+    <wd-steps :active="active" space="200rpx">
+      <wd-step title="步骤一" description="自定义间距"></wd-step>
+      <wd-step title="步骤二" description="自定义间距"></wd-step>
+      <wd-step title="步骤三" description="自定义间距"></wd-step>
     </wd-steps>
-    
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 2">下一步</wd-button>
-    </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(1)
-
-// 上一步
-const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
-  }
-}
-
-// 下一步
-const nextStep = () => {
-  if (activeStep.value < 2) {
-    activeStep.value++
-  }
-}
+const active = ref(1)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
-}
-
-.demo-actions {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 40rpx;
-  justify-content: center;
+.steps-demo {
+  padding: 40rpx;
 }
 </style>
 ```
 
-### 水平居中
+### 5. 水平居中显示
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">水平居中步骤条</text>
-    <wd-steps :active="activeStep" align-center>
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
+  <view class="steps-demo">
+    <wd-steps :active="active" align-center>
+      <wd-step title="步骤一" description="水平居中显示"></wd-step>
+      <wd-step title="步骤二" description="水平居中显示"></wd-step>
+      <wd-step title="步骤三" description="水平居中显示"></wd-step>
     </wd-steps>
-    
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 2">下一步</wd-button>
-    </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(1)
-
-// 上一步
-const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
-  }
-}
-
-// 下一步
-const nextStep = () => {
-  if (activeStep.value < 2) {
-    activeStep.value++
-  }
-}
+const active = ref(1)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
-}
-
-.demo-actions {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 40rpx;
-  justify-content: center;
+.steps-demo {
+  padding: 40rpx;
 }
 </style>
 ```
 
-## 样式定制
+## 样式定制指南
 
-### CSS 变量
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --steps-line-color | #e0e0e0 | 步骤线颜色 |
-| --steps-finished-color | #1989fa | 已完成步骤颜色 |
-| --steps-process-color | #1989fa | 进行中步骤颜色 |
-| --steps-error-color | #f56c6c | 错误步骤颜色 |
-| --steps-wait-color | #c0c4cc | 等待步骤颜色 |
-| --steps-title-color | #303133 | 标题颜色 |
-| --steps-description-color | #909399 | 描述颜色 |
-| --steps-title-font-size | 28rpx | 标题字体大小 |
-| --steps-description-font-size | 24rpx | 描述字体大小 |
-| --steps-icon-size | 40rpx | 图标大小 |
-| --steps-line-height | 60rpx | 线高度 |
-
-### 自定义样式示例
+### 1. 使用customStyle自定义样式
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式步骤条</text>
-    <wd-steps :active="activeStep" custom-class="custom-steps">
-      <wd-step title="步骤一" description="第一步描述" />
-      <wd-step title="步骤二" description="第二步描述" />
-      <wd-step title="步骤三" description="第三步描述" />
+  <view class="steps-demo">
+    <wd-steps 
+      :active="active" 
+      customStyle="background-color: #f0f9ff; padding: 40rpx; border-radius: 16rpx;"
+    >
+      <wd-step title="步骤一" description="自定义样式"></wd-step>
+      <wd-step title="步骤二" description="自定义样式"></wd-step>
+      <wd-step title="步骤三" description="自定义样式"></wd-step>
     </wd-steps>
-    
-    <view class="demo-actions">
-      <wd-button type="primary" @click="prevStep" :disabled="activeStep === 0">上一步</wd-button>
-      <wd-button type="primary" @click="nextStep" :disabled="activeStep === 2">下一步</wd-button>
-    </view>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 当前激活步骤
-const activeStep = ref(1)
-
-// 上一步
-const prevStep = () => {
-  if (activeStep.value > 0) {
-    activeStep.value--
-  }
-}
-
-// 下一步
-const nextStep = () => {
-  if (activeStep.value < 2) {
-    activeStep.value++
-  }
-}
+const active = ref(1)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
+.steps-demo {
+  padding: 40rpx;
+}
+</style>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <view class="steps-demo">
+    <wd-steps 
+      :active="active" 
+      customClass="my-steps"
+    >
+      <wd-step title="步骤一" description="自定义类名"></wd-step>
+      <wd-step title="步骤二" description="自定义类名"></wd-step>
+      <wd-step title="步骤三" description="自定义类名"></wd-step>
+    </wd-steps>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const active = ref(1)
+</script>
+
+<style scoped>
+.steps-demo {
+  padding: 40rpx;
 }
 
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 40rpx;
-  display: block;
+:deep(.my-steps) {
+  background-color: #f0f9ff;
+  padding: 40rpx;
+  border-radius: 16rpx;
 }
 
-.demo-actions {
-  display: flex;
-  gap: 20rpx;
-  margin-top: 40rpx;
-  justify-content: center;
-}
-
-/* 自定义步骤条样式 */
-.custom-steps {
-  --steps-finished-color: #07c160;
-  --steps-process-color: #07c160;
-  --steps-title-color: #606266;
-  --steps-description-color: #909399;
-  --steps-title-font-size: 32rpx;
-  --steps-description-font-size: 26rpx;
-  --steps-icon-size: 48rpx;
-  --steps-line-height: 72rpx;
+:deep(.my-steps .wd-step__title) {
+  color: #1989fa;
+  font-weight: bold;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **组件关系**：`wd-steps` 组件必须作为 `wd-step` 组件的父容器使用，否则无法正常工作。
+1. **组件关系**：Steps 组件必须包含一个或多个 Step 子组件，否则无法正常显示。
 
-2. **状态管理**：步骤的激活状态由 `wd-steps` 的 `active` 属性控制，该属性接受一个数字，表示当前激活的步骤索引（从0开始）。
+2. **active属性**：active 属性用于设置当前激活的步骤索引，从0开始计数。
 
-3. **布局方式**：通过 `vertical` 属性可以切换水平和垂直布局，垂直布局下步骤条会垂直排列。
+3. **布局方向**：
+   - 当 vertical 为 false（默认）时，步骤条为水平布局
+   - 当 vertical 为 true 时，步骤条为垂直布局
 
-4. **点状样式**：通过 `dot` 属性可以切换到点状步骤条样式，适用于步骤数量较多的场景。
+4. **样式类型**：
+   - 当 dot 为 false（默认）时，步骤条使用数字样式
+   - 当 dot 为 true 时，步骤条使用点状样式
 
-5. **间距设置**：通过 `space` 属性可以自定义步骤之间的间距，支持百分比和像素值。
+5. **间距设置**：
+   - 当不设置 space 属性时，步骤条会自动计算每个步骤的间距
+   - 当设置了 space 属性时，会使用该值作为每个步骤之间的间距
+   - space 属性支持带单位的字符串，如 "200rpx"、"100px"
 
-6. **水平居中**：通过 `alignCenter` 属性可以将水平步骤条居中显示，该属性只对横向步骤条有效。
+6. **居中显示**：alignCenter 属性只对水平布局的步骤条有效，垂直布局时该属性无效。
 
-7. **样式隔离**：组件使用了 `styleIsolation: 'shared'`，允许外部样式影响组件内部样式。
+7. **状态继承**：Steps 组件的属性会自动传递给子组件 Step，子组件可以覆盖父组件的设置。
 
-8. **性能优化**：组件结构简单，渲染性能优秀，适合在各种场景下使用。
+8. **步骤数量**：建议步骤数量控制在3-5个之间，过多的步骤会导致用户体验不佳。
 
-## 常见问题
+9. **跨平台兼容性**：该组件在各平台表现一致，无需特殊处理。
 
-### Q: 步骤条显示异常？
-A: 请确保 `wd-step` 组件是 `wd-steps` 组件的直接子组件，并且没有其他包裹元素。
-
-### Q: 激活步骤不更新？
-A: 请确保 `active` 属性是响应式的，或者通过正确的方式更新了该属性。
-
-### Q: 垂直布局不生效？
-A: 请确保在 `wd-steps` 组件上设置了 `vertical` 属性，而不是在 `wd-step` 组件上。
-
-### Q: 自定义间距不生效？
-A: 请确保 `space` 属性的值格式正确，支持百分比（如 "20%"）和像素值（如 "100rpx"）。
-
-### Q: 自定义样式不生效？
-A: 请确保使用了正确的 CSS 变量名，或者通过 `customStyle` 属性直接设置样式。
+10. **性能优化**：对于大量步骤的场景，建议使用垂直布局或分页展示，避免一次性渲染过多步骤影响性能。

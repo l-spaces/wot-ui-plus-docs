@@ -487,10 +487,10 @@ class Menu<T> {
       {
         text: '组合式API',
         items: [
-          { text: 'useUpload', link: '/component/use-upload' },
-          { text: 'useCountDown', link: '/component/use-count-down' },
-          { text: 'useToast', link: '/component/use-toast' },
-          { text: 'useMessage', link: '/component/use-message' }
+          { text: 'useUpload', link: 'use-upload' },
+          { text: 'useCountDown', link: 'use-count-down' },
+          { text: 'useToast', link: 'use-toast' },
+          { text: 'useMessage', link: 'use-message' }
         ]
       }
     ]

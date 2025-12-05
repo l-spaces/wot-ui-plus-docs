@@ -1,278 +1,301 @@
-# wd-root-portal 根节点渲染组件
+# Root Portal
 
-## 组件概述
+## 组件概况
 
-wd-root-portal 是一个用于将组件内容渲染到页面根节点的组件，它解决了在 UniApp 中 fixed 定位在某些场景下失效的问题。组件基于 Vue 3 + TypeScript + UniApp 开发，支持跨平台使用，并针对不同平台采用了不同的实现方式。
+### 组件概述
+Root Portal组件是一个跨平台的内容传送门组件，用于将组件的子内容渲染到应用的根节点上，解决了在复杂组件嵌套场景下的层级溢出和样式隔离问题。
 
-### 功能特点
+### 详细功能描述
+- 支持多端适配：H5、微信小程序、支付宝小程序、App Plus
+- 自动根据平台选择最佳实现方案
+- 保持子组件的原有功能和样式
+- 解决组件嵌套导致的层级问题
+- 支持动态内容更新
 
-- 支持将组件内容渲染到页面根节点
-- 解决 fixed 定位在某些场景下失效的问题
-- 跨平台兼容（H5、微信小程序、支付宝小程序、App Plus）
-- 针对不同平台采用最优实现方案
-- 简单易用，只需包裹需要渲染到根节点的内容
+### 适用业务场景
+- 弹出层、模态框等需要覆盖整个应用的组件
+- 下拉菜单、气泡提示等需要突破父容器层级限制的组件
+- 复杂表单中的动态弹窗
+- 需要在应用全局层级显示的通知和提示
 
-### 适用场景
-
-- 全局弹窗、全局提示等需要渲染到根节点的组件
-- 解决 fixed 定位在 scroll-view、swiper 等组件内失效的问题
-- 确保组件不受父容器样式影响
-- 实现全屏覆盖层、全局加载提示等
-
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 参数 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| customClass | string | - | 否 | 自定义类名 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
 
 ### Events
-
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+无
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+无
 
 ### Slots
+| 插槽名 | 作用域变量 | 说明 |
+|--------|------------|------|
+| default | - | 默认插槽，用于放置需要传送的内容 |
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
-| default | - | 需要渲染到根节点的内容 |
+## 多场景使用示例
 
-## 使用示例
-
-### 1. 基础用法
-
+### 基础用法
 ```vue
 <template>
-  <view class="demo">
+  <view>
     <wd-root-portal>
-      <view class="global-popup">
-        <view class="popup-content">
-          <view class="popup-title">全局弹窗</view>
-          <view class="popup-text">这是一个渲染到根节点的全局弹窗</view>
-          <wd-button type="primary" size="small" @click="show = false">关闭</wd-button>
-        </view>
+      <!-- 这里的内容会被渲染到应用根节点 -->
+      <view class="overlay">
+        <text>这是一个覆盖在根节点的内容</text>
       </view>
     </wd-root-portal>
-    <wd-button type="primary" @click="show = true">显示全局弹窗</wd-button>
   </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-</script>
-
-<style lang="scss">
-.global-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-  
-  .popup-content {
-    text-align: center;
-    
-    .popup-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    
-    .popup-text {
-      font-size: 14px;
-      color: #606266;
-      margin-bottom: 20px;
-    }
-  }
-}
-</style>
-```
-
-### 2. 解决 fixed 定位问题
-
-```vue
-<template>
-  <view class="demo">
-    <scroll-view scroll-y style="height: 500px; border: 1px solid #e4e7ed;">
-      <view class="scroll-content" v-for="i in 20" :key="i">
-        滚动内容 {{ i }}
-      </view>
-      <wd-root-portal>
-        <view class="fixed-button" @click="handleClick">
-          固定按钮（渲染到根节点）
-        </view>
-      </wd-root-portal>
-      <view class="fixed-button without-portal" @click="handleClick">
-        固定按钮（未渲染到根节点）
-      </view>
-    </scroll-view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-const handleClick = () => {
-  console.log('点击了固定按钮')
-}
-</script>
-
-<style lang="scss">
-.scroll-content {
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-  border-bottom: 1px solid #e4e7ed;
-}
-
-.fixed-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 120px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  background-color: #4D80F0;
-  color: white;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(77, 128, 240, 0.3);
-}
-
-.without-portal {
-  background-color: #E6A23C;
-}
-</style>
-```
-
-### 3. 全局加载提示
-
-```vue
-<template>
-  <view class="demo">
-    <wd-root-portal>
-      <view v-if="loading" class="global-loading">
-        <view class="loading-content">
-          <wd-loading type="spinner" size="36px" color="#4D80F0" />
-          <view class="loading-text">加载中...</view>
-        </view>
-      </view>
-    </wd-root-portal>
-    <wd-button type="primary" @click="showLoading">显示加载提示</wd-button>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const loading = ref(false)
-
-const showLoading = () => {
-  loading.value = true
-  // 模拟加载过程
-  setTimeout(() => {
-    loading.value = false
-  }, 2000)
-}
-</script>
-
-<style lang="scss">
-.global-loading {
+<style scoped>
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  
-  .loading-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  color: white;
+}
+</style>
+```
+
+### 结合弹出层使用
+```vue
+<template>
+  <view>
+    <wd-button type="primary" @click="showPopup = true">显示弹出层</wd-button>
     
-    .loading-text {
-      margin-top: 10px;
-      font-size: 14px;
-      color: white;
-    }
-  }
+    <wd-root-portal>
+      <wd-popup v-model:visible="showPopup" position="center">
+        <view class="popup-content">
+          <text class="title">弹出层标题</text>
+          <text class="desc">这是一个使用root-portal渲染的弹出层</text>
+          <wd-button type="primary" @click="showPopup = false" style="margin-top: 20px;">关闭</wd-button>
+        </view>
+      </wd-popup>
+    </wd-root-portal>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const showPopup = ref(false)
+</script>
+
+<style scoped>
+.popup-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.desc {
+  font-size: 14px;
+  color: #666;
+  display: block;
+}
+</style>
+```
+
+### 结合下拉菜单使用
+```vue
+<template>
+  <view>
+    <wd-button type="primary" @click="showMenu = !showMenu">切换菜单</wd-button>
+    
+    <wd-root-portal>
+      <view v-if="showMenu" class="dropdown-menu">
+        <view class="menu-item" @click="handleMenuItemClick('item1')">菜单选项1</view>
+        <view class="menu-item" @click="handleMenuItemClick('item2')">菜单选项2</view>
+        <view class="menu-item" @click="handleMenuItemClick('item3')">菜单选项3</view>
+      </view>
+    </wd-root-portal>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const showMenu = ref(false)
+
+const handleMenuItemClick = (item: string) => {
+  console.log('点击了菜单选项:', item)
+  showMenu.value = false
+}
+</script>
+
+<style scoped>
+.dropdown-menu {
+  position: fixed;
+  top: 100px;
+  left: 50px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 150px;
+}
+
+.menu-item {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #f5f7fa;
+  color: #409eff;
+}
+</style>
+```
+
+### 结合动态内容使用
+```vue
+<template>
+  <view>
+    <wd-button type="primary" @click="addItem">添加项目</wd-button>
+    
+    <wd-root-portal>
+      <view class="dynamic-list">
+        <view v-for="(item, index) in items" :key="index" class="list-item">
+          <text>{{ item }}</text>
+          <wd-button size="mini" type="danger" @click="removeItem(index)">删除</wd-button>
+        </view>
+      </view>
+    </wd-root-portal>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const items = ref(['项目1', '项目2', '项目3'])
+
+const addItem = () => {
+  items.value.push(`项目${items.value.length + 1}`)
+}
+
+const removeItem = (index: number) => {
+  items.value.splice(index, 1)
+}
+</script>
+
+<style scoped>
+.dynamic-list {
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  max-width: 200px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.list-item:last-child {
+  border-bottom: none;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customClass 和 customStyle
+### 自定义类名
+通过`customClass`属性可以为组件添加自定义类名，用于覆盖默认样式。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-root-portal custom-class="custom-portal" :custom-style="{ zIndex: 10000 }">
-      <view class="portal-content">
-        <!-- 内容 -->
-      </view>
-    </wd-root-portal>
-  </view>
-</template>
+<wd-root-portal custom-class="my-root-portal">
+  <!-- 内容 -->
+</wd-root-portal>
 
-<style lang="scss">
-.custom-portal {
-  // 自定义类样式
-  .portal-content {
-    // 内容样式
-  }
+<style>
+.my-root-portal {
+  /* 自定义样式 */
 }
 </style>
+```
+
+### 自定义样式对象
+通过`customStyle`属性可以直接设置组件的内联样式。
+
+```vue
+<wd-root-portal :custom-style="{ marginTop: '20px', padding: '10px' }">
+  <!-- 内容 -->
+</wd-root-portal>
 ```
 
 ## 注意事项
 
 1. **平台兼容性**：
-   - 组件支持 H5、微信小程序、支付宝小程序和 App Plus 平台
-   - 钉钉小程序不支持 root-portal 组件，会直接渲染在当前位置
-   - 在不同平台上采用不同的实现方式，确保最佳兼容性
+   - H5端使用Vue的`teleport`组件
+   - 微信小程序和支付宝小程序使用`root-portal`组件
+   - App Plus端使用renderjs实现
+   - 钉钉小程序不支持该组件
 
-2. **实现原理**：
-   - H5：使用 Vue 3 的 teleport 组件
-   - 微信小程序/支付宝小程序：使用 root-portal 组件
-   - App Plus：使用 renderjs 将元素移动到根节点
+2. **性能考虑**：
+   - 避免频繁创建和销毁root-portal组件
+   - 对于静态内容，考虑缓存机制
+   - 动态内容更新时，注意监听性能变化
 
-3. **使用场景**：
-   - 适用于需要渲染到根节点的组件
-   - 解决 fixed 定位在 scroll-view、swiper 等组件内失效的问题
-   - 实现全局弹窗、全局提示等
+3. **样式隔离**：
+   - 使用root-portal后，组件的样式会受到全局样式影响
+   - 建议为传送内容添加独立的样式前缀或命名空间
+   - 避免使用过于宽泛的CSS选择器
 
-4. **性能考虑**：
-   - 避免频繁创建和销毁 wd-root-portal 组件
-   - 对于需要频繁显示/隐藏的内容，建议使用 v-if 控制内部内容，而不是销毁整个组件
+4. **事件处理**：
+   - 传送内容中的事件处理正常工作
+   - 注意事件冒泡和捕获机制
+   - 组件间通信不受影响
 
-5. **样式注意事项**：
-   - 渲染到根节点后，组件样式不再受父容器样式影响
-   - 建议为根节点渲染的组件设置较高的 z-index，避免被其他元素遮挡
+5. **生命周期**：
+   - 子组件的生命周期正常触发
+   - 父组件可以正常监听子组件的事件
+   - 动态组件的挂载和卸载正常
 
-6. **事件处理**：
-   - 组件内容的事件处理与普通组件相同
-   - 但由于渲染位置变化，事件冒泡行为可能与预期不同
+6. **使用限制**：
+   - 不支持嵌套使用root-portal
+   - 钉钉小程序不支持该组件
+   - 部分旧版浏览器可能存在兼容性问题
 
-7. **生命周期**：
-   - 组件的生命周期与普通组件相同
-   - 但在 App Plus 平台上，由于使用了 renderjs，生命周期可能略有差异
+## 常见问题
+
+1. **Q: 为什么在某些平台上root-portal不生效？**
+   A: 请检查平台兼容性，该组件不支持钉钉小程序。对于其他平台，请确保使用了正确的组件版本。
+
+2. **Q: 如何处理root-portal内容的样式冲突？**
+   A: 建议为传送内容添加独立的样式命名空间，避免与全局样式冲突。
+
+3. **Q: root-portal会影响组件的性能吗？**
+   A: 合理使用不会有明显性能影响，但频繁创建和销毁会影响性能。建议在需要时创建，不需要时及时销毁。
+
+4. **Q: 可以在root-portal中使用其他wd-ui-plus组件吗？**
+   A: 可以正常使用，所有wd-ui-plus组件都支持在root-portal中使用。
+
+5. **Q: root-portal的内容如何响应父组件的数据变化？**
+   A: 正常响应，root-portal不会影响组件间的数据绑定和响应式更新。

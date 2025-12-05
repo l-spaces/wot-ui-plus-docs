@@ -1,276 +1,333 @@
-# wd-badge 徽标组件
+# Badge 徽章
 
-## 组件概述
+## 组件概况
 
-wd-badge 是一个用于显示徽标的组件，可以附加在任何元素上，用于展示未读消息数、状态提示等信息。该组件支持多种样式、类型和显示方式，适用于各种需要突出显示数量或状态的场景。
+### 组件概述
+Badge 徽章组件用于在元素右上角显示徽标，支持数字、圆点等多种形式，常用于消息提示、未读数量显示、状态标记等场景。
 
-### 适用场景
-- 未读消息数量显示
-- 新功能提示
-- 状态标记（如在线、离线、警告等）
-- 数量统计展示
-- 任何需要突出显示信息的场景
+### 详细功能描述
+- 支持数字徽标和圆点徽标两种形式
+- 支持自定义最大值，超过最大值显示 "{max}+"
+- 支持自定义背景色和徽标类型（primary/success/warning/danger/info）
+- 支持数值为0时是否显示徽标
+- 支持自定义徽标的位置偏移
+- 支持隐藏徽标
+- 支持嵌套在各种元素内部使用
 
-## API 参考
+### 适用业务场景
+- 消息中心的未读消息数量
+- 购物车的商品数量
+- 通知提醒标记
+- 新功能上线标记
+- 状态指示标记
 
-### Props
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
+## 完整API参考
+
+### Props属性
+
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| model-value | Number / String | - | 否 | 显示值，支持数值和字符串类型 |
-| show-zero | Boolean | false | 否 | 当数值为 0 时，是否展示徽标 |
-| bg-color | String | - | 否 | 徽标背景颜色，用于自定义徽标的背景色 |
-| max | Number | - | 否 | 最大值，超过最大值会显示 '{max}+'，要求 value 是 Number 类型 |
-| is-dot | Boolean | false | 否 | 是否为红色点状标注，不显示具体数值 |
-| hidden | Boolean | false | 否 | 是否隐藏徽标 |
-| type | String | undefined | 否 | 徽标类型，可选值：primary / success / warning / danger / info |
-| top | Number / String | - | 否 | 为正时，徽标向下偏移对应的像素 |
-| right | Number / String | - | 否 | 为正时，徽标向左偏移对应的像素 |
-| custom-class | String | - | 否 | 根节点自定义类名 |
-| custom-style | String / Object | - | 否 | 根节点自定义样式 |
+| modelValue | string/number | - | 否 | 显示值 |
+| showZero | boolean | false | 否 | 当数值为 0 时，是否展示徽标 |
+| bgColor | string | - | 否 | 自定义背景色 |
+| max | number | - | 否 | 最大值，超过最大值会显示 '{max}+'，要求 value 是 Number 类型 |
+| isDot | boolean | - | 否 | 是否为红色点状标注 |
+| hidden | boolean | - | 否 | 是否隐藏 badge |
+| type | string | - | 否 | badge类型，可选值：primary / success / warning / danger / info |
+| top | string/number | - | 否 | 为正时，角标向下偏移对应的像素 |
+| right | string/number | - | 否 | 为正时，角标向左偏移对应的像素 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+### Events事件
 
-### Methods
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+该组件没有定义任何事件。
 
-### Slots
+### Methods方法
+
+该组件没有对外暴露的方法。
+
+### Slots插槽
+
 | 插槽名 | 作用域变量 | 使用说明 |
 |--------|------------|----------|
-| default | - | 放置需要显示徽标的内容，徽标会自动附加到该内容上 |
+| default | - | 需要显示徽章的内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 基础数字徽标 -->
-    <wd-badge :model-value="5">
-      <wd-icon name="message" size="40rpx" />
+  <view class="badge-demo">
+    <!-- 数字徽章 -->
+    <wd-badge modelValue="5">
+      <wd-button type="primary" size="small">按钮</wd-button>
     </wd-badge>
     
-    <!-- 显示文本 -->
-    <wd-badge model-value="new">
-      <wd-icon name="bell" size="40rpx" />
+    <!-- 圆点徽章 -->
+    <wd-badge isDot>
+      <wd-button type="success" size="small">按钮</wd-button>
     </wd-badge>
   </view>
 </template>
 
+<script lang="ts" setup>
+// 基础徽章用法，展示数字徽章和圆点徽章
+</script>
+
 <style scoped>
-.container {
+.badge-demo {
   display: flex;
-  gap: 40rpx;
-  padding: 40rpx;
+  gap: 20rpx;
+  padding: 20rpx;
+  align-items: center;
 }
 </style>
 ```
 
-### 自定义最大值
+### 2. 最大值和零值显示
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 超过最大值显示 "99+" -->
-    <wd-badge :model-value="120" :max="99">
-      <wd-icon name="message" size="40rpx" />
+  <view class="badge-demo">
+    <!-- 超过最大值显示 -->
+    <wd-badge modelValue="99" max="99">
+      <wd-button type="warning" size="small">按钮</wd-button>
+    </wd-badge>
+    
+    <!-- 显示零值 -->
+    <wd-badge modelValue="0" showZero>
+      <wd-button type="danger" size="small">按钮</wd-button>
+    </wd-badge>
+    
+    <!-- 隐藏零值 -->
+    <wd-badge modelValue="0">
+      <wd-button type="info" size="small">按钮</wd-button>
     </wd-badge>
   </view>
 </template>
 
+<script lang="ts" setup>
+// 展示最大值和零值显示的不同效果
+</script>
+
 <style scoped>
-.container {
-  padding: 40rpx;
+.badge-demo {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  align-items: center;
 }
 </style>
 ```
 
-### 点状徽标
+### 3. 不同类型和自定义颜色
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 点状徽标 -->
-    <wd-badge is-dot>
-      <wd-icon name="message" size="40rpx" />
+  <view class="badge-demo">
+    <!-- 不同类型的徽章 -->
+    <wd-badge modelValue="1" type="primary">
+      <wd-button size="small">primary</wd-button>
+    </wd-badge>
+    <wd-badge modelValue="2" type="success">
+      <wd-button size="small">success</wd-button>
+    </wd-badge>
+    <wd-badge modelValue="3" type="warning">
+      <wd-button size="small">warning</wd-button>
+    </wd-badge>
+    <wd-badge modelValue="4" type="danger">
+      <wd-button size="small">danger</wd-button>
+    </wd-badge>
+    <wd-badge modelValue="5" type="info">
+      <wd-button size="small">info</wd-button>
     </wd-badge>
     
-    <!-- 自定义颜色的点状徽标 -->
-    <wd-badge is-dot bg-color="#409eff">
-      <wd-icon name="bell" size="40rpx" />
+    <!-- 自定义背景色 -->
+    <wd-badge modelValue="6" bgColor="#666">
+      <wd-button size="small">自定义颜色</wd-button>
     </wd-badge>
   </view>
 </template>
 
-<style scoped>
-.container {
-  display: flex;
-  gap: 40rpx;
-  padding: 40rpx;
-}
-</style>
-```
-
-### 不同类型的徽标
-```vue
-<template>
-  <view class="container">
-    <!-- 主要类型 -->
-    <wd-badge :model-value="5" type="primary">
-      <wd-icon name="message" size="40rpx" />
-    </wd-badge>
-    
-    <!-- 成功类型 -->
-    <wd-badge :model-value="10" type="success">
-      <wd-icon name="bell" size="40rpx" />
-    </wd-badge>
-    
-    <!-- 警告类型 -->
-    <wd-badge :model-value="15" type="warning">
-      <wd-icon name="cart" size="40rpx" />
-    </wd-badge>
-    
-    <!-- 危险类型 -->
-    <wd-badge :model-value="20" type="danger">
-      <wd-icon name="user" size="40rpx" />
-    </wd-badge>
-    
-    <!-- 信息类型 -->
-    <wd-badge :model-value="25" type="info">
-      <wd-icon name="setting" size="40rpx" />
-    </wd-badge>
-  </view>
-</template>
+<script lang="ts" setup>
+// 展示不同类型的徽章和自定义背景色
+</script>
 
 <style scoped>
-.container {
+.badge-demo {
   display: flex;
-  gap: 40rpx;
-  padding: 40rpx;
   flex-wrap: wrap;
+  gap: 20rpx;
+  padding: 20rpx;
+  align-items: center;
 }
 </style>
 ```
 
-### 自定义位置和样式
+### 4. 位置偏移和隐藏徽章
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 自定义位置的徽标 -->
-    <wd-badge :model-value="5" :top="10" :right="10">
-      <wd-icon name="message" size="40rpx" />
+  <view class="badge-demo">
+    <!-- 位置偏移 -->
+    <wd-badge modelValue="1" top="10" right="10">
+      <wd-button type="primary" size="small">偏移</wd-button>
     </wd-badge>
     
-    <!-- 自定义背景色和样式 -->
-    <wd-badge :model-value="10" bg-color="#409eff" :custom-style="{ fontSize: '20rpx', padding: '0 10rpx' }">
-      <wd-icon name="bell" size="40rpx" />
+    <!-- 隐藏徽章 -->
+    <wd-badge modelValue="2" hidden>
+      <wd-button type="success" size="small">隐藏</wd-button>
     </wd-badge>
     
-    <!-- 显示 0 值 -->
-    <wd-badge :model-value="0" show-zero>
-      <wd-icon name="cart" size="40rpx" />
+    <!-- 动态控制隐藏 -->
+    <wd-badge modelValue="3" :hidden="isHidden">
+      <wd-button type="warning" size="small" @click="isHidden = !isHidden">
+        {{ isHidden ? '显示徽章' : '隐藏徽章' }}
+      </wd-button>
     </wd-badge>
   </view>
 </template>
 
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+// 动态控制徽章隐藏
+const isHidden = ref(false)
+</script>
+
 <style scoped>
-.container {
+.badge-demo {
   display: flex;
-  gap: 40rpx;
-  padding: 40rpx;
+  gap: 20rpx;
+  padding: 20rpx;
+  align-items: center;
 }
 </style>
 ```
 
-## 样式定制
-
-### 自定义类名
-通过 `custom-class` 属性可以为组件根节点添加自定义类名，用于覆盖默认样式：
+### 5. 与其他组件结合使用
 
 ```vue
 <template>
-  <wd-badge :model-value="5" custom-class="my-badge">
-    <wd-icon name="message" size="40rpx" />
-  </wd-badge>
+  <view class="badge-demo">
+    <!-- 与头像结合 -->
+    <wd-badge modelValue="3">
+      <wd-avatar src="https://example.com/avatar.jpg" size="60" />
+    </wd-badge>
+    
+    <!-- 与图标结合 -->
+    <wd-badge isDot>
+      <wd-icon name="message" size="40" />
+    </wd-badge>
+    
+    <!-- 与文本结合 -->
+    <wd-badge modelValue="99+">
+      <view class="text-item">消息中心</view>
+    </wd-badge>
+  </view>
 </template>
 
+<script lang="ts" setup>
+// 展示徽章与其他组件的结合使用
+</script>
+
 <style scoped>
-.my-badge {
-  /* 自定义样式 */
+.badge-demo {
+  display: flex;
+  gap: 40rpx;
+  padding: 20rpx;
+  align-items: center;
 }
 
-.my-badge .wd-badge__content {
-  /* 自定义徽标样式 */
-  font-size: 20rpx;
-  padding: 0 10rpx;
+.text-item {
+  font-size: 28rpx;
+  color: #333;
 }
 </style>
 ```
 
-### 自定义样式
-通过 `custom-style` 属性可以直接为组件根节点添加内联样式：
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
 
 ```vue
 <template>
   <wd-badge 
-    :model-value="5" 
-    :custom-style="{ margin: '10rpx' }" 
+    modelValue="5" 
+    customStyle="margin: 20rpx;"
   >
-    <wd-icon name="message" size="40rpx" />
+    <wd-button type="primary" size="small">自定义样式</wd-button>
   </wd-badge>
 </template>
 ```
 
-### 自定义背景色
-通过 `bg-color` 属性可以自定义徽标的背景颜色：
+### 2. 使用customClass自定义类名
 
 ```vue
 <template>
-  <wd-badge :model-value="5" bg-color="#409eff">
-    <wd-icon name="message" size="40rpx" />
+  <wd-badge 
+    modelValue="5" 
+    customClass="my-badge"
+  >
+    <wd-button type="primary" size="small">自定义类名</wd-button>
   </wd-badge>
 </template>
+
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.my-badge) {
+  margin: 20rpx;
+  padding: 10rpx;
+  background-color: #f5f7fa;
+  border-radius: 8rpx;
+}
+</style>
 ```
 
-### 自定义徽标位置
-通过 `top` 和 `right` 属性可以调整徽标的位置：
+### 3. 覆盖徽章内部样式
 
 ```vue
 <template>
-  <wd-badge :model-value="5" :top="10" :right="10">
-    <wd-icon name="message" size="40rpx" />
+  <wd-badge 
+    modelValue="5" 
+    customClass="custom-badge-content"
+  >
+    <wd-button type="primary" size="small">自定义徽章内容</wd-button>
   </wd-badge>
 </template>
+
+<style scoped>
+/* 覆盖徽章内容样式 */
+:deep(.custom-badge-content .wd-badge__content) {
+  min-width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 20rpx;
+  border-radius: 18rpx;
+}
+</style>
 ```
 
 ## 注意事项
 
-1. **数值显示规则**：
-   - 当 `model-value` 为 0 时，默认不显示徽标，可通过 `show-zero` 属性设置显示
-   - 当 `model-value` 超过 `max` 值时，显示 `{max}+`，要求 `model-value` 是 Number 类型
-   - 当 `is-dot` 为 true 时，只显示点状徽标，不显示具体数值
+1. **modelValue类型**：modelValue可以是数字或字符串，但当使用max属性时，modelValue必须是数字类型。
 
-2. **类型与样式**：
-   - `type` 属性支持五种预设类型：primary、success、warning、danger、info
-   - 当同时设置 `type` 和 `bg-color` 时，`bg-color` 优先级更高
-   - 点状徽标的颜色受 `type` 或 `bg-color` 属性影响
+2. **最大值处理**：当modelValue大于max时，会显示"{max}+"，例如max=99，modelValue=100时显示"99+"。
 
-3. **位置调整**：
-   - `top` 属性为正时，徽标向下偏移对应的像素
-   - `right` 属性为正时，徽标向左偏移对应的像素
-   - 位置调整仅适用于徽标，不影响插槽内容
+3. **圆点徽章**：isDot为true时，徽章会显示为一个小圆点，不显示具体数值。
 
-4. **性能优化**：
-   - 当不需要显示徽标时，建议设置 `hidden` 属性为 true，减少不必要的渲染
-   - 避免频繁更新徽标数值，建议使用防抖或节流处理
+4. **零值显示**：默认情况下，当modelValue为0时不显示徽章，可通过showZero属性设置为true来显示。
 
-5. **兼容性**：
-   - 该组件基于 uni-app 开发，支持多端适配
-   - 在不同平台上，徽标的渲染效果可能存在差异，建议进行充分测试
+5. **位置偏移**：top和right属性用于调整徽章的位置，正值表示向下/向左偏移，负值表示向上/向右偏移。
 
-6. **使用建议**：
-   - 徽标内容应简洁明了，避免过长文本
-   - 徽标颜色应与背景形成鲜明对比，确保可读性
-   - 合理使用不同类型的徽标，保持视觉一致性
+6. **类型优先级**：bgColor属性的优先级高于type属性，当同时设置时，会使用bgColor作为背景色。
+
+7. **性能优化**：当徽章不需要显示时，建议使用hidden属性隐藏，而不是条件渲染，以提高性能。
+
+8. **嵌套使用**：徽章组件可以嵌套在任何元素内部使用，但建议只嵌套单个元素，以确保徽章位置正确。
+
+9. **自定义样式**：通过customStyle和customClass可以自定义徽章容器的样式，通过bgColor可以自定义徽章内容的背景色。
+
+10. **响应式设计**：徽章大小会根据父元素的大小自动调整，建议在不同尺寸的元素上测试徽章显示效果。

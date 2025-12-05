@@ -1,73 +1,79 @@
 # Tag 标签
 
-## 组件概述
+## 组件概况
 
-Tag 是一个用于标记和分类的 UI 组件，常用于展示状态、分类、标签等信息。它支持多种样式类型、自定义颜色、图标、可关闭等功能，适用于各种需要标签展示的场景。
+### 组件概述
+标签组件是用于对信息进行分类或标记的常用UI元素，支持多种样式和交互方式。wd-tag组件提供了丰富的配置选项，包括不同类型、尺寸、颜色、可关闭等特性，适用于各种标签展示场景。
 
-### 功能特点
-- 支持多种标签类型（默认、主要、成功、警告、危险）
-- 支持自定义图标和图标插槽
-- 支持可关闭标签（仅圆角类型）
+### 详细功能描述
+- 支持5种标签类型：default、primary、success、warning、danger
+- 支持左侧图标配置
+- 支持图标插槽自定义
+- 支持可关闭标签（只对圆角类型支持）
 - 支持幽灵类型标签
-- 支持动态新增标签
-- 支持自定义颜色和背景色
-- 支持圆角和标记类型
-- 支持自定义样式和类名
+- 支持新增标签（动态标签）
+- 支持自定义文字颜色
+- 支持自定义背景色和边框色
+- 支持圆角类型标签
+- 支持标记类型标签
+- 支持点击事件
+- 支持关闭事件
+- 支持确认事件（动态标签）
 
-### 适用场景
-- 状态标签：如订单状态、审核状态等
-- 分类标签：如商品分类、文章标签等
-- 筛选标签：如搜索筛选、条件筛选等
-- 标签管理：如动态添加、删除标签等
-- 标记提示：如重要标记、新功能标记等
+### 适用业务场景
+- 内容分类标签
+- 状态标记
+- 筛选条件标签
+- 动态标签添加
+- 标签云展示
+- 任何需要分类或标记信息的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| useIconSlot | boolean | false | 否 | 是否使用图标插槽，开启后可以自定义图标内容 |
-| type | string | 'default' | 否 | 标签类型，可选值：'default' / 'primary' / 'success' / 'warning' / 'danger' |
-| icon | string | '' | 否 | 左侧图标名称，使用内置图标库 |
-| closable | boolean | false | 否 | 是否可关闭（仅对圆角类型支持） |
-| plain | boolean | false | 否 | 是否为幽灵类型标签 |
-| dynamic | boolean | false | 否 | 是否为动态标签，支持新增标签功能 |
-| color | string | '' | 否 | 标签文字颜色 |
-| bgColor | string | '' | 否 | 标签背景色和边框色 |
-| round | boolean | false | 否 | 是否为圆角类型标签 |
-| mark | boolean | false | 否 | 是否为标记类型标签 |
-| customClass | string | '' | 否 | 自定义类名，用于覆盖组件样式 |
-| customStyle | object | {} | 否 | 自定义样式，直接应用到组件根元素 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| useIconSlot | boolean | false | 否 | 是否开启图标插槽 |
+| type | 'default' / 'primary' / 'success' / 'warning' / 'danger' | default | 否 | 标签类型 |
+| icon | string | '' | 否 | 左侧图标 |
+| closable | boolean | false | 否 | 是否可关闭（只对圆角类型支持） |
+| plain | boolean | false | 否 | 幽灵类型 |
+| dynamic | boolean | false | 否 | 是否为新增标签 |
+| color | string | '' | 否 | 文字颜色 |
+| bgColor | string | '' | 否 | 背景色和边框色 |
+| round | boolean | false | 否 | 圆角类型 |
+| mark | boolean | false | 否 | 标记类型 |
+| customStyle | string / object | - | 否 | 自定义样式 |
+| customClass | string | - | 否 | 自定义类名 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| click | 点击标签时触发 | event: Event 对象 |
-| close | 点击关闭按钮时触发 | event: Event 对象 |
-| confirm | 动态标签输入确认时触发 | { value: string }，value 为输入的标签内容 |
+|--------|----------|----------|
+| click | 点击标签时触发 | event - 点击事件对象 |
+| close | 关闭标签时触发 | event - 关闭事件对象 |
+| confirm | 动态标签确认时触发 | { value: string } - 输入的标签值 |
 
-### Methods
+### Methods方法
 
-该组件未对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 默认插槽，用于标签文字内容 |
-| icon | - | 图标插槽，用于自定义图标内容，需要设置 useIconSlot 为 true |
-| add | - | 动态标签的添加按钮插槽，用于自定义添加按钮内容 |
+|--------|------------|----------|
+| default | - | 标签内容 |
+| icon | - | 自定义图标 |
+| add | - | 自定义动态标签的添加按钮 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag>默认标签</wd-tag>
+  <view class="tag-container">
+    <wd-tag type="default">默认标签</wd-tag>
     <wd-tag type="primary">主要标签</wd-tag>
     <wd-tag type="success">成功标签</wd-tag>
     <wd-tag type="warning">警告标签</wd-tag>
@@ -75,268 +81,279 @@ Tag 是一个用于标记和分类的 UI 组件，常用于展示状态、分类
   </view>
 </template>
 
+<script setup lang="ts">
+// 基础标签用法
+</script>
+
 <style scoped>
-.demo-container {
+.tag-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
+  gap: 12rpx;
   padding: 20rpx;
 }
 </style>
 ```
 
-### 带图标标签
-
+### 2. 带图标的标签
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag icon="home-o">首页</wd-tag>
-    <wd-tag icon="user-o" type="primary">用户</wd-tag>
-    <wd-tag icon="cart-o" type="success">购物车</wd-tag>
-    <wd-tag icon="star-o" type="warning">收藏</wd-tag>
-    <wd-tag icon="setting-o" type="danger">设置</wd-tag>
+  <view class="tag-container">
+    <wd-tag type="primary" icon="home">首页</wd-tag>
+    <wd-tag type="success" icon="check">成功</wd-tag>
+    <wd-tag type="warning" icon="warning">警告</wd-tag>
+    <wd-tag type="danger" icon="close">错误</wd-tag>
+    <wd-tag type="default" icon="info">信息</wd-tag>
+    
+    <!-- 自定义图标插槽 -->
+    <wd-tag type="primary" use-icon-slot>
+      <template #icon>
+        <wd-icon name="star" color="#ffd700"></wd-icon>
+      </template>
+      自定义图标
+    </wd-tag>
   </view>
 </template>
 
+<script setup lang="ts">
+// 带图标的标签用法
+</script>
+
 <style scoped>
-.demo-container {
+.tag-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
+  gap: 12rpx;
   padding: 20rpx;
 }
 </style>
 ```
 
-### 可关闭标签
-
+### 3. 可关闭和圆角标签
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag v-for="tag in tags" :key="tag" :closable="true" :round="true" @close="handleClose(tag)">
+  <view class="tag-container">
+    <wd-tag 
+      type="primary" 
+      round 
+      closable 
+      v-for="(tag, index) in tags" 
+      :key="index"
+      @close="handleClose(index)"
+    >
       {{ tag }}
     </wd-tag>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const tags = ref(['标签一', '标签二', '标签三', '标签四'])
+// 可关闭标签列表
+const tags = ref(['标签1', '标签2', '标签3', '标签4', '标签5'])
 
-const handleClose = (tag: string) => {
-  tags.value = tags.value.filter(item => item !== tag)
-  console.log('关闭标签:', tag)
+// 关闭标签事件
+const handleClose = (index: number) => {
+  tags.value.splice(index, 1)
 }
 </script>
 
 <style scoped>
-.demo-container {
+.tag-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
+  gap: 12rpx;
   padding: 20rpx;
 }
 </style>
 ```
 
-### 幽灵标签
-
+### 4. 幽灵标签和标记标签
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag plain>默认幽灵标签</wd-tag>
-    <wd-tag plain type="primary">主要幽灵标签</wd-tag>
-    <wd-tag plain type="success">成功幽灵标签</wd-tag>
-    <wd-tag plain type="warning">警告幽灵标签</wd-tag>
-    <wd-tag plain type="danger">危险幽灵标签</wd-tag>
+  <view class="tag-section">
+    <text class="section-title">幽灵标签</text>
+    <view class="tag-container">
+      <wd-tag type="primary" plain>主要标签</wd-tag>
+      <wd-tag type="success" plain>成功标签</wd-tag>
+      <wd-tag type="warning" plain>警告标签</wd-tag>
+      <wd-tag type="danger" plain>危险标签</wd-tag>
+    </view>
+  </view>
+  
+  <view class="tag-section">
+    <text class="section-title">标记标签</text>
+    <view class="tag-container">
+      <wd-tag type="primary" mark>主要标记</wd-tag>
+      <wd-tag type="success" mark>成功标记</wd-tag>
+      <wd-tag type="warning" mark>警告标记</wd-tag>
+      <wd-tag type="danger" mark>危险标记</wd-tag>
+    </view>
   </view>
 </template>
+
+<script setup lang="ts">
+// 幽灵标签和标记标签用法
+</script>
 
 <style scoped>
-.demo-container {
+.tag-section {
+  margin: 20rpx 0;
+  padding: 0 20rpx;
+}
+
+.section-title {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.tag-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
-  padding: 20rpx;
-  background-color: #f5f7fa;
+  gap: 12rpx;
+  padding: 10rpx 0;
 }
 </style>
 ```
 
-### 动态标签
-
+### 5. 动态标签和自定义颜色
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag v-for="tag in tags" :key="tag" :closable="true" :round="true" @close="handleClose(tag)">
+  <view class="tag-container">
+    <wd-tag 
+      type="primary" 
+      round 
+      closable 
+      v-for="(tag, index) in dynamicTags" 
+      :key="index"
+      @close="handleClose(index)"
+    >
       {{ tag }}
     </wd-tag>
-    <wd-tag dynamic @confirm="handleConfirm"></wd-tag>
+    
+    <!-- 动态添加标签 -->
+    <wd-tag 
+      type="primary" 
+      dynamic 
+      @confirm="handleConfirm"
+    ></wd-tag>
+    
+    <!-- 自定义颜色标签 -->
+    <wd-tag 
+      round 
+      color="#fff" 
+      bg-color="#67c23a"
+    >
+      自定义颜色
+    </wd-tag>
+    <wd-tag 
+      round 
+      color="#fff" 
+      bg-color="#e6a23c"
+    >
+      自定义颜色
+    </wd-tag>
+    <wd-tag 
+      round 
+      color="#fff" 
+      bg-color="#f56c6c"
+    >
+      自定义颜色
+    </wd-tag>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const tags = ref(['标签一', '标签二', '标签三'])
+// 动态标签列表
+const dynamicTags = ref(['标签1', '标签2', '标签3'])
 
-const handleClose = (tag: string) => {
-  tags.value = tags.value.filter(item => item !== tag)
+// 关闭标签事件
+const handleClose = (index: number) => {
+  dynamicTags.value.splice(index, 1)
 }
 
-const handleConfirm = ({ value }: { value: string }) => {
-  if (value && !tags.value.includes(value)) {
-    tags.value.push(value)
+// 添加标签事件
+const handleConfirm = (event: { value: string }) => {
+  if (event.value && !dynamicTags.value.includes(event.value)) {
+    dynamicTags.value.push(event.value)
   }
 }
 </script>
 
 <style scoped>
-.demo-container {
+.tag-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
+  gap: 12rpx;
   padding: 20rpx;
 }
 </style>
 ```
 
-### 自定义颜色
+## 样式定制指南
 
+### customStyle 用法
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag :color="'#ffffff'" :bg-color="'#1989fa'">自定义颜色</wd-tag>
-    <wd-tag :color="'#ffffff'" :bg-color="'#52c41a'">自定义颜色</wd-tag>
-    <wd-tag :color="'#ffffff'" :bg-color="'#faad14'">自定义颜色</wd-tag>
-    <wd-tag :color="'#ffffff'" :bg-color="'#f5222d'">自定义颜色</wd-tag>
-    <wd-tag :color="'#646566'" :bg-color="'#e8e8e8'">自定义颜色</wd-tag>
-  </view>
+  <wd-tag 
+    type="primary" 
+    :custom-style="{ 
+      fontSize: '28rpx', 
+      padding: '8rpx 20rpx', 
+      borderRadius: '16rpx'
+    }"
+  >
+    自定义样式标签
+  </wd-tag>
 </template>
 
-<style scoped>
-.demo-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20rpx;
-  padding: 20rpx;
-}
-</style>
+<script setup lang="ts">
+// 自定义样式标签
+</script>
 ```
 
-### 标记类型
-
+### customClass 用法
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-tag mark>默认标记</wd-tag>
-    <wd-tag mark type="primary">主要标记</wd-tag>
-    <wd-tag mark type="success">成功标记</wd-tag>
-    <wd-tag mark type="warning">警告标记</wd-tag>
-    <wd-tag mark type="danger">危险标记</wd-tag>
-  </view>
+  <wd-tag type="primary" custom-class="my-tag">
+    自定义类名标签
+  </wd-tag>
 </template>
 
-<style scoped>
-.demo-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20rpx;
-  padding: 20rpx;
+<script setup lang="ts">
+// 自定义类名标签
+</script>
+
+<style lang="scss">
+.my-tag {
+  font-size: 28rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 16rpx;
+  background-color: #409eff;
+  color: #fff;
+  
+  &:active {
+    background-color: #66b1ff;
+  }
 }
 </style>
 ```
-
-## 样式定制
-
-### 自定义类名
-
-```vue
-<wd-tag 
-  type="primary" 
-  custom-class="my-tag" 
-  custom-style="{ borderRadius: '4rpx', padding: '8rpx 16rpx' }"
->
-  自定义样式标签
-</wd-tag>
-```
-
-### CSS 变量
-
-组件支持以下 CSS 变量进行样式定制：
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --tag-padding | 0 16rpx | 标签内边距 |
-| --tag-font-size | 24rpx | 标签字体大小 |
-| --tag-height | 40rpx | 标签高度 |
-| --tag-border-radius | 4rpx | 标签边框半径 |
-| --tag-line-height | 40rpx | 标签行高 |
-| --tag-default-color | #646566 | 默认标签文字颜色 |
-| --tag-default-background-color | #f0f2f5 | 默认标签背景色 |
-| --tag-primary-color | #ffffff | 主要标签文字颜色 |
-| --tag-primary-background-color | #1989fa | 主要标签背景色 |
-| --tag-success-color | #ffffff | 成功标签文字颜色 |
-| --tag-success-background-color | #52c41a | 成功标签背景色 |
-| --tag-warning-color | #ffffff | 警告标签文字颜色 |
-| --tag-warning-background-color | #faad14 | 警告标签背景色 |
-| --tag-danger-color | #ffffff | 危险标签文字颜色 |
-| --tag-danger-background-color | #f5222d | 危险标签背景色 |
-| --tag-icon-margin-right | 8rpx | 图标与文字之间的间距 |
-| --tag-close-size | 20rpx | 关闭按钮大小 |
-| --tag-close-color | #c0c4cc | 关闭按钮颜色 |
-| --tag-close-hover-color | #909399 | 关闭按钮悬停颜色 |
-| --tag-mark-border-radius | 0 8rpx 8rpx 0 | 标记类型标签的边框半径 |
 
 ## 注意事项
 
-1. **可关闭标签**：
-   - 可关闭标签仅支持圆角类型（`round: true`）
-   - 点击关闭按钮会触发 `close` 事件，需要手动处理标签的删除逻辑
-
-2. **动态标签**：
-   - 动态标签支持点击添加新标签，输入完成后按回车确认
-   - 确认后会触发 `confirm` 事件，返回输入的标签内容
-   - 可以通过 `add` 插槽自定义添加按钮的内容
-
-3. **图标使用**：
-   - 可以通过 `icon` 属性使用内置图标
-   - 也可以通过 `icon` 插槽自定义图标内容，需要设置 `useIconSlot: true`
-
-4. **样式优先级**：
-   - 自定义颜色（`color` 和 `bgColor`）优先级高于类型颜色
-   - 幽灵类型（`plain`）会改变标签的样式表现
-
-5. **性能优化**：
-   - 避免在标签中放置过多复杂内容
-   - 对于大量标签的场景，建议使用虚拟列表或分页加载
-
-6. **平台兼容性**：
-   - 所有平台均支持基本功能
-   - 样式在不同平台可能存在细微差异
-
-
-### 状态流转
-- 初始状态：根据属性渲染标签样式
-- 点击事件：触发 `click` 事件
-- 关闭事件：触发 `close` 事件
-- 动态标签点击：切换到输入状态
-- 动态标签输入：触发 `confirm` 事件，添加新标签
-
-## 常见问题
-
-### Q: 如何自定义标签的大小？
-A: 可以通过 CSS 变量 `--tag-height` 和 `--tag-font-size` 调整标签的大小，或者使用 `customStyle` 属性直接设置样式。
-
-### Q: 为什么可关闭标签不显示关闭按钮？
-A: 可关闭标签仅支持圆角类型，需要设置 `round: true` 才能显示关闭按钮。
-
-### Q: 如何自定义动态标签的添加按钮？
-A: 可以使用 `add` 插槽自定义添加按钮的内容。
-
-### Q: 如何实现标签的拖拽排序？
-A: 可以结合第三方拖拽库（如 sortablejs）实现标签的拖拽排序功能。
-
-### Q: 如何处理大量标签的场景？
-A: 对于大量标签的场景，建议使用虚拟列表或分页加载，避免一次性渲染过多标签影响性能。
+1. 可关闭标签(closable)只对圆角类型(round)标签生效
+2. 动态标签(dynamic)支持点击添加新标签，并通过confirm事件返回输入值
+3. 自定义颜色(color和bgColor)会覆盖标签类型的默认颜色
+4. 标记类型(mark)标签通常用于突出显示重要信息
+5. 幽灵类型(plain)标签只有边框颜色，没有背景色
+6. 图标插槽(icon)需要配合useIconSlot属性使用
+7. 标签内容过长时，会自动省略多余内容
+8. 标签组件支持通过点击事件(click)进行交互
+9. 关闭事件(close)只在可关闭标签上触发
+10. 确认事件(confirm)只在动态标签上触发
+11. 建议在使用标签组件时，为不同类型的标签提供足够的间距
+12. 标签组件支持通过customStyle和customClass进行深度定制

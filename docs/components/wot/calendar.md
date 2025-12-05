@@ -1,54 +1,55 @@
-# 日历组件（wd-calendar）
+# Calendar 日历选择器
 
-## 组件概述
+## 组件概况
 
-wd-calendar 是一个基于 Vue 3 + TypeScript + UniApp 开发的日历组件，用于日期和时间的选择。它支持多种选择模式，包括单个日期、日期范围、时间选择等，提供了丰富的配置选项和灵活的定制能力。
+### 组件概述
+Calendar 日历选择器组件是一个功能强大的日期时间选择器，支持多种选择模式，包括单个日期、日期范围、时间日期、周、月等，可用于表单输入、日期筛选等多种场景。
 
-### 功能描述
-- 支持多种选择类型：date、dates、datetime、week、month、daterange、datetimerange、weekrange、monthrange
-- 支持自定义日期范围限制
-- 支持快捷选项配置
-- 支持自定义格式化函数
-- 支持范围选择时的最大日期范围限制
-- 支持日期类型切换
-- 支持清空功能
+### 详细功能描述
+- 支持9种选择类型：date（日期）、dates（多日期）、datetime（日期时间）、week（周）、month（月）、daterange（日期范围）、datetimerange（日期时间范围）、weekrange（周范围）、monthrange（月范围）
+- 支持最小/最大日期限制
+- 支持周起始天设置
+- 支持自定义日期格式化
+- 支持范围选择的最大范围限制
+- 支持快捷选项
+- 支持时间过滤
+- 支持隐藏秒选择
+- 支持底部安全距离适配
+- 支持懒渲染
+- 支持从页面中脱离（解决fixed失效问题）
 - 支持表单验证
-- 支持多种样式定制
+- 支持清空功能
+- 支持必填标记
 
 ### 适用业务场景
-- 表单中的日期输入字段
-- 日期范围选择，如预订日期、活动时间等
-- 时间选择，如会议时间、预约时间等
-- 周/月选择，如报表统计周期、账单周期等
-- 多日期选择，如日程安排、假期选择等
+- 表单中的日期选择
+- 订单日期选择
+- 日期范围筛选（如报表查询）
+- 周/月选择
+- 任何需要日期时间选择的场景
 
-### 组件设计理念
-wd-calendar 组件采用了模块化设计，将日历视图和选择逻辑分离，便于维护和扩展。组件使用了 Vue 3 的 Composition API 和 TypeScript，确保了类型安全和代码可维护性。组件设计考虑了跨平台兼容性和性能优化，提供了丰富的配置选项，允许开发者根据实际需求进行定制。
+## 完整API参考
 
-组件的核心实现基于 dayjs 库进行日期处理，确保了日期计算的准确性和一致性。组件支持多种交互方式，包括点击、滑动等，提供了良好的用户体验。
+### Props属性
 
-## 完整 API 参考
-
-### Props
-
-| 名称 | 类型 | 默认值 | 必填项 | 描述 |
-| --- | --- | --- | --- | --- |
-| modelValue | number / array / null | - | 是 | 选中值，为 13 位时间戳或时间戳数组 |
-| type | string | 'date' | 否 | 日期类型，可选值：date / dates / datetime / week / month / daterange / datetimerange / weekrange / monthrange |
-| minDate | number | 当前日期前12个月 | 否 | 最小日期，为 13 位时间戳 |
-| maxDate | number | 当前日期后12个月 | 否 | 最大日期，为 13 位时间戳 |
-| firstDayOfWeek | number | 0 | 否 | 周起始天，0 表示周日，1 表示周一 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| modelValue | number/array/null | - | 是 | 选中值，为13位时间戳或时间戳数组 |
+| type | string | date | 否 | 日期类型，可选值：date / dates / datetime / week / month / daterange / datetimerange / weekrange / monthrange |
+| minDate | number | 当前日期前12个月 | 否 | 最小日期，为13位时间戳 |
+| maxDate | number | 当前日期后12个月 | 否 | 最大日期，为13位时间戳 |
+| firstDayOfWeek | number | 0 | 否 | 周起始天（0-周日，1-周一，以此类推） |
 | formatter | function | - | 否 | 日期格式化函数 |
-| maxRange | number | - | 否 | type 为范围选择时有效，最大日期范围 |
-| rangePrompt | string | - | 否 | type 为范围选择时有效，选择超出最大日期范围时的错误提示文案 |
-| allowSameDay | boolean | false | 否 | type 为范围选择时有效，是否允许选择同一天 |
-| defaultTime | string / array | - | 否 | 选中日期所使用的当日内具体时刻 |
-| timeFilter | function | - | 否 | type 为 'datetime' 或 'datetimerange' 时有效，用于过滤时间选择器的数据 |
-| hideSecond | boolean | false | 否 | type 为 'datetime' 或 'datetimerange' 时有效，是否不展示秒修改 |
+| maxRange | number | - | 否 | type为范围选择时有效，最大日期范围 |
+| rangePrompt | string | - | 否 | type为范围选择时有效，选择超出最大日期范围时的错误提示文案 |
+| allowSameDay | boolean | false | 否 | type为范围选择时有效，是否允许选择同一天 |
+| defaultTime | string/array | - | 否 | 选中日期所使用的当日内具体时刻 |
+| timeFilter | function | - | 否 | type为datetime或datetimerange时有效，用于过滤时间选择器的数据 |
+| hideSecond | boolean | false | 否 | type为datetime或datetimerange时有效，是否不展示秒修改 |
 | label | string | - | 否 | 选择器左侧文案 |
-| labelWidth | string | '33%' | 否 | 设置左侧标题宽度 |
-| disabled | boolean | false | 否 | 禁用 |
-| readonly | boolean | false | 否 | 只读 |
+| labelWidth | string | 33% | 否 | 设置左侧标题宽度 |
+| disabled | boolean | false | 否 | 是否禁用 |
+| readonly | boolean | false | 否 | 是否只读 |
 | placeholder | string | - | 否 | 选择器占位符 |
 | title | string | - | 否 | 弹出层标题 |
 | alignRight | boolean | false | 否 | 选择器的值靠右展示 |
@@ -64,300 +65,453 @@ wd-calendar 组件采用了模块化设计，将日历视图和选择逻辑分�
 | innerDisplayFormat | function | - | 否 | 自定义范围选择类型的面板内部回显，返回一个字符串 |
 | ellipsis | boolean | false | 否 | 是否超出隐藏 |
 | showTypeSwitch | boolean | false | 否 | 是否显示类型切换功能 |
-| shortcuts | array | [] | 否 | 快捷选项，为对象数组，其中对象的 text 必传 |
+| shortcuts | array | [] | 否 | 快捷选项，为对象数组，其中对象的text必传 |
 | onShortcutsClick | function | - | 否 | 快捷操作点击回调 |
-| safeAreaInsetBottom | boolean | true | 否 | 弹出面板是否设置底部安全距离（iphone X 类型的机型） |
-| beforeConfirm | function | - | 否 | 确定前校验函数，接收 { value, resolve } 参数，通过 resolve 继续执行，resolve 接收 1 个 boolean 参数 |
-| prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 |
+| safeAreaInsetBottom | boolean | true | 否 | 弹出面板是否设置底部安全距离（iphone X类型的机型） |
+| beforeConfirm | function | - | 否 | 确定前校验函数，接收{ value, resolve }参数，通过resolve继续执行 |
+| prop | string | - | 否 | 表单域model字段名，在使用表单校验功能的情况下，该属性是必填的 |
 | rules | array | [] | 否 | 表单验证规则，结合wd-form组件使用 |
-| customViewClass | string | '' | 否 | 自定义视图类名 |
-| customLabelClass | string | '' | 否 | label 外部自定义样式 |
-| customValueClass | string | '' | 否 | value 外部自定义样式 |
-| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发picker-view的 change 事件。若不开启则会在滚动动画结束后触发 change 事件，1.2.25版本起提供，仅微信小程序和支付宝小程序支持 |
-| withCell | boolean | true | 否 | 是否使用内置单元格，默认为 true，使用内置单元格 |
-| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
-| markerSide | string | 'before' | 否 | 必填标记位置，可选值：before、after |
-| clearable | boolean | false | 否 | 显示清空按钮 |
-| customStyle | object | - | 否 | 自定义样式，用于覆盖组件默认样式 |
-| customClass | string | - | 否 | 自定义类名，用于扩展组件样式 |
+| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发change事件（仅微信/支付宝小程序支持） |
+| withCell | boolean | true | 否 | 是否使用内置单元格 |
+| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，解决fixed失效问题 |
+| markerSide | string | before | 否 | 必填标记位置，可选值：before（标签前）、after（标签后） |
+| clearable | boolean | false | 否 | 是否显示清空按钮 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
+| customLabelClass | string | - | 否 | 自定义标签样式类 |
+| customValueClass | string | - | 否 | 自定义值样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| update:modelValue | 选中值变化时 | value: number / number[] / null - 选中的日期值 |
-| change | 选择器值变化时 | { value: number / number[] / null } - 包含选中值的对象 |
-| confirm | 点击确定按钮时 | { value: number / number[] / null, type: string } - 包含选中值和类型的对象 |
-| cancel | 点击取消按钮或遮罩层时 | - |
+|--------|----------|----------|
+| cancel | 点击取消按钮或遮罩层关闭时 | - |
+| change | 选中值变化时 | value: 选中的日期值 |
+| update:modelValue | 选中值变化并确认后 | newValue: 新的选中值 |
+| confirm | 点击确定按钮时 | value: 选中的日期值, type: 当前选择类型 |
 | open | 打开选择器时 | - |
 | clear | 点击清空按钮时 | - |
 
-### Methods
+### Methods方法
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| open | - | void | 打开选择器 |
-| close | - | void | 关闭选择器 |
+|--------|------|--------|----------|
+| open | - | - | 打开时间选择器弹窗 |
+| close | - | - | 关闭时间选择器弹窗 |
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 自定义选择器内容，仅在 withCell 为 true 时生效 |
-| label | - | 自定义标签内容，仅在 withCell 为 true 时生效 |
+|--------|------------|----------|
+| default | - | 自定义选择器内容，仅当withCell为false时有效 |
+| label | - | 自定义左侧标签内容 |
 
 ## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <wd-calendar v-model="date" type="date" label="选择日期" placeholder="请选择日期" />
+  <view class="calendar-demo">
+    <wd-calendar 
+      v-model="date" 
+      label="选择日期" 
+      placeholder="请选择日期"
+      @change="handleChange"
+    />
+    <view class="result">选中的日期：{{ formatDate(date) }}</view>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { showToast } from '@/utils/toast'
 
-const date = ref<number>(Date.now())
-</script>
-```
+// 基础日历选择器用法
+const date = ref<number | null>(null)
 
-### 日期范围选择
+// 格式化日期
+const formatDate = (timestamp: number | null) => {
+  if (!timestamp) return ''
+  const date = new Date(timestamp)
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+}
 
-```vue
-<template>
-  <wd-calendar
-    v-model="dateRange"
-    type="daterange"
-    label="选择日期范围"
-    placeholder="请选择日期范围"
-    :max-range="7"
-    range-prompt="日期范围不能超过7天"
-    allow-same-day
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import dayjs from 'dayjs'
-
-const dateRange = ref<number[]>([
-  dayjs().startOf('day').valueOf(),
-  dayjs().endOf('day').valueOf()
-])
-</script>
-```
-
-### 时间选择
-
-```vue
-<template>
-  <wd-calendar
-    v-model="datetime"
-    type="datetime"
-    label="选择时间"
-    placeholder="请选择时间"
-    hide-second
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const datetime = ref<number>(Date.now())
-</script>
-```
-
-### 快捷选项
-
-```vue
-<template>
-  <wd-calendar
-    v-model="date"
-    type="daterange"
-    label="选择日期范围"
-    placeholder="请选择日期范围"
-    :shortcuts="shortcuts"
-    :on-shortcuts-click="onShortcutsClick"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import dayjs from 'dayjs'
-
-const date = ref<number[]>([])
-
-const shortcuts = [
-  { text: '今天' },
-  { text: '昨天' },
-  { text: '最近7天' },
-  { text: '最近30天' }
-]
-
-const onShortcutsClick = ({ item, index }: { item: any; index: number }) => {
-  const now = dayjs()
-  switch (index) {
-    case 0: // 今天
-      return [now.startOf('day').valueOf(), now.endOf('day').valueOf()]
-    case 1: // 昨天
-      return [now.subtract(1, 'day').startOf('day').valueOf(), now.subtract(1, 'day').endOf('day').valueOf()]
-    case 2: // 最近7天
-      return [now.subtract(6, 'day').startOf('day').valueOf(), now.endOf('day').valueOf()]
-    case 3: // 最近30天
-      return [now.subtract(29, 'day').startOf('day').valueOf(), now.endOf('day').valueOf()]
-    default:
-      return []
-  }
+// 处理选择事件
+const handleChange = (event: any) => {
+  showToast(`选择了：${formatDate(event.value)}`)
 }
 </script>
-```
-
-### 自定义格式化
-
-```vue
-<template>
-  <wd-calendar
-    v-model="date"
-    type="date"
-    label="选择日期"
-    placeholder="请选择日期"
-    :display-format="customDisplayFormat"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import dayjs from 'dayjs'
-
-const date = ref<number>(Date.now())
-
-const customDisplayFormat = (value: number | number[], type: string) => {
-  if (type === 'date') {
-    return dayjs(value as number).format('YYYY年MM月DD日')
-  }
-  return ''
-}
-</script>
-```
-
-## 样式定制指南
-
-### customStyle 和 customClass
-
-wd-calendar 组件支持通过 `customStyle` 和 `customClass` 进行样式定制。
-
-```vue
-<template>
-  <wd-calendar
-    v-model="date"
-    type="date"
-    label="选择日期"
-    :custom-style="{ backgroundColor: '#f5f5f5', padding: '10rpx' }"
-    custom-class="custom-calendar"
-  />
-</template>
 
 <style scoped>
-.custom-calendar {
-  /* 自定义类名样式 */
-  border-radius: 10rpx;
-  margin-bottom: 20rpx;
+.calendar-demo {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
 }
 
-/* 可以通过深度选择器修改组件内部样式 */
-:deep(.wd-calendar__title) {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
+.result {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 20rpx;
 }
 </style>
 ```
 
-### 自定义弹出层样式
-
-可以通过修改 CSS 变量来定制弹出层的样式：
+### 2. 不同类型选择
 
 ```vue
 <template>
-  <wd-calendar v-model="date" type="date" label="选择日期" />
+  <view class="calendar-demo">
+    <wd-calendar 
+      v-model="singleDate" 
+      type="date" 
+      label="单个日期" 
+    />
+    <wd-calendar 
+      v-model="dateRange" 
+      type="daterange" 
+      label="日期范围" 
+    />
+    <wd-calendar 
+      v-model="dateTime" 
+      type="datetime" 
+      label="日期时间" 
+    />
+    <wd-calendar 
+      v-model="week" 
+      type="week" 
+      label="周选择" 
+    />
+    <wd-calendar 
+      v-model="month" 
+      type="month" 
+      label="月选择" 
+    />
+  </view>
 </template>
 
-<style>
-/* 定制弹出层背景色 */
-:root {
-  --wd-calendar-bg-color: #f5f5f5;
-  --wd-calendar-header-bg-color: #fff;
-  --wd-calendar-title-color: #333;
-  --wd-calendar-confirm-bg-color: #fff;
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+// 不同类型的日历选择器
+const singleDate = ref<number | null>(null)
+const dateRange = ref<number[]>([])
+const dateTime = ref<number | null>(null)
+const week = ref<number | null>(null)
+const month = ref<number | null>(null)
+</script>
+
+<style scoped>
+.calendar-demo {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+</style>
+```
+
+### 3. 带快捷选项
+
+```vue
+<template>
+  <view class="calendar-demo">
+    <wd-calendar 
+      v-model="date" 
+      label="带快捷选项" 
+      :shortcuts="shortcuts"
+      :on-shortcuts-click="handleShortcutsClick"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from '@/utils/dayjs'
+
+// 带快捷选项的日历选择器
+const date = ref<number | null>(null)
+
+// 快捷选项
+const shortcuts = ref([
+  { text: '今天' },
+  { text: '昨天' },
+  { text: '近7天' },
+  { text: '近30天' }
+])
+
+// 处理快捷选项点击
+const handleShortcutsClick = (event: any) => {
+  const { index } = event
+  const now = dayjs()
+  let result: number | number[] = 0
+  
+  switch (index) {
+    case 0: // 今天
+      result = now.valueOf()
+      break
+    case 1: // 昨天
+      result = now.subtract(1, 'day').valueOf()
+      break
+    case 2: // 近7天
+      result = [now.subtract(6, 'day').valueOf(), now.valueOf()]
+      break
+    case 3: // 近30天
+      result = [now.subtract(29, 'day').valueOf(), now.valueOf()]
+      break
+  }
+  
+  return result
+}
+</script>
+
+<style scoped>
+.calendar-demo {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+</style>
+```
+
+### 4. 自定义格式化和限制
+
+```vue
+<template>
+  <view class="calendar-demo">
+    <wd-calendar 
+      v-model="date" 
+      label="自定义格式化和限制" 
+      :min-date="minDate" 
+      :max-date="maxDate"
+      :formatter="formatter"
+      :display-format="displayFormat"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from '@/utils/dayjs'
+
+// 自定义格式化和限制的日历选择器
+const date = ref<number | null>(null)
+
+// 最小日期（今天）
+const minDate = ref(dayjs().startOf('day').valueOf())
+
+// 最大日期（今天后30天）
+const maxDate = ref(dayjs().add(30, 'day').endOf('day').valueOf())
+
+// 日期格式化函数
+const formatter = (day: any) => {
+  const date = dayjs(day.date)
+  const today = dayjs().startOf('day')
+  const tomorrow = dayjs().add(1, 'day').startOf('day')
+  
+  if (date.isSame(today, 'day')) {
+    day.text = '今天'
+  } else if (date.isSame(tomorrow, 'day')) {
+    day.text = '明天'
+  }
+  
+  return day
+}
+
+// 自定义显示格式化
+const displayFormat = (value: number | number[], type: string) => {
+  if (!value) return ''
+  return dayjs(value).format('YYYY年MM月DD日')
+}
+</script>
+
+<style scoped>
+.calendar-demo {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+</style>
+```
+
+### 5. 表单验证和清空功能
+
+```vue
+<template>
+  <view class="calendar-demo">
+    <wd-form :model="form" :rules="rules" ref="formRef">
+      <wd-calendar 
+        v-model="form.date" 
+        label="必填日期" 
+        prop="date"
+        clearable
+        required
+        error-message="请选择日期"
+      />
+      <view style="margin-top: 40rpx;">
+        <wd-button type="primary" @click="handleSubmit">提交表单</wd-button>
+      </view>
+    </wd-form>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref, reactive } from 'vue'
+import { showToast } from '@/utils/toast'
+
+// 表单验证和清空功能
+const formRef = ref<any>(null)
+const form = reactive({
+  date: null as number | null
+})
+
+// 表单验证规则
+const rules = {
+  date: [
+    { required: true, message: '请选择日期', trigger: 'change' }
+  ]
+}
+
+// 处理表单提交
+const handleSubmit = async () => {
+  const result = await formRef.value.validate()
+  if (result.valid) {
+    showToast('表单验证通过')
+    console.log('表单数据:', form)
+  }
+}
+</script>
+
+<style scoped>
+.calendar-demo {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+</style>
+```
+
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
+
+```vue
+<template>
+  <wd-calendar 
+    v-model="date" 
+    label="自定义样式" 
+    customStyle="margin: 20rpx;"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const date = ref<number | null>(null)
+</script>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <wd-calendar 
+    v-model="date" 
+    label="自定义类名" 
+    customClass="my-calendar"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const date = ref<number | null>(null)
+</script>
+
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.my-calendar) {
+  background-color: #f5f7fa;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+:deep(.my-calendar .wd-calendar__cell) {
+  padding: 15rpx 20rpx;
+}
+</style>
+```
+
+### 3. 自定义标签和值样式
+
+```vue
+<template>
+  <wd-calendar 
+    v-model="date" 
+    label="自定义标签和值样式" 
+    customLabelClass="custom-label"
+    customValueClass="custom-value"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const date = ref<number | null>(null)
+</script>
+
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.custom-label) {
+  font-weight: bold;
+  color: #4D80F0;
+}
+
+:deep(.custom-value) {
+  color: #34d19d;
+  font-size: 32rpx;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **日期格式**：
-   - 组件的 `modelValue` 属性接受 13 位时间戳或时间戳数组
-   - 建议使用 dayjs 等日期库来处理日期，确保跨平台兼容性
+1. **modelValue类型**：根据type属性的不同，modelValue的类型也不同：
+   - 单值类型（date、datetime、week、month）：number | null
+   - 多值类型（dates）：number[]
+   - 范围类型（daterange、datetimerange、weekrange、monthrange）：number[]
 
-2. **选择类型**：
-   - 支持多种选择类型，包括单个日期、日期范围、时间选择等
-   - 不同类型的选择会影响组件的显示和交互方式
+2. **时间戳格式**：所有日期值均使用13位时间戳格式
 
-3. **性能优化**：
-   - 对于大量日期数据，建议合理设置 `minDate` 和 `maxDate`，减少渲染的数据量
-   - 避免在 `formatter` 函数中执行复杂的计算或异步操作
-   - 对于频繁变化的日期范围，建议使用 `computed` 属性来优化性能
+3. **minDate和maxDate**：
+   - 默认为当前日期前后12个月
+   - 可以通过这两个属性限制可选日期范围
 
-4. **跨平台兼容性**：
-   - 组件支持 H5、小程序和 App 平台
-   - 部分功能（如 `root-portal`、`immediateChange`）可能在不同平台上表现不同，需要测试验证
-   - 在小程序平台上，建议使用 `withCell` 属性来优化性能
+4. **formatter函数**：用于自定义日期显示，接收day对象，返回修改后的day对象
 
-5. **表单验证**：
-   - 可以结合 `wd-form` 组件使用，通过 `prop` 和 `rules` 属性进行表单验证
-   - 支持必填验证、自定义验证规则等
+5. **displayFormat**：用于自定义选择器显示的文本格式
 
-6. **快捷选项**：
-   - 可以通过 `shortcuts` 属性配置快捷选项
-   - 通过 `onShortcutsClick` 回调函数处理快捷选项的点击事件
-   - 回调函数需要返回对应的日期值
+6. **showConfirm**：
+   - 默认为true，显示确定按钮
+   - 为false时，选择后自动关闭并触发confirm事件
 
-7. **清空功能**：
-   - 设置 `clearable` 属性为 `true` 可以显示清空按钮
-   - 点击清空按钮会触发 `clear` 事件，并将 `modelValue` 设为 `null`
+7. **safeAreaInsetBottom**：在iPhone X等全面屏机型上，为true时会自动添加底部安全距离
 
-8. **样式定制**：
-   - 可以通过 `customStyle` 和 `customClass` 属性进行样式定制
-   - 可以通过修改 CSS 变量来定制弹出层的样式
-   - 建议使用深度选择器 `:deep()` 来修改组件内部样式
+8. **rootPortal**：当页面中存在fixed定位元素时，可能会出现层级问题，设置rootPortal为true可以解决此问题
 
-## 组件架构与实现
+9. **clearable**：设置为true时，会显示清空按钮，点击可清空已选值
 
-wd-calendar 组件采用了 Vue 3 的 Composition API 和 TypeScript，主要包含以下部分：
+10. **withCell**：
+    - 默认为true，使用内置单元格样式
+    - 为false时，可以通过default插槽自定义选择器内容
 
-1. **组件主体**：`wd-calendar.vue`，负责日历的整体布局和交互逻辑
-2. **类型定义**：`types.ts`，包含组件的属性、事件和接口定义
-3. **样式文件**：`index.scss`，包含组件的样式定义
-4. **依赖组件**：
-   - `wd-calendar-view`：日历视图组件，负责日期的渲染和选择
-   - `wd-action-sheet`：弹出层组件，用于显示日历视图
-   - `wd-cell`：单元格组件，用于显示选择器的标签和值
-   - `wd-icon`：图标组件，用于显示箭头、关闭等图标
-   - `wd-button`：按钮组件，用于确定和取消按钮
-   - `wd-tabs`：标签页组件，用于切换日期类型
+11. **表单验证**：结合wd-form使用时，需要设置prop属性和rules规则
 
-组件的核心实现原理：
-
-1. **数据绑定**：通过 `modelValue` 属性实现双向绑定
-2. **选择逻辑**：根据 `type` 属性决定显示哪种类型的日历视图
-3. **弹出层**：使用 `wd-action-sheet` 组件实现弹出层效果
-4. **日期处理**：使用 dayjs 库处理日期的格式化和计算
-5. **事件处理**：通过 emit 触发各种事件，实现组件与外部的通信
-6. **方法暴露**：通过 `defineExpose` 暴露 `open` 和 `close` 方法，允许外部控制组件
-
-## 总结
-
-wd-calendar 是一个功能强大、高度可定制的日历组件，支持多种日期和时间选择模式。它基于 Vue 3 + TypeScript + UniApp 开发，具有良好的跨平台兼容性和性能表现。组件提供了丰富的配置选项和灵活的定制能力，可以满足各种复杂的日期选择需求。
-
-通过合理使用 wd-calendar 组件，可以提高表单开发效率，提升用户体验，确保日期数据的准确性和一致性。在使用过程中，建议根据实际需求调整组件的配置选项，以达到最佳的使用效果。
+12. **快捷选项**：
+    - shortcuts为快捷选项数组，每个选项需包含text属性
+    - onShortcutsClick为快捷选项点击回调，需返回对应的时间戳或时间戳数组

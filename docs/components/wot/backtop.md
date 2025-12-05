@@ -1,275 +1,430 @@
-# wd-backtop 返回顶部
+# Backtop 回到顶部
 
-## 组件概述
+## 组件概况
 
-wd-backtop 是一个用于快速返回页面顶部的组件，当页面滚动到一定距离时自动显示，点击后平滑滚动到页面顶部。该组件适用于长页面内容，提供便捷的导航体验，提升用户体验。
+### 组件概述
+Backtop 回到顶部组件是一个用于快速返回页面顶部的功能组件，通常在页面滚动到一定距离后显示，点击后可平滑滚动到页面顶部。
 
-### 适用场景
-- 长列表页面，如商品列表、新闻列表、评论区等
-- 内容丰富的详情页
-- 任何需要快速返回顶部的长页面场景
+### 详细功能描述
+- 支持自定义显示触发距离
+- 支持自定义返回顶部的滚动时间
+- 支持自定义位置（距离底部和右侧的距离）
+- 支持两种形状：圆形和方形
+- 支持自定义图标样式
+- 支持自定义层级
+- 支持自定义内容（通过插槽）
+- 支持淡入淡出动画
 
-## API 参考
+### 适用业务场景
+- 长页面的快速返回顶部功能
+- 列表页面的回到顶部
+- 任何需要快速返回顶部的场景
 
-### Props
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
+## 完整API参考
+
+### Props属性
+
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| scroll-top | Number | - | 是 | 页面滚动距离，用于判断是否显示返回顶部按钮 |
-| top | Number | 300 | 否 | 距离顶部多少距离时显示返回顶部按钮，单位为px |
-| duration | Number | 100 | 否 | 返回顶部滚动时间，单位为ms |
-| z-index | Number | 10 | 否 | 组件层级，用于控制显示顺序 |
-| icon-style | String | '' | 否 | 图标样式，用于自定义图标的样式 |
-| shape | String | circle | 否 | 按钮形状，可选值：circle（圆形）、square（方形） |
-| bottom | Number | 100 | 否 | 距离屏幕底部距离，单位为px |
-| right | Number | 20 | 否 | 距离屏幕右边距离，单位为px |
-| custom-class | String | - | 否 | 根节点自定义类名 |
-| custom-style | String / Object | - | 否 | 根节点自定义样式 |
+| scrollTop | number | - | 是 | 页面滚动距离，用于控制回到顶部按钮的显示与隐藏 |
+| top | number | 300 | 否 | 距离顶部多少距离时显示回到顶部按钮 |
+| duration | number | 100 | 否 | 返回顶部滚动时间（毫秒） |
+| zIndex | number | 10 | 否 | 层级 |
+| iconStyle | string | - | 否 | 图标样式 |
+| shape | string | circle | 否 | 形状，可选值：circle（圆形）/ square（方形） |
+| bottom | number | 100 | 否 | 距离屏幕底部距离 |
+| right | number | 20 | 否 | 距离屏幕右边距离 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+### Events事件
 
-### Methods
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+该组件没有定义任何事件。
 
-### Slots
+### Methods方法
+
+该组件没有对外暴露的方法。
+
+### Slots插槽
+
 | 插槽名 | 作用域变量 | 使用说明 |
 |--------|------------|----------|
-| default | - | 自定义返回顶部按钮的内容，不使用则显示默认图标 |
+| default | - | 自定义回到顶部按钮内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 长列表内容 -->
-    <view v-for="item in 100" :key="item" class="list-item">{{ item }}</view>
-    
-    <!-- 返回顶部组件 -->
+  <view class="backtop-demo">
+    <view class="scroll-content" @scroll="handleScroll">
+      <view class="long-content" v-for="i in 50" :key="i">
+        这是第 {{ i }} 行内容
+      </view>
+    </view>
     <wd-backtop :scroll-top="scrollTop" />
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref, onPageScroll } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-// 页面滚动距离
+// 基础回到顶部用法
 const scrollTop = ref(0)
 
-// 监听页面滚动事件
-onPageScroll((e) => {
-  scrollTop.value = e.scrollTop
-})
+// 处理滚动事件
+const handleScroll = (e: any) => {
+  scrollTop.value = e.detail.scrollTop
+}
 </script>
 
 <style scoped>
-.container {
-  padding: 20rpx;
+.backtop-demo {
+  height: 100vh;
+  position: relative;
 }
 
-.list-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  border-bottom: 1rpx solid #eee;
+.scroll-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.long-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebedf0;
 }
 </style>
 ```
 
-### 自定义显示位置
+### 2. 自定义位置和样式
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 长列表内容 -->
-    <view v-for="item in 100" :key="item" class="list-item">{{ item }}</view>
-    
-    <!-- 自定义位置的返回顶部组件 -->
+  <view class="backtop-demo">
+    <view class="scroll-content" @scroll="handleScroll">
+      <view class="long-content" v-for="i in 50" :key="i">
+        这是第 {{ i }} 行内容
+      </view>
+    </view>
     <wd-backtop 
       :scroll-top="scrollTop" 
       :bottom="50" 
       :right="50" 
+      :z-index="100"
+      :duration="300"
+      shape="square"
+      icon-style="color: #4D80F0; font-size: 40rpx;"
     />
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref, onPageScroll } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
+// 自定义位置和样式的回到顶部
 const scrollTop = ref(0)
 
-onPageScroll((e) => {
-  scrollTop.value = e.scrollTop
-})
+// 处理滚动事件
+const handleScroll = (e: any) => {
+  scrollTop.value = e.detail.scrollTop
+}
 </script>
+
+<style scoped>
+.backtop-demo {
+  height: 100vh;
+  position: relative;
+}
+
+.scroll-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.long-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+</style>
 ```
 
-### 自定义样式和形状
+### 3. 自定义触发距离
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 长列表内容 -->
-    <view v-for="item in 100" :key="item" class="list-item">{{ item }}</view>
-    
-    <!-- 自定义样式和形状的返回顶部组件 -->
+  <view class="backtop-demo">
+    <view class="scroll-content" @scroll="handleScroll">
+      <view class="long-content" v-for="i in 50" :key="i">
+        这是第 {{ i }} 行内容
+      </view>
+    </view>
     <wd-backtop 
       :scroll-top="scrollTop" 
-      shape="square" 
-      icon-style="color: #409eff; font-size: 32rpx;" 
-      :custom-style="{ backgroundColor: '#f0f9ff', border: '1rpx solid #e0f2fe' }" 
+      :top="100"
     />
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref, onPageScroll } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
+// 自定义触发距离的回到顶部
 const scrollTop = ref(0)
 
-onPageScroll((e) => {
-  scrollTop.value = e.scrollTop
-})
+// 处理滚动事件
+const handleScroll = (e: any) => {
+  scrollTop.value = e.detail.scrollTop
+}
 </script>
+
+<style scoped>
+.backtop-demo {
+  height: 100vh;
+  position: relative;
+}
+
+.scroll-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.long-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+</style>
 ```
 
-### 自定义滚动动画时长
+### 4. 自定义内容
+
 ```vue
 <template>
-  <view class="container">
-    <!-- 长列表内容 -->
-    <view v-for="item in 100" :key="item" class="list-item">{{ item }}</view>
-    
-    <!-- 自定义滚动动画时长的返回顶部组件 -->
-    <wd-backtop 
-      :scroll-top="scrollTop" 
-      :duration="500" 
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref, onPageScroll } from 'vue'
-
-const scrollTop = ref(0)
-
-onPageScroll((e) => {
-  scrollTop.value = e.scrollTop
-})
-</script>
-```
-
-### 自定义内容
-```vue
-<template>
-  <view class="container">
-    <!-- 长列表内容 -->
-    <view v-for="item in 100" :key="item" class="list-item">{{ item }}</view>
-    
-    <!-- 自定义内容的返回顶部组件 -->
-    <wd-backtop :scroll-top="scrollTop">
-      <view class="custom-backtop">
-        <text class="backtop-text">回到顶部</text>
+  <view class="backtop-demo">
+    <view class="scroll-content" @scroll="handleScroll">
+      <view class="long-content" v-for="i in 50" :key="i">
+        这是第 {{ i }} 行内容
+      </view>
+    </view>
+    <wd-backtop :scroll-top="scrollTop" customClass="custom-backtop">
+      <view class="backtop-content">
+        <wd-icon name="arrow-up" size="32" color="#fff" />
+        <wd-text color="#fff" size="20">顶部</wd-text>
       </view>
     </wd-backtop>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref, onPageScroll } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
+// 自定义内容的回到顶部
 const scrollTop = ref(0)
 
-onPageScroll((e) => {
-  scrollTop.value = e.scrollTop
+// 处理滚动事件
+const handleScroll = (e: any) => {
+  scrollTop.value = e.detail.scrollTop
+}
+</script>
+
+<style scoped>
+.backtop-demo {
+  height: 100vh;
+  position: relative;
+}
+
+.scroll-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.long-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+/* 自定义回到顶部样式 */
+:deep(.custom-backtop) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+  background-color: #4D80F0;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(77, 128, 240, 0.3);
+}
+
+.backtop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+</style>
+```
+
+### 5. 结合页面滚动事件
+
+```vue
+<template>
+  <view class="backtop-demo">
+    <view class="demo-title">结合页面滚动事件</view>
+    <view class="scroll-content" @scroll="handleScroll">
+      <view class="long-content" v-for="i in 50" :key="i">
+        这是第 {{ i }} 行内容
+      </view>
+    </view>
+    <wd-backtop :scroll-top="scrollTop" />
+    <view class="scroll-info">滚动距离：{{ scrollTop }}px</view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+// 结合页面滚动事件的回到顶部
+const scrollTop = ref(0)
+
+// 处理滚动事件
+const handleScroll = (e: any) => {
+  scrollTop.value = e.detail.scrollTop
+}
+
+// 页面滚动事件（如果使用页面级滚动）
+onMounted(() => {
+  uni.pageScrollTo({
+    scrollTop: 0,
+    duration: 0
+  })
 })
 </script>
 
 <style scoped>
-.custom-backtop {
-  width: 160rpx;
-  height: 60rpx;
-  background-color: #409eff;
-  color: #fff;
-  border-radius: 30rpx;
+.backtop-demo {
+  height: 100vh;
+  position: relative;
+}
+
+.demo-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  padding: 20rpx;
+  background-color: #f5f7fa;
+}
+
+.scroll-content {
+  height: calc(100% - 120rpx);
+  overflow-y: auto;
+}
+
+.long-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.scroll-info {
+  padding: 20rpx;
+  background-color: #f5f7fa;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+}
+</style>
+```
+
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
+
+```vue
+<template>
+  <wd-backtop 
+    :scroll-top="scrollTop" 
+    customStyle="background-color: #34d19d; border-radius: 50%; width: 80rpx; height: 80rpx;"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const scrollTop = ref(0)
+</script>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <wd-backtop 
+    :scroll-top="scrollTop" 
+    customClass="my-backtop"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const scrollTop = ref(0)
+</script>
+
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.my-backtop) {
+  background-color: #fa4350;
+  border-radius: 50%;
+  width: 80rpx;
+  height: 80rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24rpx;
-  box-shadow: 0 2rpx 12rpx 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(250, 67, 80, 0.3);
+}
+
+:deep(.my-backtop .wd-backtop__backicon) {
+  color: #fff;
+  font-size: 40rpx;
 }
 </style>
 ```
 
-## 样式定制
-
-### 自定义类名
-通过 `custom-class` 属性可以为组件根节点添加自定义类名，用于覆盖默认样式：
-
-```vue
-<template>
-  <wd-backtop :scroll-top="scrollTop" custom-class="my-backtop" />
-</template>
-
-<style scoped>
-.my-backtop {
-  /* 自定义样式 */
-  background-color: #f0f9ff;
-  border: 1rpx solid #e0f2fe;
-}
-</style>
-```
-
-### 自定义样式
-通过 `custom-style` 属性可以直接为组件根节点添加内联样式：
+### 3. 自定义图标样式
 
 ```vue
 <template>
   <wd-backtop 
     :scroll-top="scrollTop" 
-    :custom-style="{ backgroundColor: '#f0f9ff', border: '1rpx solid #e0f2fe' }" 
+    icon-style="color: #f0883a; font-size: 48rpx;"
   />
 </template>
-```
 
-### 自定义图标样式
-通过 `icon-style` 属性可以自定义图标的样式：
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-```vue
-<template>
-  <wd-backtop 
-    :scroll-top="scrollTop" 
-    icon-style="color: #409eff; font-size: 32rpx;" 
-  />
-</template>
+const scrollTop = ref(0)
+</script>
 ```
 
 ## 注意事项
 
-1. **scroll-top 属性**：
-   - 该属性是必填项，用于判断是否显示返回顶部按钮
-   - 需要通过页面滚动事件 `onPageScroll` 实时更新该属性值
-   - 在不同平台上，滚动事件的触发频率和精度可能存在差异
+1. **scrollTop属性**：该属性是必填项，需要外部传入页面的滚动距离，用于控制回到顶部按钮的显示与隐藏
 
-2. **定位问题**：
-   - 组件使用固定定位（fixed），通过 `bottom` 和 `right` 属性控制位置
-   - 在某些特殊布局下，可能需要调整 `z-index` 属性确保组件正常显示
+2. **触发距离**：top属性用于设置页面滚动到多少距离时显示回到顶部按钮，默认300px
 
-3. **性能优化**：
-   - 建议对 `scroll-top` 的更新进行节流处理，减少不必要的计算和渲染
-   - 当页面内容较少时，不建议使用该组件
+3. **滚动时间**：duration属性用于设置点击回到顶部后，页面滚动到顶部的时间，默认100ms
 
-4. **兼容性**：
-   - 该组件基于 uni-app 的 `uni.pageScrollTo` API 实现，支持多端适配
-   - 在某些平台上，滚动动画可能存在差异，建议进行充分测试
+4. **位置调整**：可以通过bottom和right属性调整回到顶部按钮的位置，单位为px
 
-5. **自定义内容**：
-   - 使用默认插槽自定义内容时，需要注意内容的尺寸和样式，确保良好的视觉效果
-   - 自定义内容时，组件的默认样式（如背景色、边框、阴影等）仍然生效
+5. **形状选择**：支持circle（圆形）和square（方形）两种形状，默认为圆形
 
-## 组件依赖
+6. **自定义内容**：可以通过default插槽自定义回到顶部按钮的内容，例如添加文字、自定义图标等
 
-- 依赖 `wd-transition` 组件，用于实现显示/隐藏的过渡效果
-- 依赖 `wd-icon` 组件，用于显示默认的返回顶部图标
+7. **层级设置**：zIndex属性用于设置回到顶部按钮的层级，确保在其他元素之上显示
+
+8. **动画效果**：组件内置了淡入淡出动画，当scrollTop超过top值时显示，否则隐藏
+
+9. **性能优化**：建议使用节流或防抖处理scroll事件，避免频繁更新scrollTop值，影响性能
+
+10. **页面级滚动**：如果使用的是页面级滚动而不是组件内滚动，需要监听页面的onPageScroll事件来更新scrollTop值

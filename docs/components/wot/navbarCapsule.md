@@ -1,86 +1,141 @@
-# wd-navbar-capsule 导航栏胶囊组件
+# 导航栏胶囊组件
 
-## 组件概述
+## 组件概况
 
-wd-navbar-capsule 是一个简洁的导航栏胶囊组件，包含返回和返回首页两个图标按钮，主要用于导航栏中提供快速返回和返回首页的功能。该组件设计简洁，易于集成，支持自定义样式和事件处理，是构建移动端应用导航栏的常用组件。
+### 组件概述
+导航栏胶囊组件是一个简洁的导航栏胶囊按钮组件，包含返回按钮和返回主页按钮两个图标按钮，通常用于页面顶部导航栏的左侧，提供快速返回和返回主页的功能。组件支持自定义样式，可灵活适配不同的设计风格。
 
-### 功能特点
-- 包含返回和返回首页两个图标按钮
+### 详细功能描述
+- 包含返回按钮和返回主页按钮两个图标按钮
+- 支持点击返回按钮触发返回事件
+- 支持点击返回主页按钮触发返回主页事件
 - 支持自定义样式和类名
-- 提供明确的点击事件回调
-- 设计简洁，易于集成
-- 跨端兼容，适配多种平台
+- 与导航栏组件无缝集成
+- 跨平台兼容
 
-### 适用场景
-- 应用导航栏中的胶囊按钮
-- 页面顶部导航区域
-- 需要快速返回和返回首页功能的场景
-- 自定义导航栏的组成部分
+### 适用业务场景
+- 页面顶部导航栏的左侧胶囊按钮
+- 需要快速返回和返回主页功能的页面
+- 与wd-navbar组件配合使用
+- 任何需要导航功能的页面
 
-## API 参考
+## 完整API参考
 
 ### Props
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| customStyle | string |  | 否 | 自定义根节点样式，如 'margin: 10px; color: red;' |
-| customClass | string |  | 否 | 自定义根节点样式类，如 'custom-class1 custom-class2' |
+| customStyle | string | - | 否 | 自定义样式 |
+| customClass | string | - | 否 | 自定义类名 |
 
 ### Events
 
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| back | 点击返回图标时触发 | 无 |
-| back-home | 点击返回首页图标时触发 | 无 |
+| back | 点击返回按钮时 | - |
+| back-home | 点击返回主页按钮时 | - |
 
 ### Methods
 
-该组件不对外暴露任何方法。
+无
 
 ### Slots
 
-该组件不提供任何插槽。
+无
 
-## 使用示例
+## 多场景使用示例
 
-### 1. 基础用法
+### 基础用法
 
 ```vue
 <template>
   <view>
-    <wd-navbar-capsule 
-      @back="handleBack" 
-      @back-home="handleBackHome" 
-    />
+    <wd-navbar>
+      <template #capsule>
+        <wd-navbar-capsule @back="onBack" @back-home="onBackHome" />
+      </template>
+      <template #title>
+        导航栏胶囊
+      </template>
+    </wd-navbar>
   </view>
 </template>
 
 <script lang="ts" setup>
-// 返回上一页
-const handleBack = () => {
+const onBack = () => {
+  console.log('点击了返回按钮')
   uni.navigateBack()
 }
 
-// 返回首页
-const handleBackHome = () => {
+const onBackHome = () => {
+  console.log('点击了返回主页按钮')
   uni.switchTab({ url: '/pages/index/index' })
 }
 </script>
 ```
 
-### 2. 在导航栏中使用
+### 与导航栏组件配合使用
 
 ```vue
 <template>
   <view>
     <wd-navbar 
-      title="导航栏" 
+      title="与导航栏配合" 
+      fixed 
+      placeholder 
+      safe-area-inset-top
     >
-      <!-- 在导航栏左侧使用胶囊组件 -->
-      <template #left>
+      <template #capsule>
         <wd-navbar-capsule 
-          @back="handleBack" 
-          @back-home="handleBackHome" 
+          @back="onBack" 
+          @back-home="onBackHome" 
+          custom-class="my-capsule"
+        />
+      </template>
+    </wd-navbar>
+    <view class="content">
+      <!-- 页面内容 -->
+    </view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+const onBack = () => {
+  uni.navigateBack()
+}
+
+const onBackHome = () => {
+  uni.switchTab({ url: '/pages/index/index' })
+}
+</script>
+
+<style scoped>
+.content {
+  padding-top: 88rpx; /* 导航栏高度 */
+}
+
+.my-capsule {
+  /* 自定义胶囊样式 */
+  color: #1890FF;
+}
+</style>
+```
+
+### 自定义样式
+
+```vue
+<template>
+  <view>
+    <wd-navbar title="自定义样式">
+      <template #capsule>
+        <wd-navbar-capsule 
+          @back="onBack" 
+          @back-home="onBackHome"
+          :custom-style="{
+            color: '#52C41A',
+            fontSize: '36rpx',
+            gap: '10rpx'
+          }"
         />
       </template>
     </wd-navbar>
@@ -88,97 +143,41 @@ const handleBackHome = () => {
 </template>
 
 <script lang="ts" setup>
-// 返回上一页
-const handleBack = () => {
+const onBack = () => {
   uni.navigateBack()
 }
 
-// 返回首页
-const handleBackHome = () => {
+const onBackHome = () => {
   uni.switchTab({ url: '/pages/index/index' })
 }
 </script>
 ```
 
-### 3. 自定义样式
+### 在自定义导航栏中使用
 
 ```vue
 <template>
   <view>
-    <wd-navbar-capsule 
-      @back="handleBack" 
-      @back-home="handleBackHome" 
-      custom-style="background-color: #4D80F0; padding: 10rpx; border-radius: 20rpx;" 
-      custom-class="my-capsule" 
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-// 返回上一页
-const handleBack = () => {
-  uni.navigateBack()
-}
-
-// 返回首页
-const handleBackHome = () => {
-  uni.switchTab({ url: '/pages/index/index' })
-}
-</script>
-
-<style scoped>
-.my-capsule {
-  /* 自定义样式 */
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-}
-
-/* 自定义图标颜色 */
-.my-capsule :deep(.wd-navbar-capsule__icon) {
-  color: #fff;
-}
-</style>
-```
-
-### 4. 与自定义导航栏结合使用
-
-```vue
-<template>
-  <view>
-    <!-- 自定义导航栏 -->
     <view class="custom-navbar">
-      <!-- 左侧胶囊组件 -->
       <wd-navbar-capsule 
-        @back="handleBack" 
-        @back-home="handleBackHome" 
+        @back="onBack" 
+        @back-home="onBackHome"
       />
-      <!-- 中间标题 -->
       <view class="custom-navbar__title">自定义导航栏</view>
-      <!-- 右侧操作按钮 -->
       <view class="custom-navbar__right">
-        <wd-icon name="search" @click="handleSearch" />
+        <wd-icon name="search" />
       </view>
     </view>
-    <!-- 页面内容 -->
-    <view class="page-content">
-      <text>这是页面内容</text>
-    </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-// 返回上一页
-const handleBack = () => {
+const onBack = () => {
   uni.navigateBack()
 }
 
-// 返回首页
-const handleBackHome = () => {
+const onBackHome = () => {
   uni.switchTab({ url: '/pages/index/index' })
-}
-
-// 搜索按钮点击事件
-const handleSearch = () => {
-  console.log('点击了搜索按钮')
 }
 </script>
 
@@ -187,189 +186,90 @@ const handleSearch = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20rpx;
   height: 88rpx;
+  padding: 0 20rpx;
   background-color: #fff;
-  border-bottom: 1rpx solid #eee;
+  border-bottom: 1rpx solid #f0f0f0;
 }
 
 .custom-navbar__title {
   font-size: 32rpx;
-  font-weight: 500;
-  color: #333;
+  font-weight: bold;
 }
 
 .custom-navbar__right {
-  display: flex;
-  align-items: center;
-}
-
-.page-content {
-  padding: 20rpx;
-  height: 2000rpx;
-  background-color: #f5f5f5;
-}
-</style>
-```
-
-### 5. 固定在顶部
-
-```vue
-<template>
-  <view>
-    <!-- 固定在顶部的导航栏 -->
-    <view class="fixed-navbar">
-      <wd-navbar-capsule 
-        @back="handleBack" 
-        @back-home="handleBackHome" 
-      />
-      <view class="fixed-navbar__title">固定导航栏</view>
-    </view>
-    <!-- 页面内容 -->
-    <view class="page-content">
-      <text>这是页面内容</text>
-    </view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-// 返回上一页
-const handleBack = () => {
-  uni.navigateBack()
-}
-
-// 返回首页
-const handleBackHome = () => {
-  uni.switchTab({ url: '/pages/index/index' })
-}
-</script>
-
-<style scoped>
-.fixed-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  padding: 20rpx;
-  height: 88rpx;
-  background-color: #fff;
-  border-bottom: 1rpx solid #eee;
-  z-index: 999;
-}
-
-.fixed-navbar__title {
-  margin-left: 20rpx;
-  font-size: 32rpx;
-  font-weight: 500;
-  color: #333;
-}
-
-.page-content {
-  padding: 128rpx 20rpx 20rpx;
-  height: 2000rpx;
-  background-color: #f5f5f5;
+  color: #666;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customStyle 和 customClass
+### 自定义样式
 
-通过 `customStyle` 和 `customClass` 可以自定义组件的根节点样式：
+通过 `customStyle` 属性可以自定义导航栏胶囊组件的样式：
 
 ```vue
 <wd-navbar-capsule 
-  custom-style="background-color: #4D80F0; padding: 10rpx; border-radius: 20rpx;" 
-  custom-class="my-capsule" 
-  @back="handleBack" 
-  @back-home="handleBackHome" 
+  :custom-style="{
+    color: '#1890FF',
+    fontSize: '36rpx',
+    gap: '10rpx'
+  }"
 />
-
-<style>
-.my-capsule {
-  /* 自定义样式 */
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-}
-</style>
 ```
 
-### 2. 自定义图标样式
+### 自定义类名
 
-可以通过深度选择器自定义图标样式：
+通过 `customClass` 属性可以添加自定义类名，然后在样式文件中定义样式：
 
 ```vue
-<wd-navbar-capsule 
-  custom-class="my-capsule" 
-  @back="handleBack" 
-  @back-home="handleBackHome" 
-/>
-
-<style scoped>
-.my-capsule {
-  /* 自定义图标颜色 */
-  :deep(.wd-navbar-capsule__icon) {
-    color: #4D80F0;
-    font-size: 32rpx;
-    margin-right: 10rpx;
-  }
-}
-</style>
+<wd-navbar-capsule custom-class="my-capsule" />
 ```
 
-### 3. 自定义点击反馈
-
-可以通过覆盖组件内部样式自定义点击反馈效果：
-
-```vue
-<wd-navbar-capsule 
-  custom-class="my-capsule" 
-  @back="handleBack" 
-  @back-home="handleBackHome" 
-/>
-
-<style scoped>
+```scss
 .my-capsule {
-  /* 自定义图标点击反馈 */
-  :deep(.wd-navbar-capsule__icon) {
-    transition: all 0.2s ease;
-  }
+  /* 自定义胶囊组件样式 */
+  color: #1890FF;
   
-  :deep(.wd-navbar-capsule__icon:active) {
-    transform: scale(0.9);
-    opacity: 0.7;
+  .wd-navbar-capsule__icon {
+    /* 自定义图标样式 */
+    font-size: 36rpx;
+    margin-right: 10rpx;
+    
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
-</style>
 ```
 
 ## 注意事项
 
-### 1. 事件处理
-- 组件提供了 `back` 和 `back-home` 两个事件，分别对应返回上一页和返回首页操作
-- 需要在父组件中手动实现事件处理逻辑，如调用 `uni.navigateBack()` 或 `uni.switchTab()`
+1. 组件集成：
+   - 导航栏胶囊组件通常与 `wd-navbar` 组件配合使用，通过 `capsule` 插槽插入到导航栏的左侧
+   - 也可以单独使用，自定义导航栏布局
 
-### 2. 样式定制
-- 组件支持通过 `customStyle` 和 `customClass` 进行样式定制
-- 可以通过深度选择器覆盖组件内部样式，如自定义图标颜色、大小等
-- 建议使用组件提供的 CSS 类名进行样式覆盖，避免直接修改组件内部结构
+2. 事件处理：
+   - `back` 事件在点击返回按钮时触发，通常用于执行页面返回操作
+   - `back-home` 事件在点击返回主页按钮时触发，通常用于跳转到首页
+   - 需在事件回调中自行实现具体的导航逻辑，如 `uni.navigateBack()` 或 `uni.switchTab()`
 
-### 3. 跨端兼容
-- 组件在不同平台上的表现可能略有差异，建议在各平台上进行测试
-- 在小程序平台上，图标大小和间距可能需要根据平台特性进行调整
+3. 样式定制：
+   - 可通过 `customStyle` 属性直接设置内联样式
+   - 可通过 `customClass` 属性添加自定义类名，然后在样式文件中定义更复杂的样式
+   - 组件默认样式简洁，便于与各种设计风格适配
 
-### 4. 性能优化
-- 组件结构简单，性能开销较小，无需特殊优化
-- 建议避免在频繁渲染的场景中使用，如列表项中
+4. 图标样式：
+   - 组件使用 `wd-icon` 组件实现图标，默认图标大小为 24px
+   - 可通过自定义样式调整图标大小和颜色
+   - 图标名称固定为 'left'（返回图标）和 'home'（主页图标）
 
-### 5. 常见问题解决方案
-- **问题**：图标大小不符合预期
-  **解决方案**：通过深度选择器自定义图标大小
+5. 跨平台兼容：
+   - 组件支持跨平台使用，包括 H5、小程序和 App
+   - 在不同平台上，组件表现一致，无需额外适配
 
-- **问题**：点击事件不触发
-  **解决方案**：检查事件绑定是否正确，确保父组件中实现了事件处理函数
-
-- **问题**：样式定制不生效
-  **解决方案**：使用深度选择器（如 `:deep()`）覆盖组件内部样式
+6. 最佳实践：
+   - 与 `wd-navbar` 组件配合使用时，建议设置 `safeAreaInsetTop` 属性，以适配全面屏设备
+   - 固定定位时，建议同时设置 `placeholder` 属性，以避免页面内容上移
+   - 根据设计需求，合理调整胶囊按钮的颜色和大小，确保与整体设计风格一致

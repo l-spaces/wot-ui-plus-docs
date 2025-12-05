@@ -1,330 +1,308 @@
-# wd-avatar 头像组件
+# Avatar 头像
 
-## 组件概述
+## 组件概况
 
-wd-avatar 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台头像组件，用于展示用户头像，支持多种展示形式，包括图片头像、文字头像、图标头像和小程序开放数据头像。该组件提供了丰富的配置选项，包括头像形状、尺寸、背景色、文字颜色等，适用于各种需要展示用户头像的场景，如用户中心、聊天列表、评论区等。
+### 组件概述
+头像组件用于展示用户或实体的形象，支持多种形式（图片、文字、图标）和样式，适用于用户信息展示、评论列表、联系人列表等场景。
 
-## API 参考
+### 详细功能描述
+- 支持三种头像形式：图片头像、文字头像、图标头像
+- 支持两种形状：圆形（circle）和方形（square）
+- 支持自定义尺寸、背景色、文字颜色等样式
+- 支持随机背景色功能
+- 支持小程序open-data获取用户头像（微信、QQ、百度小程序）
+- 支持性别图标显示（男/女）
+- 支持等级图标显示
+- 支持图片加载失败处理
+- 支持点击事件
 
-### Props
+### 适用业务场景
+- 用户信息展示
+- 评论列表中的用户头像
+- 联系人列表
+- 团队成员展示
+- 任何需要展示实体形象的场景
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| src | string | '' | 否 | 头像图片路径(不能为相对路径) |
-| shape | string | 'circle' | 否 | 头像形状，circle-圆形，square-方形 |
-| size | string \| number | 40 | 否 | 头像尺寸，单位px |
-| mode | string | 'scaleToFill' | 否 | 裁剪模式，可选值见 ImageMode 类型定义 |
-| text | string | '' | 否 | 显示的文字 |
-| bgColor | string | '#c0c4cc' | 否 | 背景色 |
-| color | string | '#ffffff' | 否 | 文字颜色 |
-| fontSize | string \| number | 18 | 否 | 文字大小，单位px |
-| icon | string | '' | 否 | 显示的图标 |
+## 完整API参考
+
+### Props属性
+
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| src | string | - | 否 | 头像图片路径(不能为相对路径) |
+| shape | string | circle | 否 | 头像形状，可选值：circle(圆形) / square(方形) |
+| size | string/number | 40 | 否 | 头像尺寸 |
+| mode | string | scaleToFill | 否 | 裁剪模式，参考uni-app image组件的mode属性 |
+| text | string | - | 否 | 显示的文字 |
+| bgColor | string | #c0c4cc | 否 | 背景色 |
+| color | string | #ffffff | 否 | 文字颜色 |
+| fontSize | string/number | 18 | 否 | 文字大小 |
+| icon | string | - | 否 | 显示的图标 |
 | mpAvatar | boolean | false | 否 | 显示小程序头像，只对百度，微信，QQ小程序有效 |
 | randomBgColor | boolean | false | 否 | 是否使用随机背景色 |
-| defaultUrl | string | '' | 否 | 加载失败的默认头像(组件有内置默认图片) |
-| colorIndex | number | - | 否 | 如果配置了randomBgColor为true，且配置了此值，则从默认的背景色数组中取出对应索引的颜色值，取值0-19之间 |
-| name | string | '' | 否 | 组件标识符 |
-| sexIcon | string | '' | 否 | 右上角性别角标，male-男，female-女 |
-| sexBgColor | string | '' | 否 | 右上角性别图标的背景颜色 |
+| defaultUrl | string | - | 否 | 加载失败的默认头像(组件有内置默认图片) |
+| colorIndex | number | undefined | 否 | 随机背景色索引，取值0-19之间 |
+| name | string | - | 否 | 组件标识符 |
+| sexIcon | string | - | 否 | 右上角性别角标，可选值：male(男) / female(女) |
+| sexBgColor | string | - | 否 | 右上角性别图标的背景颜色 |
 | showLevel | boolean | false | 否 | 是否显示等级图标 |
-| levelBgColor | string | '' | 否 | 右下角等级图标背景颜色 |
-| customStyle | string | '' | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| levelBgColor | string | - | 否 | 右下角等级图标背景颜色 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| click | 点击头像时触发 | name: 组件标识符<br>event: 事件对象 |
+|--------|----------|----------|
+| click | 头像被点击时 | name: 组件标识符, event: 原生点击事件 |
 
-### Methods
+### Methods方法
 
-该组件无对外暴露的方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 自定义头像内容 |
+|--------|------------|----------|
+| default | - | 自定义头像内容，默认显示图片/文字/图标 |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo-avatar">
-    <wd-avatar src="https://picsum.photos/200/200?random=1"></wd-avatar>
-    <wd-avatar src="https://picsum.photos/200/200?random=2" shape="square"></wd-avatar>
-    <wd-avatar text="张三"></wd-avatar>
-    <wd-avatar icon="user"></wd-avatar>
+  <view class="avatar-demo">
+    <!-- 图片头像 -->
+    <wd-avatar src="https://example.com/avatar.jpg" />
+    
+    <!-- 文字头像 -->
+    <wd-avatar text="张三" />
+    
+    <!-- 图标头像 -->
+    <wd-avatar icon="user" />
   </view>
 </template>
 
 <script lang="ts" setup>
-// 无需额外引入
+// 基础头像用法，展示不同形式的头像
 </script>
 
 <style scoped>
-.demo-avatar {
-  padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+.avatar-demo {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
 }
 </style>
 ```
 
-### 自定义尺寸和颜色
+### 2. 不同形状和尺寸
 
 ```vue
 <template>
-  <view class="demo-avatar">
-    <wd-avatar src="https://picsum.photos/200/200?random=1" :size="60"></wd-avatar>
-    <wd-avatar text="李四" :size="80" bg-color="#409eff" color="#ffffff"></wd-avatar>
-    <wd-avatar icon="user" :size="100" bg-color="#67c23a" color="#ffffff"></wd-avatar>
+  <view class="avatar-demo">
+    <!-- 圆形头像 -->
+    <wd-avatar src="https://example.com/avatar.jpg" shape="circle" size="60" />
+    
+    <!-- 方形头像 -->
+    <wd-avatar src="https://example.com/avatar.jpg" shape="square" size="80" />
+    
+    <!-- 小尺寸头像 -->
+    <wd-avatar text="张" size="30" />
+    
+    <!-- 大尺寸头像 -->
+    <wd-avatar text="李" size="100" />
   </view>
 </template>
 
 <script lang="ts" setup>
-// 无需额外引入
+// 展示不同形状和尺寸的头像
 </script>
 
 <style scoped>
-.demo-avatar {
-  padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+.avatar-demo {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
 }
 </style>
 ```
 
-### 随机背景色
+### 3. 自定义样式和随机背景色
 
 ```vue
 <template>
-  <view class="demo-avatar">
-    <wd-avatar text="王五" random-bg-color></wd-avatar>
-    <wd-avatar text="赵六" random-bg-color :color-index="5"></wd-avatar>
-    <wd-avatar text="孙七" random-bg-color :color-index="10"></wd-avatar>
-    <wd-avatar text="周八" random-bg-color :color-index="15"></wd-avatar>
+  <view class="avatar-demo">
+    <!-- 自定义背景色和文字颜色 -->
+    <wd-avatar text="赵" bgColor="#4D80F0" color="#fff" />
+    
+    <!-- 随机背景色 -->
+    <wd-avatar text="钱" randomBgColor />
+    
+    <!-- 指定随机背景色索引 -->
+    <wd-avatar text="孙" randomBgColor colorIndex="5" />
+    
+    <!-- 自定义字体大小 -->
+    <wd-avatar text="周" fontSize="24" size="60" />
   </view>
 </template>
 
 <script lang="ts" setup>
-// 无需额外引入
+// 展示自定义样式和随机背景色的头像
 </script>
 
 <style scoped>
-.demo-avatar {
-  padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+.avatar-demo {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
 }
 </style>
 ```
 
-### 带性别角标和等级图标
+### 4. 带有性别和等级图标
 
 ```vue
 <template>
-  <view class="demo-avatar">
-    <wd-avatar src="https://picsum.photos/200/200?random=1" sex-icon="male"></wd-avatar>
-    <wd-avatar src="https://picsum.photos/200/200?random=2" sex-icon="female"></wd-avatar>
-    <wd-avatar src="https://picsum.photos/200/200?random=3" show-level></wd-avatar>
-    <wd-avatar src="https://picsum.photos/200/200?random=4" sex-icon="male" show-level></wd-avatar>
+  <view class="avatar-demo">
+    <!-- 男性头像 -->
+    <wd-avatar src="https://example.com/male.jpg" sexIcon="male" />
+    
+    <!-- 女性头像 -->
+    <wd-avatar src="https://example.com/female.jpg" sexIcon="female" />
+    
+    <!-- 带有等级图标 -->
+    <wd-avatar src="https://example.com/vip.jpg" showLevel />
+    
+    <!-- 自定义性别图标背景色 -->
+    <wd-avatar src="https://example.com/avatar.jpg" sexIcon="male" sexBgColor="#ff6b6b" />
   </view>
 </template>
 
 <script lang="ts" setup>
-// 无需额外引入
+// 展示带有性别和等级图标的头像
 </script>
 
 <style scoped>
-.demo-avatar {
-  padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+.avatar-demo {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
 }
 </style>
 ```
 
-### 小程序开放数据头像
+### 5. 小程序头像和点击事件
 
 ```vue
 <template>
-  <view class="demo-avatar">
-    <wd-avatar mp-avatar></wd-avatar>
-    <wd-avatar mp-avatar :size="60"></wd-avatar>
-    <wd-avatar mp-avatar shape="square"></wd-avatar>
+  <view class="avatar-demo">
+    <!-- 小程序头像（仅微信、QQ、百度小程序有效） -->
+    <wd-avatar mpAvatar size="80" />
+    
+    <!-- 带点击事件的头像 -->
+    <wd-avatar 
+      src="https://example.com/avatar.jpg" 
+      name="user-1" 
+      @click="handleAvatarClick"
+      size="60"
+    />
   </view>
 </template>
 
 <script lang="ts" setup>
-// 无需额外引入
+import { showToast } from '@/utils/toast'
+
+// 处理头像点击事件
+const handleAvatarClick = (name: string, event: any) => {
+  showToast(`点击了头像：${name}`)
+  console.log('头像点击事件:', event)
+}
 </script>
 
 <style scoped>
-.demo-avatar {
-  padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+.avatar-demo {
   display: flex;
-  gap: 20px;
-  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### 自定义整体样式
-
-通过 `customStyle` 和 `customClass` 属性可以自定义组件的整体样式：
+### 1. 使用customStyle自定义样式
 
 ```vue
 <template>
-  <wd-avatar
-    src="https://picsum.photos/200/200?random=1"
-    customStyle="margin: 10px; border: 2px solid #409eff;"
-    customClass="custom-avatar"
-  ></wd-avatar>
+  <wd-avatar 
+    text="自定义" 
+    customStyle="border: 2px solid #4D80F0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);"
+    size="60"
+  />
+</template>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <wd-avatar 
+    src="https://example.com/avatar.jpg" 
+    customClass="my-avatar"
+    size="60"
+  />
 </template>
 
-<style>
-.custom-avatar {
-  /* 自定义样式 */
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.my-avatar) {
+  border: 3px solid #34d19d;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(52, 209, 157, 0.3);
 }
 </style>
 ```
 
-### 自定义背景色和文字颜色
-
-通过 `bgColor` 和 `color` 属性可以自定义背景色和文字颜色：
+### 3. 覆盖组件内部样式
 
 ```vue
 <template>
-  <wd-avatar
-    text="自定义颜色"
-    bg-color="#409eff"
-    color="#ffffff"
-  ></wd-avatar>
+  <wd-avatar 
+    text="样式" 
+    customClass="custom-style-avatar"
+    size="80"
+  />
 </template>
-```
 
-### 自定义性别角标和等级图标样式
-
-通过 `sexBgColor` 和 `levelBgColor` 属性可以自定义性别角标和等级图标的背景颜色：
-
-```vue
-<template>
-  <wd-avatar
-    src="https://picsum.photos/200/200?random=1"
-    sex-icon="male"
-    sex-bg-color="#409eff"
-    show-level
-    level-bg-color="#67c23a"
-  ></wd-avatar>
-</template>
+<style scoped>
+/* 覆盖文字样式 */
+:deep(.custom-style-avatar .wd-text) {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+</style>
 ```
 
 ## 注意事项
 
-1. **头像图片路径**：
-   - `src` 属性必须使用绝对路径或网络图片地址，不能使用相对路径
-   - 支持 base64 格式的图片
-   - 图片加载失败时，会显示默认头像或 base64 占位图
+1. **图片路径**：src属性必须使用绝对路径或网络路径，不能使用相对路径。
 
-2. **头像展示优先级**：
-   - 小程序开放数据头像（`mpAvatar` 为 `true` 时）
-   - 图标头像（`icon` 属性有值时）
-   - 文字头像（`text` 属性有值时）
-   - 图片头像（`src` 属性有值时）
-   - 默认头像（以上属性都没有值时）
+2. **小程序头像**：mpAvatar属性仅对微信、QQ、百度小程序有效，其他平台会忽略此属性。
 
-3. **小程序开放数据头像**：
-   - 仅支持微信、QQ、百度小程序
-   - 需要用户授权才能获取头像
-   - 其他平台会忽略该属性
+3. **随机背景色**：randomBgColor为true时，组件会从内置的20种颜色中随机选择一种作为背景色，可通过colorIndex属性指定具体颜色索引（0-19）。
 
-4. **随机背景色**：
-   - 设置 `randomBgColor` 为 `true` 时，会从内置的 20 种颜色中随机选择一种
-   - 可以通过 `colorIndex` 属性指定具体的颜色索引，取值范围为 0-19
+4. **图片加载失败**：当图片加载失败时，组件会使用defaultUrl指定的图片或内置的base64占位图。
 
-5. **头像形状**：
-   - 支持圆形（circle）和方形（square）两种形状
-   - 圆形头像会自动设置 `border-radius: 50%`
-   - 方形头像会自动设置 `border-radius: 4px`
+5. **尺寸单位**：size属性接受数字或字符串，数字会自动转换为rpx单位，字符串需自行指定单位（如"60px"）。
 
-6. **裁剪模式**：
-   - 支持多种裁剪模式，与 UniApp 的 `image` 组件的 `mode` 属性一致
-   - 建议根据实际需求选择合适的裁剪模式
+6. **形状优先级**：shape属性定义头像的整体形状，图片内部也会应用相同的形状样式。
 
-7. **性能优化**：
-   - 建议使用适当大小的图片，避免过大的图片影响性能
-   - 对于频繁更新的头像，建议使用缓存机制
-   - 避免在循环中频繁创建头像组件
+7. **性能优化**：避免使用过大的图片作为头像，建议使用适当尺寸的图片，以提高加载速度和性能。
 
-8. **事件处理**：
-   - 点击事件会传递组件标识符 `name` 和事件对象 `event`
-   - 可以通过 `name` 属性区分不同的头像组件
+8. **性别和等级图标**：sexIcon和showLevel属性可以同时使用，分别显示在头像的右上角和右下角。
 
-## 常见问题解决方案
+9. **兼容性**：在不同平台上，头像的显示效果可能略有差异，建议在主要目标平台上进行测试。
 
-1. **头像不显示**：
-   - 检查 `src` 属性是否使用了正确的路径
-   - 检查图片是否可以正常访问
-   - 检查是否设置了 `mpAvatar` 属性，但不在支持的小程序平台
-
-2. **图片加载失败**：
-   - 检查图片地址是否正确
-   - 检查网络连接是否正常
-   - 组件会自动处理加载失败情况，显示默认头像
-
-3. **头像形状不符合预期**：
-   - 检查 `shape` 属性是否设置正确
-   - 检查是否有自定义样式覆盖了默认样式
-
-4. **随机背景色不生效**：
-   - 检查 `randomBgColor` 属性是否设置为 `true`
-   - 检查 `colorIndex` 属性是否在 0-19 范围内
-
-5. **小程序开放数据头像不显示**：
-   - 检查是否在支持的小程序平台（微信、QQ、百度）
-   - 检查用户是否授权获取头像
-   - 检查小程序基础库版本是否支持
-
-## 性能优化建议
-
-1. **合理设置头像尺寸**：
-   - 根据实际需求设置合适的头像尺寸
-   - 避免使用过大的尺寸，影响页面加载性能
-
-2. **优化图片资源**：
-   - 使用适当大小的图片，避免过大的图片文件
-   - 对于网络图片，建议使用 CDN 加速
-   - 考虑使用 WebP 等高效图片格式
-
-3. **使用缓存机制**：
-   - 对于频繁使用的头像，建议使用缓存机制
-   - 避免重复加载相同的图片资源
-
-4. **避免频繁更新**：
-   - 避免频繁修改头像的属性，如 `src`、`text` 等
-   - 建议在数据稳定后再更新头像
-
-5. **合理使用随机背景色**：
-   - 随机背景色功能会增加计算开销
-   - 对于大量头像的场景，建议预先计算好背景色
+10. **点击事件**：点击事件会返回组件的name属性和原生点击事件对象，便于识别和处理不同头像的点击操作。

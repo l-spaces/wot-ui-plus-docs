@@ -1,36 +1,39 @@
-# wd-picker 选择器
+# Picker 选择器
 
-## 组件概述
+## 组件概况
 
-wd-picker 是一个基于 UniApp 实现的跨平台选择器组件，提供了丰富的配置选项和灵活的使用方式。该组件支持单列选择、多列选择以及联动选择，适用于各种需要从预设选项中进行选择的场景，如日期选择、地区选择、商品分类选择等。
+### 组件概述
+选择器组件用于从预设的选项中选择一个或多个值，通常用于表单、设置页、数据筛选等场景。wd-picker 组件提供了灵活的配置选项，支持单列/多列选择、自定义数据源、加载状态、确认前校验等功能。
 
-### 设计理念
+### 详细功能描述
+- 支持单列和多列选择
+- 支持自定义数据源
+- 支持加载状态
+- 支持确认前校验
+- 支持自定义标题和按钮文案
+- 支持禁用和只读状态
+- 支持表单验证
+- 支持自定义展示格式
+- 支持列联动
+- 支持清空按钮
+- 支持根节点样式定制
+- 支持弹出层层级设置
+- 支持根节点脱离文档流
 
-- **模块化设计**：将选择器分为外层触发区域和内层选择视图两部分，便于单独定制和扩展
-- **跨平台兼容**：基于 UniApp 实现，支持 iOS/Android App、H5 以及主流小程序
-- **灵活配置**：提供丰富的属性配置，支持自定义样式、加载状态、禁用状态等
-- **流畅交互**：支持平滑滚动选择，提供清晰的视觉反馈
-- **易于集成**：与 wd-form 组件无缝集成，支持表单验证
+### 适用业务场景
+- 表单中的选择字段
+- 数据筛选和排序
+- 设置页面的选项选择
+- 日期和时间选择
+- 地址选择
+- 商品规格选择
 
-### 适用场景
+## 完整API参考
 
-- 日期时间选择
-- 地区选择
-- 商品分类选择
-- 性别、学历等基础信息选择
-- 自定义联动选择场景
+### Props属性
 
-## API 参考
-
-### Props
-
-| 属性名 | 类型 | 默认值 | 必填项 | 描述 |
-| --- | --- | --- | --- | --- |
-| customClass | string | '' | 否 | 自定义类名 |
-| customStyle | object | {} | 否 | 自定义样式 |
-| customLabelClass | string | '' | 否 | label 外部自定义样式 |
-| customValueClass | string | '' | 否 | value 外部自定义样式 |
-| customViewClass | string | '' | 否 | pickerView 外部自定义样式 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | label | string | - | 否 | 选择器左侧文案 |
 | placeholder | string | - | 否 | 选择器占位符 |
 | disabled | boolean | false | 否 | 是否禁用 |
@@ -43,8 +46,8 @@ wd-picker 是一个基于 UniApp 实现的跨平台选择器组件，提供了�
 | required | boolean | false | 否 | 是否必填 |
 | size | string | - | 否 | 尺寸 |
 | labelWidth | string | '33%' | 否 | 设置左侧标题宽度 |
-| useDefaultSlot | boolean | false | 否 | 使用默认插槽（已废弃，可直接使用默认插槽） |
-| useLabelSlot | boolean | false | 否 | 使用标签插槽（已废弃，可直接使用标签插槽） |
+| useDefaultSlot | boolean | false | 否 | 使用默认插槽（已废弃） |
+| useLabelSlot | boolean | false | 否 | 使用标签插槽（已废弃） |
 | error | boolean | false | 否 | 错误状态 |
 | alignRight | boolean | false | 否 | 右对齐 |
 | beforeConfirm | function | - | 否 | 确定前校验函数，接收 (value, resolve, picker) 参数，通过 resolve 继续执行 picker，resolve 接收1个boolean参数 |
@@ -61,342 +64,279 @@ wd-picker 是一个基于 UniApp 实现的跨平台选择器组件，提供了�
 | zIndex | number | 15 | 否 | 自定义层级 |
 | prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 |
 | rules | array | [] | 否 | 表单验证规则，结合wd-form组件使用 |
-| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发 change 事件。若不开启则会在滚动动画结束后触发 change 事件，仅微信小程序和支付宝小程序支持 |
+| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发 change 事件。若不开启则会在滚动动画结束后触发 change 事件，1.2.25版本起提供，仅微信小程序和支付宝小程序支持 |
 | rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
 | clearable | boolean | false | 否 | 显示清空按钮 |
-| markerSide | 'before' / 'after' | 'before' | 否 | 必填标记位置 |
+| markerSide | string | 'before' | 否 | 必填标记位置，可选值：before、after |
+| customLabelClass | string | '' | 否 | label 外部自定义样式 |
+| customValueClass | string | '' | 否 | value 外部自定义样式 |
+| customViewClass | string | '' | 否 | pickerView 外部自定义样式 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| open | 打开选择器弹窗时 | - |
-| close | 关闭选择器弹窗时 | - |
-| change | 选择器选中值变化时 | { value: 选中值, selectedItems: 选中项对象 } |
-| confirm | 点击确认按钮时 | { value: 选中值, selectedItems: 选中项对象 } |
-| cancel | 点击取消按钮或蒙层时 | - |
+|--------|----------|----------|
+| confirm | 点击确认按钮时 | { value: any, selectedItems: any[] } - 选中值和选中项 |
+| open | 打开选择器时 | - |
+| cancel | 点击取消按钮时 | - |
 | clear | 点击清空按钮时 | - |
-| update:modelValue | 选中值变化时 | 新的选中值 |
+| update:modelValue | 选中值改变时 | value: any - 选中值 |
 
-### Methods
+### Methods方法
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| open | - | - | 打开选择器弹窗 |
-| close | - | - | 关闭选择器弹窗 |
+|--------|------|--------|----------|
+| open | - | - | 打开picker弹框 |
+| close | - | - | 关闭picker弹框 |
 | setLoading | loading: boolean | - | 设置加载状态 |
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 自定义选择器触发区域内容 |
-| label | - | 自定义左侧标签内容 |
+|--------|------------|----------|
+| default | - | 自定义选择器内容 |
+| label | - | 自定义标签内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <wd-picker
-    v-model="value"
-    :columns="columns"
-    label="基础选择器"
-    placeholder="请选择"
-    @confirm="handleConfirm"
-  />
+  <view class="picker-demo">
+    <wd-picker 
+      v-model="selectedValue" 
+      label="性别" 
+      :columns="columns"
+      @confirm="onConfirm"
+    />
+    <view class="picker-info">选中值：{{ selectedValue }}</view>
+  </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-const value = ref('')
-const columns = ref([
-  { label: '选项1', value: '1' },
-  { label: '选项2', value: '2' },
-  { label: '选项3', value: '3' }
-])
+const selectedValue = ref('')
+const columns = ['男', '女', '保密']
 
-const handleConfirm = (event: any) => {
-  console.log('选择结果:', event.value)
+const onConfirm = (params: { value: any, selectedItems: any[] }) => {
+  console.log('选择结果', params)
 }
+</script>
+
+<style scoped>
+.picker-demo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.picker-info {
+  font-size: 16px;
+  color: #666;
+}
+</style>
+```
+
+### 2. 对象数组数据源
+
+```vue
+<template>
+  <view class="picker-demo">
+    <wd-picker 
+      v-model="selectedValue" 
+      label="城市" 
+      :columns="columns"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const selectedValue = ref('')
+const columns = [
+  { label: '北京', value: 'beijing' },
+  { label: '上海', value: 'shanghai' },
+  { label: '广州', value: 'guangzhou' },
+  { label: '深圳', value: 'shenzhen' }
+]
 </script>
 ```
 
-### 多列选择
+### 3. 多列联动
 
 ```vue
 <template>
-  <wd-picker
-    v-model="value"
-    :columns="columns"
-    label="多列选择器"
-    placeholder="请选择"
-    @confirm="handleConfirm"
-  />
+  <view class="picker-demo">
+    <wd-picker 
+      v-model="selectedValue" 
+      label="地址" 
+      :columns="columns" 
+      :column-change="onColumnChange"
+    />
+  </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-const value = ref(['1', '1-1'])
+const selectedValue = ref(['beijing', 'chaoyang'])
+
 const columns = ref([
   [
-    { label: '选项1', value: '1' },
-    { label: '选项2', value: '2' }
+    { label: '北京', value: 'beijing' },
+    { label: '上海', value: 'shanghai' }
   ],
   [
-    { label: '选项1-1', value: '1-1' },
-    { label: '选项1-2', value: '1-2' }
+    { label: '朝阳区', value: 'chaoyang' },
+    { label: '海淀区', value: 'haidian' }
   ]
 ])
 
-const handleConfirm = (event: any) => {
-  console.log('选择结果:', event.value)
-}
-</script>
-```
-
-### 自定义展示格式
-
-```vue
-<template>
-  <wd-picker
-    v-model="value"
-    :columns="columns"
-    label="自定义格式"
-    placeholder="请选择"
-    :displayFormat="displayFormat"
-    @confirm="handleConfirm"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref(['2023', '01'])
-const columns = ref([
-  ['2023', '2024', '2025'],
-  ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-])
-
-const displayFormat = (items: any[], vl: any) => {
-  return `${items[0]}年${items[1]}月`
-}
-
-const handleConfirm = (event: any) => {
-  console.log('选择结果:', event.value)
-}
-</script>
-```
-
-### 联动选择
-
-```vue
-<template>
-  <wd-picker
-    v-model="value"
-    :columns="columns"
-    label="联动选择器"
-    placeholder="请选择"
-    :columnChange="handleColumnChange"
-    @confirm="handleConfirm"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref(['1'])
-const columns = ref([
-  [
-    { label: '选项1', value: '1' },
-    { label: '选项2', value: '2' }
+const cityAreas = {
+  beijing: [
+    { label: '朝阳区', value: 'chaoyang' },
+    { label: '海淀区', value: 'haidian' },
+    { label: '东城区', value: 'dongcheng' }
   ],
-  [
-    { label: '选项1-1', value: '1-1' },
-    { label: '选项1-2', value: '1-2' }
+  shanghai: [
+    { label: '浦东新区', value: 'pudong' },
+    { label: '徐汇区', value: 'xuhui' },
+    { label: '黄浦区', value: 'huangpu' }
   ]
-])
+}
 
-const handleColumnChange = (pickerView: any, selects: any, index: number, resolve: any) => {
+const onColumnChange = (picker: any, value: any, index: number, resolve: any) => {
   if (index === 0) {
-    const newColumns = selects[0].value === '1' 
-      ? [
-          { label: '选项1-1', value: '1-1' },
-          { label: '选项1-2', value: '1-2' }
-        ]
-      : [
-          { label: '选项2-1', value: '2-1' },
-          { label: '选项2-2', value: '2-2' }
-        ]
-    pickerView.setColumnData(1, newColumns, 0)
+    const city = value[0]
+    picker.setColumnData(1, cityAreas[city])
   }
   resolve()
 }
-
-const handleConfirm = (event: any) => {
-  console.log('选择结果:', event.value)
-}
 </script>
 ```
 
-### 自定义触发区域
+### 4. 自定义展示格式
 
 ```vue
 <template>
-  <wd-picker
-    v-model="value"
-    :columns="columns"
-    @confirm="handleConfirm"
-  >
-    <view class="custom-picker-trigger">
-      <text class="custom-label">自定义触发区域</text>
-      <text class="custom-value">{{ value || '请选择' }}</text>
-      <wd-icon name="arrow-right" />
-    </view>
-  </wd-picker>
+  <view class="picker-demo">
+    <wd-picker 
+      v-model="selectedValue" 
+      label="商品规格" 
+      :columns="columns" 
+      :display-format="displayFormat"
+    />
+  </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
-import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
 
-const value = ref('')
-const columns = ref([
-  { label: '选项1', value: '1' },
-  { label: '选项2', value: '2' },
-  { label: '选项3', value: '3' }
-])
+const selectedValue = ref(['red', 's'])
+const columns = [
+  [{ label: '红色', value: 'red' }, { label: '蓝色', value: 'blue' }],
+  [{ label: 'S', value: 's' }, { label: 'M', value: 'm' }, { label: 'L', value: 'l' }]
+]
 
-const handleConfirm = (event: any) => {
-  console.log('选择结果:', event.value)
+const displayFormat = (items: any, { valueKey, labelKey }: { valueKey: string, labelKey: string }) => {
+  if (!Array.isArray(items)) {
+    return items[labelKey]
+  }
+  return items.map(item => item[labelKey]).join(' - ')
 }
 </script>
-
-<style scoped>
-.custom-picker-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20rpx;
-  background-color: #f5f5f5;
-  border-radius: 8rpx;
-}
-
-.custom-label {
-  font-size: 28rpx;
-  color: #333;
-}
-
-.custom-value {
-  font-size: 28rpx;
-  color: #666;
-  margin-right: 10rpx;
-}
-</style>
 ```
 
-## 样式定制
-
-### 自定义触发区域样式
+### 5. 带清空按钮
 
 ```vue
-<wd-picker
-  v-model="value"
+<template>
+  <view class="picker-demo">
+    <wd-picker 
+      v-model="selectedValue" 
+      label="兴趣爱好" 
+      :columns="columns"
+      clearable
+      @clear="onClear"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const selectedValue = ref('')
+const columns = ['篮球', '足球', '羽毛球', '乒乓球']
+
+const onClear = () => {
+  console.log('清空选择')
+}
+</script>
+```
+
+## 样式定制指南
+
+### customStyle 用法
+使用 customStyle 属性可以自定义选择器的内联样式，例如修改高度、宽度、背景色等。
+
+```vue
+<wd-picker 
+  v-model="selectedValue" 
+  label="性别" 
   :columns="columns"
-  label="自定义样式"
-  placeholder="请选择"
-  customClass="custom-picker"
-  customLabelClass="custom-label"
-  customValueClass="custom-value"
+  custom-style="background-color: #f5f7fa; padding: 10px;"
+/>
+```
+
+### customClass 用法
+使用 customClass 属性可以为选择器添加自定义样式类，便于在外部 CSS 中进行样式定制。
+
+```vue
+<wd-picker 
+  v-model="selectedValue" 
+  label="性别" 
+  :columns="columns"
+  custom-class="my-picker"
 />
 
 <style scoped>
-.custom-picker {
-  /* 自定义选择器容器样式 */
-  margin: 20rpx 0;
-}
-
-.custom-label {
-  /* 自定义标签样式 */
-  color: #4D80F0;
-  font-weight: bold;
-}
-
-.custom-value {
-  /* 自定义值样式 */
-  color: #666;
-  font-size: 28rpx;
-}
-</style>
-```
-
-### 自定义选择视图样式
-
-```vue
-<wd-picker
-  v-model="value"
-  :columns="columns"
-  label="自定义选择视图"
-  placeholder="请选择"
-  customViewClass="custom-picker-view"
-  :columnsHeight="250"
-  :itemHeight="40"
-/>
-
-<style scoped>
-.custom-picker-view {
-  /* 自定义选择视图样式 */
-  background-color: #fafafa;
+:deep(.my-picker) {
+  --wd-picker-label-color: #333;
+  --wd-picker-value-color: #606266;
+  --wd-picker-placeholder-color: #909399;
+  --wd-picker-border-color: #e4e7ed;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **数据格式要求**：
-   - 单列选择器：columns 可以是一维数组（如 ['选项1', '选项2']）或包含 value 和 label 的对象数组
-   - 多列选择器：columns 必须是二维数组，每一列数据格式与单列相同
+1. **数据源格式**：columns 属性支持字符串数组、对象数组和二维数组，分别对应不同的选择器类型。
 
-2. **联动选择注意事项**：
-   - 在 columnChange 事件中修改列数据时，需要调用 pickerView.setColumnData 方法
-   - 如果 columnChange 是异步操作，需要调用 resolve 函数通知组件继续执行
+2. **双向绑定**：组件支持使用 v-model 双向绑定选中值，也可以使用 :model-value 和 @update:model-value 手动绑定。
 
-3. **性能优化建议**：
-   - 避免一次性加载大量数据，可考虑分页或异步加载
-   - 对于固定数据，建议在组件外部定义，避免每次渲染重新创建
+3. **columnChange 事件**：用于处理多列联动逻辑，接收 pickerView 实例、选中值、当前修改列的下标和 resolve 函数作为参数。
 
-4. **平台差异**：
-   - immediateChange 属性仅支持微信小程序和支付宝小程序
-   - rootPortal 属性在不同平台有不同实现（H5: teleport, APP: renderjs, 小程序: root-portal）
+4. **displayFormat 函数**：用于自定义选择器的展示格式，接收选中项和配置对象作为参数，返回一个字符串。
 
-5. **表单集成**：
-   - 与 wd-form 组件集成时，需要设置 prop 和 rules 属性
-   - 支持表单验证和错误状态显示
+5. **beforeConfirm 函数**：用于在确认前进行校验，接收选中值、resolve 函数和 picker 实例作为参数，通过调用 resolve(true/false) 决定是否继续确认。
 
-6. **自定义显示格式**：
-   - 使用 displayFormat 函数可以自定义选择器触发区域的显示文本
-   - 该函数接收选中项和配置对象作为参数，返回格式化后的字符串
+6. **loading 属性**：用于控制选择器的加载状态，当 loading 为 true 时，确认按钮会显示为加载状态，无法点击。
 
-## 常见问题
+7. **rootPortal 属性**：用于解决弹出层在某些场景下 fixed 定位失效的问题，支持 H5、APP 和小程序。
 
-### Q: 如何实现级联选择？
-A: 使用 columnChange 事件，当某一列的值发生变化时，根据当前选中值动态更新其他列的数据。
+8. **clearable 属性**：当 clearable 为 true 时，选择器会显示清空按钮，点击清空按钮会清空选中值并触发 clear 事件。
 
-### Q: 如何自定义选择器的样式？
-A: 可以通过 customClass、customStyle、customLabelClass、customValueClass 和 customViewClass 等属性来自定义不同部分的样式。
+9. **markerSide 属性**：用于设置必填标记的位置，可选值为 'before' 和 'after'。
 
-### Q: 如何设置默认选中值？
-A: 通过 v-model 或 modelValue 属性设置默认选中值，注意数据类型要与 columns 中的 value 类型保持一致。
+10. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在根节点脱离文档流和立即触发 change 事件方面。
 
-### Q: 如何禁用某些选项？
-A: 在 columns 数据中为需要禁用的选项添加 disabled: true 属性。
+11. **性能优化**：对于大数据量的场景，建议使用虚拟滚动或分页加载，避免一次性渲染过多选项。
 
-### Q: 如何清空选择值？
-A: 设置 clearable 属性为 true，会在选择器右侧显示清空按钮，点击可清空选择值。
-
-## 浏览器兼容性
-
-支持 iOS/Android App、H5 以及主流小程序（微信/支付宝/百度/字节跳动）。
+12. **表单校验**：组件支持结合 wd-form 组件使用，通过 prop 和 rules 属性进行表单校验。

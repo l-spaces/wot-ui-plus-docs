@@ -1,74 +1,91 @@
-# wd-notify 通知组件
+# 通知提示组件
 
-## 组件概述
+## 组件概况
 
-wd-notify 是一个轻量级的通知组件，用于在页面顶部或底部显示简短的通知信息。该组件设计简洁，可根据需求自定义类型、样式、位置和时长，适用于各种需要向用户展示临时通知的场景。
+### 组件概述
+通知提示组件是一个轻量级的通知组件，用于在页面顶部或底部显示简短的通知信息，支持多种类型和自定义样式。组件支持通过组合式API或组件方式使用，提供了灵活的配置选项，适用于各种需要显示通知的场景。
 
-### 功能特点
-- 支持多种通知类型：primary、success、danger、warning
-- 支持自定义颜色和背景
-- 支持顶部和底部两种弹出位置
-- 支持自定义显示时长
+### 详细功能描述
+- 支持四种通知类型：primary（主要）、success（成功）、danger（危险）、warning（警告）
+- 支持两种显示位置：top（顶部）、bottom（底部）
+- 可自定义通知文本、颜色、背景色等
+- 支持设置显示时长，自动关闭
 - 支持点击事件和关闭事件
-- 支持根节点脱离，解决fixed定位失效问题
-- 支持通过CSS变量定制主题
-- 提供便捷的API调用方式
+- 支持通过组合式API或组件方式使用
+- 支持设置通知层级
+- 支持安全区域适配
+- 支持从页面中脱离，解决fixed失效问题
+- 支持全局配置默认选项
 
-### 适用场景
-- 操作结果提示（成功、失败、警告等）
-- 系统通知和状态更新
-- 表单验证结果提示
-- 网络状态变化提示
-- 临时消息展示
+### 适用业务场景
+- 操作结果提示
+- 错误信息提示
+- 成功信息提示
+- 警告信息提示
+- 系统通知
+- 任何需要显示简短通知的场景
 
-## API 参考
+## 完整API参考
 
 ### Props
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| type | string | danger | 否 | 类型，可选值为 primary success danger warning |
-| color | string |  | 否 | 字体颜色 |
-| zIndex | number | 99 | 否 | 将组件的 z-index 层级设置为一个固定值 |
-| visible | boolean | false | 否 | 是否显示 |
-| message | string / number |  | 否 | 展示文案，支持通过\n换行 |
-| selector | string |  | 否 | 指定唯一标识 |
-| duration | number | 3000 | 否 | 展示时长(ms)，值为 0 时，notify 不会消失 |
-| position | string | top | 否 | 弹出位置，可选值为 top bottom |
-| safeHeight | number |  | 否 | 顶部安全高度 |
-| background | string |  | 否 | 背景颜色 |
-| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
+| visible | boolean | false | 否 | 通知是否可见 |
+| type | 'primary' \| 'success' \| 'danger' \| 'warning' | 'danger' | 否 | 通知类型 |
+| message | string | '' | 否 | 通知文案，支持通过\n换行 |
+| position | 'top' \| 'bottom' | 'top' | 否 | 通知显示位置 |
+| duration | number | 3000 | 否 | 显示时长（ms），值为 0 时，通知不会自动消失 |
+| color | string | '' | 否 | 通知文本颜色 |
+| background | string | '' | 否 | 通知背景颜色 |
+| zIndex | number | 99 | 否 | 通知层级 |
+| safeHeight | number | - | 否 | 顶部安全高度 |
+| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 |
+| selector | string | '' | 否 | 指定唯一标识，用于多实例管理 |
 
 ### Events
 
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| click | 点击通知时触发 | event: MouseEvent |
-| closed | 通知关闭时触发 | 无 |
-| opened | 通知打开时触发 | 无 |
-| update:visible | 通知显示状态变化时触发 | visible: boolean |
+| click | 点击通知时 | event: MouseEvent |
+| closed | 通知关闭时 | - |
+| opened | 通知打开时 | - |
+| update:visible | 通知显示状态变化时 | visible: boolean |
 
-### Methods
+### Methods (组合式API)
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
-| showNotify | option: NotifyProps \| string | 无 | 显示通知，支持直接传入字符串作为message |
-| closeNotify | 无 | 无 | 关闭通知 |
+| showNotify | options: NotifyProps \| string | void | 显示通知，支持直接传入字符串作为通知文案 |
+| closeNotify | - | void | 关闭通知 |
+| setNotifyDefaultOptions | options: NotifyProps | void | 设置全局默认配置 |
+| resetNotifyDefaultOptions | - | void | 重置全局默认配置 |
 
-### Slots
+### NotifyProps 类型定义
 
-| 插槽名 | 作用域变量 | 使用说明 |
+| 名称 | 类型 | 描述 |
 | --- | --- | --- |
-| default | - | 自定义通知内容，替换默认的message文本 |
+| type | 'primary' \| 'success' \| 'danger' \| 'warning' | 通知类型 |
+| message | string | 通知文案 |
+| color | string | 通知文本颜色 |
+| background | string | 通知背景颜色 |
+| duration | number | 显示时长（ms） |
+| position | 'top' \| 'bottom' | 显示位置 |
+| zIndex | number | 通知层级 |
+| safeHeight | number | 顶部安全高度 |
+| rootPortal | boolean | 是否从页面中脱离 |
+| onClick | (event: MouseEvent) => void | 点击通知时的回调 |
+| onClosed | () => void | 通知关闭时的回调 |
+| onOpened | () => void | 通知打开时的回调 |
 
-## 使用示例
+## 多场景使用示例
 
-### 1. 基础用法
+### 基础用法（组合式API）
 
 ```vue
 <template>
   <view>
-    <wd-button type="primary" @click="showNotify">显示通知</wd-button>
+    <wd-button @click="showNotify">显示通知</wd-button>
     <wd-notify />
   </view>
 </template>
@@ -76,25 +93,23 @@ wd-notify 是一个轻量级的通知组件，用于在页面顶部或底部显�
 <script lang="ts" setup>
 import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
 
-// 获取notify实例
 const { showNotify } = useNotify()
 
-// 显示通知
 const showNotify = () => {
-  showNotify('这是一条基础的通知信息')
+  showNotify('这是一条通知信息')
 }
 </script>
 ```
 
-### 2. 不同类型的通知
+### 不同类型的通知
 
 ```vue
 <template>
   <view>
-    <wd-button type="primary" @click="showPrimary">主要通知</wd-button>
-    <wd-button type="success" @click="showSuccess">成功通知</wd-button>
-    <wd-button type="danger" @click="showDanger">危险通知</wd-button>
-    <wd-button type="warning" @click="showWarning">警告通知</wd-button>
+    <wd-button @click="showPrimary">主要通知</wd-button>
+    <wd-button @click="showSuccess">成功通知</wd-button>
+    <wd-button @click="showDanger">危险通知</wd-button>
+    <wd-button @click="showWarning">警告通知</wd-button>
     <wd-notify />
   </view>
 </template>
@@ -102,49 +117,34 @@ const showNotify = () => {
 <script lang="ts" setup>
 import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
 
-// 获取notify实例
 const { showNotify } = useNotify()
 
-// 显示主要通知
 const showPrimary = () => {
-  showNotify({
-    type: 'primary',
-    message: '这是一条主要通知'
-  })
+  showNotify({ type: 'primary', message: '这是一条主要通知' })
 }
 
-// 显示成功通知
 const showSuccess = () => {
-  showNotify({
-    type: 'success',
-    message: '操作成功'
-  })
+  showNotify({ type: 'success', message: '这是一条成功通知' })
 }
 
-// 显示危险通知
 const showDanger = () => {
-  showNotify({
-    type: 'danger',
-    message: '操作失败，请重试'
-  })
+  showNotify({ type: 'danger', message: '这是一条危险通知' })
 }
 
-// 显示警告通知
 const showWarning = () => {
-  showNotify({
-    type: 'warning',
-    message: '请注意，这是一条警告信息'
-  })
+  showNotify({ type: 'warning', message: '这是一条警告通知' })
 }
 </script>
 ```
 
-### 3. 自定义样式
+### 自定义位置和时长
 
 ```vue
 <template>
   <view>
-    <wd-button type="primary" @click="showCustomStyle">自定义样式</wd-button>
+    <wd-button @click="showTop">顶部通知</wd-button>
+    <wd-button @click="showBottom">底部通知</wd-button>
+    <wd-button @click="showLongTime">长时间通知</wd-button>
     <wd-notify />
   </view>
 </template>
@@ -152,116 +152,54 @@ const showWarning = () => {
 <script lang="ts" setup>
 import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
 
-// 获取notify实例
 const { showNotify } = useNotify()
 
-// 显示自定义样式通知
+const showTop = () => {
+  showNotify({ position: 'top', message: '这是一条顶部通知' })
+}
+
+const showBottom = () => {
+  showNotify({ position: 'bottom', message: '这是一条底部通知' })
+}
+
+const showLongTime = () => {
+  showNotify({ duration: 5000, message: '这是一条显示5秒的通知' })
+}
+</script>
+```
+
+### 自定义样式
+
+```vue
+<template>
+  <view>
+    <wd-button @click="showCustomStyle">自定义样式通知</wd-button>
+    <wd-notify />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
+
+const { showNotify } = useNotify()
+
 const showCustomStyle = () => {
   showNotify({
     message: '这是一条自定义样式的通知',
-    color: '#fff',
-    background: '#4D80F0',
-    duration: 5000
+    color: '#ffffff',
+    background: '#1890FF',
+    zIndex: 1000
   })
 }
 </script>
 ```
 
-### 4. 不同位置的通知
+### 带事件回调的通知
 
 ```vue
 <template>
   <view>
-    <wd-button type="primary" @click="showTop">顶部通知</wd-button>
-    <wd-button type="primary" @click="showBottom">底部通知</wd-button>
-    <wd-notify />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
-
-// 获取notify实例
-const { showNotify } = useNotify()
-
-// 显示顶部通知
-const showTop = () => {
-  showNotify({
-    message: '这是一条顶部通知',
-    position: 'top'
-  })
-}
-
-// 显示底部通知
-const showBottom = () => {
-  showNotify({
-    message: '这是一条底部通知',
-    position: 'bottom'
-  })
-}
-</script>
-```
-
-### 5. 带点击事件的通知
-
-```vue
-<template>
-  <view>
-    <wd-button type="primary" @click="showClickable">带点击事件的通知</wd-button>
-    <wd-notify @click="onNotifyClick" @closed="onNotifyClosed" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
-
-// 获取notify实例
-const { showNotify } = useNotify()
-
-// 显示带点击事件的通知
-const showClickable = () => {
-  showNotify({
-    message: '点击通知查看详情',
-    duration: 0 // 0表示不自动关闭
-  })
-}
-
-// 通知点击事件
-const onNotifyClick = (event: MouseEvent) => {
-  console.log('点击了通知', event)
-  // 执行点击后的操作
-}
-
-// 通知关闭事件
-const onNotifyClosed = () => {
-  console.log('通知已关闭')
-}
-</script>
-```
-
-## 样式定制指南
-
-### 1. 通过Props定制
-
-组件提供了多个Props用于自定义样式：
-
-```vue
-<wd-notify 
-  type="success" 
-  color="#fff" 
-  background="#07c160" 
-  message="自定义样式通知" 
-/>
-```
-
-### 2. 通过CSS变量定制
-
-组件支持通过CSS变量定制主题样式：
-
-```vue
-<template>
-  <view class="custom-notify-container">
-    <wd-button type="primary" @click="showNotify">自定义主题通知</wd-button>
+    <wd-button @click="showWithEvents">带事件回调的通知</wd-button>
     <wd-notify />
   </view>
 </template>
@@ -271,91 +209,149 @@ import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
 
 const { showNotify } = useNotify()
 
-const showNotify = () => {
-  showNotify('这是一条自定义主题的通知')
+const showWithEvents = () => {
+  showNotify({
+    message: '这是一条带事件回调的通知',
+    onClick: (event) => {
+      console.log('点击了通知', event)
+    },
+    onOpened: () => {
+      console.log('通知已打开')
+    },
+    onClosed: () => {
+      console.log('通知已关闭')
+    }
+  })
 }
 </script>
-
-<style scoped>
-.custom-notify-container {
-  /* 自定义通知主题变量 */
-  --notify-padding: 16rpx 24rpx;
-  --notify-font-size: 28rpx;
-  --notify-danger-background: #ff4d4f;
-  --notify-primary-background: #1890ff;
-  --notify-success-background: #52c41a;
-  --notify-warning-background: #faad14;
-}
-</style>
 ```
 
-### 3. 自定义类名
-
-可以通过自定义类名覆盖组件内部样式：
+### 全局配置默认选项
 
 ```vue
 <template>
   <view>
-    <wd-button type="primary" @click="showCustomClass">自定义类名通知</wd-button>
-    <wd-notify ref="notifyRef" />
+    <wd-button @click="showWithDefault">使用默认配置的通知</wd-button>
+    <wd-button @click="resetDefault">重置默认配置</wd-button>
+    <wd-notify />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { useNotify, setNotifyDefaultOptions, resetNotifyDefaultOptions } from '@/uni_modules/wot-ui-plus/components/wd-notify'
+
+const { showNotify } = useNotify()
+
+// 设置全局默认配置
+setNotifyDefaultOptions({
+  type: 'success',
+  duration: 4000,
+  position: 'bottom',
+  zIndex: 1000
+})
+
+const showWithDefault = () => {
+  showNotify('使用默认配置的通知')
+}
+
+const resetDefault = () => {
+  resetNotifyDefaultOptions()
+  showNotify('已重置默认配置')
+}
+</script>
+```
+
+### 组件方式使用
+
+```vue
+<template>
+  <view>
+    <wd-button @click="visible = true">显示通知</wd-button>
+    <wd-notify 
+      v-model:visible="visible" 
+      type="success" 
+      message="这是一条组件方式使用的通知" 
+      duration="3000"
+    />
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useNotify } from '@/uni_modules/wot-ui-plus/components/wd-notify'
 
-const notifyRef = ref(null)
-const { showNotify } = useNotify()
-
-const showCustomClass = () => {
-  showNotify({
-    message: '自定义类名通知',
-    // 注意：通过API调用时，无法直接传递customClass，需要通过其他方式实现
-  })
-}
+const visible = ref(false)
 </script>
-
-<style>
-/* 全局样式覆盖 */
-.wd-notify {
-  /* 自定义全局通知样式 */
-  border-radius: 8rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
-}
-</style>
 ```
+
+## 样式定制指南
+
+### 自定义样式
+
+通过组件的 props 可以自定义通知的样式：
+
+```vue
+<wd-notify 
+  v-model:visible="visible" 
+  message="自定义样式通知" 
+  color="#ffffff" 
+  background="#1890FF"
+  :z-index="1000"
+/>
+```
+
+### 全局主题变量
+
+可以通过修改全局主题变量来定制通知组件的默认样式：
+
+| 变量名 | 类型 | 默认值 | 描述 |
+| --- | --- | --- | --- |
+| notifyPadding | string | 12px 16px | 通知内边距 |
+| notifyFontSize | string | 14px | 通知字体大小 |
+| notifyTextColor | string | #ffffff | 通知文本颜色 |
+| notifyLineHeight | number \| string | 1.5 | 通知行高 |
+| notifyDangerBackground | string | #ff4d4f | 危险类型通知背景色 |
+| notifyPrimaryBackground | string | #1890ff | 主要类型通知背景色 |
+| notifySuccessBackground | string | #52c41a | 成功类型通知背景色 |
+| notifyWarningBackground | string | #faad14 | 警告类型通知背景色 |
 
 ## 注意事项
 
-### 1. 性能优化
-- 避免频繁显示通知，影响用户体验
-- 合理设置通知时长，避免通知长时间占用屏幕
-- 当通知内容较长时，建议使用换行符\n进行换行
+1. 使用方式选择：
+   - 组合式API方式：适合在JavaScript/TypeScript代码中调用，使用更灵活
+   - 组件方式：适合在模板中直接使用，更符合Vue组件的使用习惯
+   - 推荐使用组合式API方式，特别是在需要频繁调用通知的场景
 
-### 2. 事件处理
-- 通知组件支持click、closed、opened等事件
-- 可以通过Props或事件监听两种方式处理事件
-- 自定义插槽中的点击事件需要注意事件冒泡
+2. 显示时长：
+   - 默认显示时长为3000ms，可通过`duration`属性调整
+   - 当`duration`为0时，通知不会自动关闭，需手动调用`closeNotify`方法关闭
+   - 注意控制通知显示时长，过长会影响用户体验，过短可能导致用户来不及阅读
 
-### 3. 跨端兼容
-- 组件在不同平台上的表现可能略有差异，建议在各平台上进行测试
-- 在小程序平台上，rootPortal属性可能需要特殊处理
-- 安全高度(safeHeight)属性在不同设备上可能需要调整
+3. 位置选择：
+   - 支持`top`和`bottom`两种位置
+   - 顶部通知适合重要信息，底部通知适合次要信息
+   - 在移动端，建议使用顶部通知，避免被底部导航栏遮挡
 
-### 4. 多实例管理
-- 当页面中需要多个通知实例时，需要通过selector属性进行区分
-- 每个实例拥有独立的状态和配置
+4. 安全区域适配：
+   - 在全面屏设备上，建议设置`safeHeight`属性，以适配顶部安全区域
+   - 或开启`rootPortal`属性，解决fixed定位失效问题
 
-### 5. 常见问题解决方案
-- **问题**：通知显示位置不正确
-  **解决方案**：检查position属性是否正确，调整safeHeight属性
+5. 事件处理：
+   - `click`事件在点击通知时触发，可用于添加点击交互
+   - `onOpened`事件在通知打开动画结束时触发
+   - `onClosed`事件在通知关闭动画结束时触发
+   - 可通过这些事件实现更复杂的交互逻辑
 
-- **问题**：通知无法关闭
-  **解决方案**：检查duration属性是否为0，0表示不自动关闭
+6. 性能优化：
+   - 避免短时间内频繁显示通知，影响用户体验
+   - 通知内容应简洁明了，避免过长的文本
+   - 对于不重要的通知，可适当缩短显示时长
 
-- **问题**：自定义样式不生效
-  **解决方案**：检查样式优先级，尝试使用!important或更具体的选择器
+7. 全局配置：
+   - 可通过`setNotifyDefaultOptions`方法设置全局默认配置，减少重复代码
+   - 可通过`resetNotifyDefaultOptions`方法重置全局默认配置
+   - 全局配置会影响所有使用`useNotify`的通知组件
 
-- **问题**：通知被其他元素遮挡
-  **解决方案**：调整zIndex属性，提高通知层级
+8. 层级管理：
+   - 默认层级为99，可通过`zIndex`属性调整
+   - 确保层级设置合理，避免被其他元素遮挡
+   - 当页面中有多个弹窗组件时，注意调整不同组件的层级关系

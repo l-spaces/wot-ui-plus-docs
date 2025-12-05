@@ -1,341 +1,249 @@
-# wd-img-cropper 图片裁剪
+# ImgCropper 图片裁剪
 
-## 组件概述
+## 组件概况
 
-图片裁剪组件是一个用于对图片进行裁剪、旋转、缩放等操作的功能组件，支持多种裁剪比例、旋转角度和缩放级别。组件采用 Vue3 + TypeScript + UniApp 技术栈实现，使用 Canvas 进行图片绘制和裁剪，具有良好的跨端兼容性和用户体验。
+### 组件概述
+ImgCropper 是一个功能强大的图片裁剪组件，支持图片缩放、旋转、移动等操作，可用于头像裁剪、图片编辑等场景。它提供了直观的裁剪界面和丰富的配置选项，支持自定义裁剪框比例、导出图片质量等。
 
-### 功能描述
-- 支持多种裁剪比例设置
-- 支持图片旋转操作
-- 支持图片缩放操作
-- 支持图片拖动调整位置
-- 支持自定义裁剪框大小
-- 支持导出不同质量和格式的图片
-- 支持懒加载图片
+### 核心功能
+- 支持图片缩放、旋转、移动
+- 支持自定义裁剪框宽高比
+- 支持多种导出图片格式
+- 支持导出图片质量设置
+- 支持导出图片缩放比例
+- 支持禁用旋转功能
 - 支持自定义按钮文案
-- 提供裁剪完成和取消事件
 
-### 适用场景
+### 适用业务场景
 - 用户头像裁剪
-- 商品图片裁剪
+- 商品图片编辑
+- 图片上传前裁剪
 - 证件照裁剪
-- 图片编辑功能
-- 任何需要对图片进行裁剪的场景
+- 自定义比例图片裁剪
 
-## API 参考
+## 完整API参考
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填项 | 描述 |
 | --- | --- | --- | --- | --- |
-| modelValue | boolean | false | 否 | 控制图片裁剪组件的显示与隐藏 |
+| modelValue | boolean | false | 否 | 打开图片裁剪组件 |
 | cancelButtonText | string | - | 否 | 取消按钮文案 |
 | confirmButtonText | string | - | 否 | 确认按钮文案 |
-| disabledRotate | boolean | false | 否 | 是否禁用旋转功能 |
-| fileType | string | 'png' | 否 | 目标文件的类型，支持 png、jpg 等 |
-| quality | number | 1 | 否 | 生成的图片质量，取值范围 0-1 |
-| exportScale | number | 2 | 否 | 设置导出图片尺寸的缩放比例 |
+| disabledRotate | boolean | false | 否 | 是否禁用旋转 |
+| fileType | string | 'png' | 否 | 目标文件的类型，可选值：png / jpg / jpeg |
+| quality | number | 1 | 否 | 生成的图片质量，范围：0-1 |
+| exportScale | number | 2 | 否 | 设置导出图片尺寸缩放比例 |
 | imgSrc | string | '' | 否 | 图片源路径 |
-| imgWidth | number/string | '' | 否 | 图片宽度，支持数值和字符串形式 |
-| imgHeight | number/string | '' | 否 | 图片高度，支持数值和字符串形式 |
-| maxScale | number | 3 | 否 | 图片最大缩放倍数 |
+| imgWidth | number / string | '' | 否 | 图片宽度 |
+| imgHeight | number / string | '' | 否 | 图片高度 |
+| maxScale | number | 3 | 否 | 最大缩放倍数 |
 | aspectRatio | string | '1:1' | 否 | 裁剪框宽高比，格式为 width:height |
-| customClass | string | - | 否 | 自定义类名，用于覆盖组件默认样式 |
-| customStyle | string/object | - | 否 | 自定义样式，支持字符串和对象两种格式 |
+| customStyle | string | '' | 否 | 自定义样式，对象格式 |
+| customClass | string | '' | 否 | 自定义类名 |
 
 ### Events
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| imgloaded | 图片加载完成时 | 事件对象 |
-| imgloaderror | 图片加载失败时 | 事件对象 |
-| cancel | 点击取消按钮时 | - |
-| confirm | 裁剪完成时 | { tempFilePath: string, width: number, height: number } - 包含裁剪后图片路径和尺寸的对象 |
-| update:modelValue | 组件显示状态变化时 | 新的显示状态（boolean） |
+| imgloaded | 图片加载完成时触发 | res: 图片信息 |
+| imgloaderror | 图片加载失败时触发 | err: 错误信息 |
+| cancel | 取消裁剪时触发 | - |
+| confirm | 完成裁剪时触发 | result: { tempFilePath: 裁剪后的图片临时路径, width: 图片宽度, height: 图片高度 } |
+| update:modelValue | 组件显示/隐藏状态变化时触发 | visible: 组件是否可见 |
 
 ### Methods
 | 方法名 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
-| revertIsAnimation | animation: boolean | void | 控制是否使用动画效果 |
-| resetImg | - | void | 初始化图片的大小、角度和位置 |
-| setRoate | angle: number | void | 控制图片旋转角度 |
+| revertIsAnimation | animation: boolean | void | 逆转是否使用动画 |
+| resetImg | - | void | 初始化图片的大小和角度以及距离 |
+| setRoate | angle: number | void | 控制旋转角度 |
 
 ### Slots
-组件未定义任何插槽。
+ImgCropper 组件不包含插槽。
 
-## 多场景使用示例
+## 多场景使用示例代码
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-button @click="showCropper = true">打开裁剪</wd-button>
     <wd-img-cropper 
       v-model="showCropper" 
-      :img-src="imgSrc"
-      @confirm="onConfirm"
+      :img-src="imageSrc"
+      @confirm="handleConfirm"
     />
-    <image v-if="croppedImage" :src="croppedImage" style="width: 200px; height: 200px; margin-top: 20px;" />
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const showCropper = ref(false)
-const imgSrc = ref('https://example.com/image.jpg')
-const croppedImage = ref('')
+const imageSrc = 'https://example.com/image.jpg'
 
-const onConfirm = (res: { tempFilePath: string }) => {
-  croppedImage.value = res.tempFilePath
-  console.log('裁剪完成', res)
+const handleConfirm = (result: any) => {
+  console.log('裁剪结果:', result)
+  // result.tempFilePath 为裁剪后的图片临时路径
 }
 </script>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
 ```
 
 ### 自定义裁剪比例
 
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-button @click="showCropper = true">打开裁剪</wd-button>
     <wd-img-cropper 
       v-model="showCropper" 
-      :img-src="imgSrc"
+      :img-src="imageSrc"
       aspect-ratio="4:3"
-      @confirm="onConfirm"
+      @confirm="handleConfirm"
+    />
+  </view>
+</template>
+```
+
+### 头像裁剪（1:1比例）
+
+```vue
+<template>
+  <view>
+    <wd-button @click="showCropper = true">更换头像</wd-button>
+    <wd-img-cropper 
+      v-model="showCropper" 
+      :img-src="imageSrc"
+      aspect-ratio="1:1"
+      :quality="0.9"
+      :export-scale="3"
+      :disabled-rotate="false"
+      cancel-button-text="取消"
+      confirm-button-text="确定"
+      @confirm="handleAvatarConfirm"
     />
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const showCropper = ref(false)
-const imgSrc = ref('https://example.com/image.jpg')
+const imageSrc = 'https://example.com/avatar.jpg'
 
-const onConfirm = (res: { tempFilePath: string }) => {
-  console.log('裁剪完成', res)
+const handleAvatarConfirm = (result: any) => {
+  console.log('头像裁剪结果:', result)
+  // 上传裁剪后的头像
+  // uploadAvatar(result.tempFilePath)
 }
 </script>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
 ```
 
 ### 禁用旋转功能
 
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-button @click="showCropper = true">打开裁剪</wd-button>
     <wd-img-cropper 
       v-model="showCropper" 
-      :img-src="imgSrc"
-      disabled-rotate
-      @confirm="onConfirm"
+      :img-src="imageSrc"
+      :disabled-rotate="true"
+      aspect-ratio="3:2"
+      @confirm="handleConfirm"
     />
   </view>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const showCropper = ref(false)
-const imgSrc = ref('https://example.com/image.jpg')
-
-const onConfirm = (res: { tempFilePath: string }) => {
-  console.log('裁剪完成', res)
-}
-</script>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
 ```
 
-### 自定义导出质量和格式
+### 自定义导出配置
 
 ```vue
 <template>
-  <view class="container">
+  <view>
     <wd-button @click="showCropper = true">打开裁剪</wd-button>
     <wd-img-cropper 
       v-model="showCropper" 
-      :img-src="imgSrc"
+      :img-src="imageSrc"
       file-type="jpg"
-      quality="0.8"
-      export-scale="3"
-      @confirm="onConfirm"
+      :quality="0.8"
+      :export-scale="2"
+      aspect-ratio="16:9"
+      @confirm="handleConfirm"
     />
   </view>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const showCropper = ref(false)
-const imgSrc = ref('https://example.com/image.jpg')
-
-const onConfirm = (res: { tempFilePath: string, width: number, height: number }) => {
-  console.log('裁剪完成', res)
-  console.log('图片尺寸:', res.width, 'x', res.height)
-}
-</script>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
-```
-
-### 自定义按钮文案
-
-```vue
-<template>
-  <view class="container">
-    <wd-button @click="showCropper = true">打开裁剪</wd-button>
-    <wd-img-cropper 
-      v-model="showCropper" 
-      :img-src="imgSrc"
-      cancel-button-text="取消裁剪"
-      confirm-button-text="完成裁剪"
-      @confirm="onConfirm"
-      @cancel="onCancel"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const showCropper = ref(false)
-const imgSrc = ref('https://example.com/image.jpg')
-
-const onConfirm = (res: { tempFilePath: string }) => {
-  console.log('裁剪完成', res)
-}
-
-const onCancel = () => {
-  console.log('取消裁剪')
-}
-</script>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
 ```
 
 ## 样式定制指南
 
-### customClass 用法
-```vue
-<wd-img-cropper 
-  v-model="showCropper" 
-  :img-src="imgSrc"
-  custom-class="my-cropper"
-/>
+### 使用 customStyle 自定义样式
 
-<style>
+```vue
+<template>
+  <wd-img-cropper 
+    v-model="showCropper" 
+    :img-src="imageSrc"
+    :custom-style="{
+      '--wd-img-cropper-background': 'rgba(0, 0, 0, 0.85)',
+      '--wd-img-cropper-action-color': '#1989fa'
+    }"
+    @confirm="handleConfirm"
+  />
+</template>
+```
+
+### 使用 customClass 自定义类名
+
+```vue
+<template>
+  <wd-img-cropper 
+    v-model="showCropper" 
+    :img-src="imageSrc"
+    custom-class="my-cropper"
+    @confirm="handleConfirm"
+  />
+</template>
+
+<style scoped>
 .my-cropper {
   /* 自定义样式 */
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-/* 自定义裁剪框样式 */
-.my-cropper .wd-img-cropper__cut--body {
-  border: 2px solid #1989fa;
 }
 </style>
 ```
 
-### customStyle 用法
-```vue
-<wd-img-cropper 
-  v-model="showCropper" 
-  :img-src="imgSrc"
-  :custom-style="{
-    backgroundColor: 'rgba(0, 0, 0, 0.9)'
-  }"
-/>
-```
-
-### CSS 变量
-组件支持通过 CSS 变量自定义样式，常用变量如下：
-
-```css
-.wd-img-cropper {
-  /* 自定义背景颜色 */
-  --cropper-background-color: rgba(0, 0, 0, 0.85);
-  /* 自定义裁剪框边框颜色 */
-  --cropper-border-color: #fff;
-  /* 自定义裁剪框网格线颜色 */
-  --cropper-grid-color: rgba(255, 255, 255, 0.5);
-}
-```
-
 ## 注意事项
 
-1. **性能优化**：
-   - 图片裁剪涉及大量计算，建议在性能较好的设备上使用
-   - 合理设置 `exportScale` 属性，避免生成过大的图片
-   - 对于大图，建议先进行压缩处理，再进行裁剪
+1. **组件触发**：通过 v-model 控制组件的显示和隐藏，设置 modelValue 为 true 打开裁剪组件。
 
-2. **跨端兼容**：
-   - 组件在不同平台上的表现基本一致
-   - Canvas 相关 API 在不同平台上的实现可能略有差异
-   - 部分功能（如长按识别小程序码）仅在特定平台有效
+2. **图片源路径**：imgSrc 属性支持本地图片路径和网络图片路径，但网络图片需要确保能正常访问。
 
-3. **使用限制**：
-   - `imgSrc` 属性是图片裁剪的必要条件，必须提供有效的图片地址
-   - 裁剪比例 `aspectRatio` 的格式必须为 `width:height`，如 `1:1`、`4:3` 等
-   - 旋转角度必须是 90 度的倍数
+3. **裁剪框比例**：aspectRatio 属性用于设置裁剪框的宽高比，格式为 "width:height"，如 "1:1"、"4:3"、"16:9" 等。
 
-4. **最佳实践**：
-   - 为不同场景选择合适的裁剪比例，如头像使用 `1:1`，商品图片使用 `4:3`
-   - 合理设置 `maxScale` 属性，避免过度缩放导致图片模糊
-   - 结合 `quality` 属性，在图片质量和文件大小之间取得平衡
-   - 提供清晰的用户指引，帮助用户完成裁剪操作
+4. **导出图片配置**：
+   - fileType：支持 png、jpg、jpeg 格式，默认为 png
+   - quality：图片质量，范围 0-1，值越大质量越高
+   - exportScale：导出图片的缩放比例，值越大导出图片尺寸越大
 
-5. **常见问题**：
-   - 问题：图片不显示
-     解决方案：检查 `imgSrc` 属性是否正确，图片地址是否可访问
-   - 问题：裁剪后图片模糊
-     解决方案：增大 `exportScale` 属性值，提高导出图片的分辨率
-   - 问题：旋转功能不生效
-     解决方案：检查 `disabledRotate` 属性是否设置为 `false`
-   - 问题：裁剪框比例不正确
-     解决方案：检查 `aspectRatio` 属性的格式是否正确
+5. **旋转功能**：disabledRotate 属性为 true 时，将禁用图片旋转功能。
+
+6. **最大缩放**：maxScale 属性用于限制图片的最大缩放倍数，防止过度缩放导致图片模糊。
+
+7. **事件处理**：
+   - imgloaded：图片加载完成后触发，可用于初始化操作
+   - imgloaderror：图片加载失败时触发，可用于错误处理
+   - cancel：用户点击取消按钮时触发
+   - confirm：用户点击确认按钮完成裁剪时触发，返回裁剪结果
+
+8. **性能优化**：
+   - 避免使用过大的原始图片，建议先压缩后再进行裁剪
+   - 根据实际需求设置合适的 exportScale，避免导出过大的图片
+   - 合理设置 quality，平衡图片质量和文件大小
+
+9. **平台兼容性**：
+   - 该组件基于 Canvas 实现，需要确保运行环境支持 Canvas
+   - 在不同平台上，Canvas 的实现可能存在差异，建议在各平台进行测试
+
+10. **组件方法**：
+    - 通过 ref 可以调用组件的方法，如 setRoate、resetImg 等
+    - 调用方法前需确保组件已正确加载和初始化

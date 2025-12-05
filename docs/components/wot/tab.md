@@ -1,74 +1,129 @@
-# Tab 标签页
+# Tab 标签页内容
 
-## 组件概述
+## 组件概况
 
-Tab 是标签页组件的子组件，用于定义单个标签页的内容和配置。它必须与父组件 `wd-tabs` 配合使用，不能单独使用。Tab 组件支持懒加载、自定义标题、徽章等功能，适用于需要在多个内容区域之间切换的场景。
+### 组件概述
+Tab 是标签页内容组件，用于配合 Tabs 组件使用，实现标签页切换功能。它负责显示单个标签页的内容，支持懒加载、禁用状态、徽标属性等功能，适用于各种需要标签页切换的场景。
 
-### 功能特点
-- 与 `wd-tabs` 组件紧密集成，实现标签页切换功能
-- 支持懒加载，仅在切换到该标签时才加载内容
-- 支持自定义标题和徽章
+### 详细功能描述
+- 支持标签页内容显示
+- 支持懒加载，切换到该标签页时才加载内容
 - 支持禁用状态
-- 支持动画过渡效果
-- 支持粘性布局
+- 支持徽标属性，可显示未读消息数或红点
+- 支持自定义样式和类名
+- 自动与父组件 Tabs 配合使用
 
-### 适用场景
-- 页面内容分类展示
-- 表单分步填写
-- 数据详情页切换
-- 多标签页应用
+### 适用业务场景
+- 表单中的标签页切换
+- 设置页面中的标签页选项
+- 内容分类展示
+- 多标签页切换
+- 任何需要标签页切换的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| name | number/string | - | 否 | 标签页的唯一标识符，用于 `v-model` 绑定 |
-| title | string | - | 否 | 标签页的标题，显示在标签栏中 |
-| disabled | boolean | false | 否 | 是否禁用该标签页，禁用后无法点击切换 |
-| lazy | boolean | true | 否 | 是否懒加载，仅在切换到该标签时才加载内容 |
-| badgeProps | object | - | 否 | 徽章属性，透传给 Badge 组件，用于在标签标题旁显示徽章 |
-| customClass | string | '' | 否 | 自定义类名，用于覆盖组件样式 |
-| customStyle | object | {} | 否 | 自定义样式，直接应用到组件根元素 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| name | number/string | - | 否 | 唯一标识符，用于标识当前标签页 |
+| title | string | - | 否 | tab的标题，会显示在标签栏上 |
+| disabled | boolean | false | 否 | 是否禁用，禁用状态下无法点击切换 |
+| lazy | boolean | true | 否 | 是否懒加载，切换到该tab时才加载内容 |
+| badgeProps | object | - | 否 | 徽标属性，透传给 Badge 组件 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
-该组件不直接触发任何事件，事件由父组件 `wd-tabs` 统一管理。
+该组件没有对外暴露的事件。
 
-### Methods
+### Methods方法
 
-该组件未对外暴露任何方法，方法由父组件 `wd-tabs` 统一提供。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 默认插槽，用于定义标签页的内容 |
+|--------|------------|----------|
+| default | - | 标签页内容，用于放置当前标签页的具体内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <wd-tabs v-model="activeName">
-    <wd-tab title="标签一" name="tab1">
-      <view class="tab-content">
-        标签一内容
-      </view>
-    </wd-tab>
-    <wd-tab title="标签二" name="tab2">
-      <view class="tab-content">
-        标签二内容
-      </view>
-    </wd-tab>
-    <wd-tab title="标签三" name="tab3">
-      <view class="tab-content">
-        标签三内容
-      </view>
-    </wd-tab>
-  </wd-tabs>
+  <view class="tab-demo">
+    <wd-tabs v-model="activeTab">
+      <wd-tab title="标签一">
+        <view class="tab-content">
+          <text>标签页一的内容</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签二">
+        <view class="tab-content">
+          <text>标签页二的内容</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签三">
+        <view class="tab-content">
+          <text>标签页三的内容</text>
+        </view>
+      </wd-tab>
+    </wd-tabs>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const activeTab = ref(0)
+</script>
+
+<style scoped>
+.tab-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.tab-content {
+  padding: 40rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  min-height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #303133;
+}
+</style>
+```
+
+### 2. 使用name属性
+
+```vue
+<template>
+  <view class="tab-demo">
+    <wd-tabs v-model="activeName">
+      <wd-tab name="tab1" title="标签一">
+        <view class="tab-content">
+          <text>标签页一的内容</text>
+        </view>
+      </wd-tab>
+      <wd-tab name="tab2" title="标签二">
+        <view class="tab-content">
+          <text>标签页二的内容</text>
+        </view>
+      </wd-tab>
+      <wd-tab name="tab3" title="标签三">
+        <view class="tab-content">
+          <text>标签页三的内容</text>
+        </view>
+      </wd-tab>
+    </wd-tabs>
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -78,204 +133,294 @@ const activeName = ref('tab1')
 </script>
 
 <style scoped>
-.tab-content {
+.tab-demo {
   padding: 20rpx;
-  min-height: 300rpx;
+  background-color: #f5f5f5;
+}
+
+.tab-content {
+  padding: 40rpx;
   background-color: #fff;
+  border-radius: 8rpx;
+  min-height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #303133;
 }
 </style>
 ```
 
-### 懒加载
+### 3. 禁用状态
 
 ```vue
 <template>
-  <wd-tabs v-model="activeIndex">
-    <wd-tab title="立即加载" :lazy="false">
-      <view class="tab-content">
-        该标签内容会立即加载
-      </view>
-    </wd-tab>
-    <wd-tab title="懒加载">
-      <view class="tab-content">
-        该标签内容会在首次切换到时加载
-      </view>
-    </wd-tab>
-  </wd-tabs>
+  <view class="tab-demo">
+    <wd-tabs v-model="activeTab">
+      <wd-tab title="标签一">
+        <view class="tab-content">
+          <text>标签页一的内容</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签二" disabled>
+        <view class="tab-content">
+          <text>标签页二的内容（禁用）</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签三">
+        <view class="tab-content">
+          <text>标签页三的内容</text>
+        </view>
+      </wd-tab>
+    </wd-tabs>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const activeIndex = ref(0)
+const activeTab = ref(0)
 </script>
+
+<style scoped>
+.tab-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.tab-content {
+  padding: 40rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  min-height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #303133;
+}
+</style>
 ```
 
-### 禁用标签
+### 4. 懒加载
 
 ```vue
 <template>
-  <wd-tabs v-model="activeIndex">
-    <wd-tab title="可点击标签">
-      <view class="tab-content">
-        可点击标签内容
-      </view>
-    </wd-tab>
-    <wd-tab title="禁用标签" disabled>
-      <view class="tab-content">
-        禁用标签内容（无法直接访问）
-      </view>
-    </wd-tab>
-  </wd-tabs>
+  <view class="tab-demo">
+    <wd-tabs v-model="activeTab">
+      <wd-tab title="标签一" :lazy="true">
+        <view class="tab-content">
+          <text>标签页一的内容（懒加载）</text>
+          <text class="load-time">加载时间：{{ loadTime1 }}</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签二" :lazy="true">
+        <view class="tab-content">
+          <text>标签页二的内容（懒加载）</text>
+          <text class="load-time">加载时间：{{ loadTime2 }}</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="标签三" :lazy="false">
+        <view class="tab-content">
+          <text>标签页三的内容（非懒加载）</text>
+          <text class="load-time">加载时间：{{ loadTime3 }}</text>
+        </view>
+      </wd-tab>
+    </wd-tabs>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+
+const activeTab = ref(0)
+const loadTime1 = ref('')
+const loadTime2 = ref('')
+const loadTime3 = ref('')
+
+// 非懒加载的标签页会在组件挂载时加载
+onMounted(() => {
+  loadTime3.value = new Date().toLocaleTimeString()
+})
+
+// 监听activeTab变化，模拟懒加载
+watch(activeTab, (newValue) => {
+  if (newValue === 0) {
+    loadTime1.value = new Date().toLocaleTimeString()
+  } else if (newValue === 1) {
+    loadTime2.value = new Date().toLocaleTimeString()
+  }
+})
+</script>
+
+<style scoped>
+.tab-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.tab-content {
+  padding: 40rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  min-height: 300rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #303133;
+  gap: 20rpx;
+}
+
+.load-time {
+  font-size: 24rpx;
+  color: #606266;
+}
+</style>
+```
+
+### 5. 使用徽标
+
+```vue
+<template>
+  <view class="tab-demo">
+    <wd-tabs v-model="activeTab">
+      <wd-tab title="消息" :badge-props="{ value: 5 }">
+        <view class="tab-content">
+          <text>消息列表</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="通知" :badge-props="{ dot: true }">
+        <view class="tab-content">
+          <text>通知列表</text>
+        </view>
+      </wd-tab>
+      <wd-tab title="设置">
+        <view class="tab-content">
+          <text>设置页面</text>
+        </view>
+      </wd-tab>
+    </wd-tabs>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const activeIndex = ref(0)
+const activeTab = ref(0)
 </script>
+
+<style scoped>
+.tab-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.tab-content {
+  padding: 40rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  min-height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #303133;
+}
+</style>
 ```
 
-### 带徽章的标签
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
 
 ```vue
 <template>
-  <wd-tabs v-model="activeIndex">
-    <wd-tab title="消息" :badge-props="{ value: 5 }">
-      <view class="tab-content">
-        消息内容
-      </view>
-    </wd-tab>
-    <wd-tab title="通知" :badge-props="{ dot: true }">
-      <view class="tab-content">
-        通知内容
-      </view>
-    </wd-tab>
-    <wd-tab title="设置">
-      <view class="tab-content">
-        设置内容
-      </view>
-    </wd-tab>
-  </wd-tabs>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref(0)
-</script>
-```
-
-### 带动画效果
-
-```vue
-<template>
-  <wd-tabs v-model="activeIndex" animated>
-    <wd-tab title="动画标签一">
-      <view class="tab-content">
-        动画标签一内容
-      </view>
-    </wd-tab>
-    <wd-tab title="动画标签二">
-      <view class="tab-content">
-        动画标签二内容
-      </view>
-    </wd-tab>
-  </wd-tabs>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref(0)
-</script>
-```
-
-## 样式定制
-
-### 自定义类名
-
-```vue
-<wd-tabs v-model="activeIndex">
   <wd-tab 
-    title="自定义样式标签" 
-    custom-class="my-tab" 
-    :custom-style="{ backgroundColor: '#f0f0f0', borderRadius: '8rpx' }"
+    title="自定义样式" 
+    customStyle="background-color: #f0f9ff; padding: 40rpx; border-radius: 16rpx;"
   >
     <view class="tab-content">
-      自定义样式标签内容
+      <text>标签页内容</text>
     </view>
   </wd-tab>
-</wd-tabs>
+</template>
 ```
 
-### CSS 变量
+### 2. 使用customClass自定义类名
 
-组件支持以下 CSS 变量进行样式定制：
+```vue
+<template>
+  <wd-tab 
+    title="自定义类名" 
+    customClass="my-tab"
+  >
+    <view class="tab-content">
+      <text>标签页内容</text>
+    </view>
+  </wd-tab>
+</template>
 
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --tab-background-color | #ffffff | 标签背景色 |
-| --tab-content-padding | 20rpx | 标签内容内边距 |
-| --tab-inactive-opacity | 1 | 非激活标签透明度 |
+<style scoped>
+:deep(.my-tab) {
+  background-color: #f0f9ff;
+  padding: 40rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+  font-size: 32rpx;
+  color: #1989fa;
+}
+</style>
+```
 
 ## 注意事项
 
-1. **父子组件关系**：
-   - `wd-tab` 必须作为 `wd-tabs` 的直接子组件使用
-   - 不要在 `wd-tab` 外部包裹其他组件，否则可能导致通信失败
+1. **组件关系**：
+   - Tab 组件必须作为 Tabs 组件的直接子组件使用
+   - 单个 Tab 组件无法独立使用，必须配合 Tabs 组件
 
-2. **懒加载机制**：
-   - 懒加载标签首次切换时会触发内容渲染
-   - 一旦渲染完成，即使切换到其他标签，内容也会保持渲染状态
-   - 可以通过设置 `lazy: false` 禁用懒加载
+2. **name属性**：
+   - name属性用于唯一标识标签页，支持number和string类型
+   - 如果多个 Tab 组件的name属性值相同，会在控制台输出错误信息
+   - 建议为每个 Tab 组件设置唯一的name属性
 
-3. **name 属性**：
-   - `name` 属性用于唯一标识标签页，建议使用字符串或数字类型
-   - 避免使用相同的 `name` 值，否则会导致标签切换异常
+3. **懒加载**：
+   - 默认情况下，Tab 组件是懒加载的，只有切换到该标签页时才会加载内容
+   - 设置lazy="false"可以关闭懒加载，组件挂载时就会加载内容
+   - 懒加载可以提高初始加载性能，适合内容较多的标签页
 
-4. **性能优化**：
-   - 对于内容较多的标签页，建议启用懒加载
-   - 避免在标签页中放置过多复杂组件，影响切换性能
+4. **禁用状态**：
+   - 设置disabled="true"可以禁用标签页
+   - 禁用状态下，标签页无法点击切换
+   - 但可以通过代码切换到禁用的标签页
 
-5. **动画效果**：
-   - 动画效果由父组件 `wd-tabs` 的 `animated` 属性控制
-   - 启用动画可能会影响性能，特别是在内容复杂的情况下
+5. **徽标属性**：
+   - badgeProps属性支持所有 Badge 组件的属性
+   - 可以显示数字徽标、红点徽标等
+   - 徽标会显示在标签栏的标题旁边
 
-6. **禁用状态**：
-   - 禁用的标签页无法通过点击切换，但可以通过 `v-model` 强制切换
-   - 禁用状态仅影响标签栏的点击行为，不影响标签内容的渲染
+6. **样式注意**：
+   - customStyle和customClass会应用到 Tab 组件的根节点上
+   - 可以通过穿透选择器修改内部样式
 
+7. **内容渲染**：
+   - 组件内部会根据active状态控制内容的显示和隐藏
+   - 非激活状态下，内容会被隐藏（除了使用动画切换时）
 
-### 状态流转
-- 初始状态：Tab 组件根据 `lazy` 属性决定是否渲染内容
-- 父组件更新：`wd-tabs` 组件通过 provide 更新激活状态
-- 子组件响应：Tab 组件根据激活状态更新自身显示状态
-- 懒加载触发：首次激活时，懒加载的 Tab 组件渲染内容
+8. **性能优化**：
+   - 对于内容较多的标签页，建议开启懒加载
+   - 避免在标签页中使用过于复杂的组件或大量数据
 
-## 与 wd-tabs 的关系
+9. **跨平台兼容性**：
+   - 组件在 H5、App 和小程序平台表现一致
+   - 样式会自动适应不同平台的渲染差异
 
-`wd-tab` 组件与 `wd-tabs` 组件是紧密集成的关系：
-
-1. **依赖关系**：`wd-tab` 必须作为 `wd-tabs` 的子组件使用
-2. **通信方式**：通过 Vue 的 provide/inject API 进行通信
-3. **状态管理**：激活状态由 `wd-tabs` 统一管理
-4. **事件处理**：点击事件由 `wd-tabs` 处理，然后通知对应的 `wd-tab` 组件
-5. **样式继承**：部分样式由 `wd-tabs` 组件控制，如动画效果、颜色等
-
-## 常见问题
-
-### Q: 为什么 Tab 组件无法单独使用？
-A: `wd-tab` 组件依赖父组件 `wd-tabs` 提供的上下文和状态管理，无法单独使用。
-
-### Q: 如何自定义 Tab 标签栏的样式？
-A: 标签栏的样式由父组件 `wd-tabs` 控制，可以通过 `wd-tabs` 的 props 和 CSS 变量进行自定义。
-
-### Q: 懒加载的 Tab 组件内容为什么不更新？
-A: 懒加载的 Tab 组件仅在首次激活时渲染内容，如果需要更新内容，可以使用 `key` 属性强制重新渲染。
-
-### Q: 如何在 Tab 切换时执行特定逻辑？
-A: 可以监听父组件 `wd-tabs` 的 `change` 事件，在事件处理函数中执行特定逻辑。
-
-### Q: 为什么设置了 `name` 属性后，标签切换异常？
-A: 请确保 `name` 属性的值是唯一的，并且与父组件 `wd-tabs` 的 `v-model` 值类型一致。
+10. **与Tabs组件配合**：
+    - Tab 组件会自动与父组件 Tabs 建立联系
+    - 不需要手动处理标签页的切换逻辑
+    - 所有标签页的切换逻辑由 Tabs 组件统一管理

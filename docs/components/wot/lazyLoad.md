@@ -1,83 +1,75 @@
-# 懒加载组件（wd-lazy-load）
+# 懒加载组件
 
-## 组件概述
+## 组件概况
 
-wd-lazy-load 是一个基于 Vue 3 + TypeScript + UniApp 开发的图片懒加载组件，用于优化图片加载性能，减少初始加载时间和网络请求。该组件支持图片占位符、加载失败处理、淡入淡出动画等功能，适用于各种需要大量图片展示的场景。
+### 组件概述
+懒加载组件是一个用于图片延迟加载的高性能组件，能够在图片进入可视区域时才开始加载，有效提高页面初始加载速度和性能表现。
 
-### 功能描述
-- 图片懒加载，只有当图片进入可视区域时才会加载
-- 支持自定义占位图片和错误占位图片
-- 支持图片加载完成和加载失败事件
+### 详细功能描述
+- 支持图片延迟加载，只有当图片进入可视区域时才开始加载
+- 提供默认占位图和错误图，可自定义替换
+- 支持多种图片裁剪模式
 - 支持淡入淡出过渡动画
+- 支持自定义图片加载阈值
 - 支持图片点击事件
-- 支持自定义图片裁剪模式
-- 支持自定义图片高度和圆角
-- 支持调整懒加载触发阈值
+- 支持加载成功和失败回调
 
 ### 适用业务场景
-- 长列表图片展示
-- 瀑布流图片布局
-- 图片墙
+- 长列表图片展示场景
+- 图片墙和瀑布流布局
 - 电商商品列表
 - 新闻资讯列表
-- 其他需要大量图片展示的场景
+- 任何包含大量图片的页面
 
-## API 参考
+## 完整API参考
 
 ### Props
 
-| 名称 | 类型 | 默认值 | 必填项 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| index | number / string | '' | 否 | 图片索引，用于事件回调中标识当前图片 |
-| image | string | '' | 是 | 要显示的图片 URL |
-| mode | string | 'widthFix' | 否 | 图片裁剪模式，可选值：aspectFit、aspectFill、widthFix、top、bottom、center、scaleToFill |
-| loadingImg | string | 内置 base64 图片 | 否 | 占位图片路径，图片加载前显示 |
-| errorImg | string | 内置 base64 图片 | 否 | 加载失败的错误占位图路径 |
-| threshold | number / string | 100 | 否 | 图片进入可见区域前多少像素时开始加载图片，单位 rpx。负数为图片超出屏幕底部多少距离后触发懒加载，正数为图片顶部距离屏幕底部多少距离时触发（图片还没出现在屏幕上） |
-| duration | number / string | 300 | 否 | 淡入淡出动画的过渡时间，单位毫秒 |
-| effect | string | 'ease-in-out' | 否 | 过渡效果的速度曲线，可选值：linear、ease、ease-in、ease-out、ease-in-out、cubic-bezier(n,n,n,n) |
+| index | number \| string | '' | 否 | 图片索引，用于事件回调中区分不同图片 |
+| image | string | '' | 否 | 要显示的图片URL |
+| mode | 'aspectFit' \| 'aspectFill' \| 'widthFix' \| 'top' \| 'bottom' \| 'center' \| 'scaleToFill' | 'widthFix' | 否 | 图片裁剪模式 |
+| loadingImg | string | base64编码的默认占位图 | 否 | 占位图片路径 |
+| errorImg | string | base64编码的默认错误图 | 否 | 加载失败的错误占位图 |
+| threshold | number \| string | 100 | 否 | 图片进入可见区域前多少像素时开始加载图片，单位rpx |
+| duration | number \| string | 300 | 否 | 淡入淡出动画的过渡时间，单位ms |
+| effect | string | 'ease-in-out' | 否 | 过渡效果的速度曲线 |
 | isEffect | boolean | true | 否 | 是否使用过渡效果 |
-| round | number / string | 0 | 否 | 图片圆角值，单位 rpx |
-| height | number / string | '200' | 否 | 图片高度，单位 rpx |
-| customStyle | object | - | 否 | 自定义样式，用于覆盖组件默认样式 |
-| customClass | string | - | 否 | 自定义类名，用于扩展组件样式 |
+| round | number \| string | 0 | 否 | 图片圆角值，单位rpx |
+| height | number \| string | '200' | 否 | 图片高度，单位rpx |
+| customStyle | string | - | 否 | 自定义样式 |
+| customClass | string | - | 否 | 自定义类名 |
 
 ### Events
 
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| click | 点击图片时触发 | index: 图片索引，用于标识当前点击的图片 |
-| load | 图片加载完成时触发 | index: 图片索引，用于标识当前加载完成的图片 |
-| error | 图片加载失败时触发 | index: 图片索引，用于标识当前加载失败的图片 |
+| click | 点击图片时 | 图片索引 |
+| load | 图片加载成功时 | 图片索引 |
+| error | 图片加载失败时 | 图片索引 |
 
 ### Methods
 
-该组件没有对外暴露的方法。
+无
 
 ### Slots
 
-该组件没有可用的插槽。
+无
 
-## 多场景使用示例代码
+## 多场景使用示例
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="demo">
-    <text class="title">基础懒加载</text>
-    <view class="image-list">
-      <wd-lazy-load
-        v-for="(item, index) in imageList"
-        :key="index"
-        :index="index"
-        :image="item.url"
-        :height="200"
-        @click="handleClick"
-        @load="handleLoad"
-        @error="handleError"
-      />
-    </view>
+  <view>
+    <wd-lazy-load 
+      v-for="(item, index) in imageList" 
+      :key="index" 
+      :image="item" 
+      :index="index"
+    />
   </view>
 </template>
 
@@ -85,104 +77,51 @@ wd-lazy-load 是一个基于 Vue 3 + TypeScript + UniApp 开发的图片懒加�
 import { ref } from 'vue'
 
 const imageList = ref([
-  { url: 'https://example.com/image1.jpg' },
-  { url: 'https://example.com/image2.jpg' },
-  { url: 'https://example.com/image3.jpg' },
-  { url: 'https://example.com/image4.jpg' },
-  { url: 'https://example.com/image5.jpg' }
+  'https://example.com/image1.jpg',
+  'https://example.com/image2.jpg',
+  'https://example.com/image3.jpg'
 ])
-
-// 图片点击事件
-const handleClick = (index: number) => {
-  console.log('点击了图片', index)
-}
-
-// 图片加载完成事件
-const handleLoad = (index: number) => {
-  console.log('图片加载完成', index)
-}
-
-// 图片加载失败事件
-const handleError = (index: number) => {
-  console.log('图片加载失败', index)
-}
 </script>
-
-<style scoped>
-.demo {
-  padding: 20rpx;
-}
-
-.title {
-  font-size: 32rpx;
-  font-weight: bold;
-  margin-bottom: 20rpx;
-}
-
-.image-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-}
-</style>
 ```
 
 ### 自定义占位图和错误图
 
 ```vue
 <template>
-  <view class="demo">
-    <text class="title">自定义占位图和错误图</text>
-    <view class="image-list">
-      <wd-lazy-load
-        v-for="(item, index) in imageList"
-        :key="index"
-        :index="index"
-        :image="item.url"
-        :height="200"
-        :loading-img="loadingImg"
-        :error-img="errorImg"
-      />
-    </view>
+  <view>
+    <wd-lazy-load 
+      :image="imageUrl" 
+      :loading-img="loadingImg" 
+      :error-img="errorImg"
+    />
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const imageList = ref([
-  { url: 'https://example.com/image1.jpg' },
-  { url: 'https://example.com/image2.jpg' },
-  { url: 'https://example.com/image3.jpg' },
-  { url: 'https://example.com/image4.jpg' },
-  { url: 'https://example.com/image5.jpg' }
-])
-
-// 自定义占位图
-const loadingImg = ref('https://example.com/loading.png')
-
-// 自定义错误图
-const errorImg = ref('https://example.com/error.png')
+const imageUrl = ref('https://example.com/image.jpg')
+const loadingImg = ref('https://example.com/loading.jpg')
+const errorImg = ref('https://example.com/error.jpg')
 </script>
 ```
 
-### 调整懒加载阈值和动画效果
+### 不同裁剪模式
 
 ```vue
 <template>
-  <view class="demo">
-    <text class="title">调整懒加载阈值和动画效果</text>
-    <view class="image-list">
-      <wd-lazy-load
-        v-for="(item, index) in imageList"
-        :key="index"
-        :index="index"
-        :image="item.url"
-        :height="200"
-        :threshold="200"
-        :duration="500"
-        :effect="'ease-in'"
-      />
+  <view class="demo-container">
+    <view class="demo-item">
+      <text>aspectFit</text>
+      <wd-lazy-load :image="imageUrl" mode="aspectFit" />
+    </view>
+    <view class="demo-item">
+      <text>aspectFill</text>
+      <wd-lazy-load :image="imageUrl" mode="aspectFill" />
+    </view>
+    <view class="demo-item">
+      <text>scaleToFill</text>
+      <wd-lazy-load :image="imageUrl" mode="scaleToFill" />
     </view>
   </view>
 </template>
@@ -190,121 +129,159 @@ const errorImg = ref('https://example.com/error.png')
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const imageList = ref([
-  { url: 'https://example.com/image1.jpg' },
-  { url: 'https://example.com/image2.jpg' },
-  { url: 'https://example.com/image3.jpg' },
-  { url: 'https://example.com/image4.jpg' },
-  { url: 'https://example.com/image5.jpg' }
-])
-</script>
-```
-
-### 自定义图片样式
-
-```vue
-<template>
-  <view class="demo">
-    <text class="title">自定义图片样式</text>
-    <view class="image-list">
-      <wd-lazy-load
-        v-for="(item, index) in imageList"
-        :key="index"
-        :index="index"
-        :image="item.url"
-        :height="150"
-        :round="10"
-        :mode="'aspectFill'"
-        custom-class="custom-image"
-      />
-    </view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const imageList = ref([
-  { url: 'https://example.com/image1.jpg' },
-  { url: 'https://example.com/image2.jpg' },
-  { url: 'https://example.com/image3.jpg' },
-  { url: 'https://example.com/image4.jpg' },
-  { url: 'https://example.com/image5.jpg' }
-])
+const imageUrl = ref('https://example.com/image.jpg')
 </script>
 
 <style scoped>
-.custom-image {
-  border: 2rpx solid #e4e7ed;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+.demo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.demo-item {
+  width: 30%;
+}
+
+.demo-item text {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+</style>
+```
+
+### 带过渡动画
+
+```vue
+<template>
+  <view>
+    <wd-lazy-load 
+      :image="imageUrl" 
+      :is-effect="true" 
+      :duration="500"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const imageUrl = ref('https://example.com/image.jpg')
+</script>
+```
+
+### 网格布局中的使用
+
+```vue
+<template>
+  <view class="grid-container">
+    <wd-lazy-load 
+      v-for="(item, index) in imageList" 
+      :key="index" 
+      :image="item" 
+      :index="index"
+      mode="aspectFill"
+      :height="150"
+      :round="8"
+      @click="handleImageClick"
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const imageList = ref([
+  'https://example.com/image1.jpg',
+  'https://example.com/image2.jpg',
+  'https://example.com/image3.jpg',
+  'https://example.com/image4.jpg',
+  'https://example.com/image5.jpg',
+  'https://example.com/image6.jpg'
+])
+
+const handleImageClick = (index: number) => {
+  console.log('点击了图片', index)
+}
+</script>
+
+<style scoped>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### customStyle 和 customClass
+### 自定义样式
 
-wd-lazy-load 组件支持通过 `customStyle` 和 `customClass` 进行样式定制。
+通过 `customStyle` 属性可以自定义懒加载组件的样式：
 
 ```vue
-<template>
-  <wd-lazy-load
-    :image="imageUrl"
-    :height="200"
-    :custom-style="{ borderRadius: '10rpx', border: '2rpx solid #e4e7ed' }"
-    custom-class="custom-lazy-load"
-  />
-</template>
+<wd-lazy-load 
+  :image="imageUrl" 
+  :custom-style="{ borderRadius: '10px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }"
+/>
+```
 
-<style scoped>
-.custom-lazy-load {
-  /* 自定义类名样式 */
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-}
+### 自定义类名
 
-/* 可以通过深度选择器修改组件内部样式 */
-:deep(.wd-lazy-item) {
-  /* 修改图片样式 */
-  transition: opacity 0.5s ease;
+通过 `customClass` 属性可以添加自定义类名，然后在样式文件中定义样式：
+
+```vue
+<wd-lazy-load 
+  :image="imageUrl" 
+  custom-class="my-lazy-image"
+/>
+```
+
+```scss
+.my-lazy-image {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 }
-</style>
 ```
 
 ## 注意事项
 
-1. **图片路径要求**：
-   - `image` 属性必须是有效的图片 URL，否则会显示错误占位图
-   - 建议使用绝对路径或完整的相对路径，避免使用相对路径导致的加载失败
+1. 图片加载时机：
+   - 默认情况下，图片进入可视区域前100rpx时开始加载
+   - 可通过 `threshold` 属性调整加载阈值，值越大图片加载越早
+   - 负数表示图片超出屏幕底部多少距离后才开始加载
 
-2. **懒加载触发机制**：
-   - 组件使用 Intersection Observer API 实现懒加载
-   - `threshold` 属性控制懒加载触发的提前量，单位为 rpx
-   - 负数表示图片超出屏幕底部多少距离后触发懒加载
-   - 正数表示图片顶部距离屏幕底部多少距离时触发懒加载
+2. 裁剪模式选择：
+   - `aspectFit`：保持纵横比，确保图片完全显示
+   - `aspectFill`：保持纵横比，填充整个容器，可能裁剪部分图片
+   - `widthFix`：宽度不变，高度自动变化，保持原图宽高比
+   - `scaleToFill`：不保持纵横比，拉伸填满整个容器
 
-3. **动画效果**：
-   - 开启 `isEffect` 属性可以启用淡入淡出动画
-   - 可以通过 `duration` 和 `effect` 属性调整动画效果
-   - 关闭动画效果可以提高性能，建议在低端设备上关闭
+3. 过渡动画效果：
+   - 默认开启淡入淡出动画，可通过 `isEffect` 属性关闭
+   - 动画持续时间可通过 `duration` 属性调整
+   - 动画曲线可通过 `effect` 属性自定义
 
-4. **性能优化建议**：
-   - 合理设置 `threshold` 属性，避免过早或过晚加载图片
-   - 对于长列表，建议结合虚拟滚动使用，进一步优化性能
-   - 合理设置图片尺寸，避免加载过大的图片
-   - 考虑使用图片压缩和 CDN 加速
+4. 性能优化建议：
+   - 为图片设置固定宽高，避免布局抖动
+   - 合理设置 `threshold` 值，平衡加载时机和性能
+   - 对于大量图片的场景，建议结合分页加载使用
+   - 确保图片资源经过优化，使用适当的压缩格式和尺寸
 
-5. **使用限制**：
-   - 组件依赖于 UniApp 环境，无法在纯 Vue 项目中直接使用
-   - 部分功能（如 Intersection Observer）可能在不同平台上表现不同，需要测试验证
-   - 组件不支持嵌套使用
+5. 占位图和错误图：
+   - 默认提供base64编码的占位图和错误图，减少网络请求
+   - 可根据设计需求自定义替换占位图和错误图
+   - 建议使用体积较小的图片作为占位图
 
-6. **事件处理**：
-   - `click` 事件会返回图片的索引，可以用于标识当前点击的图片
-   - `load` 事件在图片加载完成时触发
-   - `error` 事件在图片加载失败时触发
-
-7. **占位图和错误图**：
-   - 组件内置了默认的占位图和错误图（base64 格式）
-   - 可以通过 `loadingImg` 和 `errorImg` 属性自定义占位图和错误图
-   - 建议使用体积较小的图片作为占位图，避免影响初始加载性能
+6. 事件处理：
+   - `click` 事件会返回图片索引，便于区分不同图片
+   - `load` 事件在图片加载成功时触发，可用于统计加载成功率
+   - `error` 事件在图片加载失败时触发，可用于错误处理和上报

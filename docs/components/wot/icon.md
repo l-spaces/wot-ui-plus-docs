@@ -1,27 +1,25 @@
-# wd-icon 图标
+# Icon 图标
 
-## 组件概述
+## 组件概况
 
-图标组件是一个用于展示各种图标的通用组件，支持内置图标和自定义图标，提供了丰富的配置选项，如颜色、大小、圆角等。组件采用 Vue3 + TypeScript + UniApp 技术栈实现，具有轻量、易用、灵活等特点。
+### 组件概述
+Icon 组件用于显示图标，支持内置图标字体和自定义图片图标。它提供了丰富的样式定制选项，包括颜色、大小、粗细和形状等，可以轻松融入各种设计风格。
 
+### 核心功能
+- 支持内置图标字体
+- 支持自定义图片图标
+- 支持颜色、大小、粗细定制
+- 支持圆形图标
+- 支持点击交互
+- 支持自定义图标字体前缀
 
-### 功能描述
-- 支持内置图标库
-- 支持自定义图标
-- 支持图片图标
-- 支持自定义颜色
-- 支持自定义大小
-- 支持圆角样式
-- 支持加粗样式
-- 支持点击事件
-- 轻量级设计，性能开销小
-
-### 适用场景
-- 按钮图标
+### 适用业务场景
 - 导航菜单图标
+- 功能按钮图标
 - 状态指示图标
-- 信息提示图标
-- 任何需要展示图标的场景
+- 表单验证图标
+- 通知提示图标
+- 自定义图标字体集成
 
 ## 内置图标列表 {{ list.length }}个
 
@@ -31,273 +29,201 @@
     <span class="label">{{ icon }}</span>
   </div>
 </div>
-
-## API 参考
+## 完整API参考
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填项 | 描述 |
 | --- | --- | --- | --- | --- |
 | name | string | - | 是 | 使用的图标名字，可以使用链接图片 |
-| round | boolean | false | 否 | 是否显示圆角样式 |
+| round | boolean | false | 否 | 是否显示为圆角按钮 |
 | bold | boolean | false | 否 | 图标是否加粗 |
 | color | string | - | 否 | 图标的颜色 |
-| size | number/string | - | 否 | 图标的字体大小 |
+| size | number / string | - | 否 | 图标的字体大小 |
 | classPrefix | string | 'wd-icon' | 否 | 类名前缀，用于使用自定义图标 |
-| customClass | string | - | 否 | 自定义类名，用于覆盖组件默认样式 |
-| customStyle | string/object | - | 否 | 自定义样式，支持字符串和对象两种格式 |
+| customStyle | string | '' | 否 | 自定义样式，对象格式 |
+| customClass | string | '' | 否 | 自定义类名 |
 
 ### Events
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| click | 点击图标时 | 事件对象 |
-| touch | 触摸图标时 | 事件对象 |
+| click | 点击图标时触发 | event: 事件对象 |
+| touch | 触摸图标时触发 | - |
 
 ### Methods
-组件未对外暴露任何方法。
+Icon 组件不直接对外暴露方法。
 
 ### Slots
-组件未定义任何插槽。
+Icon 组件不包含插槽。
 
-## 多场景使用示例
+## 多场景使用示例代码
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="container">
-    <wd-icon name="success" />
-    <wd-icon name="warning" />
-    <wd-icon name="error" />
-    <wd-icon name="info" />
-  </view>
+  <wd-icon name="home" />
+  <wd-icon name="search" />
+  <wd-icon name="user" />
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-</style>
 ```
 
 ### 自定义颜色和大小
 
 ```vue
 <template>
-  <view class="container">
-    <wd-icon name="success" color="#07c160" size="32" />
-    <wd-icon name="warning" color="#ff976a" size="40" />
-    <wd-icon name="error" color="#ee0a24" size="48" />
-    <wd-icon name="info" color="#1989fa" size="56" />
-  </view>
+  <wd-icon name="star" color="#ffc800" size="32px" />
+  <wd-icon name="heart" color="#ff4d4f" size="24" />
+  <wd-icon name="success" color="#07c160" size="20" />
+</template>
+```
+
+### 圆形和加粗图标
+
+```vue
+<template>
+  <wd-icon name="plus" round color="#1989fa" size="24" />
+  <wd-icon name="minus" round color="#ff4d4f" size="24" />
+  <wd-icon name="phone" bold color="#333" size="28" />
+</template>
+```
+
+### 使用图片作为图标
+
+```vue
+<template>
+  <wd-icon name="https://example.com/icon.png" size="40" />
+  <wd-icon name="/static/icons/custom-icon.png" size="32" />
+</template>
+```
+
+### 自定义图标字体
+
+```vue
+<template>
+  <wd-icon name="custom-icon" class-prefix="my-icon" size="28" />
+  <wd-icon name="another-icon" class-prefix="my-icon" color="#1989fa" />
 </template>
 
-<style scoped>
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  align-items: center;
+<style>
+/* 引入自定义图标字体 */
+@font-face {
+  font-family: 'MyIcon';
+  src: url('/static/fonts/my-icon.ttf') format('truetype');
+}
+
+.my-icon {
+  font-family: 'MyIcon' !important;
+  font-size: 28px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.my-icon-custom-icon::before {
+  content: '\e600';
+}
+
+.my-icon-another-icon::before {
+  content: '\e601';
 }
 </style>
 ```
 
-### 图片图标
+### 点击交互
 
 ```vue
 <template>
-  <view class="container">
-    <wd-icon 
-      name="https://example.com/icon.png" 
-      size="64" 
-      round
-    />
-    <wd-icon 
-      name="/static/images/logo.png" 
-      size="64"
-    />
-  </view>
+  <wd-icon 
+    name="delete" 
+    color="#ff4d4f" 
+    size="24" 
+    @click="handleDelete"
+  />
+  <wd-icon 
+    name="edit" 
+    color="#1989fa" 
+    size="24" 
+    @click="handleEdit"
+  />
 </template>
 
-<style scoped>
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  align-items: center;
-}
-</style>
-```
-
-### 点击事件
-
-```vue
-<template>
-  <view class="container">
-    <wd-icon 
-      name="success" 
-      size="40" 
-      @click="onIconClick"
-    />
-    <wd-icon 
-      name="warning" 
-      size="40" 
-      @touch="onIconTouch"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const onIconClick = (event: any) => {
-  console.log('点击了成功图标', event)
-  // 执行相应的业务逻辑
+<script setup lang="ts">
+const handleDelete = () => {
+  console.log('Delete clicked')
 }
 
-const onIconTouch = (event: any) => {
-  console.log('触摸了警告图标', event)
-  // 执行相应的业务逻辑
+const handleEdit = () => {
+  console.log('Edit clicked')
 }
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  align-items: center;
-}
-</style>
-```
-
-### 自定义样式和类名
-
-```vue
-<template>
-  <view class="container">
-    <wd-icon 
-      name="success" 
-      size="40" 
-      custom-class="my-icon"
-      :custom-style="{
-        borderRadius: '50%',
-        backgroundColor: '#e8f5e8',
-        padding: '10px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-      }"
-    />
-    <wd-icon 
-      name="warning" 
-      size="40" 
-      bold
-      custom-class="my-icon"
-      :custom-style="{
-        borderRadius: '50%',
-        backgroundColor: '#fff3e0',
-        padding: '10px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-      }"
-    />
-  </view>
-</template>
-
-<style scoped>
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
-  align-items: center;
-}
-
-/* 自定义类名样式 */
-.my-icon {
-  transition: all 0.2s ease;
-}
-
-.my-icon:active {
-  transform: scale(0.95);
-}
-</style>
 ```
 
 ## 样式定制指南
 
-### customClass 用法
-```vue
-<wd-icon name="success" custom-class="my-icon" />
+### 使用 customStyle 自定义样式
 
-<style>
-.my-icon {
-  /* 自定义样式 */
-  color: #07c160;
-  font-size: 32px;
+```vue
+<template>
+  <wd-icon 
+    name="settings" 
+    :custom-style="{
+      color: '#1989fa',
+      fontSize: '24px',
+      fontWeight: 'bold',
+      borderRadius: '50%',
+      backgroundColor: '#f0f9ff',
+      padding: '8px'
+    }"
+  />
+</template>
+```
+
+### 使用 customClass 自定义类名
+
+```vue
+<template>
+  <wd-icon name="notification" custom-class="my-notification-icon" />
+</template>
+
+<style scoped>
+.my-notification-icon {
+  color: #ff976a;
+  font-size: 28px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
 ```
 
-### customStyle 用法
-```vue
-<wd-icon 
-  name="success" 
-  :custom-style="{
-    color: #07c160,
-    fontSize: '32px',
-    margin: '0 10px'
-  }"
-/>
-```
-
-### CSS 变量
-组件支持通过 CSS 变量自定义样式，常用变量如下：
-
-```css
-.wd-icon {
-  /* 自定义颜色 */
-  --icon-color: #333;
-  /* 自定义字体大小 */
-  --icon-font-size: 20px;
-  /* 自定义圆角 */
-  --icon-border-radius: 0;
-}
-```
-
 ## 注意事项
 
-1. **性能优化**：
-   - 组件本身非常轻量，性能开销小，可以放心使用
-   - 对于大量图标场景，建议合理使用缓存，避免重复加载
-   - 图片图标建议使用适当大小，避免过大图片影响加载性能
+1. **图标类型判断**：组件通过判断 `name` 属性是否包含 '/' 来决定是显示图标字体还是图片图标。
 
-2. **跨端兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 图片图标在不同平台上的加载机制可能略有差异，建议使用相对路径或完整的网络地址
+2. **图标大小**：`size` 属性支持数字（默认单位 px）和字符串（带单位），例如：
+   - `size="24"` 等价于 `size="24px"`
+   - `size="2rem"` 使用 rem 单位
+   - `size="2em"` 使用 em 单位
 
-3. **使用限制**：
-   - name 属性是必填项，必须提供有效的图标名称或图片地址
-   - 自定义图标需要确保 classPrefix 和图标名称的正确性
-   - 图片图标需要确保图片地址可访问
+3. **自定义图标字体**：使用 `classPrefix` 属性时，需要确保已正确引入自定义字体文件，并定义了相应的 CSS 类。
 
-4. **最佳实践**：
-   - 为不同场景定义统一的图标规范，如大小、颜色等
-   - 优先使用内置图标，减少网络请求
-   - 对于需要频繁更换的图标，建议使用动态绑定 name 属性
-   - 结合 CSS 变量可以实现主题切换功能
+4. **圆形图标**：`round` 属性会为图标添加圆形背景，配合 `color` 属性可以创建彩色圆形图标按钮。
 
-5. **常见问题**：
-   - 问题：图标不显示
-     解决方案：检查 name 属性是否正确，自定义图标是否正确引入了字体文件
-   - 问题：图片图标显示异常
-     解决方案：检查图片地址是否可访问，图片格式是否支持
-   - 问题：图标颜色不生效
-     解决方案：检查 color 属性是否正确设置，是否被其他样式覆盖
+5. **加粗效果**：`bold` 属性仅对图标字体有效，对图片图标无效。
 
+6. **性能优化**：对于频繁使用的图标，建议使用内置图标字体，比图片图标具有更好的性能和渲染效果。
+
+7. **兼容性**：自定义图片图标需要确保图片资源可访问，建议使用相对路径或CDN链接。
 
 <style>
   @import url('//at.alicdn.com/t/c/font_5061229_kjf22xhppo.css');

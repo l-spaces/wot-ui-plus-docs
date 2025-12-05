@@ -1,137 +1,94 @@
-# wd-progress 进度条组件
+# Progress 进度条
 
-## 组件概述
+## 组件概况
 
-wd-progress 是一个功能强大的进度条组件，用于展示任务的完成进度。组件基于 Vue 3 + TypeScript + UniApp 开发，支持多种颜色配置、动画效果和状态显示，能够满足各种复杂的进度展示需求。
+### 组件概述
+进度条组件用于展示任务的完成进度，通常用于文件上传、下载、表单提交、数据加载等场景。wd-progress 组件提供了灵活的配置选项，支持自定义颜色、进度值、动画时长、状态等功能。
 
-### 功能特点
-
+### 详细功能描述
 - 支持自定义进度值（0-100）
-- 支持多种颜色配置方式（单一颜色、颜色数组、带百分比的颜色数组）
-- 支持进度动画效果
 - 支持隐藏进度文字
-- 支持显示状态图标（成功、危险、警告）
-- 支持自定义样式
-- 跨平台兼容（H5、小程序、App）
+- 支持自定义进度条颜色，可使用字符串、数组或对象数组
+- 支持自定义动画时长
+- 支持多种状态：success、danger、warning
+- 支持状态图标显示
+- 支持自定义样式和类名
 
-### 适用场景
-
+### 适用业务场景
 - 文件上传/下载进度展示
+- 表单提交进度展示
+- 数据加载进度展示
 - 任务完成进度展示
-- 加载状态展示
-- 评分展示
-- 其他需要展示进度的场景
+- 考试答题进度展示
+- 游戏关卡进度展示
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
 | 名称 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
 | percentage | number | 0 | 否 | 进度数值，最大值100 |
 | hideText | boolean | false | 否 | 是否隐藏进度条上的文字 |
-| color | string \| string[] \| ProgressColor[] | - | 否 | 进度条颜色 |
+| color | string / array | - | 否 | 进度条颜色，可以是字符串、字符串数组或对象数组 |
 | duration | number | 30 | 否 | 进度增加1%所需毫秒数 |
-| status | 'success' \| 'danger' \| 'warning' | - | 否 | 进度条状态 |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| status | string | - | 否 | 进度条状态，可选值：success / danger / warning |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| - | - | - |
+该组件没有定义事件。
 
-### Methods
+### Methods方法
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
-| - | - | - |
+该组件没有定义插槽。
 
-## 使用示例
+## 多场景使用示例代码
 
 ### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo">
+  <view class="progress-demo">
+    <view class="demo-title">基础用法</view>
     <wd-progress :percentage="50" />
   </view>
 </template>
+
+<script lang="ts" setup>
+// 无需导入，直接使用
+</script>
+
+<style scoped>
+.progress-demo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.demo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+</style>
 ```
 
-### 2. 自定义颜色
+### 2. 动态进度
 
 ```vue
 <template>
-  <view class="demo">
-    <!-- 单一颜色 -->
-    <wd-progress :percentage="50" color="#4D80F0" />
-    
-    <!-- 颜色数组 -->
-    <wd-progress :percentage="70" :color="['#4D80F0', '#67C23A', '#E6A23C']" />
-    
-    <!-- 带百分比的颜色数组 -->
-    <wd-progress 
-      :percentage="80" 
-      :color="[
-        { color: '#4D80F0', percentage: 30 },
-        { color: '#67C23A', percentage: 70 },
-        { color: '#E6A23C', percentage: 100 }
-      ]" 
-    />
-  </view>
-</template>
-```
-
-### 3. 隐藏文字和自定义动画时长
-
-```vue
-<template>
-  <view class="demo">
-    <!-- 隐藏文字 -->
-    <wd-progress :percentage="60" hide-text />
-    
-    <!-- 自定义动画时长 -->
-    <wd-progress :percentage="80" :duration="100" />
-  </view>
-</template>
-```
-
-### 4. 状态展示
-
-```vue
-<template>
-  <view class="demo">
-    <!-- 成功状态 -->
-    <wd-progress :percentage="100" status="success" hide-text />
-    
-    <!-- 危险状态 -->
-    <wd-progress :percentage="30" status="danger" hide-text />
-    
-    <!-- 警告状态 -->
-    <wd-progress :percentage="60" status="warning" hide-text />
-  </view>
-</template>
-```
-
-### 5. 动态更新进度
-
-```vue
-<template>
-  <view class="demo">
+  <view class="progress-demo">
+    <view class="demo-title">动态进度</view>
     <wd-progress :percentage="percentage" />
-    <view class="button-group">
-      <wd-button type="primary" size="small" @click="increase">增加进度</wd-button>
-      <wd-button type="danger" size="small" @click="decrease">减少进度</wd-button>
-      <wd-button type="warning" size="small" @click="reset">重置</wd-button>
-    </view>
+    <wd-button @click="increase" size="small">增加进度</wd-button>
+    <wd-button @click="reset" size="small" type="warning">重置</wd-button>
   </view>
 </template>
 
@@ -141,131 +98,149 @@ import { ref } from 'vue'
 const percentage = ref(0)
 
 const increase = () => {
-  percentage.value = Math.min(percentage.value + 10, 100)
-}
-
-const decrease = () => {
-  percentage.value = Math.max(percentage.value - 10, 0)
+  if (percentage.value < 100) {
+    percentage.value += 10
+  }
 }
 
 const reset = () => {
   percentage.value = 0
 }
 </script>
+```
 
-<style lang="scss">
-.button-group {
-  margin-top: 20px;
+### 3. 自定义颜色
+
+```vue
+<template>
+  <view class="progress-demo">
+    <view class="demo-title">自定义颜色</view>
+    <wd-progress :percentage="60" color="#4D80F0" />
+    <view class="demo-subtitle">渐变色（数组形式）</view>
+    <wd-progress :percentage="70" :color="['#4D80F0', '#FF4D4F']" />
+    <view class="demo-subtitle">分段变色（对象数组形式）</view>
+    <wd-progress 
+      :percentage="80" 
+      :color="[
+        { color: '#FF4D4F', percentage: 30 },
+        { color: '#FCCA00', percentage: 70 },
+        { color: '#00C48C', percentage: 100 }
+      ]" 
+    />
+  </view>
+</template>
+
+<script lang="ts" setup>
+// 无需导入，直接使用
+</script>
+
+<style scoped>
+.progress-demo {
+  padding: 20px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.demo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.demo-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
 }
 </style>
+```
+
+### 4. 带状态
+
+```vue
+<template>
+  <view class="progress-demo">
+    <view class="demo-title">带状态</view>
+    <view class="demo-subtitle">成功状态</view>
+    <wd-progress :percentage="100" status="success" hide-text />
+    <view class="demo-subtitle">警告状态</view>
+    <wd-progress :percentage="70" status="warning" hide-text />
+    <view class="demo-subtitle">危险状态</view>
+    <wd-progress :percentage="30" status="danger" hide-text />
+  </view>
+</template>
+
+<script lang="ts" setup>
+// 无需导入，直接使用
+</script>
+```
+
+### 5. 隐藏文字
+
+```vue
+<template>
+  <view class="progress-demo">
+    <view class="demo-title">隐藏文字</view>
+    <wd-progress :percentage="50" hide-text />
+  </view>
+</template>
+
+<script lang="ts" setup>
+// 无需导入，直接使用
+</script>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customClass 和 customStyle
+### customStyle 用法
+使用 customStyle 属性可以自定义进度条的内联样式，例如修改高度、宽度、边框半径等。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-progress 
-      :percentage="50" 
-      custom-class="my-progress"
-      :custom-style="{ height: '10px', borderRadius: '5px' }"
-    />
-  </view>
-</template>
-
-<style lang="scss">
-.my-progress {
-  // 自定义类样式
-  .wd-progress__outer {
-    background-color: #f5f7fa;
-  }
-  
-  .wd-progress__inner {
-    border-radius: 5px;
-  }
-  
-  .wd-progress__label {
-    color: #4D80F0;
-    font-weight: bold;
-  }
-}
-</style>
+<wd-progress 
+  :percentage="50" 
+  custom-style="height: 10px; border-radius: 5px;"
+/>
 ```
 
-### 2. 自定义进度条高度和圆角
+### customClass 用法
+使用 customClass 属性可以为进度条添加自定义样式类，便于在外部 CSS 中进行样式定制。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-progress 
-      :percentage="70" 
-      :custom-style="{ 
-        '--wd-progress-height': '8px',
-        '--wd-progress-border-radius': '4px'
-      }" 
-    />
-  </view>
-</template>
-```
+<wd-progress 
+  :percentage="50" 
+  custom-class="my-progress"
+/>
 
-### 3. 自定义文字样式
-
-```vue
-<template>
-  <view class="demo">
-    <wd-progress 
-      :percentage="60" 
-      custom-class="custom-text-progress"
-    />
-  </view>
-</template>
-
-<style lang="scss">
-.custom-text-progress {
-  .wd-progress__label {
-    font-size: 14px;
-    color: #67C23A;
-    font-weight: bold;
-    margin-left: 10px;
-  }
+<style scoped>
+:deep(.my-progress) {
+  --wd-progress-bar-background: #f5f7fa;
+  --wd-progress-inner-background: #4D80F0;
+  --wd-progress-text-color: #606266;
+  --wd-progress-text-font-size: 14px;
+  --wd-progress-bar-height: 8px;
+  --wd-progress-border-radius: 4px;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **进度值范围**：
-   - percentage 属性的取值范围是 0-100
-   - 超出范围的值会被自动调整
+1. **percentage 属性**：percentage 的值必须在 0 到 100 之间，超出范围会被自动限制。
 
-2. **颜色配置**：
-   - 支持三种颜色配置方式：单一颜色、颜色数组、带百分比的颜色数组
-   - 带百分比的颜色数组会根据进度值自动切换颜色
+2. **color 属性**：color 支持三种形式：
+   - 字符串形式：如 '#4D80F0'，表示整个进度条使用同一种颜色
+   - 字符串数组形式：如 ['#4D80F0', '#FF4D4F']，表示进度条使用渐变色
+   - 对象数组形式：如 [{ color: '#FF4D4F', percentage: 30 }, { color: '#00C48C', percentage: 100 }]，表示进度条在不同百分比段显示不同颜色
 
-3. **动画效果**：
-   - 进度变化时会有平滑的动画效果
-   - 可以通过 duration 属性调整动画速度
+3. **duration 属性**：duration 表示进度增加 1% 所需的毫秒数，值越大，进度条动画越慢。
 
-4. **状态图标**：
-   - 当设置了 status 属性且 hideText 为 true 时，会显示对应的状态图标
-   - 支持 success、danger 和 warning 三种状态
+4. **status 属性**：status 用于设置进度条的状态，支持 success、danger、warning 三种状态。当设置了 status 且 hideText 为 true 时，会显示相应的状态图标。
 
-5. **性能优化**：
-   - 避免频繁更新进度值，建议使用防抖或节流
-   - 对于静态进度条，可以直接设置最终值
+5. **hideText 属性**：hideText 用于控制是否显示进度文字，当 hideText 为 true 时，不显示进度文字。
 
-6. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 动画效果在某些平台上可能略有差异
+6. **性能优化**：对于频繁更新的进度条，建议适当增大 duration 的值，减少动画次数，提高性能。
 
-7. **样式定制**：
-   - 可以通过 customStyle 和 customClass 属性自定义样式
-   - 也可以通过 CSS 变量进行样式定制
+7. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在动画效果方面。
 
-8. **文字显示**：
-   - 默认情况下会显示进度百分比文字
-   - 可以通过 hideText 属性隐藏文字
+8. **样式定制**：可以通过 CSS 变量修改进度条的样式，包括背景色、进度色、文字颜色、高度、边框半径等。

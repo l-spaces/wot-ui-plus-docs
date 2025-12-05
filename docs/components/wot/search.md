@@ -1,44 +1,40 @@
-# wd-search 搜索组件
+# Search
 
-## 组件概述
+## 组件概况
 
-wd-search 是一个功能强大的搜索组件，用于提供搜索功能，支持多种自定义选项，能够满足各种复杂的搜索场景需求。组件基于 Vue 3 + TypeScript + UniApp 开发，支持跨平台使用。
+### 组件概述
+Search组件是一个功能丰富的搜索框组件，提供了输入、清除、搜索等核心功能，并支持自定义样式、占位符、前后缀等扩展功能。它适用于各种需要搜索功能的场景，如商品搜索、内容搜索等。
 
-### 功能特点
-
-- 支持双向绑定输入内容
-- 支持清除按钮
-- 支持自定义占位文本
-- 支持右侧取消按钮
-- 支持亮色主题
+### 详细功能描述
+- 支持双向数据绑定（v-model）
+- 自动显示/隐藏清除按钮
+- 支持自定义占位符文本
+- 支持自定义取消按钮文本
+- 支持浅色/深色主题切换
 - 支持禁用状态
-- 支持最大长度限制
+- 支持最大输入长度限制
 - 支持自动聚焦
-- 支持多种事件回调
-- 支持前后插槽自定义
-- 跨平台兼容（H5、小程序、App）
+- 支持自定义前后缀插槽
+- 支持多种事件触发（focus、blur、input、search等）
+- 支持多端适配
 
-### 适用场景
+### 适用业务场景
+- 搜索页面的核心搜索框
+- 商品列表顶部的搜索栏
+- 文章、新闻等内容的搜索功能
+- 应用内的全局搜索入口
+- 表单中的搜索输入框
 
-- 搜索页面
-- 商品搜索
-- 内容搜索
-- 筛选功能
-- 任何需要搜索功能的场景
-
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
+| 参数 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| customInputClass | string | '' | 否 | 自定义输入框类名 |
 | modelValue | string | '' | 否 | 输入框内容，双向绑定 |
 | clearabled | boolean | true | 否 | 是否显示清除按钮 |
-| useSuffixSlot | boolean | false | 否 | 是否使用输入框右侧插槽（已废弃，直接使用插槽即可） |
 | placeholder | string | - | 否 | 搜索框占位文本 |
 | cancelTxt | string | - | 否 | 搜索框右侧文本 |
-| light | boolean | false | 否 | 搜索框亮色（白色） |
+| light | boolean | false | 否 | 是否使用亮色（白色）主题 |
 | hideCancel | boolean | false | 否 | 是否隐藏右侧文本 |
 | disabled | boolean | false | 否 | 是否禁用搜索框 |
 | maxlength | number | -1 | 否 | 原生属性，设置最大长度。-1 表示无限制 |
@@ -47,258 +43,278 @@ wd-search 是一个功能强大的搜索组件，用于提供搜索功能，支�
 | focusWhenClear | boolean | false | 否 | 是否在点击清除按钮时聚焦输入框 |
 | placeholderStyle | string | - | 否 | 原生属性，指定 placeholder 的样式，目前仅支持color,font-size和font-weight |
 | placeholderClass | string | '' | 否 | 原生属性，指定 placeholder 的样式类 |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| customInputClass | string | '' | 否 | 输入框自定义类名 |
+| customClass | string | - | 否 | 自定义类名 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
+| useSuffixSlot | boolean | false | 否 | 是否使用输入框右侧插槽（已废弃，直接使用插槽即可） |
 
 ### Events
-
 | 事件名 | 触发条件 | 参数说明 |
 |--------|----------|----------|
-| update:modelValue | 输入内容变化时 | 输入框内容 |
-| change | 输入内容变化时 | { value: 输入框内容 } |
-| clear | 点击清除按钮时 | - |
-| search | 点击键盘搜索按钮时 | { value: 输入框内容 } |
-| focus | 输入框获得焦点时 | { value: 输入框内容 } |
-| blur | 输入框失去焦点时 | { value: 输入框内容 } |
-| cancel | 点击右侧取消按钮时 | { value: 输入框内容 } |
+| update:modelValue | 输入框内容变化时 | { value: string } 输入框当前值 |
+| change | 输入框内容变化时 | { value: string } 输入框当前值 |
+| focus | 输入框获得焦点时 | { value: string } 输入框当前值 |
+| blur | 输入框失去焦点时 | { value: string } 输入框当前值 |
+| search | 点击键盘搜索按钮时 | { value: string } 输入框当前值 |
+| clear | 点击清除按钮时 | 无 |
+| cancel | 点击取消按钮时 | { value: string } 输入框当前值 |
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+无
 
 ### Slots
+| 插槽名 | 作用域变量 | 说明 |
+|--------|------------|------|
+| prefix | - | 搜索框左侧插槽，用于放置自定义内容 |
+| suffix | - | 搜索框右侧插槽，用于放置自定义内容，默认显示取消按钮 |
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
-| prefix | - | 搜索框左侧插槽 |
-| suffix | - | 搜索框右侧插槽，默认显示取消按钮 |
+## 多场景使用示例
 
-## 使用示例
-
-### 1. 基础用法
-
+### 基础用法
 ```vue
 <template>
-  <view class="demo">
-    <wd-search v-model="searchValue" @search="onSearch" />
+  <view>
+    <wd-search v-model="keyword" @search="handleSearch" placeholder="请输入搜索内容"></wd-search>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const searchValue = ref('')
+const keyword = ref('')
 
-const onSearch = ({ value }) => {
-  console.log('搜索内容：', value)
+const handleSearch = (event: any) => {
+  console.log('搜索内容:', event.value)
   // 执行搜索逻辑
 }
 </script>
 ```
 
-### 2. 自定义样式
-
+### 自定义样式
 ```vue
 <template>
-  <view class="demo">
+  <view>
     <wd-search 
-      v-model="searchValue" 
-      placeholder="请输入搜索内容" 
-      cancel-txt="搜索" 
-      light 
-      @search="onSearch"
-    />
+      v-model="keyword" 
+      custom-class="my-search" 
+      custom-input-class="my-input" 
+      placeholder="请输入搜索内容"
+    ></wd-search>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const searchValue = ref('')
-
-const onSearch = ({ value }) => {
-  console.log('搜索内容：', value)
-  // 执行搜索逻辑
-}
+const keyword = ref('')
 </script>
+
+<style scoped>
+.my-search {
+  margin: 20px;
+  background-color: #f5f7fa;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.my-input {
+  font-size: 16px;
+  color: #333;
+}
+</style>
 ```
 
-### 3. 禁用状态
-
+### 禁用状态
 ```vue
 <template>
-  <view class="demo">
+  <view>
     <wd-search 
-      v-model="searchValue" 
+      v-model="keyword" 
       disabled 
-      placeholder="搜索框已禁用"
-    />
+      placeholder="搜索功能已禁用"
+    ></wd-search>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const searchValue = ref('')
+const keyword = ref('')
 </script>
 ```
 
-### 4. 自定义前后插槽
-
+### 自定义占位符和取消文本
 ```vue
 <template>
-  <view class="demo">
-    <wd-search v-model="searchValue" @search="onSearch">
+  <view>
+    <wd-search 
+      v-model="keyword" 
+      placeholder="请输入商品名称" 
+      cancel-txt="搜索"
+      @search="handleSearch"
+    ></wd-search>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const keyword = ref('')
+
+const handleSearch = (event: any) => {
+  console.log('搜索商品:', event.value)
+  // 执行商品搜索逻辑
+}
+</script>
+```
+
+### 自定义前后缀
+```vue
+<template>
+  <view>
+    <wd-search v-model="keyword" placeholder="请输入搜索内容">
       <template #prefix>
-        <wd-icon name="scan" custom-class="search-prefix-icon" />
+        <wd-icon name="scan" custom-class="prefix-icon"></wd-icon>
       </template>
       <template #suffix>
-        <wd-button type="primary" size="small" @click="onSearch({ value: searchValue })">
-          搜索
-        </wd-button>
+        <view class="custom-suffix">
+          <wd-icon name="filter" @click="handleFilter"></wd-icon>
+          <wd-button size="mini" type="primary" @click="handleSearch">搜索</wd-button>
+        </view>
       </template>
     </wd-search>
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const searchValue = ref('')
+const keyword = ref('')
 
-const onSearch = ({ value }) => {
-  console.log('搜索内容：', value)
+const handleSearch = () => {
+  console.log('搜索内容:', keyword.value)
   // 执行搜索逻辑
+}
+
+const handleFilter = () => {
+  console.log('打开筛选面板')
+  // 打开筛选面板逻辑
 }
 </script>
 
-<style lang="scss">
-.search-prefix-icon {
+<style scoped>
+.prefix-icon {
   margin-right: 5px;
   color: #909399;
 }
-</style>
-```
 
-### 5. 自动聚焦
-
-```vue
-<template>
-  <view class="demo">
-    <wd-search 
-      v-model="searchValue" 
-      focus 
-      placeholder="自动聚焦搜索框"
-      @search="onSearch"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const searchValue = ref('')
-
-const onSearch = ({ value }) => {
-  console.log('搜索内容：', value)
-  // 执行搜索逻辑
+.custom-suffix {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-</script>
+</style>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customClass 和 customStyle
+### 自定义类名
+通过`customClass`属性可以为Search组件添加自定义类名，用于覆盖默认样式。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-search 
-      v-model="searchValue" 
-      custom-class="custom-search"
-      :custom-style="{ borderRadius: '20px', backgroundColor: '#f5f7fa' }"
-      @search="onSearch"
-    />
-  </view>
-</template>
+<wd-search custom-class="my-search">
+  <!-- 内容 -->
+</wd-search>
 
-<style lang="scss">
-.custom-search {
-  // 自定义类样式
-  .wd-search__input {
-    // 自定义输入框样式
-    font-size: 14px;
-    color: #303133;
-  }
-  
-  .wd-search__placeholder-txt {
-    // 自定义占位符样式
-    color: #909399;
-  }
+<style>
+.my-search {
+  /* 自定义样式 */
+  margin: 20px;
+  background-color: #f0f2f5;
 }
 </style>
 ```
 
-### 2. 自定义输入框类名
+### 自定义输入框类名
+通过`customInputClass`属性可以为输入框添加自定义类名，用于修改输入框的样式。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-search 
-      v-model="searchValue" 
-      custom-input-class="my-input"
-      @search="onSearch"
-    />
-  </view>
-</template>
+<wd-search custom-input-class="my-input">
+  <!-- 内容 -->
+</wd-search>
 
-<style lang="scss">
+<style>
 .my-input {
-  // 自定义输入框样式
-  padding: 5px 0;
-  font-size: 15px;
-  color: #4D80F0;
+  /* 自定义输入框样式 */
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
 }
 </style>
+```
+
+### 自定义样式对象
+通过`customStyle`属性可以直接设置组件的内联样式。
+
+```vue
+<wd-search :custom-style="{ margin: '20px', backgroundColor: '#f0f2f5', borderRadius: '8px' }">
+  <!-- 内容 -->
+</wd-search>
+```
+
+### 自定义占位符样式
+通过`placeholderStyle`属性可以直接设置占位符的样式。
+
+```vue
+<wd-search placeholder-style="color: #909399; font-size: 14px;">
+  <!-- 内容 -->
+</wd-search>
 ```
 
 ## 注意事项
 
-1. **双向绑定**：
-   - 使用 v-model 进行双向绑定输入内容
-   - 支持通过 modelValue 属性设置初始值
+1. **双向绑定**：使用`v-model`进行双向数据绑定，获取和设置输入框内容。
 
-2. **清除按钮**：
-   - 默认显示清除按钮，可通过 clearabled 属性控制
-   - 点击清除按钮会清空输入内容并触发 clear 事件
-   - focusWhenClear 属性可控制点击清除按钮时是否聚焦输入框
+2. **清除按钮**：当输入框有内容时，清除按钮会自动显示，点击清除按钮会清空输入框内容并触发`clear`事件。
 
-3. **自动聚焦**：
-   - focus 属性用于控制是否自动聚焦
-   - 在组件挂载后生效
-   - 禁用状态下自动聚焦不生效
+3. **取消按钮**：取消按钮默认显示，可通过`hideCancel`属性隐藏。点击取消按钮会触发`cancel`事件。
 
-4. **事件处理**：
-   - change 事件在输入内容变化时触发
-   - search 事件在点击键盘搜索按钮时触发
-   - focus 和 blur 事件分别在输入框获得和失去焦点时触发
-   - cancel 事件在点击右侧取消按钮时触发
+4. **禁用状态**：通过`disabled`属性可以禁用搜索框，禁用后输入框不可编辑，清除按钮不显示。
 
-5. **插槽使用**：
-   - prefix 插槽用于自定义搜索框左侧内容
-   - suffix 插槽用于自定义搜索框右侧内容，默认显示取消按钮
-   - useSuffixSlot 属性已废弃，直接使用插槽即可
+5. **自动聚焦**：通过`focus`属性可以设置输入框自动聚焦，但需要注意在某些平台上可能存在兼容性问题。
 
-6. **性能考虑**：
-   - 避免在 input 事件中执行复杂的计算
-   - 对于需要防抖的搜索，建议在父组件中实现防抖逻辑
+6. **最大长度**：通过`maxlength`属性可以设置输入框的最大长度，-1表示无限制。
 
-7. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 但在某些平台上，input 事件的触发时机可能略有差异
+7. **废弃属性**：`useSuffixSlot`属性已废弃，将在下一个minor版本被移除，直接使用`suffix`插槽即可。
 
-8. **亮色主题**：
-   - light 属性用于切换亮色主题（白色背景）
-   - 适合在深色背景上使用
+8. **多端适配**：组件在不同平台上可能存在细微的样式差异，建议在实际使用中进行测试。
+
+9. **事件触发**：组件支持多种事件，包括`focus`、`blur`、`input`、`search`、`clear`、`cancel`等，可根据需要监听相应事件。
+
+10. **国际化支持**：组件的默认占位符和取消文本支持国际化，可通过`Locale`组件进行配置。
+
+## 常见问题
+
+1. **Q: 为什么清除按钮不显示？**
+   A: 清除按钮只有在输入框有内容且`clearabled`属性为`true`时才会显示，请检查这两个条件是否满足。
+
+2. **Q: 如何修改搜索框的背景颜色？**
+   A: 可以通过`customClass`属性添加自定义类名，然后在CSS中修改背景颜色。
+
+3. **Q: 为什么自动聚焦不生效？**
+   A: 自动聚焦功能在某些平台上可能存在兼容性问题，建议在组件挂载后手动调用聚焦方法，或者使用`setTimeout`延迟设置聚焦。
+
+4. **Q: 如何自定义取消按钮的样式？**
+   A: 可以使用`suffix`插槽自定义右侧内容，完全控制取消按钮的样式和行为。
+
+5. **Q: 为什么输入框内容变化时没有触发`change`事件？**
+   A: 请确保使用了`v-model`进行双向绑定，或者监听了`input`事件，`change`事件会在输入框内容变化时触发。
+
+6. **Q: 如何禁用清除按钮？**
+   A: 可以将`clearabled`属性设置为`false`来禁用清除按钮。
+
+7. **Q: 支持哪些事件？**
+   A: 组件支持`focus`、`blur`、`input`、`search`、`clear`、`cancel`等事件，具体可参考API文档中的Events部分。
+
+8. **Q: 如何自定义搜索图标？**
+   A: 目前不支持直接修改搜索图标，但可以通过`prefix`插槽自定义左侧内容，实现自定义搜索图标的效果。

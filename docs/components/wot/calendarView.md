@@ -1,262 +1,519 @@
-# wd-calendar-view
+# CalendarView 日历视图
 
-## 组件概述
+## 组件概况
 
-### 功能描述
-wd-calendar-view 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台日历视图组件，支持多种日期选择类型，包括单日期、多日期、日期范围、时间范围、周选择、月选择等，提供了丰富的配置选项和灵活的自定义能力。
+### 组件概述
+CalendarView 日历视图组件是一个功能强大的日历展示和选择组件，支持多种日历类型和视图模式。它提供了灵活的配置选项，允许开发者根据不同业务需求定制日历的外观和行为，支持从简单的日期选择到复杂的日期范围选择等多种场景。
+
+### 详细功能描述
+- 支持多种日历类型：日期单选、日期多选、日期时间、周选择、月选择以及各种范围选择
+- 提供月视图和年视图两种面板，根据选择类型自动切换
+- 支持农历日期显示
+- 支持自定义日期格式化和样式
+- 支持日期范围限制
+- 支持时间选择过滤
+- 支持自定义面板高度
+- 提供滚动到可视区域的方法
+- 支持范围选择的最大天数限制
+- 支持自定义周起始日
+- 支持显示/隐藏秒选择
+- 支持立即触发change事件
 
 ### 适用业务场景
-- 日历选择器的核心视图组件
-- 事件日程展示
-- 酒店/机票预订的日期选择
-- 数据统计的时间范围筛选
-- 周/月选择场景
+- 预约系统中的日期时间选择
+- 考勤系统中的排班日期选择
+- 报表系统中的日期范围筛选
+- 活动报名中的日期选择
+- 日历应用中的日期查看和标记
+- 酒店预订系统中的入住离店日期选择
+- 会议系统中的会议时间选择
 
-### UI 系统定位
-作为 UI 组件库中的核心日历视图组件，wd-calendar-view 提供了标准化的日历视图解决方案，被 wd-calendar 组件内部使用，也可单独使用构建自定义日历应用。
+## 完整API参考
 
-## API 参考
+### Props属性
 
-### Props
-
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| customStyle | string | '' | 否 | 自定义根节点样式，可以是字符串形式的内联样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类，可以是一个或多个 CSS 类名 |
-| modelValue | number/array/null | - | 是 | 选中值，为 13 位时间戳或时间戳数组 |
-| type | CalendarType | 'date' | 否 | 日期类型，可选值：date / dates / datetime / week / month / daterange / datetimerange / weekrange / monthrange |
-| minDate | number | 当前日期前12个月 | 否 | 最小日期，为 13 位时间戳 |
-| maxDate | number | 当前日期后12个月 | 否 | 最大日期，为 13 位时间戳 |
-| firstDayOfWeek | number | 1 | 否 | 周起始天，0 表示周日，1 表示周一 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| modelValue | number \| number[] \| null | - | 是 | 选中值，单选时为时间戳，多选或范围选择时为时间戳数组 |
+| type | string | date | 否 | 日历类型，可选值：date、dates、datetime、week、month、daterange、datetimerange、weekrange、monthrange |
+| minDate | number | 当前日期往前12个月 | 否 | 最小可选日期，时间戳 |
+| maxDate | number | 当前日期往后12个月 | 否 | 最大可选日期，时间戳 |
+| firstDayOfWeek | number | 1 | 否 | 周起始天，0表示周日，1-6表示周一至周六 |
+| showLunar | boolean | true | 否 | 是否显示农历日期 |
+| showMark | boolean | true | 否 | 是否显示月份背景 |
 | formatter | function | - | 否 | 日期格式化函数，用于自定义日期项的显示和样式 |
-| maxRange | number | - | 否 | type 为范围选择时有效，最大日期范围 |
-| rangePrompt | string | - | 否 | type 为范围选择时有效，选择超出最大日期范围时的错误提示文案 |
-| allowSameDay | boolean | false | 否 | type 为范围选择时有效，是否允许选择同一天 |
+| maxRange | number | - | 否 | 最大日期范围，type为范围选择时有效 |
+| rangePrompt | string | - | 否 | 范围超出提示文案 |
+| allowSameDay | boolean | false | 否 | 是否允许选择同一天，type为范围选择时有效 |
 | showPanelTitle | boolean | true | 否 | 是否展示面板标题 |
-| defaultTime | string/array | '00:00:00' | 否 | 选中日期的具体时刻，为字符串或字符串数组 |
+| defaultTime | string \| string[] | 00:00:00 | 否 | 选中日期的具体时刻，单选时为字符串，范围选择时为数组 |
 | panelHeight | number | 378 | 否 | 可滚动面板的高度 |
 | timeFilter | function | - | 否 | 时间选择器过滤器，用于过滤时间选择器的可选数据 |
-| hideSecond | boolean | false | 否 | 是否隐藏秒修改，仅在 datetime 类型时有效 |
-| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发 picker-view 的 change 事件 |
-| showLunar | boolean | true | 否 | 是否显示农历 |
-| showMark | boolean | true | 否 | 是否显示月份背景 |
+| hideSecond | boolean | false | 否 | 是否隐藏秒修改 |
+| immediateChange | boolean | false | 否 | 是否立即触发change事件，仅微信小程序和支付宝小程序支持 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| change | 日期选择变化时触发 | value: 选中的日期值 |
-| update:modelValue | 选中值变化时触发 | value: 选中的日期值 |
-| pickstart | 开始选择日期时触发 | - |
-| pickend | 结束选择日期时触发 | - |
+|--------|----------|----------|
+| change | 选中值发生变化时 | { value: number \| number[] \| null } - 选中的值 |
+| pickstart | 开始选择范围时 | 无 |
+| pickend | 结束选择范围时 | 无 |
 
-### Methods
+### Methods方法
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| scrollIntoView | - | - | 使当前日期或者选中日期滚动到可视区域 |
+|--------|------|--------|----------|
+| scrollIntoView | 无 | 无 | 使当前日期或者选中日期滚动到可视区域 |
 
-### Slots
+### Slots插槽
 
-该组件未定义任何插槽。
+该组件没有定义任何插槽。
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 1. 基础用法
+### 1. 基础日期选择
 
 ```vue
 <template>
-  <view class="container">
+  <view class="calendar-view-demo">
+    <view class="demo-title">基础日期选择</view>
     <wd-calendar-view v-model="date" type="date" />
+    <view class="demo-result">选中日期：{{ formatDate(date) }}</view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
+import dayjs from 'dayjs'
 
-const date = ref<number | null>(Date.now());
+// 基础日期选择
+const date = ref<number | null>(dayjs().valueOf())
+
+// 格式化日期
+const formatDate = (timestamp: number | null) => {
+  if (!timestamp) return ''
+  return dayjs(timestamp).format('YYYY-MM-DD')
+}
 </script>
-```
 
-**设计考量**：
-- 展示了日历视图组件的基础用法，选择单个日期
-- 使用默认配置，展示当前日期
-- 支持双向绑定 v-model
+<style scoped>
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+</style>
+```
 
 ### 2. 日期范围选择
 
 ```vue
 <template>
-  <view class="container">
-    <wd-calendar-view v-model="dateRange" type="daterange" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-import dayjs from '@/uni_modules/wot-ui-plus/dayjs';
-
-const today = Date.now();
-const tomorrow = dayjs().add(1, 'day').valueOf();
-const dateRange = ref<number[]>([today, tomorrow]);
-</script>
-```
-
-**设计考量**：
-- 展示了日期范围选择功能
-- 使用 type="daterange" 指定范围选择类型
-- 初始值设置为今天和明天
-
-### 3. 时间范围选择
-
-```vue
-<template>
-  <view class="container">
-    <wd-calendar-view v-model="timeRange" type="datetimerange" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-import dayjs from '@/uni_modules/wot-ui-plus/dayjs';
-
-const now = Date.now();
-const later = dayjs().add(2, 'hour').valueOf();
-const timeRange = ref<number[]>([now, later]);
-</script>
-```
-
-**设计考量**：
-- 展示了时间范围选择功能
-- 使用 type="datetimerange" 指定时间范围类型
-- 初始值设置为当前时间和两小时后
-
-### 4. 周选择
-
-```vue
-<template>
-  <view class="container">
-    <wd-calendar-view v-model="week" type="week" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const week = ref<number | null>(Date.now());
-</script>
-```
-
-**设计考量**：
-- 展示了周选择功能
-- 使用 type="week" 指定周选择类型
-- 显示当前周
-
-### 5. 月选择
-
-```vue
-<template>
-  <view class="container">
-    <wd-calendar-view v-model="month" type="month" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const month = ref<number | null>(Date.now());
-</script>
-```
-
-**设计考量**：
-- 展示了月选择功能
-- 使用 type="month" 指定月选择类型
-- 显示当前月
-
-## 样式定制指南
-
-### 1. 使用 customStyle 和 customClass
-
-```vue
-<template>
-  <view class="container">
-    <wd-calendar-view
-      v-model="date"
-      type="date"
-      custom-style="margin: 20rpx;"
-      custom-class="my-calendar-view"
+  <view class="calendar-view-demo">
+    <view class="demo-title">日期范围选择</view>
+    <wd-calendar-view 
+      v-model="dateRange" 
+      type="daterange" 
+      :max-range="7"
+      range-prompt="最多选择7天"
+      allow-same-day
     />
+    <view class="demo-result">
+      开始日期：{{ formatDate(dateRange?.[0]) }}<br>
+      结束日期：{{ formatDate(dateRange?.[1]) }}
+    </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
+import dayjs from 'dayjs'
 
-const date = ref<number | null>(Date.now());
+// 日期范围选择
+const dateRange = ref<number[] | null>([
+  dayjs().valueOf(),
+  dayjs().add(3, 'day').valueOf()
+])
+
+// 格式化日期
+const formatDate = (timestamp: number | undefined) => {
+  if (!timestamp) return ''
+  return dayjs(timestamp).format('YYYY-MM-DD')
+}
 </script>
 
 <style scoped>
-.my-calendar-view {
-  background-color: #f5f5f5;
-  border-radius: 8rpx;
-  padding: 10rpx;
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  line-height: 48rpx;
 }
 </style>
 ```
 
-### 2. 自定义日期格式化
+### 3. 日期时间选择
 
 ```vue
 <template>
-  <view class="container">
-    <wd-calendar-view
-      v-model="date"
-      type="date"
-      :formatter="formatter"
+  <view class="calendar-view-demo">
+    <view class="demo-title">日期时间选择</view>
+    <wd-calendar-view 
+      v-model="datetime" 
+      type="datetime" 
+      :hide-second="true"
+      default-time="14:30:00"
     />
+    <view class="demo-result">选中日期时间：{{ formatDatetime(datetime) }}</view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import type { CalendarFormatter } from '@/uni_modules/wot-ui-plus/components/wd-calendar-view/types';
+import { ref } from 'vue'
+import dayjs from 'dayjs'
 
-const date = ref<number | null>(Date.now());
+// 日期时间选择
+const datetime = ref<number | null>(dayjs().valueOf())
 
-const formatter: CalendarFormatter = (day) => {
-  // 自定义日期格式化逻辑
-  if (day.date === Date.now()) {
-    day.topInfo = '今天';
-    day.topColor = '#ff4d4f';
+// 格式化日期时间
+const formatDatetime = (timestamp: number | null) => {
+  if (!timestamp) return ''
+  return dayjs(timestamp).format('YYYY-MM-DD HH:mm')
+}
+</script>
+
+<style scoped>
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+</style>
+```
+
+### 4. 月份选择
+
+```vue
+<template>
+  <view class="calendar-view-demo">
+    <view class="demo-title">月份选择</view>
+    <wd-calendar-view v-model="month" type="month" />
+    <view class="demo-result">选中月份：{{ formatMonth(month) }}</view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+// 月份选择
+const month = ref<number | null>(dayjs().valueOf())
+
+// 格式化月份
+const formatMonth = (timestamp: number | null) => {
+  if (!timestamp) return ''
+  return dayjs(timestamp).format('YYYY-MM')
+}
+</script>
+
+<style scoped>
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+</style>
+```
+
+### 5. 自定义日期格式化
+
+```vue
+<template>
+  <view class="calendar-view-demo">
+    <view class="demo-title">自定义日期格式化</view>
+    <wd-calendar-view 
+      v-model="date" 
+      type="date" 
+      :formatter="formatter"
+    />
+    <view class="demo-result">选中日期：{{ formatDate(date) }}</view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+// 自定义日期格式化
+const date = ref<number | null>(dayjs().valueOf())
+
+// 格式化日期
+const formatDate = (timestamp: number | null) => {
+  if (!timestamp) return ''
+  return dayjs(timestamp).format('YYYY-MM-DD')
+}
+
+// 自定义日期项格式化函数
+const formatter = (day: any) => {
+  // 标记今天
+  if (dayjs(day.date).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')) {
+    day.topInfo = '今天'
+    day.topColor = '#ff4d4f'
   }
-  return day;
-};
+  
+  // 标记周末
+  const dayOfWeek = dayjs(day.date).day()
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    day.bottomColor = '#1890ff'
+  }
+  
+  // 禁用特定日期
+  if (dayjs(day.date).format('YYYY-MM-DD') === '2025-12-25') {
+    day.disabled = true
+    day.bottomInfo = '不可选'
+    day.bottomColor = '#ff4d4f'
+  }
+  
+  return day
+}
+</script>
+
+<style scoped>
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+</style>
+```
+
+### 6. 多日期选择
+
+```vue
+<template>
+  <view class="calendar-view-demo">
+    <view class="demo-title">多日期选择</view>
+    <wd-calendar-view v-model="dates" type="dates" />
+    <view class="demo-result">
+      <view>选中日期：</view>
+      <view v-for="(date, index) in dates" :key="index" class="date-item">
+        {{ formatDate(date) }}
+      </view>
+    </view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+// 多日期选择
+const dates = ref<number[] | null>([
+  dayjs().valueOf(),
+  dayjs().add(1, 'day').valueOf(),
+  dayjs().add(3, 'day').valueOf()
+])
+
+// 格式化日期
+const formatDate = (timestamp: number) => {
+  return dayjs(timestamp).format('YYYY-MM-DD')
+}
+</script>
+
+<style scoped>
+.calendar-view-demo {
+  padding: 20rpx;
+}
+
+.demo-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.demo-result {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.date-item {
+  margin-top: 10rpx;
+  padding: 10rpx;
+  background-color: #f0f0f0;
+  border-radius: 4rpx;
+  display: inline-block;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+</style>
+```
+
+## 样式定制指南
+
+### 1. 使用customStyle自定义样式
+
+```vue
+<template>
+  <wd-calendar-view 
+    v-model="date" 
+    type="date" 
+    customStyle="background-color: #f5f7fa; border-radius: 12rpx; padding: 20rpx;"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+const date = ref<number | null>(dayjs().valueOf())
+</script>
+```
+
+### 2. 使用customClass自定义类名
+
+```vue
+<template>
+  <wd-calendar-view 
+    v-model="date" 
+    type="date" 
+    customClass="my-calendar-view"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+const date = ref<number | null>(dayjs().valueOf())
+</script>
+
+<style scoped>
+/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
+:deep(.my-calendar-view) {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8rpx;
+  padding: 10rpx;
+}
+
+:deep(.my-calendar-view .wd-calendar-view__title) {
+  color: #0284c7;
+  font-weight: bold;
+}
+</style>
+```
+
+### 3. 自定义面板高度
+
+```vue
+<template>
+  <wd-calendar-view 
+    v-model="date" 
+    type="date" 
+    :panel-height="500"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+const date = ref<number | null>(dayjs().valueOf())
 </script>
 ```
 
 ## 注意事项
 
-### 1. 常见问题解决方案
+1. **类型选择**：根据业务需求选择合适的calendar type，不同类型对应不同的选择模式和UI展示
 
-- **问题**：日历视图不显示
-  **解决方案**：检查组件是否正确引入，确保 modelValue 属性已设置
+2. **日期格式**：组件内部使用13位时间戳，外部使用时需要注意时间格式转换
 
-- **问题**：日期范围选择时无法选择同一天
-  **解决方案**：设置 allowSameDay 属性为 true
+3. **范围选择**：使用range类型时，可以通过maxRange属性限制最大选择范围，并通过rangePrompt设置超出范围的提示信息
 
-- **问题**：自定义格式化函数不生效
-  **解决方案**：确保 formatter 函数返回正确的 CalendarDayItem 对象
+4. **自定义格式化**：formatter函数可以自定义日期项的显示，包括顶部信息、底部信息、颜色等
 
-### 2. 性能优化建议
+5. **月份视图和年份视图**：根据type属性自动切换，month和monthrange类型使用年份视图，其他类型使用月份视图
 
-- 对于大量日期数据的场景，建议合理设置 minDate 和 maxDate，减少渲染的数据量
-- 避免在 formatter 函数中执行复杂计算，影响渲染性能
-- 对于频繁切换的场景，建议使用 v-show 而非 v-if 控制显示
+6. **时间选择**：datetime和datetimerange类型支持时间选择，可以通过hideSecond属性隐藏秒选择，通过defaultTime设置默认时间
 
-### 3. 使用限制条件
+7. **滚动定位**：可以通过scrollIntoView方法将当前日期或选中日期滚动到可视区域
 
-- 组件必须在 UniApp 环境下使用
-- modelValue 必须是 13 位时间戳或时间戳数组
-- 自定义格式化函数必须返回 CalendarDayItem 类型
-- 时间过滤器仅在 datetime 类型时有效
+8. **性能优化**：对于大量日期数据的场景，建议合理设置minDate和maxDate，避免渲染过多日期
 
+9. **周起始日**：可以通过firstDayOfWeek属性设置周起始日，默认为周一（1）
+
+10. **农历显示**：可以通过showLunar属性控制是否显示农历日期，默认为true
+
+11. **立即触发change事件**：immediateChange属性仅在微信小程序和支付宝小程序中生效
+
+12. **双向绑定**：使用v-model指令可以实现数据的双向绑定，简化状态管理
+
+13. **事件监听**：可以监听change、pickstart和pickend事件，实现复杂的交互逻辑
+
+14. **组件实例**：通过ref可以获取组件实例，调用scrollIntoView方法
+
+15. **样式定制**：可以通过customStyle和customClass属性自定义组件样式，需要注意使用::v-deep或/deep/穿透scoped样式
+
+16. **跨端兼容**：组件在iOS、Android、H5和主流小程序平台上都能正常工作，无需特殊处理
+
+17. **类型安全**：组件使用TypeScript开发，提供了完整的类型定义，使用时可以获得良好的类型提示

@@ -1,281 +1,342 @@
-# 表单组件（wd-form）
+# Form 表单组件
 
-## 组件概述
+## 组件概况
 
-wd-form 是一个基于 Vue 3 + TypeScript + UniApp 开发的表单组件，用于统一管理表单数据、验证规则和错误信息。它与 wd-form-item 组件配合使用，提供了完整的表单解决方案，包括表单数据绑定、验证规则定义、错误提示展示等功能。
+### 组件概述
+Form 组件是一个表单容器组件，用于管理表单数据、表单验证规则以及验证状态。它与 FormItem 组件配合使用，可以实现复杂的表单验证逻辑，支持多种错误提示方式和自定义验证规则。
 
-### 功能描述
-- 表单数据双向绑定
-- 支持自定义验证规则
+### 详细功能描述
+- 支持表单数据的双向绑定
+- 支持多种表单验证规则（必填、正则表达式、自定义验证函数）
+- 支持异步验证
 - 支持多种错误提示方式（toast、message、none）
-- 支持单个或多个字段的验证
+- 支持部分字段验证
+- 支持重置表单验证状态
 - 支持输入时自动重置验证信息
-- 提供表单验证和重置方法
+- 支持合并子组件的验证规则
 
 ### 适用业务场景
 - 用户注册表单
 - 登录表单
-- 个人信息编辑表单
 - 数据提交表单
-- 各种需要表单验证的场景
+- 配置表单
+- 搜索表单
 
-### 组件设计理念
-wd-form 组件采用了 Vue 3 的 Composition API 和 TypeScript，确保了类型安全和代码可维护性。组件使用了依赖注入机制，将表单数据和验证规则传递给子组件 wd-form-item，实现了父子组件之间的通信。组件设计考虑了灵活性和可扩展性，允许开发者根据实际需求自定义验证规则和错误提示方式。
-
-## 完整 API 参考
+## 完整API参考
 
 ### Props
-
-| 名称 | 类型 | 默认值 | 必填项 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
 | model | object | - | 是 | 表单数据对象 |
-| rules | object | {} | 否 | 表单验证规则，格式为 { [key: string]: FormItemRule[] } |
+| rules | object | {} | 否 | 表单验证规则，格式为 { prop: [规则1, 规则2] } |
 | resetOnChange | boolean | true | 否 | 是否在输入时重置表单校验信息 |
-| errorType | string | 'message' | 否 | 错误提示类型，可选值：toast（弹出提示）、message（行内提示）、none（不显示提示） |
-| customStyle | object | - | 否 | 自定义样式，用于覆盖组件默认样式 |
-| customClass | string | - | 否 | 自定义类名，用于扩展组件样式 |
+| errorType | string | message | 否 | 错误提示类型，可选值为 toast、message、none |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
-
-该组件没有定义任何事件。
+| 事件名 | 触发条件 | 参数说明 |
+| --- | --- | --- |
 
 ### Methods
-
 | 方法名 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
-| validate | prop?: string \| string[] | Promise<{ valid: boolean; errors: ErrorMessage[] }> | 表单校验，可选参数 prop 指定校验字段或字段数组 |
-| reset | - | void | 重置表单项的验证提示 |
+| validate | prop?: string / array | Promise<{ valid: boolean, errors: ErrorMessage[] }> | 表单校验，支持校验指定字段或字段数组 |
+| reset | - | - | 重置表单项的验证提示 |
 
 ### Slots
-
 | 插槽名 | 作用域变量 | 使用说明 |
 | --- | --- | --- |
-| default | - | 表单内容区域，用于放置 wd-form-item 组件 |
+| default | - | 用于放置 wd-form-item 子组件 |
 
 ## 多场景使用示例代码
 
 ### 基础用法
-
 ```vue
 <template>
-  <wd-form ref="formRef" v-model="form" :rules="rules">
-    <wd-form-item prop="username" label="用户名" :rules="[{ required: true, message: '请输入用户名' }]">
-      <wd-input v-model="form.username" placeholder="请输入用户名" />
-    </wd-form-item>
-    <wd-form-item prop="password" label="密码" :rules="[{ required: true, message: '请输入密码' }]">
-      <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
-    </wd-form-item>
-    <view class="form-actions">
-      <wd-button type="primary" @click="submitForm">提交</wd-button>
-      <wd-button @click="resetForm">重置</wd-button>
-    </view>
-  </wd-form>
+  <view>
+    <!-- 基础表单 -->
+    <wd-form ref="formRef" v-model="form" :rules="rules">
+      <wd-form-item label="用户名" prop="username">
+        <wd-input v-model="form.username" placeholder="请输入用户名" />
+      </wd-form-item>
+      <wd-form-item label="密码" prop="password">
+        <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
+      </wd-form-item>
+      <wd-button type="primary" @click="handleSubmit">提交</wd-button>
+    </wd-form>
+  </view>
 </template>
 
-<script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import type { FormInstance } from '@/uni_modules/wot-ui-plus/components/wd-form/types'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-const formRef = ref<FormInstance>()
-const form = reactive({
+const formRef = ref()
+const form = ref({
   username: '',
   password: ''
 })
+
 const rules = {
-  username: [{ required: true, message: '请输入用户名' }],
-  password: [{ required: true, message: '请输入密码' }]
+  username: [
+    { required: true, message: '请输入用户名' }
+  ],
+  password: [
+    { required: true, message: '请输入密码' },
+    { pattern: /^.{6,20}$/, message: '密码长度应为6-20位' }
+  ]
 }
 
-// 提交表单
-const submitForm = async () => {
-  const { valid, errors } = await formRef.value?.validate()
-  if (valid) {
-    uni.showToast({
-      title: '表单验证通过',
-      icon: 'success'
-    })
-    // 提交表单数据
-  } else {
-    console.log('表单验证失败', errors)
-  }
-}
-
-// 重置表单
-const resetForm = () => {
-  form.username = ''
-  form.password = ''
-  formRef.value?.reset()
+const handleSubmit = () => {
+  formRef.value.validate().then(res => {
+    if (res.valid) {
+      console.log('表单验证通过', res)
+    } else {
+      console.log('表单验证失败', res.errors)
+    }
+  })
 }
 </script>
-
-<style scoped>
-.form-actions {
-  display: flex;
-  gap: 20rpx;
-  padding: 20rpx;
-  justify-content: center;
-}
-</style>
 ```
 
 ### 自定义验证规则
-
 ```vue
 <template>
-  <wd-form ref="formRef" v-model="form" :rules="rules">
-    <wd-form-item prop="email" label="邮箱" :rules="emailRules">
-      <wd-input v-model="form.email" placeholder="请输入邮箱" />
-    </wd-form-item>
-    <wd-form-item prop="phone" label="手机号">
-      <wd-input v-model="form.phone" placeholder="请输入手机号" />
-    </wd-form-item>
-    <view class="form-actions">
-      <wd-button type="primary" @click="submitForm">提交</wd-button>
-    </view>
-  </wd-form>
+  <view>
+    <!-- 自定义验证规则 -->
+    <wd-form ref="formRef" v-model="form" :rules="rules">
+      <wd-form-item label="邮箱" prop="email">
+        <wd-input v-model="form.email" placeholder="请输入邮箱" />
+      </wd-form-item>
+      <wd-form-item label="验证码" prop="code">
+        <wd-input v-model="form.code" placeholder="请输入验证码" />
+        <wd-button slot="right" size="small" type="primary" @click="sendCode">发送验证码</wd-button>
+      </wd-form-item>
+      <wd-button type="primary" @click="handleSubmit">提交</wd-button>
+    </wd-form>
+  </view>
 </template>
 
-<script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import type { FormInstance } from '@/uni_modules/wot-ui-plus/components/wd-form/types'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-const formRef = ref<FormInstance>()
-const form = reactive({
+const formRef = ref()
+const form = ref({
   email: '',
-  phone: ''
+  code: ''
 })
 
-// 邮箱验证规则
-const emailRules = [
-  { required: true, message: '请输入邮箱' },
-  { 
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
-    message: '请输入正确的邮箱格式' 
-  }
-]
-
 const rules = {
-  phone: [
-    { required: true, message: '请输入手机号' },
-    { 
+  email: [
+    { required: true, message: '请输入邮箱' },
+    { pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message: '邮箱格式不正确' }
+  ],
+  code: [
+    { required: true, message: '请输入验证码' },
+    // 自定义验证函数
+    {
+      required: true,
+      message: '验证码错误',
       validator: (value: string) => {
-        return /^1[3-9]\d{9}$/.test(value) || '请输入正确的手机号格式'
-      } 
+        // 模拟验证码验证
+        return value === '123456'
+      }
     }
   ]
 }
 
-// 提交表单
-const submitForm = async () => {
-  const { valid, errors } = await formRef.value?.validate()
-  if (valid) {
-    uni.showToast({
-      title: '表单验证通过',
-      icon: 'success'
-    })
-  } else {
-    console.log('表单验证失败', errors)
-  }
+const sendCode = () => {
+  console.log('发送验证码')
+}
+
+const handleSubmit = () => {
+  formRef.value.validate().then(res => {
+    if (res.valid) {
+      console.log('表单验证通过')
+    }
+  })
+}
+</script>
+```
+
+### 异步验证
+```vue
+<template>
+  <view>
+    <!-- 异步验证 -->
+    <wd-form ref="formRef" v-model="form" :rules="rules">
+      <wd-form-item label="用户名" prop="username">
+        <wd-input v-model="form.username" placeholder="请输入用户名" />
+      </wd-form-item>
+      <wd-button type="primary" @click="handleSubmit">提交</wd-button>
+    </wd-form>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const formRef = ref()
+const form = ref({
+  username: ''
+})
+
+const rules = {
+  username: [
+    { required: true, message: '请输入用户名' },
+    {
+      required: true,
+      message: '用户名已存在',
+      validator: async (value: string) => {
+        // 模拟异步验证，检查用户名是否已存在
+        await new Promise(resolve => setTimeout(resolve, 500))
+        const existsUsernames = ['admin', 'user123', 'test']
+        if (existsUsernames.includes(value)) {
+          return '用户名已存在'
+        }
+        return true
+      }
+    }
+  ]
+}
+
+const handleSubmit = () => {
+  formRef.value.validate().then(res => {
+    if (res.valid) {
+      console.log('表单验证通过')
+    }
+  })
+}
+</script>
+```
+
+### 部分字段验证
+```vue
+<template>
+  <view>
+    <!-- 部分字段验证 -->
+    <wd-form ref="formRef" v-model="form" :rules="rules">
+      <wd-form-item label="用户名" prop="username">
+        <wd-input v-model="form.username" placeholder="请输入用户名" />
+      </wd-form-item>
+      <wd-form-item label="密码" prop="password">
+        <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
+      </wd-form-item>
+      <wd-form-item label="确认密码" prop="confirmPassword">
+        <wd-input v-model="form.confirmPassword" type="password" placeholder="请确认密码" />
+      </wd-form-item>
+      <wd-button type="primary" @click="validateUsername">验证用户名</wd-button>
+      <wd-button type="primary" @click="validatePasswords">验证密码</wd-button>
+      <wd-button type="primary" @click="validateAll">验证全部</wd-button>
+    </wd-form>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const formRef = ref()
+const form = ref({
+  username: '',
+  password: '',
+  confirmPassword: ''
+})
+
+const rules = {
+  username: [
+    { required: true, message: '请输入用户名' }
+  ],
+  password: [
+    { required: true, message: '请输入密码' },
+    { pattern: /^.{6,20}$/, message: '密码长度应为6-20位' }
+  ],
+  confirmPassword: [
+    { required: true, message: '请确认密码' },
+    {
+      required: true,
+      message: '两次密码输入不一致',
+      validator: (value: string) => {
+        return value === form.value.password
+      }
+    }
+  ]
+}
+
+// 验证单个字段
+const validateUsername = () => {
+  formRef.value.validate('username').then(res => {
+    if (res.valid) {
+      console.log('用户名验证通过')
+    }
+  })
+}
+
+// 验证多个字段
+const validatePasswords = () => {
+  formRef.value.validate(['password', 'confirmPassword']).then(res => {
+    if (res.valid) {
+      console.log('密码验证通过')
+    }
+  })
+}
+
+// 验证所有字段
+const validateAll = () => {
+  formRef.value.validate().then(res => {
+    if (res.valid) {
+      console.log('所有字段验证通过')
+    }
+  })
 }
 </script>
 ```
 
 ### 自定义错误提示方式
-
 ```vue
 <template>
-  <wd-form ref="formRef" v-model="form" :rules="rules" error-type="toast">
-    <wd-form-item prop="username" label="用户名">
-      <wd-input v-model="form.username" placeholder="请输入用户名" />
-    </wd-form-item>
-    <wd-form-item prop="password" label="密码">
-      <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
-    </wd-form-item>
-    <view class="form-actions">
-      <wd-button type="primary" @click="submitForm">提交</wd-button>
-    </view>
-  </wd-form>
+  <view>
+    <!-- 自定义错误提示方式 -->
+    <wd-form 
+      ref="formRef" 
+      v-model="form" 
+      :rules="rules"
+      error-type="toast"
+    >
+      <wd-form-item label="用户名" prop="username">
+        <wd-input v-model="form.username" placeholder="请输入用户名" />
+      </wd-form-item>
+      <wd-form-item label="密码" prop="password">
+        <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
+      </wd-form-item>
+      <wd-button type="primary" @click="handleSubmit">提交</wd-button>
+    </wd-form>
+  </view>
 </template>
 
-<script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import type { FormInstance } from '@/uni_modules/wot-ui-plus/components/wd-form/types'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-const formRef = ref<FormInstance>()
-const form = reactive({
+const formRef = ref()
+const form = ref({
   username: '',
   password: ''
 })
+
 const rules = {
-  username: [{ required: true, message: '请输入用户名' }],
-  password: [{ required: true, message: '请输入密码' }]
+  username: [
+    { required: true, message: '请输入用户名' }
+  ],
+  password: [
+    { required: true, message: '请输入密码' }
+  ]
 }
 
-// 提交表单
-const submitForm = async () => {
-  const { valid, errors } = await formRef.value?.validate()
-  if (valid) {
-    uni.showToast({
-      title: '表单验证通过',
-      icon: 'success'
-    })
-  }
-}
-</script>
-```
-
-### 验证单个字段
-
-```vue
-<template>
-  <wd-form ref="formRef" v-model="form" :rules="rules">
-    <wd-form-item prop="username" label="用户名">
-      <wd-input v-model="form.username" placeholder="请输入用户名" />
-    </wd-form-item>
-    <wd-form-item prop="password" label="密码">
-      <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
-    </wd-form-item>
-    <view class="form-actions">
-      <wd-button type="primary" @click="validateUsername">验证用户名</wd-button>
-      <wd-button type="primary" @click="validateAll">验证所有</wd-button>
-    </view>
-  </wd-form>
-</template>
-
-<script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import type { FormInstance } from '@/uni_modules/wot-ui-plus/components/wd-form/types'
-
-const formRef = ref<FormInstance>()
-const form = reactive({
-  username: '',
-  password: ''
-})
-const rules = {
-  username: [{ required: true, message: '请输入用户名' }],
-  password: [{ required: true, message: '请输入密码' }]
-}
-
-// 验证单个字段
-const validateUsername = async () => {
-  const { valid, errors } = await formRef.value?.validate('username')
-  if (valid) {
-    uni.showToast({
-      title: '用户名验证通过',
-      icon: 'success'
-    })
-  }
-}
-
-// 验证所有字段
-const validateAll = async () => {
-  const { valid, errors } = await formRef.value?.validate()
-  if (valid) {
-    uni.showToast({
-      title: '表单验证通过',
-      icon: 'success'
-    })
-  }
+const handleSubmit = () => {
+  formRef.value.validate().then(res => {
+    if (res.valid) {
+      console.log('表单验证通过')
+    }
+  })
 }
 </script>
 ```
@@ -283,83 +344,29 @@ const validateAll = async () => {
 ## 样式定制指南
 
 ### customStyle 和 customClass
-
-wd-form 组件支持通过 `customStyle` 和 `customClass` 进行样式定制。
-
+使用 `customStyle` 和 `customClass` 属性可以自定义组件的根节点样式：
 ```vue
-<template>
-  <wd-form 
-    v-model="form" 
-    :rules="rules"
-    :custom-style="{ backgroundColor: '#f5f5f5', padding: '20rpx' }"
-    custom-class="custom-form"
-  >
-    <!-- 表单内容 -->
-  </wd-form>
-</template>
+<wd-form 
+  custom-style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;"
+  custom-class="custom-form"
+/>
 
-<style scoped>
+<style>
 .custom-form {
-  /* 自定义类名样式 */
-  border-radius: 10rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **表单数据绑定**：
-   - `model` 属性必须是一个对象，用于存储表单数据
-   - 建议使用 `reactive` 或 `ref` 创建响应式对象
-
-2. **验证规则定义**：
-   - 验证规则可以在 `wd-form` 组件的 `rules` 属性中定义，也可以在 `wd-form-item` 组件的 `rules` 属性中定义
-   - 当两者都定义时，会合并验证规则
-   - 验证规则支持 `required`、`message`、`pattern` 和 `validator` 等属性
-
-3. **验证方法调用**：
-   - 使用 `ref` 获取表单实例，然后调用 `validate` 方法进行验证
-   - `validate` 方法返回一个 Promise，可以使用 `async/await` 处理
-   - 可以通过参数指定验证单个或多个字段
-
-4. **错误提示方式**：
-   - 支持三种错误提示方式：`toast`、`message` 和 `none`
-   - `toast` 方式会弹出提示框，显示第一个错误信息
-   - `message` 方式会在表单字段下方显示错误信息
-   - `none` 方式不显示错误信息，只返回验证结果
-
-5. **性能优化建议**：
-   - 对于复杂表单，建议合理拆分表单字段，避免一次性验证过多字段
-   - 对于频繁变化的字段，可以考虑关闭 `resetOnChange` 属性，减少不必要的验证信息重置
-   - 合理使用 `validator` 函数，避免在验证函数中执行复杂的计算或异步操作
-
-6. **使用限制**：
-   - `wd-form` 组件必须包含 `wd-form-item` 组件才能正常工作
-   - `wd-form-item` 组件的 `prop` 属性必须与 `model` 对象的属性名一致
-   - 组件依赖于 UniApp 环境，无法在纯 Vue 项目中直接使用
-
-7. **事件处理**：
-   - 组件没有定义任何事件，所有交互都通过方法调用和属性绑定实现
-
-## 组件架构与实现
-
-wd-form 组件采用了 Vue 3 的 Composition API 和 TypeScript，主要包含以下部分：
-
-1. **组件主体**：`wd-form.vue`，负责表单的整体管理和验证逻辑
-2. **类型定义**：`types.ts`，包含组件的属性、事件和接口定义
-3. **依赖注入**：使用 Vue 3 的 `provide/inject` 机制，将表单数据和验证规则传递给子组件
-
-组件的核心实现原理：
-
-1. **数据绑定**：通过 `model` 属性实现表单数据的双向绑定
-2. **验证规则**：支持在 `wd-form` 和 `wd-form-item` 组件中定义验证规则
-3. **依赖注入**：使用 `provide` 提供表单上下文，`inject` 获取表单上下文
-4. **表单验证**：实现了 `validate` 方法，支持单个或多个字段的验证
-5. **错误提示**：支持多种错误提示方式，包括 toast、message 和 none
-
-## 总结
-
-wd-form 是一个功能强大、高度可定制的表单组件，与 wd-form-item 组件配合使用，提供了完整的表单解决方案。该组件支持表单数据绑定、自定义验证规则、多种错误提示方式等功能，适用于各种需要表单验证的场景。
-
-通过合理使用 wd-form 组件，可以提高表单开发效率，确保表单数据的准确性和完整性，提升用户体验。在使用过程中，建议根据实际需求调整组件的配置选项，以达到最佳的使用效果。
+1. **父子关系**: Form 组件必须与 FormItem 组件配合使用，FormItem 必须作为 Form 的子组件使用。
+2. **表单数据**: `model` 属性是表单数据对象，必须为响应式对象，通过 `v-model` 双向绑定。
+3. **验证规则**: `rules` 属性是表单验证规则，格式为 { prop: [规则1, 规则2] }，每个规则必须包含 required 和 message 属性。
+4. **验证方法**: `validate` 方法返回 Promise，resolve 的结果包含 valid（是否通过）和 errors（错误信息数组）。
+5. **自定义验证**: 支持通过 validator 函数自定义验证逻辑，支持同步和异步验证。
+6. **错误提示**: `errorType` 属性控制错误提示方式，可选值为 toast（弹窗提示）、message（表单项下方提示）、none（不提示）。
+7. **重置验证**: `reset` 方法用于重置表单的验证状态，清除所有错误提示。
+8. **输入重置**: `resetOnChange` 属性控制输入时是否自动重置验证信息，默认为 true。
+9. **部分验证**: `validate` 方法支持传入字符串或数组，验证指定字段或字段数组。
+10. **异步验证**: 自定义验证函数可以返回 Promise，实现异步验证逻辑。

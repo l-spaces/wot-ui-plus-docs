@@ -1,145 +1,125 @@
-# wd-radio 单选框组件
+# Radio 单选框
 
-## 组件概述
+## 组件概况
 
-wd-radio 是一个功能强大的单选框组件，用于在一组选项中选择一个值。它必须与 wd-radio-group 组件配合使用，提供了多种样式和配置选项，能够满足各种复杂的单选场景需求。组件基于 Vue 3 + TypeScript + UniApp 开发，支持跨平台使用。
+### 组件概述
+单选框组件用于在一组选项中选择一个选项，通常用于表单、设置页、调查问卷等场景。wd-radio 组件提供了灵活的配置选项，支持多种形状、大小、颜色、禁用状态等功能，通常与 wd-radio-group 组件配合使用。
 
-### 功能特点
-
-- 支持多种形状（dot、button、check）
+### 详细功能描述
+- 支持多种形状：dot（圆点）、button（按钮）、check（勾选）
 - 支持自定义选中颜色
 - 支持禁用状态
 - 支持单元格模式
-- 支持自定义大小
-- 支持内联展示
+- 支持不同大小
+- 支持内联布局
+- 支持自定义最大宽度
 - 支持自定义图标位置
-- 支持表单验证
-- 跨平台兼容（H5、小程序、App）
+- 支持自定义样式和类名
+- 与 radio-group 组件配合使用，实现完整的单选功能
 
-### 适用场景
+### 适用业务场景
+- 表单中的单选字段
+- 设置页面的选项选择
+- 调查问卷中的单选题
+- 用户偏好设置
+- 数据筛选选项
 
-- 表单中的单选选择
-- 设置页面中的选项选择
-- 列表中的单选操作
-- 任何需要从一组选项中选择一个值的场景
+## 完整API参考
 
-## API 参考
-
-### wd-radio Props
-
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| value | string \| number \| boolean | - | 是 | 选中时的值 |
-| shape | 'dot' \| 'button' \| 'check' | - | 否 | 单选框的形状，优先级高于 radio-group 的 shape 属性 |
-| checkedColor | string | - | 否 | 选中的颜色，优先级高于 radio-group 的 checkedColor 属性 |
-| disabled | boolean \| null | null | 否 | 是否禁用，优先级高于 radio-group 的 disabled 属性 |
-| cell | boolean \| null | null | 否 | 是否为单元格模式，优先级高于 radio-group 的 cell 属性 |
-| size | string | - | 否 | 大小，优先级高于 radio-group 的 size 属性 |
-| inline | boolean \| null | null | 否 | 是否内联展示，优先级高于 radio-group 的 inline 属性 |
-| maxWidth | string | - | 否 | 标签最大宽度 |
-| iconPlacement | 'left' \| 'right' \| 'auto' | - | 否 | 图标位置，优先级高于 radio-group 的 iconPlacement 属性 |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
-
-### wd-radio-group Props
+### Props属性
 
 | 名称 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| modelValue | string \| number \| boolean | - | 否 | 会自动选中 value 对应的单选框 |
-| shape | 'dot' \| 'button' \| 'check' | 'check' | 否 | 单选框形状 |
-| checkedColor | string | - | 否 | 选中的颜色，默认为 #4D80F0 |
-| disabled | boolean | false | 否 | 是否禁用 |
-| cell | boolean | false | 否 | 表单模式 |
-| size | string | '' | 否 | 设置大小 |
-| inline | boolean | false | 否 | 同行展示 |
-| iconPlacement | 'left' \| 'right' \| 'auto' | 'auto' | 否 | 图标位置 |
-| customStyle | string \| object | - | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| value | string / number / boolean | - | 是 | 选中时的值 |
+| shape | string | - | 否 | 单选框的形状，可选值：dot / button / check |
+| checkedColor | string | - | 否 | 选中的颜色 |
+| disabled | boolean / null | null | 否 | 禁用状态，null 表示继承父组件的 disabled 属性 |
+| cell | boolean / null | null | 否 | 是否为单元格模式，null 表示继承父组件的 cell 属性 |
+| size | string | - | 否 | 大小，可选值：large / medium / small |
+| inline | boolean / null | null | 否 | 是否为内联布局，null 表示继承父组件的 inline 属性 |
+| maxWidth | string | - | 否 | 最大宽度 |
+| iconPlacement | string | - | 否 | 图标位置，可选值：left / right / auto |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| change | 选中值变化时 | { value: 选中的值 } |
-| update:modelValue | 选中值变化时 | 选中的值 |
+该组件没有定义事件，事件由 radio-group 组件统一管理。
 
-### Methods
+### Methods方法
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| - | - | - | - |
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
-| 插槽名 | 作用域变量 | 使用场景说明 |
-|--------|------------|--------------|
-| default | - | 单选框的标签内容 |
+| 插槽名 | 作用域变量 | 使用说明 |
+|--------|------------|----------|
+| default | - | 单选框标签内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
 ### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-radio-group v-model="value">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-      <wd-radio value="3">选项三</wd-radio>
+  <view class="radio-demo">
+    <view class="demo-title">基础用法</view>
+    <wd-radio-group v-model="checkedValue">
+      <wd-radio value="1">选项1</wd-radio>
+      <wd-radio value="2">选项2</wd-radio>
+      <wd-radio value="3">选项3</wd-radio>
     </wd-radio-group>
+    <view class="radio-info">选中值：{{ checkedValue }}</view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const value = ref('1')
+const checkedValue = ref('1')
 </script>
+
+<style scoped>
+.radio-demo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.demo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.radio-info {
+  font-size: 16px;
+  color: #666;
+}
+</style>
 ```
 
 ### 2. 不同形状
 
 ```vue
 <template>
-  <view class="demo">
-    <!-- check 形状 -->
-    <wd-radio-group v-model="value1" shape="check">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
+  <view class="radio-demo">
+    <view class="demo-title">不同形状</view>
+    <view class="demo-subtitle">dot 形状（默认）</view>
+    <wd-radio-group v-model="checkedValue1">
+      <wd-radio value="1" shape="dot">选项1</wd-radio>
+      <wd-radio value="2" shape="dot">选项2</wd-radio>
     </wd-radio-group>
-    
-    <!-- dot 形状 -->
-    <wd-radio-group v-model="value2" shape="dot">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
+    <view class="demo-subtitle">check 形状</view>
+    <wd-radio-group v-model="checkedValue2">
+      <wd-radio value="1" shape="check">选项1</wd-radio>
+      <wd-radio value="2" shape="check">选项2</wd-radio>
     </wd-radio-group>
-    
-    <!-- button 形状 -->
-    <wd-radio-group v-model="value3" shape="button">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const value1 = ref('1')
-const value2 = ref('1')
-const value3 = ref('1')
-</script>
-```
-
-### 3. 内联展示
-
-```vue
-<template>
-  <view class="demo">
-    <wd-radio-group v-model="value" inline>
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-      <wd-radio value="3">选项三</wd-radio>
+    <view class="demo-subtitle">button 形状</view>
+    <wd-radio-group v-model="checkedValue3">
+      <wd-radio value="1" shape="button">选项1</wd-radio>
+      <wd-radio value="2" shape="button">选项2</wd-radio>
     </wd-radio-group>
   </view>
 </template>
@@ -147,190 +127,145 @@ const value3 = ref('1')
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const value = ref('1')
-</script>
-```
-
-### 4. 单元格模式
-
-```vue
-<template>
-  <view class="demo">
-    <wd-radio-group v-model="value" cell>
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-      <wd-radio value="3">选项三</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const value = ref('1')
-</script>
-```
-
-### 5. 自定义样式
-
-```vue
-<template>
-  <view class="demo">
-    <wd-radio-group 
-      v-model="value" 
-      shape="button" 
-      checked-color="#67C23A"
-      custom-class="my-radio-group"
-    >
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-      <wd-radio value="3">选项三</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const value = ref('1')
+const checkedValue1 = ref('1')
+const checkedValue2 = ref('1')
+const checkedValue3 = ref('1')
 </script>
 
-<style lang="scss">
-.my-radio-group {
-  // 自定义类样式
-  .wd-radio {
-    margin-right: 20px;
-    
-    &.is-checked {
-      .wd-radio__label {
-        font-weight: bold;
-      }
-    }
-  }
+<style scoped>
+.demo-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>
+```
+
+### 3. 不同大小
+
+```vue
+<template>
+  <view class="radio-demo">
+    <view class="demo-title">不同大小</view>
+    <wd-radio-group v-model="checkedValue">
+      <wd-radio value="1" size="large">大尺寸</wd-radio>
+      <wd-radio value="2" size="medium">中尺寸</wd-radio>
+      <wd-radio value="3" size="small">小尺寸</wd-radio>
+    </wd-radio-group>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const checkedValue = ref('1')
+</script>
+```
+
+### 4. 禁用状态
+
+```vue
+<template>
+  <view class="radio-demo">
+    <view class="demo-title">禁用状态</view>
+    <wd-radio-group v-model="checkedValue">
+      <wd-radio value="1">可选选项</wd-radio>
+      <wd-radio value="2" disabled>禁用选项</wd-radio>
+      <wd-radio value="3" disabled>禁用选项</wd-radio>
+    </wd-radio-group>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const checkedValue = ref('1')
+</script>
+```
+
+### 5. 按钮样式
+
+```vue
+<template>
+  <view class="radio-demo">
+    <view class="demo-title">按钮样式</view>
+    <wd-radio-group v-model="checkedValue" shape="button">
+      <wd-radio value="1">选项1</wd-radio>
+      <wd-radio value="2">选项2</wd-radio>
+      <wd-radio value="3">选项3</wd-radio>
+    </wd-radio-group>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const checkedValue = ref('1')
+</script>
 ```
 
 ## 样式定制指南
 
-### 1. 使用 customClass 和 customStyle
+### customStyle 用法
+使用 customStyle 属性可以自定义单选框的内联样式，例如修改边距、字体大小等。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-radio-group 
-      v-model="value" 
-      custom-class="my-radio-group"
-      :custom-style="{ backgroundColor: '#f5f7fa', padding: '20px', borderRadius: '8px' }"
-    >
-      <wd-radio value="1" custom-class="my-radio">选项一</wd-radio>
-      <wd-radio value="2" custom-class="my-radio">选项二</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-
-<style lang="scss">
-.my-radio-group {
-  // 自定义组样式
-}
-
-.my-radio {
-  // 自定义单选框样式
-  margin-bottom: 10px;
-  
-  .wd-radio__label {
-    font-size: 16px;
-    color: #303133;
-  }
-  
-  &.is-checked {
-    .wd-radio__label {
-      color: #4D80F0;
-    }
-  }
-}
-</style>
+<wd-radio 
+  value="1" 
+  custom-style="margin-bottom: 15px; font-size: 16px;"
+>
+  自定义样式
+</wd-radio>
 ```
 
-### 2. 自定义选中颜色
+### customClass 用法
+使用 customClass 属性可以为单选框添加自定义样式类，便于在外部 CSS 中进行样式定制。
 
 ```vue
-<template>
-  <view class="demo">
-    <wd-radio-group v-model="value" checked-color="#E6A23C">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-```
+<wd-radio 
+  value="1" 
+  custom-class="my-radio"
+>
+  自定义类名
+</wd-radio>
 
-### 3. 自定义按钮形状样式
-
-```vue
-<template>
-  <view class="demo">
-    <wd-radio-group v-model="value" shape="button" custom-class="custom-button-radio">
-      <wd-radio value="1">选项一</wd-radio>
-      <wd-radio value="2">选项二</wd-radio>
-    </wd-radio-group>
-  </view>
-</template>
-
-<style lang="scss">
-.custom-button-radio {
-  .wd-radio {
-    margin-right: 10px;
-    
-    .wd-radio__label {
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid #dcdfe6;
-    }
-    
-    &.is-checked {
-      .wd-radio__label {
-        border-color: #4D80F0;
-        background-color: rgba(77, 128, 240, 0.1);
-      }
-    }
-  }
+<style scoped>
+:deep(.my-radio) {
+  --wd-radio-checked-color: #4D80F0;
+  --wd-radio-unchecked-color: #C0C4CC;
+  --wd-radio-disabled-color: #C0C4CC;
+  --wd-radio-label-color: #303133;
+  --wd-radio-disabled-label-color: #C0C4CC;
+  --wd-radio-border-color: #DCDFE6;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **组件关系**：
-   - wd-radio 必须在 wd-radio-group 中使用
-   - wd-radio-group 负责管理选中状态和事件触发
+1. **value 属性**：value 是必填属性，表示选中时的值，必须与 radio-group 的 v-model 值类型一致。
 
-2. **值类型**：
-   - modelValue 和 value 属性支持 string、number 和 boolean 类型
-   - 确保两者类型一致，否则可能导致选中状态异常
+2. **shape 属性**：shape 决定了单选框的形状，支持 dot（圆点）、button（按钮）、check（勾选）三种形状。
 
-3. **形状选项**：
-   - 支持三种形状：dot、button、check
-   - 不同形状的样式和交互有所不同
+3. **与 radio-group 配合使用**：wd-radio 组件通常需要与 wd-radio-group 组件配合使用，实现完整的单选功能。radio-group 组件负责管理选中状态和触发事件。
 
-4. **禁用状态**：
-   - 可以通过 wd-radio-group 的 disabled 属性禁用整个组
-   - 也可以通过 wd-radio 的 disabled 属性禁用单个选项
-   - 单个选项的 disabled 属性优先级高于组的 disabled 属性
+4. **继承父组件属性**：当 disabled、cell、inline 等属性为 null 时，会继承父组件 radio-group 的对应属性。
 
-5. **表单验证**：
-   - 可以结合 wd-form 组件使用，实现表单验证
-   - 需要设置 prop 属性和 rules 属性
+5. **disabled 属性**：disabled 用于禁用单选框，禁用后无法点击选择。
 
-6. **性能优化**：
-   - 对于大量选项的场景，建议使用虚拟滚动
-   - 避免在选项中放置过于复杂的内容
+6. **cell 属性**：cell 用于设置单选框为单元格模式，适用于列表中的单选选项。
 
-7. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 某些样式细节可能略有差异
+7. **inline 属性**：inline 用于设置单选框为内联布局，多个单选框会在同一行显示。
 
-8. **自定义样式**：
-   - 可以通过 customClass 和 customStyle 属性自定义样式
-   - 也可以通过 CSS 变量进行样式定制
-   - 建议使用自定义类名进行样式覆盖，避免直接修改组件内部样式
+8. **checkedColor 属性**：checkedColor 用于自定义选中时的颜色。
+
+9. **size 属性**：size 用于设置单选框的大小，支持 large、medium、small 三种大小。
+
+10. **iconPlacement 属性**：iconPlacement 用于设置图标的位置，支持 left、right、auto 三种位置。
+
+11. **性能优化**：对于大量单选框的场景，建议使用 v-for 循环渲染，并为每个单选框设置唯一的 key 值。
+
+12. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在样式方面。
+
+13. **表单验证**：可以与 wd-form 组件配合使用，实现表单验证功能。

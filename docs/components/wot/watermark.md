@@ -1,19 +1,38 @@
-# wd-watermark 水印组件
+# Watermark 水印
 
-## 组件概述
+## 组件概况
 
-wd-watermark 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台水印组件，用于在页面或指定元素上添加文字或图片水印，保护内容版权和防止截图盗用。该组件支持自定义水印内容、颜色、大小、旋转角度、间距等配置，适用于各种需要添加水印的场景，如文档预览、图片展示、数据报表等。
+### 组件概述
+Watermark 是一个用于添加水印效果的组件，支持文本水印和图片水印，可自定义水印的位置、大小、颜色、旋转角度等，适用于保护版权、标识来源等场景。
 
-## API 参考
+### 详细功能描述
+- 支持文本水印和图片水印
+- 可自定义水印的宽度和高度
+- 支持设置水印的旋转角度
+- 支持自定义水印的颜色、字体大小和样式
+- 支持设置水印的透明度
+- 支持全屏水印和局部水印
+- 支持设置水印的层级
+- 支持设置水印之间的间距
+- 自适应不同屏幕尺寸
+- 支持跨平台使用
+
+### 适用业务场景
+- 文档、图片等内容的版权保护
+- 系统界面的品牌标识
+- 敏感信息的来源追踪
+- 任何需要添加水印效果的场景
+
+## 完整API参考
 
 ### Props
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | content | string | '' | 否 | 水印显示内容 |
-| image | string | '' | 否 | 水印图片地址，支持网络图片和base64（钉钉小程序仅支持网络图片） |
-| imageHeight | number | 100 | 否 | 水印图片高度，单位px |
-| imageWidth | number | 100 | 否 | 水印图片宽度，单位px |
+| image | string | '' | 否 | 显示图片的地址，支持网络图片和base64（钉钉小程序仅支持网络图片） |
+| imageHeight | number | 100 | 否 | 图片高度，单位px |
+| imageWidth | number | 100 | 否 | 图片宽度，单位px |
 | gutterX | number | 0 | 否 | X轴间距，单位px |
 | gutterY | number | 0 | 否 | Y轴间距，单位px |
 | width | number | 100 | 否 | canvas画布宽度，单位px |
@@ -22,130 +41,109 @@ wd-watermark 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台水�
 | color | string | '#8c8c8c' | 否 | 水印字体颜色 |
 | size | number | 14 | 否 | 水印字体大小，单位px |
 | fontStyle | string | 'normal' | 否 | 水印字体样式（仅微信和h5支持），可能的值：normal、italic、oblique |
-| fontWeight | string \| number | 'normal' | 否 | 水印字体的粗细（仅微信和h5支持） |
+| fontWeight | number / string | 'normal' | 否 | 水印字体的粗细（仅微信和h5支持） |
 | fontFamily | string | 'PingFang SC' | 否 | 水印字体系列（仅微信和h5支持） |
-| rotate | number | -25 | 否 | 水印旋转角度 |
+| rotate | number | -25 | 否 | 水印旋转角度，单位度 |
 | zIndex | number | 1100 | 否 | 自定义层级 |
 | opacity | number | 0.5 | 否 | 自定义透明度，取值 0~1 |
-| customStyle | string | '' | 否 | 自定义样式 |
-| customClass | string | '' | 否 | 自定义类名 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
 
-该组件无自定义事件。
+该组件没有自定义事件。
 
 ### Methods
 
-该组件无对外暴露的方法。
+该组件没有对外暴露的方法。
 
 ### Slots
 
-该组件无自定义插槽。
+该组件没有插槽。
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 基础文字水印
+### 基础文本水印
 
 ```vue
 <template>
-  <view class="demo-watermark">
-    <wd-watermark content="测试水印"></wd-watermark>
-    <view class="demo-content">
-      <text class="demo-title">基础文字水印示例</text>
-      <text class="demo-desc">这是一个基础的文字水印示例，展示了如何在页面上添加简单的文字水印。</text>
+  <view>
+    <wd-watermark content="测试水印" />
+    <view class="content">
+      <text class="title">基础文本水印示例</text>
+      <text class="description">这是一个使用基础文本水印的示例内容。</text>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-// 无需额外引入
-</script>
-
 <style scoped>
-.demo-watermark {
-  position: relative;
-  height: 100vh;
+.content {
   padding: 20px;
-  background-color: #f5f7fa;
-}
-
-.demo-content {
-  position: relative;
-  z-index: 1;
-  background-color: #fff;
-  padding: 20px;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.demo-title {
-  font-size: 20px;
+.title {
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 16px;
+  color: #303133;
   display: block;
+  margin-bottom: 10px;
 }
 
-.demo-desc {
-  font-size: 16px;
-  color: #666;
+.description {
+  font-size: 14px;
+  color: #606266;
   line-height: 1.5;
 }
 </style>
 ```
 
-### 自定义样式文字水印
+### 自定义文本水印
 
 ```vue
 <template>
-  <view class="demo-watermark">
-    <wd-watermark
-      content="自定义水印"
-      :color="'#409eff'"
-      :size="20"
-      :rotate="-15"
+  <view>
+    <wd-watermark 
+      content="自定义水印" 
+      :rotate="-30"
+      color="#409eff"
+      :size="16"
+      :width="120"
+      :height="60"
+      :gutterX="20"
+      :gutterY="20"
       :opacity="0.3"
-      :fontWeight="'bold'"
-      :fontStyle="'italic'"
-      :fontFamily="'Arial'"
-    ></wd-watermark>
-    <view class="demo-content">
-      <text class="demo-title">自定义样式文字水印示例</text>
-      <text class="demo-desc">这是一个自定义样式的文字水印示例，展示了如何调整水印的颜色、大小、旋转角度、透明度、字体粗细和样式。</text>
+    />
+    <view class="content">
+      <text class="title">自定义文本水印示例</text>
+      <text class="description">这是一个使用自定义样式文本水印的示例内容。</text>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-// 无需额外引入
-</script>
-
 <style scoped>
-.demo-watermark {
-  position: relative;
-  height: 100vh;
+.content {
   padding: 20px;
-  background-color: #f5f7fa;
-}
-
-.demo-content {
-  position: relative;
-  z-index: 1;
-  background-color: #fff;
-  padding: 20px;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.demo-title {
-  font-size: 20px;
+.title {
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 16px;
+  color: #303133;
   display: block;
+  margin-bottom: 10px;
 }
 
-.demo-desc {
-  font-size: 16px;
-  color: #666;
+.description {
+  font-size: 14px;
+  color: #606266;
   line-height: 1.5;
 }
 </style>
@@ -155,66 +153,45 @@ wd-watermark 是一个基于 UniApp + Vue 3 + TypeScript 开发的跨平台水�
 
 ```vue
 <template>
-  <view class="demo-watermark">
-    <wd-watermark
-      :image="imageUrl"
+  <view>
+    <wd-watermark 
+      image="https://example.com/logo.png"
       :imageWidth="80"
       :imageHeight="80"
-      :rotate="0"
-      :opacity="0.5"
-    ></wd-watermark>
-    <view class="demo-content">
-      <text class="demo-title">图片水印示例</text>
-      <text class="demo-desc">这是一个图片水印示例，展示了如何在页面上添加图片水印。</text>
-      <image :src="imageUrl" mode="aspectFit" class="demo-image"></image>
+      :width="100"
+      :height="100"
+      :gutterX="30"
+      :gutterY="30"
+      :opacity="0.4"
+    />
+    <view class="content">
+      <text class="title">图片水印示例</text>
+      <text class="description">这是一个使用图片水印的示例内容。</text>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-// 模拟图片地址
-const imageUrl = ref('https://picsum.photos/200/200?random=1')
-</script>
-
 <style scoped>
-.demo-watermark {
-  position: relative;
-  height: 100vh;
+.content {
   padding: 20px;
-  background-color: #f5f7fa;
-}
-
-.demo-content {
-  position: relative;
-  z-index: 1;
-  background-color: #fff;
-  padding: 20px;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.demo-title {
-  font-size: 20px;
+.title {
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 16px;
+  color: #303133;
   display: block;
+  margin-bottom: 10px;
 }
 
-.demo-desc {
-  font-size: 16px;
-  color: #666;
+.description {
+  font-size: 14px;
+  color: #606266;
   line-height: 1.5;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.demo-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
 }
 </style>
 ```
@@ -223,315 +200,300 @@ const imageUrl = ref('https://picsum.photos/200/200?random=1')
 
 ```vue
 <template>
-  <view class="demo-watermark">
-    <text class="demo-title">局部水印示例</text>
-    <text class="demo-desc">这是一个局部水印示例，展示了如何在指定元素上添加水印，而不是全屏水印。</text>
-    <view class="demo-container">
-      <wd-watermark
-        content="局部水印"
+  <view class="container">
+    <view class="watermark-container">
+      <wd-watermark 
+        content="局部水印" 
         :fullScreen="false"
-        :color="'#f56c6c'"
-        :opacity="0.4"
-      ></wd-watermark>
-      <view class="demo-local-content">
-        <text class="demo-local-title">局部内容区域</text>
-        <text class="demo-local-desc">这是一个局部内容区域，只在该区域内显示水印，而不是全屏显示。</text>
+        custom-class="local-watermark"
+      />
+      <view class="content">
+        <text class="title">局部水印示例</text>
+        <text class="description">这是一个使用局部水印的示例内容。水印仅显示在该容器内。</text>
       </view>
+    </view>
+    <view class="no-watermark-content">
+      <text class="title">无水印区域</text>
+      <text class="description">这是一个没有水印的区域，用于对比局部水印效果。</text>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-// 无需额外引入
-</script>
-
 <style scoped>
-.demo-watermark {
+.container {
   padding: 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
 }
 
-.demo-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.demo-desc {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.demo-container {
+.watermark-container {
   position: relative;
-  background-color: #fff;
-  padding: 20px;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  height: 300px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.demo-local-content {
-  position: relative;
+.local-watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
 }
 
-.demo-local-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  display: block;
+.content {
+  padding: 20px;
+  position: relative;
+  z-index: 2;
 }
 
-.demo-local-desc {
-  font-size: 16px;
-  color: #666;
+.no-watermark-content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #303133;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 14px;
+  color: #606266;
   line-height: 1.5;
 }
 </style>
 ```
 
-### 动态更新水印
+### 复杂布局水印
 
 ```vue
 <template>
-  <view class="demo-watermark">
-    <view class="demo-controls">
-      <text class="demo-label">水印内容：</text>
-      <input v-model="watermarkContent" class="demo-input" placeholder="请输入水印内容" />
-      <wd-button type="primary" @click="updateWatermark" style="margin-top: 10px;">更新水印</wd-button>
-    </view>
-    <wd-watermark :content="watermarkContent" :color="watermarkColor" :size="watermarkSize"></wd-watermark>
-    <view class="demo-content">
-      <text class="demo-title">动态更新水印示例</text>
-      <text class="demo-desc">这是一个动态更新水印的示例，展示了如何通过修改props来实时更新水印内容。</text>
+  <view>
+    <wd-watermark 
+      content="复杂布局水印" 
+      color="#f56c6c"
+      :rotate="-15"
+      :size="12"
+      :width="80"
+      :height="40"
+      :gutterX="10"
+      :gutterY="10"
+      :opacity="0.2"
+    />
+    <view class="complex-layout">
+      <view class="header">
+        <text class="header-title">复杂布局示例</text>
+      </view>
+      <view class="body">
+        <view class="card" v-for="i in 3" :key="i">
+          <text class="card-title">卡片 {{ i }}</text>
+          <text class="card-content">这是卡片 {{ i }} 的内容，用于展示复杂布局下水印的效果。</text>
+        </view>
+      </view>
+      <view class="footer">
+        <text class="footer-text">页脚内容</text>
+      </view>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
-
-// 水印配置
-const watermarkContent = ref('初始水印')
-const watermarkColor = ref('#409eff')
-const watermarkSize = ref(16)
-
-// 更新水印
-function updateWatermark() {
-  // 随机更新水印颜色
-  const colors = ['#409eff', '#67c23a', '#e6a23c', '#f56c6c', '#909399']
-  watermarkColor.value = colors[Math.floor(Math.random() * colors.length)]
-  // 随机更新水印大小
-  watermarkSize.value = Math.floor(Math.random() * 10) + 14
-}
-</script>
-
 <style scoped>
-.demo-watermark {
-  position: relative;
-  height: 100vh;
-  padding: 20px;
-  background-color: #f5f7fa;
-}
-
-.demo-controls {
-  position: relative;
-  z-index: 1;
-  background-color: #fff;
-  padding: 20px;
+.complex-layout {
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.demo-label {
-  font-size: 16px;
-  margin-right: 10px;
+.header {
+  background-color: #409eff;
+  color: white;
+  padding: 15px;
 }
 
-.demo-input {
-  width: 100%;
-  height: 40px;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
-  padding: 0 12px;
-  font-size: 14px;
-  margin-top: 10px;
-  box-sizing: border-box;
-}
-
-.demo-content {
-  position: relative;
-  z-index: 1;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-
-.demo-title {
-  font-size: 20px;
+.header-title {
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 16px;
-  display: block;
 }
 
-.demo-desc {
+.body {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 200px;
+  padding: 15px;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  border: 1px solid #e4e7ed;
+}
+
+.card-title {
   font-size: 16px;
-  color: #666;
+  font-weight: bold;
+  color: #303133;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card-content {
+  font-size: 14px;
+  color: #606266;
   line-height: 1.5;
+}
+
+.footer {
+  background-color: #f5f7fa;
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid #e4e7ed;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #909399;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### 自定义整体样式
-
-通过 `customStyle` 和 `customClass` 属性可以自定义组件的整体样式：
+### 自定义水印层级
 
 ```vue
 <template>
-  <wd-watermark 
-    content="自定义样式水印"
-    customStyle="margin: 20px; padding: 10px; background-color: #f5f7fa; border-radius: 8px;" 
-    customClass="custom-watermark"
-  ></wd-watermark>
+  <view>
+    <wd-watermark 
+      content="层级水印" 
+      :zIndex="1000"
+      :opacity="0.5"
+      color="#67c23a"
+    />
+    <view class="z-index-content">
+      <text class="title">自定义层级水印示例</text>
+      <text class="description">可以通过zIndex属性调整水印的层级，确保水印显示在正确的位置。</text>
+    </view>
+  </view>
 </template>
 
-<style>
-.custom-watermark {
-  /* 自定义样式 */
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+<style scoped>
+.z-index-content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #303133;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 14px;
+  color: #606266;
+  line-height: 1.5;
 }
 </style>
 ```
 
-### 自定义水印样式
-
-通过组件的 props 可以自定义水印的各种样式，如颜色、大小、旋转角度、透明度等：
+### 自定义水印透明度
 
 ```vue
 <template>
-  <wd-watermark
-    content="自定义水印样式"
-    :color="'#409eff'"
-    :size="24"
-    :rotate="-10"
-    :opacity="0.5"
-    :fontWeight="'bold'"
-    :fontStyle="'italic'"
-  ></wd-watermark>
+  <view>
+    <wd-watermark 
+      content="透明度水印" 
+      :opacity="0.1"
+      color="#909399"
+      :size="20"
+      :rotate="0"
+    />
+    <view class="opacity-content">
+      <text class="title">自定义透明度水印示例</text>
+      <text class="description">可以通过opacity属性调整水印的透明度，使水印既可见又不影响内容阅读。</text>
+    </view>
+  </view>
 </template>
-```
 
-### 自定义水印间距
+<style scoped>
+.opacity-content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-通过 `gutterX` 和 `gutterY` 属性可以自定义水印之间的间距：
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #303133;
+  display: block;
+  margin-bottom: 10px;
+}
 
-```vue
-<template>
-  <wd-watermark
-    content="自定义间距水印"
-    :gutterX="50"
-    :gutterY="50"
-  ></wd-watermark>
-</template>
+.description {
+  font-size: 14px;
+  color: #606266;
+  line-height: 1.5;
+}
+</style>
 ```
 
 ## 注意事项
 
-1. **水印类型选择**：
-   - 同时设置 `content` 和 `image` 属性时，优先显示图片水印
-   - 只设置 `content` 属性时，显示文字水印
-   - 只设置 `image` 属性时，显示图片水印
-
-2. **图片水印注意事项**：
-   - 支持网络图片和 base64 格式
+1. **图片水印注意事项**：
+   - 支持网络图片和base64格式
    - 钉钉小程序仅支持网络图片
-   - 建议使用适当大小的图片，避免过大的图片影响性能
+   - 建议使用适当尺寸的图片，避免过大影响性能
 
-3. **全屏水印与局部水印**：
-   - 设置 `fullScreen` 为 `true` 时，水印会覆盖整个屏幕
-   - 设置 `fullScreen` 为 `false` 时，水印只会在父元素内显示
-   - 局部水印需要确保父元素设置了 `position: relative` 或其他定位属性
+2. **文本水印注意事项**：
+   - 可自定义字体大小、颜色、旋转角度等
+   - fontStyle、fontWeight和fontFamily属性仅微信和H5支持
+   - 建议选择合适的字体大小和颜色，确保水印清晰可见又不影响内容阅读
 
-4. **性能优化**：
-   - 组件会根据设备支持情况自动选择使用离屏 Canvas 或普通 Canvas
-   - H5 平台会使用 `document.createElement` 创建 Canvas，不会显示 Canvas 标签
-   - 水印生成后会隐藏 Canvas 元素，只显示生成的水印图片
+3. **性能优化**：
+   - 避免设置过小的间距，导致水印过于密集影响性能
+   - 适当调整透明度，平衡水印可见性和内容可读性
+   - 对于复杂布局，建议测试不同配置下水印的性能表现
 
-5. **动态更新水印**：
-   - 修改任何 props 都会触发水印重新生成
-   - 建议避免频繁更新水印配置，以免影响性能
+4. **跨平台兼容性**：
+   - 组件已做跨平台兼容处理
+   - 不同平台可能存在细微差异，建议在目标平台上测试
 
-6. **多平台适配**：
-   - 组件使用了条件编译处理不同平台的差异
-   - 不同平台的 Canvas API 可能存在差异，组件已做了兼容处理
-   - 建议在不同平台上进行充分测试
+5. **层级问题**：
+   - 可通过zIndex属性调整水印层级
+   - 全屏水印默认层级为1100
+   - 局部水印需要注意容器的position属性，建议设置为relative或absolute
 
-7. **层级问题**：
-   - 水印的默认层级为 1100
-   - 可以通过 `zIndex` 属性自定义层级
-   - 确保水印层级高于内容层级，避免被内容遮挡
+6. **局部水印使用**：
+   - 设置fullScreen为false
+   - 确保容器具有position属性
+   - 水印组件需要作为容器的直接子元素
 
-8. **透明度设置**：
-   - `opacity` 属性取值范围为 0~1
-   - 建议设置适当的透明度，既要起到水印作用，又不要影响内容的可读性
+7. **动态修改**：
+   - 支持动态修改水印的各种属性
+   - 修改属性后会自动重新生成水印
+   - 频繁修改可能影响性能，建议合理使用
 
-## 常见问题解决方案
-
-1. **水印不显示**：
-   - 检查 `content` 或 `image` 属性是否正确设置
-   - 检查父元素是否设置了合适的定位属性
-   - 检查水印层级是否被其他元素遮挡
-
-2. **水印显示异常**：
-   - 检查 Canvas 是否被正确创建
-   - 检查图片地址是否可访问
-   - 检查浏览器是否支持 Canvas API
-
-3. **水印性能问题**：
-   - 避免使用过大的图片水印
-   - 避免频繁更新水印配置
-   - 适当调整水印的大小和间距
-
-4. **多平台兼容性问题**：
-   - 在不同平台上进行充分测试
-   - 注意不同平台 Canvas API 的差异
-   - 对于平台差异，建议使用条件编译进行处理
-
-5. **水印清晰度问题**：
-   - 组件已考虑了设备像素比，会根据像素比调整 Canvas 大小
-   - 建议使用适当的字体大小和图片分辨率
-
-## 性能优化建议
-
-1. **合理设置水印参数**：
-   - 避免使用过大的字体或图片
-   - 适当调整水印的间距，减少水印数量
-   - 避免设置过高的透明度，影响性能
-
-2. **减少水印更新频率**：
-   - 避免频繁修改水印配置
-   - 建议在初始化时设置好水印参数，减少后续更新
-
-3. **使用离屏 Canvas**：
-   - 组件会自动检测是否支持离屏 Canvas
-   - 离屏 Canvas 可以提高性能，避免频繁重绘
-
-4. **优化图片加载**：
-   - 图片水印建议使用适当大小的图片
-   - 可以考虑使用 WebP 格式的图片，减小图片体积
-   - 对于网络图片，可以考虑使用 CDN 加速
-
-5. **避免过度使用水印**：
-   - 只在必要的场景下使用水印
-   - 避免在性能敏感的页面过度使用水印
+8. **调试建议**：
+   - 开发时可设置较高的透明度，便于调试
+   - 测试时建议在不同设备和屏幕尺寸下验证效果
+   - 可通过调整rotate属性改变水印的倾斜角度，适应不同设计需求

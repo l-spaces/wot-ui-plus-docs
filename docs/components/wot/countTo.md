@@ -1,22 +1,33 @@
-# 数字滚动组件（wd-count-to）
+# CountTo 数字动画
 
-## 组件概述
+## 组件概况
 
-wd-count-to 是一个数字滚动动画组件，用于实现从起始值到结束值的平滑过渡动画效果。该组件支持自定义动画时长、缓动函数、数字格式等，可广泛应用于数据统计、倒计时、价格变化等场景，为用户提供生动直观的数据展示体验。
+### 组件概述
+CountTo 数字动画组件是一个用于数字从起始值平滑过渡到目标值的动画组件，支持自定义动画时长、小数位数、格式以及前缀后缀等，适用于各种需要数字动画效果的场景。
 
-### 适用场景
+### 详细功能描述
+- 支持从起始值到结束值的平滑动画过渡
+- 可自定义动画时长
+- 支持自定义小数位数
+- 支持自定义数字格式（千位分隔符、小数点）
+- 支持前缀和后缀
+- 支持自动开始和手动控制
+- 支持缓动效果
+- 提供多种主题类型
+- 支持自定义样式
 
-- 数据统计页面的数字增长动画
-- 倒计时功能（如活动倒计时、秒杀倒计时等）
-- 价格变化动画（如商品价格调整、股票价格变动等）
-- 进度展示（如任务完成进度、加载进度等）
-- 任何需要数字平滑过渡效果的场景
+### 适用业务场景
+- 数据统计展示
+- 数字增长动画
+- 倒计时数字变化
+- 价格变动展示
+- 加载进度展示
+- 各种需要数字动画效果的场景
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
 | fontSize | number | 16 | 否 | 字体大小 |
 | color | string | '' | 否 | 文本颜色 |
@@ -24,228 +35,414 @@ wd-count-to 是一个数字滚动动画组件，用于实现从起始值到结�
 | startVal | number | 0 | 否 | 起始值 |
 | endVal | number | 2024 | 否 | 最终值 |
 | duration | number | 3000 | 否 | 从起始值到结束值数字变动的时间，单位毫秒 |
-| autoStart | boolean | true | 否 | 是否自动开始动画 |
-| decimals | number | 0 | 否 | 保留的小数位数，必须大于等于 0 |
+| autoStart | boolean | true | 否 | 是否自动开始 |
+| decimals | number | 0 | 否 | 保留的小数位数，大于等于0 |
 | decimal | string | '.' | 否 | 小数点符号 |
-| separator | string | ',' | 否 | 三位数字的分隔符，用于千分位显示 |
-| prefix | string | '' | 否 | 数字前缀，如货币符号 "¥" |
-| suffix | string | '' | 否 | 数字后缀，如单位 "%" |
-| useEasing | boolean | true | 否 | 是否使用缓动函数，开启后动画更流畅 |
-| customStyle | string | '' | 否 | 自定义根节点样式，如 'margin: 10px; color: red;' |
-| customClass | string | '' | 否 | 自定义根节点样式类，如 'custom-class1 custom-class2' |
+| separator | string | ',' | 否 | 千位分隔符 |
+| prefix | string | '' | 否 | 前缀 |
+| suffix | string | '' | 否 | 后缀 |
+| useEasing | boolean | true | 否 | 是否使用缓动效果 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
-
-| 事件名 | 触发条件 | 参数说明 |
+| 名称 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| mounted | 组件挂载完成时触发 | 无 |
-| finish | 数字滚动动画结束时触发 | 无 |
+| mounted | 组件挂载时 | 无 |
+| finish | 数字动画结束时 | 无 |
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
+| 名称 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
-| start | 无 | 无 | 开始数字滚动动画 |
-| pause | 无 | 无 | 暂停数字滚动动画 |
-| reset | 无 | 无 | 重置数字滚动动画，若 autoStart 为 true，重设后会自动开始动画 |
+| start | - | - | 开始数字动画 |
+| pause | - | - | 暂停数字动画 |
+| reset | - | - | 重置数字动画，若 autoStart 为 true，重置后会自动开始 |
 
 ### Slots
-
-| 插槽名 | 作用域变量 | 描述 |
+| 名称 | 作用域变量 | 说明 |
 | --- | --- | --- |
-| default | 无 | 默认插槽，用于自定义数字内容的显示方式 |
-| prefix | 无 | 前缀插槽，用于自定义数字前缀的显示方式 |
-| suffix | 无 | 后缀插槽，用于自定义数字后缀的显示方式 |
+| default | - | 自定义数字内容 |
+| prefix | - | 自定义前缀内容 |
+| suffix | - | 自定义后缀内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
-  <wd-count-to :end-val="1000" />
+  <view class="demo-container">
+    <text class="title">基础数字动画</text>
+    <wd-count-to :start-val="0" :end-val="100"></wd-count-to>
+  </view>
 </template>
+
+<script lang="ts" setup>
+import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+</style>
 ```
 
-### 自定义样式
-
+### 2. 自定义时长和小数位数
 ```vue
 <template>
-  <wd-count-to
-    :end-val="1000"
-    :font-size="24"
-    color="#1989fa"
-    type="primary"
-  />
+  <view class="demo-container">
+    <text class="title">自定义时长和小数位数</text>
+    <wd-count-to 
+      :start-val="0" 
+      :end-val="100" 
+      :duration="5000" 
+      :decimals="2"
+      suffix="%"
+      custom-class="count-to-custom"
+    ></wd-count-to>
+  </view>
 </template>
+
+<script lang="ts" setup>
+import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.count-to-custom {
+  font-size: 24px;
+  color: #4d80f0;
+}
+</style>
 ```
 
-### 带前缀后缀
-
+### 3. 手动控制
 ```vue
 <template>
-  <wd-count-to
-    :end-val="1234.56"
-    :decimals="2"
-    prefix="¥"
-    suffix="元"
-  />
-</template>
-```
-
-### 自定义动画时长
-
-```vue
-<template>
-  <wd-count-to
-    :end-val="1000"
-    :duration="5000"
-  />
-</template>
-```
-
-### 手动控制
-
-```vue
-<template>
-  <view>
-    <wd-count-to
-      ref="countToRef"
-      :end-val="1000"
+  <view class="demo-container">
+    <text class="title">手动控制数字动画</text>
+    <wd-count-to 
+      ref="countToRef" 
+      :start-val="0" 
+      :end-val="1000" 
       :auto-start="false"
-    />
-    <view class="btn-group">
-      <wd-button @click="start">开始</wd-button>
-      <wd-button @click="pause">暂停</wd-button>
-      <wd-button @click="reset">重置</wd-button>
+      custom-class="count-to-manual"
+    ></wd-count-to>
+    
+    <view class="control-buttons">
+      <button @click="handleStart">开始</button>
+      <button @click="handlePause">暂停</button>
+      <button @click="handleReset">重置</button>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { CountToInstance } from '@/uni_modules/wot-ui-plus/components/wd-count-to/types'
+import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
 
-const countToRef = ref<CountToInstance>()
+const countToRef = ref()
 
-const start = () => {
-  countToRef.value?.start()
+// 开始动画
+const handleStart = () => {
+  countToRef.value.start()
 }
 
-const pause = () => {
-  countToRef.value?.pause()
+// 暂停动画
+const handlePause = () => {
+  countToRef.value.pause()
 }
 
-const reset = () => {
-  countToRef.value?.reset()
+// 重置动画
+const handleReset = () => {
+  countToRef.value.reset()
 }
 </script>
-```
-
-### 自定义数字格式
-
-```vue
-<template>
-  <wd-count-to
-    :end-val="1234567.89"
-    :decimals="2"
-    separator=","
-    decimal="."
-  />
-</template>
-```
-
-### 使用插槽自定义内容
-
-```vue
-<template>
-  <wd-count-to :end-val="100">
-    <template #prefix>
-      <view class="custom-prefix">当前值：</view>
-    </template>
-    <template #default>
-      <view class="custom-number">{{ timeText }}</view>
-    </template>
-    <template #suffix>
-      <view class="custom-suffix">%</view>
-    </template>
-  </wd-count-to>
-</template>
 
 <style scoped>
-.custom-prefix {
-  color: #909399;
-  font-size: 14px;
+.demo-container {
+  padding: 20px;
 }
 
-.custom-number {
-  color: #1989fa;
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.count-to-manual {
   font-size: 20px;
-  font-weight: bold;
+  color: #67C23A;
+  margin-bottom: 20px;
+  display: block;
 }
 
-.custom-suffix {
-  color: #909399;
+.control-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4d80f0;
+  color: white;
+  border: none;
+  border-radius: 4px;
   font-size: 14px;
 }
 </style>
 ```
 
-## 样式定制
-
-### 通过 customStyle 自定义样式
-
+### 4. 自定义格式和前缀后缀
 ```vue
 <template>
-  <wd-count-to
-    :end-val="1000"
-    custom-style="margin: 10px; color: #67c23a; font-weight: bold;"
-  />
+  <view class="demo-container">
+    <text class="title">自定义格式和前缀后缀</text>
+    
+    <!-- 价格格式 -->
+    <wd-count-to 
+      :start-val="0" 
+      :end-val="12345.67" 
+      :decimals="2" 
+      prefix="¥" 
+      custom-class="count-to-price"
+    ></wd-count-to>
+    
+    <!-- 大数字格式 -->
+    <wd-count-to 
+      :start-val="0" 
+      :end-val="1000000" 
+      suffix=" 次" 
+      custom-class="count-to-large"
+    ></wd-count-to>
+    
+    <!-- 自定义千位分隔符 -->
+    <wd-count-to 
+      :start-val="0" 
+      :end-val="5000000" 
+      separator=" " 
+      suffix=" 元" 
+      custom-class="count-to-separator"
+    ></wd-count-to>
+  </view>
 </template>
-```
 
-### 通过 customClass 自定义样式
+<script lang="ts" setup>
+import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
+</script>
 
-```vue
-<template>
-  <wd-count-to
-    :end-val="1000"
-    custom-class="custom-count-to"
-  />
-</template>
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
 
-<style>
-.custom-count-to {
-  margin: 10px;
-  color: #67c23a;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+.title {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.count-to-price,
+.count-to-large,
+.count-to-separator {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #F56C6C;
 }
 </style>
+```
+
+### 5. 主题类型和自定义样式
+```vue
+<template>
+  <view class="demo-container">
+    <text class="title">主题类型和自定义样式</text>
+    
+    <!-- 不同主题类型 -->
+    <wd-count-to :end-val="100" type="primary" custom-class="count-to-type"></wd-count-to>
+    <wd-count-to :end-val="100" type="success" custom-class="count-to-type"></wd-count-to>
+    <wd-count-to :end-val="100" type="warning" custom-class="count-to-type"></wd-count-to>
+    <wd-count-to :end-val="100" type="error" custom-class="count-to-type"></wd-count-to>
+    
+    <!-- 自定义颜色和大小 -->
+    <wd-count-to 
+      :end-val="2024" 
+      :font-size="30" 
+      color="#909399" 
+      suffix=" 年"
+      custom-class="count-to-custom-style"
+    ></wd-count-to>
+    
+    <!-- 自定义前缀和后缀插槽 -->
+    <wd-count-to :start-val="0" :end-val="50" :duration="2000">
+      <template #prefix>
+        <wd-icon name="star" custom-class="custom-prefix"></wd-icon>
+      </template>
+      <template #suffix>
+        <wd-icon name="star" custom-class="custom-suffix"></wd-icon>
+      </template>
+    </wd-count-to>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
+import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.count-to-type {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.count-to-custom-style {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.custom-prefix,
+.custom-suffix {
+  color: #E6A23C;
+  font-size: 20px;
+  margin: 0 5px;
+}
+</style>
+```
+
+## 样式定制指南
+
+### customStyle 和 customClass
+通过 `customStyle` 和 `customClass` 属性可以自定义 CountTo 组件本身的样式。
+
+```vue
+<wd-count-to 
+  :end-val="100" 
+  custom-class="my-count-to"
+  :custom-style="{ fontSize: '24px', color: '#67C23A' }"
+></wd-count-to>
+```
+
+### 主题类型
+通过 `type` 属性可以设置不同的主题类型。
+
+```vue
+<wd-count-to :end-val="100" type="primary"></wd-count-to>
+<wd-count-to :end-val="100" type="success"></wd-count-to>
+<wd-count-to :end-val="100" type="warning"></wd-count-to>
+<wd-count-to :end-val="100" type="error"></wd-count-to>
+```
+
+### fontSize 和 color
+通过 `fontSize` 和 `color` 属性可以自定义数字的字体大小和颜色。
+
+```vue
+<wd-count-to 
+  :end-val="100" 
+  :font-size="30" 
+  color="#4d80f0"
+></wd-count-to>
+```
+
+### 自定义前缀和后缀
+通过 `prefix` 和 `suffix` 属性或插槽可以自定义数字的前缀和后缀。
+
+```vue
+<!-- 使用属性 -->
+<wd-count-to :end-val="100" prefix="¥" suffix="元"></wd-count-to>
+
+<!-- 使用插槽 -->
+<wd-count-to :end-val="100">
+  <template #prefix>
+    <!-- 自定义前缀 -->
+  </template>
+  <template #suffix>
+    <!-- 自定义后缀 -->
+  </template>
+</wd-count-to>
 ```
 
 ## 注意事项
 
-1. **性能优化**：
-   - 对于大量数字滚动场景，建议合理设置动画时长，避免过长的动画时间影响性能
-   - 当需要频繁更新数字时，建议使用 `reset` 方法重置动画，而不是重新创建组件
+### 常见问题解决方案
+1. **动画不自动开始**：
+   - 检查 `autoStart` 属性是否为 `true`
+   - 确认组件是否已正确挂载
 
-2. **数据类型**：
-   - `startVal` 和 `endVal` 必须为数字类型，否则会导致动画异常
-   - `duration` 必须为正数，否则动画会立即完成
+2. **小数位数不生效**：
+   - 确保 `decimals` 属性设置正确
+   - 检查是否为非负整数
 
-3. **跨平台兼容**：
-   - 组件使用了 UniApp 的条件编译，确保在各平台上正常运行
-   - 在小程序平台上，建议避免在同一页面使用过多的数字滚动组件，以免影响性能
+3. **格式不生效**：
+   - 确保 `separator` 和 `decimal` 属性设置正确
+   - 检查是否包含不支持的字符
 
-4. **自定义插槽**：
-   - 当使用自定义插槽时，默认的数字显示逻辑会被替换，需要自行处理数字的格式化和显示
-   - 自定义插槽中的内容会继承组件的主题样式，可以通过 CSS 覆盖来自定义样式
+4. **方法调用无效**：
+   - 确保组件引用正确获取
+   - 检查方法名称是否正确
+   - 确认组件是否已挂载
 
-5. **事件监听**：
-   - `finish` 事件在动画完成后触发，可用于执行后续操作
-   - `mounted` 事件在组件挂载完成后触发，可用于初始化数据或执行其他操作
+5. **动画不准确**：
+   - 避免频繁重置动画
+   - 确保设备性能良好
+   - 考虑降低动画时长
 
-6. **方法调用**：
-   - 组件方法需要通过 `ref` 获取组件实例后调用
-   - 调用 `reset` 方法后，组件会重置到初始状态，若 `autoStart` 为 `true`，会自动开始新的动画
+### 性能优化建议
+- 避免在短时间内频繁创建和销毁组件
+- 减少组件上的复杂样式和动画
+- 对于大量数字动画，考虑分批加载
+- 避免在动画过程中修改组件属性
+
+### 使用限制条件
+- `decimals` 属性必须为非负整数
+- 动画时长不宜过长，建议在 1-5 秒之间
+- 过大的数字可能导致动画效果不明显
+- 页面切换时可能导致动画中断
+
+## 组件源码
+组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-count-to/` 目录下，包含以下文件：
+- `wd-count-to.vue`：组件主文件，实现核心逻辑和模板
+- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
+- `index.scss`：组件样式文件
+
+## 版本更新记录
+
+| 版本 | 更新内容 |
+| --- | --- |
+| 1.0.0 | 初始版本，实现基础数字动画功能 |
+| 1.1.0 | 新增自定义格式和前缀后缀支持 |
+| 1.2.0 | 优化动画效果和性能 |
+| 1.3.0 | 新增手动控制方法 |
+| 1.4.0 | 新增主题类型支持 |
+| 1.5.0 | 修复动画结束时的精度问题 |

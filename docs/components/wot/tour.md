@@ -1,38 +1,37 @@
 # Tour 引导
 
-## 组件概述
+## 组件概况
 
-wd-tour 是一个用于应用首次使用引导的组件，通过高亮目标元素并显示引导信息，帮助用户快速了解应用的核心功能和操作流程。它支持多步骤引导、自定义样式、灵活的位置调整和交互方式，是提升用户体验的重要工具。
+### 组件概述
+Tour 是一种用于新用户引导的组件，它通过高亮页面中的特定元素并显示提示信息，引导用户了解产品的主要功能和操作流程。
 
-### 功能特点
-- 支持多步骤引导流程
-- 自动高亮目标元素
-- 智能调整引导框位置（上方或下方）
-- 支持自定义引导内容和按钮
-- 支持蒙版效果
-- 支持键盘导航
-- 支持点击蒙版切换步骤
-- 支持自定义样式和动画
-- 支持响应式设计
+### 详细功能描述
+- 支持多步骤引导，可定义多个高亮元素和提示内容
+- 自动计算高亮元素位置，并智能调整提示框位置
+- 支持点击蒙版或按钮切换步骤
+- 可自定义蒙版样式、高亮区域样式和提示框内容
+- 支持上一步、下一步、跳过和完成等操作
+- 提供丰富的事件回调，便于控制引导流程
+- 支持自定义按钮文本和样式
+- 支持动画效果和过渡
 
-### 适用场景
-- 应用首次使用引导
-- 新功能上线引导
-- 复杂操作流程引导
-- 用户教育和培训
+### 适用业务场景
+- 新用户首次使用产品时的功能引导
+- 产品更新后新增功能的引导提示
+- 复杂操作流程的分步引导
+- 重点功能的突出展示
+- 降低用户学习成本，提高产品易用性
 
-## API 参考
+## 完整API参考
 
 ### Props
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | modelValue | boolean | false | 否 | 是否显示引导组件，使用 v-model 绑定 |
-| steps | array | [] | 否 | 引导步骤列表，每个步骤包含 element（选择器）和 content（引导内容） |
-| current | number | 0 | 否 | 引导框的当前步骤索引 |
-| mask | boolean | true | 否 | 蒙版是否显示 |
+| steps | array | [] | 否 | 引导步骤列表，每个步骤包含 element（需要高亮的元素选择器）和 content（引导文字内容） |
+| current | number | 0 | 否 | 当前引导步骤索引 |
+| mask | boolean | true | 否 | 是否显示蒙版 |
 | maskColor | string | 'rgba(0, 0, 0, 0.5)' | 否 | 蒙版颜色（支持 rgba 格式） |
 | offset | number | 20 | 否 | 引导框与高亮元素之间的间距 |
 | duration | number | 300 | 否 | 动画持续时间（毫秒） |
@@ -42,59 +41,62 @@ wd-tour 是一个用于应用首次使用引导的组件，通过高亮目标元
 | nextText | string | '下一步' | 否 | 下一步按钮文字 |
 | skipText | string | '跳过' | 否 | 跳过按钮文字 |
 | finishText | string | '完成' | 否 | 完成按钮文字 |
-| bottomSafetyOffset | number | 100 | 否 | 安全偏移量，用于滚动计算时确保元素周围有足够的空间 |
+| bottomSafetyOffset | number | 100 | 否 | 底部安全偏移量，用于滚动计算时确保元素周围有足够的空间 |
 | topSafetyOffset | number | 0 | 否 | 顶部安全偏移量，用于滚动计算时确保元素周围有足够的空间 |
 | customNav | boolean | false | 否 | 是否自定义顶部导航栏 |
-| clickMaskNext | boolean | false | 否 | 点击蒙版是否可以下一步 |
+| clickMaskNext | boolean | false | 否 | 点击蒙版是否可以切换到下一步 |
 | highlightStyle | object | {} | 否 | 高亮区域样式 |
 | zIndex | number | 999998 | 否 | 引导框的层级 |
 | showTourButtons | boolean | true | 否 | 是否显示引导按钮 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| update:modelValue | 引导组件显示状态变化时触发 | value: boolean - 当前显示状态 |
-| update:current | 当前步骤变化时触发 | value: number - 当前步骤索引 |
-| change | 当前步骤变化时触发 | value: number - 当前步骤索引 |
-| prev | 点击上一步按钮时触发 | { oldCurrent: number, current: number, total: number, isUp: number } - 包含旧索引、当前索引、总步骤数和方向信息 |
-| next | 点击下一步按钮时触发 | { oldCurrent: number, current: number, total: number, isUp: number } - 包含旧索引、当前索引、总步骤数和方向信息 |
-| finish | 点击完成按钮时触发 | { current: number, total: number } - 包含当前索引和总步骤数 |
-| skip | 点击跳过按钮时触发 | { current: number, total: number } - 包含当前索引和总步骤数 |
-| error | 无法找到指定元素时触发 | { message: string, element: string } - 包含错误信息和目标元素选择器 |
-
-### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| highlight | elementInfo: object - 高亮元素信息 | 自定义高亮元素样式 |
-| content | - | 自定义引导内容 |
-| prev | - | 自定义上一步按钮 |
-| skip | - | 自定义跳过按钮 |
-| next | - | 自定义下一步按钮 |
-| finish | - | 自定义完成按钮 |
+|--------|----------|----------|
+| update:modelValue | 引导组件显示/隐藏状态变化时 | 新的状态值（boolean） |
+| update:current | 当前引导步骤索引变化时 | 新的步骤索引（number） |
+| change | 当前引导步骤变化时 | 新的步骤索引（number） |
+| prev | 点击上一步按钮时 | 包含oldCurrent（旧索引）、current（新索引）、total（总步骤数）、isUp（是否向上）的对象 |
+| next | 点击下一步按钮时 | 包含oldCurrent（旧索引）、current（新索引）、total（总步骤数）、isUp（是否向上）的对象 |
+| finish | 点击完成按钮时 | 包含current（当前索引）、total（总步骤数）的对象 |
+| skip | 点击跳过按钮时 | 包含current（当前索引）、total（总步骤数）的对象 |
+| error | 无法找到指定的引导元素时 | 包含message（错误信息）、element（元素选择器）的对象 |
 
 ### Methods
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| handlePrev | - | - | 切换到上一步 |
-| handleNext | - | - | 切换到下一步 |
-| handleFinish | - | - | 完成引导流程 |
-| handleSkip | - | - | 跳过引导流程 |
+|--------|------|--------|----------|
+| handlePrev | 无 | 无 | 切换到上一步 |
+| handleNext | 无 | 无 | 切换到下一步 |
+| handleFinish | 无 | 无 | 完成引导 |
+| handleSkip | 无 | 无 | 跳过引导 |
 
-## 使用示例
+### Slots
+
+| 插槽名 | 作用域变量 | 使用说明 |
+|--------|------------|----------|
+| highlight | elementInfo（高亮元素信息） | 自定义高亮区域样式和内容 |
+| content | 无 | 自定义引导框内容 |
+| prev | 无 | 自定义上一步按钮 |
+| skip | 无 | 自定义跳过按钮 |
+| next | 无 | 自定义下一步按钮 |
+| finish | 无 | 自定义完成按钮 |
+
+## 多场景使用示例代码
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTour = true">开始引导</wd-button>
-    <view class="target" id="target1">目标元素1</view>
-    <view class="target" id="target2">目标元素2</view>
-    <view class="target" id="target3">目标元素3</view>
-    
+  <view>
+    <wd-button type="primary" id="button1" @click="showTour = true">开始引导</wd-button>
+    <view class="content">
+      <view id="element1" class="element">元素1</view>
+      <view id="element2" class="element">元素2</view>
+      <view id="element3" class="element">元素3</view>
+    </view>
     <wd-tour v-model="showTour" :steps="steps" />
   </view>
 </template>
@@ -103,36 +105,44 @@ wd-tour 是一个用于应用首次使用引导的组件，通过高亮目标元
 import { ref } from 'vue'
 
 const showTour = ref(false)
+
 const steps = ref([
   {
-    element: '#target1',
-    content: '这是第一个目标元素的引导信息'
+    element: '#button1',
+    content: '点击此按钮开始引导'
   },
   {
-    element: '#target2',
-    content: '这是第二个目标元素的引导信息'
+    element: '#element1',
+    content: '这是第一个需要注意的元素'
   },
   {
-    element: '#target3',
-    content: '这是第三个目标元素的引导信息'
+    element: '#element2',
+    content: '这是第二个需要注意的元素'
+  },
+  {
+    element: '#element3',
+    content: '这是第三个需要注意的元素'
   }
 ])
 </script>
 
 <style scoped>
-.demo {
-  padding: 20px;
+.content {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
+  padding: 20px;
 }
 
-.target {
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
+.element {
+  width: 200px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 </style>
 ```
@@ -141,21 +151,17 @@ const steps = ref([
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTour = true">自定义样式引导</wd-button>
-    <view class="target" id="custom-target">自定义样式目标元素</view>
-    
+  <view>
+    <wd-button type="primary" id="custom-button" @click="showCustomTour = true">自定义样式引导</wd-button>
     <wd-tour 
-      v-model="showTour" 
-      :steps="steps" 
-      :mask-color="'rgba(0, 0, 0, 0.3)'" 
-      :border-radius="12" 
-      :padding="12" 
-      :offset="30"
-      prev-text="上一步"
-      next-text="下一步"
-      finish-text="完成"
-      skip-text="跳过"
+      v-model="showCustomTour" 
+      :steps="customSteps" 
+      :mask="true" 
+      mask-color="rgba(0, 0, 0, 0.3)" 
+      :offset="10" 
+      :duration="500"
+      :border-radius="12"
+      :padding="10"
     />
   </view>
 </template>
@@ -163,60 +169,67 @@ const steps = ref([
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const showTour = ref(false)
-const steps = ref([
+const showCustomTour = ref(false)
+
+const customSteps = ref([
   {
-    element: '#custom-target',
-    content: '这是自定义样式的引导信息'
+    element: '#custom-button',
+    content: '这是一个自定义样式的引导提示'
   }
 ])
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #1989fa;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-}
-</style>
 ```
 
-### 自定义内容和按钮
+### 自定义按钮文本
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTour = true">自定义内容引导</wd-button>
-    <view class="target" id="custom-content-target">自定义内容目标元素</view>
-    
-    <wd-tour v-model="showTour" :steps="steps">
+  <view>
+    <wd-button type="primary" id="custom-text-button" @click="showTextTour = true">自定义按钮文本</wd-button>
+    <wd-tour 
+      v-model="showTextTour" 
+      :steps="textSteps" 
+      prev-text="上一步骤" 
+      next-text="下一步骤" 
+      skip-text="跳过引导" 
+      finish-text="完成引导"
+    />
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const showTextTour = ref(false)
+
+const textSteps = ref([
+  {
+    element: '#custom-text-button',
+    content: '这是一个自定义按钮文本的引导提示'
+  }
+])
+</script>
+```
+
+### 使用插槽自定义内容
+
+```vue
+<template>
+  <view>
+    <wd-button type="primary" id="slot-button" @click="showSlotTour = true">自定义插槽内容</wd-button>
+    <wd-tour v-model="showSlotTour" :steps="slotSteps">
       <template #content>
         <view class="custom-content">
-          <view class="title">自定义引导标题</view>
-          <view class="desc">这是自定义的引导内容，可以包含更丰富的样式和结构</view>
+          <wd-icon name="info" size="24" color="#409eff" />
+          <text class="title">自定义标题</text>
+          <text class="desc">这是一段自定义的引导内容，可以包含图标、文字和样式。</text>
         </view>
       </template>
-      <template #prev>
-        <view class="custom-btn prev-btn">上一步</view>
-      </template>
       <template #next>
-        <view class="custom-btn next-btn">下一步</view>
+        <wd-button type="primary" size="small">下一步</wd-button>
       </template>
       <template #finish>
-        <view class="custom-btn finish-btn">完成</view>
-      </template>
-      <template #skip>
-        <view class="custom-btn skip-btn">跳过</view>
+        <wd-button type="success" size="small">完成</wd-button>
       </template>
     </wd-tour>
   </view>
@@ -225,92 +238,48 @@ const steps = ref([
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const showTour = ref(false)
-const steps = ref([
+const showSlotTour = ref(false)
+
+const slotSteps = ref([
   {
-    element: '#custom-content-target',
+    element: '#slot-button',
     content: ''
   }
 ])
 </script>
 
 <style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #07c160;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-}
-
 .custom-content {
   padding: 20px;
-  text-align: left;
+  text-align: center;
 }
 
 .title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: #333;
+  display: block;
+  margin: 10px 0;
 }
 
 .desc {
   font-size: 14px;
   color: #666;
-}
-
-.custom-btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.prev-btn {
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-.next-btn {
-  background-color: #1989fa;
-  color: white;
-}
-
-.finish-btn {
-  background-color: #07c160;
-  color: white;
-}
-
-.skip-btn {
-  background-color: transparent;
-  color: #666;
+  line-height: 1.4;
 }
 </style>
 ```
 
-### 点击蒙版切换步骤
+### 点击蒙版切换下一步
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTour = true">点击蒙版切换步骤</wd-button>
-    <view class="target" id="mask-target1">目标元素1</view>
-    <view class="target" id="mask-target2">目标元素2</view>
-    <view class="target" id="mask-target3">目标元素3</view>
-    
+  <view>
+    <wd-button type="primary" id="mask-button" @click="showMaskTour = true">点击蒙版切换</wd-button>
     <wd-tour 
-      v-model="showTour" 
-      :steps="steps" 
-      :click-mask-next="true"
-      :mask-color="'rgba(0, 0, 0, 0.6)'"
+      v-model="showMaskTour" 
+      :steps="maskSteps" 
+      click-mask-next
     />
   </view>
 </template>
@@ -318,229 +287,74 @@ const steps = ref([
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const showTour = ref(false)
-const steps = ref([
+const showMaskTour = ref(false)
+
+const maskSteps = ref([
   {
-    element: '#mask-target1',
-    content: '点击蒙版切换到下一步'
+    element: '#mask-button',
+    content: '点击蒙版可以切换到下一步'
   },
   {
-    element: '#mask-target2',
-    content: '继续点击蒙版切换到下一步'
-  },
-  {
-    element: '#mask-target3',
-    content: '最后一步，点击蒙版完成引导'
+    element: '#mask-button',
+    content: '这是第二步，继续点击蒙版完成引导'
   }
 ])
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #ff976a;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-}
-</style>
 ```
 
-### 无蒙版引导
+## 样式定制指南
+
+### 自定义高亮区域样式
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTour = true">无蒙版引导</wd-button>
-    <view class="target" id="no-mask-target">无蒙版目标元素</view>
-    
+  <view>
+    <wd-button type="primary" id="style-button" @click="showStyleTour = true">自定义高亮样式</wd-button>
     <wd-tour 
-      v-model="showTour" 
-      :steps="steps" 
-      :mask="false"
-      :highlight-style="{ boxShadow: '0 0 0 2px #1989fa' }"
-    />
+      v-model="showStyleTour" 
+      :steps="styleSteps" 
+      :highlight-style="highlightStyle"
+    >
+      <template #highlight="{ elementInfo }">
+        <view class="custom-highlight" :style="elementInfo"></view>
+      </template>
+    </wd-tour>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const showTour = ref(false)
-const steps = ref([
+const showStyleTour = ref(false)
+
+const styleSteps = ref([
   {
-    element: '#no-mask-target',
-    content: '这是无蒙版的引导信息'
+    element: '#style-button',
+    content: '这是一个自定义高亮样式的引导提示'
   }
 ])
+
+const highlightStyle = ref({
+  border: '2px solid #409eff',
+  boxShadow: '0 0 20px rgba(64, 158, 255, 0.5)'
+})
 </script>
 
 <style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #646566;
-  color: white;
+.custom-highlight {
   border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-}
-</style>
-```
-
-## 样式定制
-
-### 自定义样式
-
-使用 `customStyle` 和 `customClass` 属性可以自定义 Tour 组件的根节点样式：
-
-```vue
-<template>
-  <view class="demo">
-    <wd-button @click="showTour = true">自定义根节点样式</wd-button>
-    <view class="target" id="custom-root-target">自定义根节点样式目标</view>
-    
-    <wd-tour 
-      v-model="showTour" 
-      :steps="steps" 
-      customClass="my-tour"
-      customStyle="z-index: 999999;"
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const showTour = ref(false)
-const steps = ref([
-  {
-    element: '#custom-root-target',
-    content: '这是自定义根节点样式的引导'
-  }
-])
-</script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #1989fa;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-}
-
-:deep(.my-tour) {
-  /* 自定义样式 */
-}
-</style>
-```
-
-### 自定义高亮样式
-
-使用 `highlightStyle` 属性可以自定义高亮区域的样式：
-
-```vue
-<template>
-  <view class="demo">
-    <wd-button @click="showTour = true">自定义高亮样式</wd-button>
-    <view class="target" id="custom-highlight-target">自定义高亮样式目标</view>
-    
-    <wd-tour 
-      v-model="showTour" 
-      :steps="steps" 
-      :highlight-style="{
-        borderRadius: '16px',
-        padding: '16px',
-        boxShadow: '0 0 0 100vh rgba(0, 0, 0, 0.4), 0 0 20px rgba(25, 137, 250, 0.5)'
-      }"
-    />
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const showTour = ref(false)
-const steps = ref([
-  {
-    element: '#custom-highlight-target',
-    content: '这是自定义高亮样式的引导'
-  }
-])
-</script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.target {
-  padding: 20px;
-  background-color: #07c160;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
+  background-color: rgba(64, 158, 255, 0.1);
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **元素选择器**：
-   - 确保 `steps` 中配置的 `element` 选择器能够准确匹配到目标元素
-   - 建议使用唯一的 ID 选择器，避免选择器冲突
-   - 如果无法找到目标元素，组件会触发 `error` 事件
-
-2. **性能优化**：
-   - 引导步骤不宜过多，建议控制在 3-5 步以内
-   - 避免在引导过程中进行复杂的 DOM 操作
-   - 引导完成后，组件会自动重置状态，无需手动清理
-
-3. **位置调整**：
-   - 组件会智能判断引导框的位置（上方或下方）
-   - 可以通过 `offset` 属性调整引导框与目标元素的间距
-   - 对于长页面，组件会自动滚动到目标元素位置
-
-4. **自定义导航栏**：
-   - 当使用自定义导航栏时，建议设置 `topSafetyOffset` 属性
-   - 组件会自动适应不同平台的导航栏高度
-
-5. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 某些平台可能存在滚动行为的细微差异
-   - 建议在目标平台上进行充分测试
-
-6. **事件处理**：
-   - 可以通过监听 `change` 事件获取当前步骤变化
-   - 可以通过监听 `finish` 和 `skip` 事件获取引导结束状态
-
-7. **样式覆盖**：
-   - 使用 `:deep()` 选择器可以覆盖组件内部样式
-   - 建议优先使用组件提供的 props 进行样式定制
+1. **元素选择器**：确保提供的element选择器能准确找到目标元素，否则会触发error事件。
+2. **步骤顺序**：steps数组的顺序决定了引导的顺序，建议按照用户操作流程排列。
+3. **内容简洁**：引导内容应简洁明了，避免过长的文字描述，影响用户体验。
+4. **性能优化**：避免在引导过程中进行复杂的DOM操作，可能影响引导的流畅性。
+5. **层级设置**：如果页面中存在其他层级较高的元素，可能会遮挡引导组件，此时需要调整zIndex属性。
+6. **自定义导航栏**：如果使用了自定义导航栏，需要设置customNav为true，并根据实际情况调整topSafetyOffset。
+7. **滚动处理**：引导组件会自动处理页面滚动，确保高亮元素在可视区域内。
+8. **事件监听**：可以通过监听prev、next、finish、skip等事件，实现引导流程的自定义控制。

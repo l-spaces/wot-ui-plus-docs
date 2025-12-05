@@ -1,307 +1,196 @@
-# wd-slider-button 滑动解锁组件
+# Slider Button
 
-## 组件概述
+## 组件概况
 
-滑动解锁组件是一种交互式控件，用于验证用户的真实操作，防止自动化脚本攻击。它通过拖动滑块到指定位置来完成验证，提供了直观的视觉反馈和流畅的动画效果。
+### 组件概述
+Slider Button组件是一个滑动解锁组件，用于验证用户操作，防止机器人恶意操作。它提供了丰富的自定义选项，包括样式、文字、自动重置等功能，适用于各种需要用户交互验证的场景。
 
-### 功能特点
-- 支持自定义按钮文字、尺寸、颜色和圆角
-- 提供完整的拖拽事件回调
-- 支持自动重置功能
-- 支持自定义滑块和文字内容
-- 提供成功、重置等状态反馈
+### 详细功能描述
+- 支持滑动解锁功能，验证用户操作
+- 支持自定义按钮文字、宽度、高度、颜色等样式
+- 支持成功状态和自动重置功能
+- 支持事件回调（滑动过程、滑动成功、重置）
+- 支持自定义阈值，控制解锁难度
 - 支持禁用状态
-- 适配移动端和桌面端
+- 支持自定义滑块内容
+- 支持自定义按钮文字
+- 支持多端适配
 
-### 适用场景
-- 用户登录验证
-- 表单提交前验证
-- 内容访问权限验证
-- 防止恶意请求
-- 人机交互验证
+### 适用业务场景
+- 登录页面的滑动验证
+- 表单提交前的验证
+- 防止机器人恶意操作的验证
+- 内容访问前的验证
+- 资源下载前的验证
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
+| 参数 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | text | string | '滑动解锁' | 否 | 按钮文字 |
-| width | string \| number | '' | 否 | 按钮宽度 |
-| height | string \| number | 45 | 否 | 按钮高度 |
-| round | string \| number | 100 | 否 | 圆角 |
+| width | string / number | '' | 否 | 按钮宽度 |
+| round | string / number | 100 | 否 | 圆角 |
+| height | string / number | 45 | 否 | 按钮高度 |
 | bgColor | string | '#e0e0e0' | 否 | 背景颜色 |
 | railColor | string | '#4d80f0' | 否 | 滑道背景颜色 |
-| railIndex | string \| number | '' | 否 | 滑道层级 |
-| railRadius | string \| number | 100 | 否 | 轨道圆角 |
+| railIndex | string / number | '' | 否 | 滑道层级 |
+| railRadius | string / number | 100 | 否 | 轨道圆角 |
 | textColor | string | '#c2c2c2' | 否 | 文字颜色 |
-| fontSize | string \| number | 16 | 否 | 文字大小 |
+| fontSize | string / number | 16 | 否 | 文字大小 |
 | textBold | boolean | false | 否 | 文字是否加粗 |
 | activeTextColor | string | '#ffffff' | 否 | 激活文字颜色 |
 | disabled | boolean | false | 否 | 是否禁用 |
 | successText | string | '验证成功' | 否 | 成功文字 |
 | autoReset | boolean | false | 否 | 是否自动重置 |
 | resetDelay | number | 300 | 否 | 重置延迟时间（毫秒） |
-| threshold | string \| number | '' | 否 | 阈值 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+| threshold | string / number | '' | 否 | 阈值 |
+| customClass | string | - | 否 | 自定义类名 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
 
 ### Events
-
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| change | 拖动滑块过程中触发 | `percent: number` - 当前拖动进度百分比（0-1） |
-| success | 滑块拖动到指定位置时触发 | - |
-| reset | 滑块重置时触发 | - |
+|--------|----------|----------|
+| change | 滑动过程中触发 | percent: number 当前进度百分比（0-1） |
+| success | 滑动成功时触发 | 无 |
+| reset | 重置时触发 | 无 |
 
 ### Methods
-
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| init | - | - | 初始化组件，获取容器尺寸 |
-| reset | - | - | 重置组件状态 |
-| handleSuccess | - | - | 手动触发成功状态 |
+|--------|------|--------|----------|
+| init | 无 | void | 初始化组件 |
+| reset | 无 | void | 重置组件状态 |
+| handleSuccess | 无 | void | 手动触发成功状态 |
 
 ### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 自定义按钮文字内容 |
-| thumb | - | 自定义滑块内容 |
+| 插槽名 | 作用域变量 | 说明 |
+|--------|------------|------|
+| thumb | - | 自定义滑块内容，默认显示双箭头图标 |
+| default | - | 自定义按钮文字，默认显示滑动解锁文字 |
 
 ## 多场景使用示例
 
 ### 基础用法
-
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">基础滑动解锁</text>
-    <wd-slider-button 
-      @success="onSuccess"
-    />
-    <text class="demo-result" v-if="successMsg">{{ successMsg }}</text>
+  <view>
+    <wd-slider-button @success="handleSuccess"></wd-slider-button>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-// 成功消息
-const successMsg = ref('')
-
-// 成功回调
-const onSuccess = () => {
-  successMsg.value = '验证成功！'
-  setTimeout(() => {
-    successMsg.value = ''
-  }, 2000)
+const handleSuccess = () => {
+  console.log('滑动验证成功')
+  // 执行验证成功后的逻辑
 }
 </script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #07c160;
-  margin-top: 20rpx;
-  display: block;
-}
-</style>
 ```
 
 ### 自定义样式
-
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式滑动解锁</text>
-    <wd-slider-button 
-      text="向右滑动验证"
-      success-text="验证通过"
-      :height="60"
-      bg-color="#f0f0f0"
-      rail-color="#07c160"
-      text-color="#666"
-      active-text-color="#fff"
-      @success="onSuccess"
-    />
-    <text class="demo-result" v-if="successMsg">{{ successMsg }}</text>
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-// 成功消息
-const successMsg = ref('')
-
-// 成功回调
-const onSuccess = () => {
-  successMsg.value = '验证成功！'
-  setTimeout(() => {
-    successMsg.value = ''
-  }, 2000)
-}
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #07c160;
-  margin-top: 20rpx;
-  display: block;
-}
-</style>
-```
-
-### 自动重置
-
-```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">自动重置滑动解锁</text>
+  <view>
     <wd-slider-button 
       text="滑动解锁"
       success-text="解锁成功"
-      :auto-reset="true"
-      :reset-delay="1500"
-      @success="onSuccess"
-      @reset="onReset"
-    />
-    <text class="demo-result" v-if="successMsg">{{ successMsg }}</text>
-    <text class="demo-result reset" v-if="resetMsg">{{ resetMsg }}</text>
+      :height="50"
+      :width="300"
+      bg-color="#f0f0f0"
+      rail-color="#409eff"
+      text-color="#606266"
+      active-text-color="#ffffff"
+      @success="handleSuccess"
+    ></wd-slider-button>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-// 成功消息
-const successMsg = ref('')
-// 重置消息
-const resetMsg = ref('')
-
-// 成功回调
-const onSuccess = () => {
-  successMsg.value = '解锁成功！'
-  resetMsg.value = ''
-}
-
-// 重置回调
-const onReset = () => {
-  resetMsg.value = '已重置，可以再次滑动'
-  setTimeout(() => {
-    successMsg.value = ''
-    resetMsg.value = ''
-  }, 1500)
+const handleSuccess = () => {
+  console.log('滑动验证成功')
 }
 </script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #07c160;
-  margin-top: 20rpx;
-  display: block;
-}
-
-.demo-result.reset {
-  color: #909399;
-}
-</style>
 ```
 
-### 自定义滑块内容
-
+### 自动重置
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义滑块内容</text>
+  <view>
     <wd-slider-button 
-      @success="onSuccess"
-    >
-      <template #thumb>
-        <view class="custom-thumb">
-          <wd-icon name="lock" :color="railColor" size="40"></wd-icon>
-        </view>
-      </template>
-      <text class="custom-text">拖动解锁</text>
-    </wd-slider-button>
-    <text class="demo-result" v-if="successMsg">{{ successMsg }}</text>
+      auto-reset 
+      :reset-delay="1000"
+      @success="handleSuccess"
+      @reset="handleReset"
+    ></wd-slider-button>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+const handleSuccess = () => {
+  console.log('滑动验证成功')
+}
 
-// 成功消息
-const successMsg = ref('')
-// 轨道颜色
-const railColor = ref('#4d80f0')
+const handleReset = () => {
+  console.log('滑动验证已重置')
+}
+</script>
+```
 
-// 成功回调
-const onSuccess = () => {
-  successMsg.value = '解锁成功！'
-  railColor.value = '#07c160'
-  setTimeout(() => {
-    successMsg.value = ''
-    railColor.value = '#4d80f0'
-  }, 2000)
+### 禁用状态
+```vue
+<template>
+  <view>
+    <wd-slider-button 
+      disabled 
+      text="已禁用"
+    ></wd-slider-button>
+  </view>
+</template>
+```
+
+### 自定义阈值
+```vue
+<template>
+  <view>
+    <wd-slider-button 
+      :threshold="200"
+      @change="handleChange"
+      @success="handleSuccess"
+    ></wd-slider-button>
+  </view>
+</template>
+
+<script setup lang="ts">
+const handleChange = (percent: number) => {
+  console.log('当前进度:', (percent * 100).toFixed(0) + '%')
+}
+
+const handleSuccess = () => {
+  console.log('滑动验证成功')
+}
+</script>
+```
+
+### 自定义滑块
+```vue
+<template>
+  <view>
+    <wd-slider-button @success="handleSuccess">
+      <template #thumb>
+        <view class="custom-thumb">
+          <wd-icon name="arrow-right" color="#409eff" size="30"></wd-icon>
+        </view>
+      </template>
+    </wd-slider-button>
+  </view>
+</template>
+
+<script setup lang="ts">
+const handleSuccess = () => {
+  console.log('滑动验证成功')
 }
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #07c160;
-  margin-top: 20rpx;
-  display: block;
-}
-
 .custom-thumb {
   display: flex;
   align-items: center;
@@ -309,159 +198,142 @@ const onSuccess = () => {
   width: 100%;
   height: 100%;
 }
+</style>
+```
 
+### 自定义按钮文字
+```vue
+<template>
+  <view>
+    <wd-slider-button @success="handleSuccess">
+      <template #default>
+        <view class="custom-text">
+          <wd-icon name="lock" color="#c2c2c2" size="16"></wd-icon>
+          <text style="margin-left: 5px;">滑动解锁</text>
+        </view>
+      </template>
+    </wd-slider-button>
+  </view>
+</template>
+
+<script setup lang="ts">
+const handleSuccess = () => {
+  console.log('滑动验证成功')
+}
+</script>
+
+<style scoped>
 .custom-text {
-  font-size: 24rpx;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 ```
 
-### 禁用状态
+## 样式定制指南
+
+### 自定义类名
+通过`customClass`属性可以为Slider Button组件添加自定义类名，用于覆盖默认样式。
 
 ```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">禁用状态滑动解锁</text>
-    <wd-slider-button 
-      disabled
-      text="已禁用，无法滑动"
-    />
-    <text class="demo-tip">禁用状态下，滑块无法拖动</text>
-  </view>
-</template>
+<wd-slider-button custom-class="my-slider-button">
+  <!-- 内容 -->
+</wd-slider-button>
 
-<script setup lang="ts">
-// 无需额外逻辑
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-tip {
-  font-size: 22rpx;
-  color: #909399;
-  margin-top: 10rpx;
-  display: block;
+<style>
+.my-slider-button {
+  /* 自定义样式 */
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
 ```
 
-## 样式定制
-
-### CSS 变量
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --slider-button-height | 45rpx | 组件高度 |
-| --slider-button-bg-color | #e0e0e0 | 背景颜色 |
-| --slider-button-rail-color | #4d80f0 | 轨道颜色 |
-| --slider-button-text-color | #c2c2c2 | 文字颜色 |
-| --slider-button-active-text-color | #ffffff | 激活文字颜色 |
-| --slider-button-font-size | 16rpx | 文字大小 |
-| --slider-button-border-radius | 100rpx | 圆角大小 |
-
-### 自定义样式示例
+### 自定义样式对象
+通过`customStyle`属性可以直接设置组件的内联样式。
 
 ```vue
-<template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式滑动解锁</text>
-    <wd-slider-button 
-      custom-class="custom-slider-button"
-      @success="onSuccess"
-    />
-    <text class="demo-result" v-if="successMsg">{{ successMsg }}</text>
-  </view>
-</template>
+<wd-slider-button :custom-style="{ margin: '20px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }">
+  <!-- 内容 -->
+</wd-slider-button>
+```
 
-<script setup lang="ts">
-import { ref } from 'vue'
+### 自定义颜色和尺寸
+通过组件的props可以自定义各种颜色和尺寸属性，如`bgColor`、`railColor`、`height`、`width`等。
 
-// 成功消息
-const successMsg = ref('')
-
-// 成功回调
-const onSuccess = () => {
-  successMsg.value = '验证成功！'
-  setTimeout(() => {
-    successMsg.value = ''
-  }, 2000)
-}
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #07c160;
-  margin-top: 20rpx;
-  display: block;
-}
-
-/* 自定义滑块按钮样式 */
-.custom-slider-button {
-  --slider-button-height: 80rpx;
-  --slider-button-bg-color: #f5f5f5;
-  --slider-button-rail-color: #07c160;
-  --slider-button-text-color: #666;
-  --slider-button-active-text-color: #fff;
-  --slider-button-font-size: 28rpx;
-  --slider-button-border-radius: 40rpx;
-}
-</style>
+```vue
+<wd-slider-button 
+  :height="60"
+  :width="350"
+  bg-color="#f5f7fa"
+  rail-color="#67c23a"
+  text-color="#909399"
+  active-text-color="#ffffff"
+>
+  <!-- 内容 -->
+</wd-slider-button>
 ```
 
 ## 注意事项
 
-1. **组件尺寸**：组件会自动获取容器尺寸，确保父容器有明确的宽度，否则可能导致组件显示异常。
+1. **组件初始化**：
+   - 组件会在挂载后自动初始化，获取组件的宽度和位置信息
+   - 可以手动调用`init`方法重新初始化组件
 
-2. **触摸事件**：组件使用了触摸事件，在桌面端也支持鼠标拖动，但建议在移动端使用效果更佳。
+2. **阈值设置**：
+   - 阈值用于控制滑动解锁的难度，默认为组件宽度减去滑块宽度
+   - 可以通过`threshold`属性自定义阈值，值为像素单位
+   - 阈值越大，解锁难度越高
 
-3. **自动重置**：开启 `autoReset` 后，组件在验证成功后会自动重置，重置延迟时间可通过 `resetDelay` 调整。
+3. **自动重置功能**：
+   - 设置`autoReset`为`true`时，组件会在滑动成功后自动重置
+   - 可以通过`resetDelay`属性设置重置延迟时间，单位为毫秒
+   - 自动重置时会触发`reset`事件
 
-4. **自定义滑块**：通过 `thumb` 插槽自定义滑块内容时，建议保持内容尺寸适中，避免影响拖动体验。
+4. **事件触发**：
+   - `change`事件在滑动过程中持续触发，返回当前进度百分比
+   - `success`事件在滑动成功时触发
+   - `reset`事件在组件重置时触发
 
-5. **阈值设置**：`threshold` 属性用于设置滑块需要拖动的距离，默认为组件宽度减去滑块宽度。
+5. **禁用状态**：
+   - 设置`disabled`为`true`时，组件不可滑动
+   - 禁用状态下，组件不会触发任何事件
 
-6. **禁用状态**：设置 `disabled` 为 `true` 后，组件将无法拖动，同时显示禁用样式。
+6. **自定义滑块**：
+   - 可以通过`thumb`插槽自定义滑块内容
+   - 自定义滑块时，需要确保滑块的样式和大小适合组件
 
-7. **样式隔离**：组件使用了 `styleIsolation: 'shared'`，允许外部样式影响组件内部样式。
+7. **自定义文字**：
+   - 可以通过`default`插槽自定义按钮文字
+   - 自定义文字时，需要确保文字的样式和位置适合组件
 
-8. **性能优化**：拖动过程中会频繁触发 `change` 事件，避免在事件处理函数中执行复杂的计算或操作。
+8. **多端适配**：
+   - 组件在不同平台上可能存在细微的样式差异
+   - 建议在实际使用中进行多端测试
 
 ## 常见问题
 
-### Q: 组件显示异常，滑块无法拖动？
-A: 请检查父容器是否有明确的宽度，组件需要获取容器尺寸才能正常工作。
+1. **Q: 为什么滑动后组件没有自动重置？**
+   A: 请检查是否设置了`autoReset`属性为`true`，并且`resetDelay`属性设置合理。
 
-### Q: 拖动滑块时没有触发 `change` 事件？
-A: 请检查是否正确绑定了事件监听器，或者组件是否处于禁用状态。
+2. **Q: 如何调整滑动解锁的难度？**
+   A: 可以通过调整`threshold`属性来控制解锁难度，阈值越大，解锁难度越高。
 
-### Q: 自定义滑块样式不生效？
-A: 请确保使用了正确的 CSS 变量名，或者通过 `customStyle` 属性直接设置样式。
+3. **Q: 如何自定义滑块的样式？**
+   A: 可以通过`thumb`插槽自定义滑块内容，完全控制滑块的样式和结构。
 
-### Q: 组件在某些平台上显示异常？
-A: 组件已针对不同平台进行了适配，但如果遇到问题，可以尝试调用 `init` 方法重新初始化，或者检查容器的样式设置。
+4. **Q: 为什么组件在某些平台上显示异常？**
+   A: 请确保组件的尺寸设置合理，并且在实际使用中进行多端测试，根据需要调整样式。
 
-### Q: 自动重置功能不生效？
-A: 请确保 `autoReset` 属性设置为 `true`，并检查 `resetDelay` 是否设置合理。
+5. **Q: 如何监听滑动过程中的进度？**
+   A: 可以监听`change`事件，该事件会在滑动过程中持续触发，返回当前进度百分比。
+
+6. **Q: 如何手动触发成功状态？**
+   A: 可以通过组件的`handleSuccess`方法手动触发成功状态。
+
+7. **Q: 如何重置组件状态？**
+   A: 可以通过组件的`reset`方法重置组件状态，或者等待自动重置（如果启用了自动重置功能）。
+
+8. **Q: 为什么组件的宽度没有生效？**
+   A: 请确保`width`属性的类型正确，并且值为有效的数值或字符串。

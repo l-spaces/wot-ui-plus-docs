@@ -1,491 +1,270 @@
-# wd-sort-button 排序按钮组件
+# SortButton 排序按钮
 
-## 组件概述
+## 组件概况
 
-排序按钮组件是一个用于实现列表排序功能的交互控件，支持升序、降序和重置三种状态切换。它提供了丰富的配置选项，包括自定义标题、箭头样式、排序顺序和下划线样式等，适用于各种需要排序功能的列表场景。
+### 组件概述
+排序按钮是用于实现数据排序功能的交互组件，支持升序、降序和重置三种状态切换，提供直观的视觉反馈和灵活的配置选项。
 
-### 功能特点
-- 支持升序、降序和重置三种状态切换
-- 可自定义按钮标题和箭头样式
-- 支持优先切换为降序或升序
-- 可配置是否允许手动重置
-- 支持自定义下划线样式
-- 提供完整的事件回调
-- 适配各种列表排序场景
+### 详细功能描述
+- 支持升序、降序和重置三种排序状态
+- 支持自定义标题文本
+- 支持填充箭头和线框箭头两种图标样式
+- 支持配置是否允许手动重置按钮
+- 支持设置优先降序或优先升序的切换逻辑
+- 支持配置是否显示下划线
+- 支持自定义下划线颜色
+- 支持自定义样式和类名
 
-### 适用场景
+### 适用业务场景
 - 表格数据排序
-- 列表数据筛选
-- 商品列表排序
-- 搜索结果排序
-- 数据报表排序
+- 列表数据排序
+- 卡片列表排序
+- 任何需要排序交互的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| modelValue | number | 0 | 否 | 选中的箭头方向，1表示升序，0表示重置状态，-1表示降序 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| modelValue | number | 0 | 否 | 排序状态，1表示升序，0表示重置，-1表示降序 |
 | title | string | '' | 否 | 排序按钮展示的文案 |
 | filled | boolean | false | 否 | 是否展示填充箭头 |
 | allowReset | boolean | false | 否 | 当展示双箭头时，是否允许手动重置按钮 |
-| descFirst | boolean | false | 否 | 是否优先切换为降序，如果不开启则默认优先切换为升序 |
-| line | boolean | true | 否 | 是否展示下划线，当只有一个排序按钮时，通常不展示下划线 |
-| lineColor | string | undefined | 否 | 自定义下划线颜色 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+| descFirst | boolean | false | 否 | 是否优先切换为降序，不开启则默认优先切换为升序 |
+| line | boolean | true | 否 | 是否展示下划线，当只有一个排序按钮时通常不展示 |
+| lineColor | string | - | 否 | 自定义下划线颜色 |
+| customStyle | string | - | 否 | 自定义根节点样式 |
+| customClass | string | - | 否 | 自定义根节点样式类 |
 
-### Events
+### Events事件
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| update:modelValue | 排序状态改变时触发 | `value: number` - 新的排序状态（1: 升序, 0: 重置, -1: 降序） |
-| change | 排序状态改变时触发 | `{ value: number }` - 包含新排序状态的对象 |
+|--------|----------|----------|
+| update:modelValue | 排序状态变化时 | value: 新的排序状态（1: 升序，0: 重置，-1: 降序） |
+| change | 排序状态变化时 | { value: 新的排序状态 } |
 
-### Methods
+### Methods方法
 
-该组件没有对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
-该组件没有提供任何插槽。
+该组件没有可用的插槽。
 
-## 多场景使用示例
+## 多场景使用示例代码
 
-### 基础用法
+### 1. 基础用法
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">基础排序按钮</text>
-    <wd-sort-button 
-      title="排序" 
-      v-model="sortValue"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
+  <view class="sort-button-demo">
+    <!-- 基础排序按钮 -->
+    <wd-sort-button title="排序" v-model="sortValue"></wd-sort-button>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
+// 排序状态，1表示升序，0表示重置，-1表示降序
 const sortValue = ref(0)
-
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
-
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
 </script>
 
 <style scoped>
-.demo-container {
+.sort-button-demo {
   padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
 }
 </style>
 ```
 
-### 优先降序
+### 2. 允许重置的排序按钮
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">优先降序排序按钮</text>
+  <view class="sort-button-demo">
+    <!-- 允许重置的排序按钮 -->
     <wd-sort-button 
       title="价格" 
-      v-model="sortValue"
-      :desc-first="true"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
+      v-model="sortValue" 
+      allowReset 
+    ></wd-sort-button>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
 const sortValue = ref(0)
-
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
-
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
 </script>
 
 <style scoped>
-.demo-container {
+.sort-button-demo {
   padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
 }
 </style>
 ```
 
-### 允许重置
+### 3. 优先降序的排序按钮
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">允许重置排序按钮</text>
+  <view class="sort-button-demo">
+    <!-- 优先降序的排序按钮 -->
     <wd-sort-button 
       title="销量" 
-      v-model="sortValue"
-      :allow-reset="true"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
+      v-model="sortValue" 
+      desc-first 
+    ></wd-sort-button>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
 const sortValue = ref(0)
-
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
-
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
 </script>
 
 <style scoped>
-.demo-container {
+.sort-button-demo {
   padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
 }
 </style>
 ```
 
-### 填充箭头
+### 4. 填充箭头样式
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">填充箭头排序按钮</text>
+  <view class="sort-button-demo">
+    <!-- 填充箭头样式 -->
     <wd-sort-button 
       title="评分" 
-      v-model="sortValue"
-      :filled="true"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
+      v-model="sortValue" 
+      filled 
+    ></wd-sort-button>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
 const sortValue = ref(0)
-
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
-
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
 </script>
 
 <style scoped>
-.demo-container {
+.sort-button-demo {
   padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
 }
 </style>
 ```
 
-### 自定义样式
+### 5. 自定义下划线颜色
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式排序按钮</text>
+  <view class="sort-button-demo">
+    <!-- 自定义下划线颜色 -->
     <wd-sort-button 
       title="时间" 
-      v-model="sortValue"
-      :line="true"
-      line-color="#07c160"
-      custom-class="custom-sort-button"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
+      v-model="sortValue" 
+      line-color="#1989fa" 
+    ></wd-sort-button>
   </view>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
 const sortValue = ref(0)
-
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
-
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
 </script>
 
 <style scoped>
-.demo-container {
+.sort-button-demo {
   padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
-}
-
-/* 自定义排序按钮样式 */
-.custom-sort-button {
-  font-size: 28rpx;
-  color: #333;
-}
-
-.custom-sort-button .wd-sort-button__icon-up,
-.custom-sort-button .wd-sort-button__icon-down {
-  font-size: 24rpx;
-  margin-left: 8rpx;
 }
 </style>
 ```
 
-## 样式定制
+## 样式定制指南
 
-### CSS 变量
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --sort-button-line-color | #1989fa | 下划线颜色 |
-| --sort-button-text-color | #303133 | 文字颜色 |
-| --sort-button-active-color | #1989fa | 激活状态文字颜色 |
-| --sort-button-font-size | 28rpx | 文字大小 |
-| --sort-button-arrow-size | 20rpx | 箭头大小 |
-| --sort-button-padding | 20rpx | 内边距 |
-| --sort-button-line-height | 44rpx | 行高 |
-
-### 自定义样式示例
+### 1. 使用customStyle自定义样式
 
 ```vue
 <template>
-  <view class="demo-container">
-    <text class="demo-title">自定义样式排序按钮</text>
-    <wd-sort-button 
-      title="自定义" 
-      v-model="sortValue"
-      custom-class="custom-sort-button"
-      @change="onChange"
-    />
-    <text class="demo-result">当前排序状态: {{ getSortText(sortValue) }}</text>
-  </view>
+  <wd-sort-button 
+    title="自定义样式" 
+    v-model="sortValue"
+    customStyle="font-size: 32rpx; color: #1989fa;"
+  ></wd-sort-button>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 
-// 排序状态，0: 重置, 1: 升序, -1: 降序
 const sortValue = ref(0)
+</script>
+```
 
-// 排序状态改变回调
-const onChange = (event: { value: number }) => {
-  console.log('排序状态改变:', event.value)
-}
+### 2. 使用customClass自定义类名
 
-// 获取排序状态文本
-const getSortText = (value: number): string => {
-  switch (value) {
-    case 1:
-      return '升序'
-    case -1:
-      return '降序'
-    default:
-      return '重置'
-  }
-}
+```vue
+<template>
+  <wd-sort-button 
+    title="自定义类名" 
+    v-model="sortValue"
+    customClass="my-sort-button"
+  ></wd-sort-button>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const sortValue = ref(0)
 </script>
 
 <style scoped>
-.demo-container {
-  padding: 20rpx;
-}
-
-.demo-title {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.demo-result {
-  font-size: 24rpx;
-  color: #666;
-  margin-top: 20rpx;
-  display: block;
-}
-
-/* 自定义排序按钮样式 */
-.custom-sort-button {
-  --sort-button-line-color: #ff6b6b;
-  --sort-button-text-color: #666;
-  --sort-button-active-color: #ff6b6b;
-  --sort-button-font-size: 32rpx;
-  --sort-button-arrow-size: 24rpx;
-  --sort-button-padding: 24rpx;
-  --sort-button-line-height: 52rpx;
+:deep(.my-sort-button) {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 </style>
+```
+
+### 3. 自定义下划线颜色
+
+```vue
+<template>
+  <wd-sort-button 
+    title="自定义下划线" 
+    v-model="sortValue"
+    line-color="#ff6b6b"
+  ></wd-sort-button>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const sortValue = ref(0)
+</script>
 ```
 
 ## 注意事项
 
-1. **排序状态**：组件的排序状态通过 `modelValue` 控制，取值为 -1（降序）、0（重置）、1（升序）。
+1. **排序状态值**：modelValue属性使用1表示升序，0表示重置，-1表示降序，使用时需注意对应关系。
 
-2. **排序顺序**：通过 `descFirst` 属性可以配置排序的优先顺序，默认为优先升序。
+2. **切换逻辑**：
+   - 当descFirst为false（默认）时，切换顺序为：重置 → 升序 → 降序 → 重置（如果allowReset为true）
+   - 当descFirst为true时，切换顺序为：重置 → 降序 → 升序 → 重置（如果allowReset为true）
 
-3. **重置功能**：设置 `allowReset` 为 `true` 后，点击按钮可以在升序、降序和重置状态之间循环切换。
+3. **重置功能**：只有当allowReset为true时，点击按钮才能回到重置状态，否则会在升序和降序之间循环切换。
 
-4. **下划线样式**：通过 `line` 属性可以控制是否显示下划线，通过 `lineColor` 属性可以自定义下划线颜色。
+4. **下划线显示**：当只有一个排序按钮时，通常建议将line属性设置为false，不显示下划线。
 
-5. **箭头样式**：设置 `filled` 为 `true` 后，会显示填充样式的箭头。
+5. **样式优先级**：customStyle的优先级高于组件内部样式，customClass可以通过穿透选择器覆盖组件内部样式。
 
-6. **样式隔离**：组件使用了 `styleIsolation: 'shared'`，允许外部样式影响组件内部样式。
+6. **事件触发**：排序状态变化时，会同时触发update:modelValue和change事件，可以根据需要选择使用。
 
-7. **性能优化**：组件结构简单，渲染性能优秀，适合在列表中大量使用。
+7. **性能优化**：避免在排序按钮中使用过于复杂的内容，以免影响渲染性能。
 
-## 常见问题
-
-### Q: 排序按钮点击没有反应？
-A: 请检查是否正确绑定了 `v-model` 或 `@update:modelValue` 事件，或者组件是否被其他元素遮挡。
-
-### Q: 排序状态没有正确更新？
-A: 请确保 `v-model` 绑定的变量是响应式的，或者在 `change` 事件中手动更新了变量值。
-
-### Q: 自定义样式不生效？
-A: 请确保使用了正确的 CSS 变量名，或者通过 `customStyle` 属性直接设置样式。
-
-### Q: 组件在某些平台上显示异常？
-A: 组件已针对不同平台进行了适配，但如果遇到问题，可以尝试调整组件的样式，或者检查平台的兼容性。
-
-### Q: 如何隐藏下划线？
-A: 可以通过设置 `line` 属性为 `false` 来隐藏下划线。
+8. **跨平台兼容性**：该组件在各平台表现一致，无需特殊处理。

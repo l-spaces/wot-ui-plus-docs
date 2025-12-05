@@ -2,44 +2,6 @@
 
 用于处理文件上传和选择相关的逻辑。
 
-## 基础用法
-
-```ts
-import { useUpload } from '@/uni_modules/wot-ui-plus'
-
-const { startUpload, abort, chooseFile, UPLOAD_STATUS } = useUpload()
-
-// 选择文件
-const files = await chooseFile({
-  accept: 'image',
-  multiple: true,
-  maxCount: 9
-})
-
-// 开始上传
-const file = {
-  url: 'file://temp/image.png',
-  status: UPLOAD_STATUS.PENDING,
-  percent: 0
-}
-
-startUpload(file, {
-  action: 'https://upload-url',
-  onSuccess(res) {
-    console.log('上传成功', res)
-  },
-  onError(err) {
-    console.log('上传失败', err)
-  },
-  onProgress(progress) {
-    console.log('上传进度', progress)
-  }
-})
-
-// 中断上传
-abort()
-```
-
 ## API
 
 ### 方法
@@ -115,3 +77,43 @@ count 值在 H5 平台的表现基于浏览器本身的规范。目前测试结�
 - 视频选择在大多数平台都不支持多选
 - 实际可选择的数量还会受到 `maxCount` 参数的进一步限制
   :::
+
+
+## 基础用法
+
+```ts
+import { useUpload } from '@/uni_modules/wot-ui-plus'
+
+const { startUpload, abort, chooseFile, UPLOAD_STATUS } = useUpload()
+
+// 选择文件
+const files = await chooseFile({
+  accept: 'image',
+  multiple: true,
+  maxCount: 9
+})
+
+// 开始上传
+const file = {
+  url: 'file://temp/image.png',
+  status: UPLOAD_STATUS.PENDING,
+  percent: 0
+}
+
+startUpload(file, {
+  action: 'https://upload-url',
+  onSuccess(res) {
+    console.log('上传成功', res)
+  },
+  onError(err) {
+    console.log('上传失败', err)
+  },
+  onProgress(progress) {
+    console.log('上传进度', progress)
+  }
+})
+
+// 中断上传
+abort()
+```
+

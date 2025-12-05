@@ -1,361 +1,235 @@
-# Tooltip 提示框
+# Tooltip 提示
 
-## 组件概述
+## 组件概况
 
-wd-tooltip 是一个轻量级的提示框组件，用于在 UniApp 应用中为元素提供额外的信息或说明。它支持多种位置、自定义内容、箭头显示和动画效果，是构建交互友好界面的重要组件。
+### 组件概述
+Tooltip 是一种轻量级的信息提示组件，用于在用户交互时展示额外信息。它通常以气泡形式出现在目标元素附近，提供简洁明了的上下文帮助或说明。
 
-### 功能特点
-- 支持 12 种不同的显示位置
-- 支持自定义内容（文本或插槽）
-- 支持显示/隐藏箭头
-- 支持自定义偏移量
-- 支持动画效果
-- 支持手动控制显示/隐藏
+### 详细功能描述
+- 支持多种定位方式（12种不同位置）
+- 可自定义箭头显示与样式
+- 支持文本内容和自定义插槽内容
+- 支持通过v-model控制显隐状态
+- 提供open/close方法手动控制
+- 支持点击触发切换
 - 支持关闭按钮
-- 支持禁用状态
-- 支持点击外部关闭
+- 支持出现位置偏移量
+- 支持样式自定义
 
-### 适用场景
-- 为图标、按钮等元素提供额外说明
-- 显示表单字段的验证提示
-- 展示复杂信息的简短摘要
-- 为数据可视化元素提供悬停提示
+### 适用业务场景
+- 表单字段的辅助说明
+- 操作按钮的功能提示
+- 数据项的详细信息展示
+- 复杂交互控件的使用指南
+- 图标或缩写的解释说明
 
-## API 参考
+## 完整API参考
 
 ### Props
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
-| customArrow | string | '' | 否 | 自定义箭头内容 |
-| customPop | string | '' | 否 | 自定义弹出内容 |
-| visibleArrow | boolean | true | 否 | 是否显示Tooltip箭头 |
-| content | string / array | - | 否 | 显示的内容，也可以通过`slot#content`传入 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| content | `string / Array<Record<string, any>>` | - | 否 | 显示的内容，也可以通过`slot#content`传入 |
 | placement | string | 'bottom' | 否 | Tooltip的出现位置，可选值：top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end |
-| offset | number / array / object | 0 | 否 | 出现位置的偏移量，支持数字、数组或对象类型 |
+| visibleArrow | boolean | true | 否 | 是否显示Tooltip箭头 |
+| offset | `number / Array<number> / Record<'x' \| 'y', number>` | 0 | 否 | 出现位置的偏移量 |
 | useContentSlot | boolean | false | 否 | 是否使用slot来传入content内容 |
 | disabled | boolean | false | 否 | Tooltip是否可用 |
 | showClose | boolean | false | 否 | 是否显示Tooltip内部的关闭按钮 |
 | modelValue | boolean | false | 否 | Tooltip的状态是否可见，通过v-model绑定 |
+| customArrow | string | '' | 否 | 自定义箭头内容 |
+| customPop | string | '' | 否 | 自定义弹出内容 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
 
 | 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| update:modelValue | Tooltip 可见性变化时触发 | value: boolean - 当前可见性状态 |
-| change | Tooltip 可见性变化时触发 | { show: boolean } - 包含当前可见性状态的对象 |
-| open | Tooltip 打开时触发 | - |
-| close | Tooltip 关闭时触发 | - |
-| menuclick | 菜单点击时触发 | - |
-
-### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 触发 Tooltip 的目标元素 |
-| content | - | 自定义 Tooltip 内容，需要设置 useContentSlot 为 true |
+|--------|----------|----------|
+| update:modelValue | Tooltip状态变化时 | 新的状态值（boolean） |
+| change | Tooltip状态变化时 | 包含show属性的对象，如：{ show: true } |
+| open | Tooltip打开时 | 无 |
+| close | Tooltip关闭时 | 无 |
 
 ### Methods
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| open | - | - | 打开 Tooltip |
-| close | - | - | 关闭 Tooltip |
+|--------|------|--------|----------|
+| open | 无 | 无 | 打开Tooltip |
+| close | 无 | 无 | 关闭Tooltip |
 
-## 使用示例
+### Slots
+
+| 插槽名 | 作用域变量 | 使用说明 |
+|--------|------------|----------|
+| default | 无 | 触发Tooltip显示的目标元素 |
+| content | 无 | 自定义Tooltip的内容 |
+
+## 多场景使用示例代码
 
 ### 基础用法
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-tooltip content="这是一个提示信息">
-      <wd-button>悬停查看提示</wd-button>
+  <wd-tooltip content="这是一个提示信息">
+    <wd-button type="primary">悬停我</wd-button>
+  </wd-tooltip>
+</template>
+```
+
+### 自定义位置
+
+```vue
+<template>
+  <view class="tooltip-demo">
+    <wd-tooltip content="顶部提示" placement="top">
+      <wd-button type="primary">顶部</wd-button>
+    </wd-tooltip>
+    <wd-tooltip content="左侧提示" placement="left">
+      <wd-button type="primary">左侧</wd-button>
+    </wd-tooltip>
+    <wd-tooltip content="右侧提示" placement="right">
+      <wd-button type="primary">右侧</wd-button>
+    </wd-tooltip>
+    <wd-tooltip content="底部提示" placement="bottom">
+      <wd-button type="primary">底部</wd-button>
     </wd-tooltip>
   </view>
 </template>
 
 <style scoped>
-.demo {
-  padding: 20px;
+.tooltip-demo {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 20px;
 }
 </style>
 ```
 
-### 不同位置
+### 使用插槽自定义内容
 
 ```vue
 <template>
-  <view class="demo">
-    <view class="row">
-      <wd-tooltip content="顶部" placement="top">
-        <wd-button>顶部</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="顶部开始" placement="top-start">
-        <wd-button>顶部开始</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="顶部结束" placement="top-end">
-        <wd-button>顶部结束</wd-button>
-      </wd-tooltip>
-    </view>
-    <view class="row">
-      <wd-tooltip content="左侧" placement="left">
-        <wd-button>左侧</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="中间" placement="bottom">
-        <wd-button>中间</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="右侧" placement="right">
-        <wd-button>右侧</wd-button>
-      </wd-tooltip>
-    </view>
-    <view class="row">
-      <wd-tooltip content="底部开始" placement="bottom-start">
-        <wd-button>底部开始</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="底部" placement="bottom">
-        <wd-button>底部</wd-button>
-      </wd-tooltip>
-      <wd-tooltip content="底部结束" placement="bottom-end">
-        <wd-button>底部结束</wd-button>
-      </wd-tooltip>
-    </view>
-  </view>
+  <wd-tooltip use-content-slot placement="top">
+    <wd-button type="primary">自定义内容</wd-button>
+    <template #content>
+      <view class="custom-content">
+        <text class="title">自定义标题</text>
+        <text class="desc">这是一段自定义的提示内容，可以包含多行文本和样式。</text>
+      </view>
+    </template>
+  </wd-tooltip>
 </template>
 
 <style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  align-items: center;
-}
-
-.row {
-  display: flex;
-  gap: 20px;
-}
-</style>
-```
-
-### 自定义内容和偏移量
-
-```vue
-<template>
-  <view class="demo">
-    <wd-tooltip 
-      content="自定义偏移量" 
-      :offset="20"
-    >
-      <wd-button>偏移20px</wd-button>
-    </wd-tooltip>
-    <wd-tooltip 
-      content="数组偏移" 
-      :offset="[10, 15]"
-    >
-      <wd-button>数组偏移</wd-button>
-    </wd-tooltip>
-    <wd-tooltip 
-      content="对象偏移" 
-      :offset="{ x: 5, y: 20 }"
-    >
-      <wd-button>对象偏移</wd-button>
-    </wd-tooltip>
-    <wd-tooltip 
-      use-content-slot
-    >
-      <wd-button>自定义内容</wd-button>
-      <template #content>
-        <view class="custom-content">
-          <view class="title">自定义提示</view>
-          <view class="desc">这是一个自定义内容的提示框</view>
-        </view>
-      </template>
-    </wd-tooltip>
-  </view>
-</template>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
 .custom-content {
   padding: 10px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .title {
+  font-size: 16px;
   font-weight: bold;
+  color: #333;
+  display: block;
   margin-bottom: 5px;
 }
 
 .desc {
   font-size: 14px;
   color: #666;
+  line-height: 1.4;
 }
 </style>
 ```
 
-### 手动控制和关闭按钮
+### 手动控制显隐
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-tooltip 
-      v-model="visible" 
-      content="手动控制提示" 
-      show-close
-    >
-      <wd-button>手动控制</wd-button>
+  <view class="tooltip-demo">
+    <wd-tooltip ref="tooltipRef" content="手动控制的提示">
+      <wd-button type="primary">目标元素</wd-button>
     </wd-tooltip>
-    <view class="controls">
-      <wd-button @click="visible = true">打开</wd-button>
-      <wd-button @click="visible = false">关闭</wd-button>
-    </view>
+    <wd-button type="success" @click="openTooltip">打开</wd-button>
+    <wd-button type="danger" @click="closeTooltip">关闭</wd-button>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const visible = ref(false)
+const tooltipRef = ref(null)
+
+const openTooltip = () => {
+  tooltipRef.value?.open()
+}
+
+const closeTooltip = () => {
+  tooltipRef.value?.close()
+}
 </script>
 
 <style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.controls {
+.tooltip-demo {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  padding: 20px;
+  align-items: center;
 }
 </style>
 ```
 
-### 禁用状态和无箭头
+### 带有关闭按钮
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-tooltip 
-      content="禁用状态" 
-      disabled
-    >
-      <wd-button>禁用状态</wd-button>
-    </wd-tooltip>
-    <wd-tooltip 
-      content="无箭头" 
-      :visible-arrow="false"
-    >
-      <wd-button>无箭头</wd-button>
-    </wd-tooltip>
-  </view>
+  <wd-tooltip content="可关闭的提示" show-close placement="right">
+    <wd-button type="primary">带关闭按钮</wd-button>
+  </wd-tooltip>
 </template>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-</style>
 ```
 
-## 样式定制
+## 样式定制指南
 
 ### 自定义样式
 
-使用 `customStyle` 和 `customClass` 属性可以自定义 Tooltip 的样式：
-
 ```vue
 <template>
-  <view class="demo">
-    <wd-tooltip 
-      content="自定义样式" 
-      customClass="my-tooltip"
-      customStyle="background-color: #1989fa; color: white; border-radius: 8px; padding: 10px;"
-    >
-      <wd-button>自定义样式</wd-button>
-    </wd-tooltip>
-  </view>
+  <wd-tooltip 
+    content="自定义样式提示" 
+    custom-class="my-tooltip" 
+    custom-style="max-width: 200px;"
+  >
+    <wd-button type="primary">自定义样式</wd-button>
+  </wd-tooltip>
 </template>
 
 <style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-:deep(.my-tooltip) {
-  font-size: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.my-tooltip {
+  /* 自定义Tooltip容器样式 */
+  .wd-tooltip__container {
+    background-color: #409eff;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  /* 自定义箭头样式 */
+  .wd-tooltip__arrow {
+    border-left-color: #409eff;
+    border-right-color: #409eff;
+  }
 }
 </style>
 ```
 
-### CSS 变量
-
-组件支持通过 CSS 变量进行样式定制，以下是常用的 CSS 变量：
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| --tooltip-background-color | 背景颜色 | rgba(0, 0, 0, 0.7) |
-| --tooltip-text-color | 文字颜色 | #ffffff |
-| --tooltip-font-size | 文字大小 | 28rpx |
-| --tooltip-line-height | 行高 | 40rpx |
-| --tooltip-padding | 内边距 | 16rpx 24rpx |
-| --tooltip-border-radius | 圆角 | 8rpx |
-| --tooltip-arrow-size | 箭头大小 | 16rpx |
-| --tooltip-arrow-color | 箭头颜色 | rgba(0, 0, 0, 0.7) |
-
 ## 注意事项
 
-1. **内容类型**：
-   - `content` 属性支持字符串和数组类型
-   - 当需要更复杂的内容时，建议使用 `content` 插槽
-
-2. **位置设置**：
-   - 支持 12 种不同的位置，包括上下左右以及各方向的起始和结束位置
-   - 组件会自动调整位置以确保提示框在可视区域内
-
-3. **偏移量**：
-   - `offset` 属性支持数字、数组和对象三种类型
-   - 数字类型：同时设置 x 和 y 方向的偏移量
-   - 数组类型：[x, y] 分别设置 x 和 y 方向的偏移量
-   - 对象类型：{ x: number, y: number } 分别设置 x 和 y 方向的偏移量
-
-4. **手动控制**：
-   - 可以通过 `v-model` 双向绑定控制 Tooltip 的显示和隐藏
-   - 也可以通过调用 `open()` 和 `close()` 方法手动控制
-
-5. **性能优化**：
-   - 避免在大量元素上同时使用 Tooltip
-   - 对于频繁更新的内容，建议使用 `content` 属性而不是插槽
-
-6. **跨平台兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 动画效果可能在不同平台上有细微差异
-
-7. **点击外部关闭**：
-   - 组件默认支持点击外部关闭 Tooltip
-   - 可以通过 `disabled` 属性禁用此功能
+1. **内容限制**：Tooltip内容不宜过长，建议控制在100字以内，过长内容可能影响显示效果。
+2. **性能优化**：避免在大量元素上同时使用Tooltip，可能影响页面性能。
+3. **位置自适应**：当Tooltip在屏幕边缘时，组件会自动调整位置以确保完全显示。
+4. **事件冒泡**：Tooltip内部的点击事件会被阻止冒泡，避免影响外部元素。
+5. **兼容性**：在某些小程序平台上，Tooltip的定位可能需要额外调整。
+6. **内容更新**：当动态更新content属性时，Tooltip会自动重新计算位置。
+7. **嵌套使用**：不建议嵌套使用Tooltip，可能导致定位错误。
+8. **关闭按钮**：showClose属性仅在Tooltip显示时生效，关闭按钮点击后会触发close事件。

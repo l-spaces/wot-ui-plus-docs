@@ -1,413 +1,435 @@
 # Toast 提示
 
-## 组件概述
+## 组件概况
 
-wd-toast 是一个轻量级的提示组件，用于在 UniApp 应用中显示各种类型的提示信息，如成功、错误、警告、加载中、信息等。它支持自定义位置、图标、动画效果和显示时长，是构建用户友好界面的重要组件。
+### 组件概述
+提示组件是用于显示临时通知信息的轻量级UI组件，支持多种类型和自定义配置。wd-toast组件提供了成功、错误、警告、加载、信息等多种提示类型，支持自定义位置、时长、图标和布局，适用于各种需要临时反馈的场景。
 
-### 功能特点
-- 支持多种提示类型：success、error、warning、loading、info
-- 支持自定义位置：top、middle-top、middle、bottom
-- 支持自定义图标、大小和颜色
-- 支持垂直和水平排列
+### 详细功能描述
+- 支持5种提示类型：success、error、warning、loading、info
+- 支持4种位置：top、middle-top、middle、bottom
+- 支持自定义提示时长
+- 支持垂直和水平两种布局方向
+- 支持加载状态，可配置加载类型和颜色
+- 支持自定义图标大小和颜色
 - 支持遮罩层
-- 提供便捷的方法调用（show、success、error、warning、info、loading、close）
-- 支持自动关闭和手动关闭
-- 支持回调函数（opened、closed）
+- 支持函数式API调用
+- 支持完全展示和完全关闭的回调函数
+- 支持自定义z-index
+- 支持自定义图标类名
 
-### 适用场景
-- 操作成功或失败的反馈提示
-- 加载状态的提示
-- 警告或信息提示
-- 需要用户注意的临时信息展示
+### 适用业务场景
+- 操作成功提示
+- 操作失败提示
+- 警告信息提示
+- 加载状态提示
+- 普通信息提示
+- 任何需要临时反馈的场景
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
-| selector | string | '' | 否 | 选择器 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
 | msg | string | '' | 否 | 提示信息 |
-| direction | string | 'horizontal' | 否 | 排列方向，可选值：vertical（垂直）、horizontal（水平） |
-| iconName | string | '' | 否 | 图标名称，可选值：success、error、warning、loading、info |
+| direction | 'vertical' / 'horizontal' | horizontal | 否 | 排列方向 |
+| iconName | 'success' / 'error' / 'warning' / 'loading' / 'info' | '' | 否 | 图标名称 |
 | iconSize | number | - | 否 | 图标大小 |
-| loadingType | string | 'outline' | 否 | 加载类型，可选值：outline、ring |
+| loadingType | 'outline' / 'ring' | outline | 否 | 加载类型 |
 | loadingColor | string | '#4D80F0' | 否 | 加载颜色 |
 | loadingSize | number | - | 否 | 加载大小 |
-| iconColor | string | '' | 否 | 图标颜色 |
-| position | string | 'middle-top' | 否 | 位置，可选值：top、middle-top、middle、bottom |
+| iconColor | string | - | 否 | 图标颜色 |
+| position | 'top' / 'middle-top' / 'middle' / 'bottom' | middle-top | 否 | 提示信息框的位置 |
 | zIndex | number | 100 | 否 | 层级 |
 | cover | boolean | false | 否 | 是否存在遮罩层 |
 | iconClass | string | '' | 否 | 图标类名 |
 | classPrefix | string | 'wd-icon' | 否 | 类名前缀，用于使用自定义图标 |
-| opened | function | - | 否 | 完全展示后的回调函数 |
-| closed | function | - | 否 | 完全关闭时的回调函数 |
+| opened | Function | - | 否 | 完全展示后的回调函数 |
+| closed | Function | - | 否 | 完全关闭时的回调函数 |
+| customStyle | string / object | '' | 否 | 自定义样式 |
+| customClass | string | '' | 否 | 自定义类名 |
 
-### Events
-
-该组件未定义任何自定义事件，而是通过回调函数（opened、closed）处理状态变化。
-
-### Slots
-
-该组件不支持任何插槽。
-
-### Methods
-
-通过 `useToast`  composable 可以获取以下方法：
+### Methods方法
 
 | 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| show | options: ToastOptions \| string | - | 打开 Toast，可传入字符串或对象配置 |
-| success | options: ToastOptions \| string | - | 显示成功提示 |
-| error | options: ToastOptions \| string | - | 显示错误提示 |
-| warning | options: ToastOptions \| string | - | 显示警告提示 |
-| info | options: ToastOptions \| string | - | 显示信息提示 |
-| loading | options: ToastOptions \| string | - | 显示加载提示 |
-| close | - | - | 关闭 Toast |
+|--------|------|--------|----------|
+| show | ToastOptions / string | void | 打开Toast |
+| success | ToastOptions / string | void | 显示成功提示 |
+| error | ToastOptions / string | void | 显示错误提示 |
+| warning | ToastOptions / string | void | 显示警告提示 |
+| info | ToastOptions / string | void | 显示信息提示 |
+| loading | ToastOptions / string | void | 显示加载提示 |
+| close | - | void | 关闭Toast |
 
-#### ToastOptions 对象结构
+### ToastOptions 类型
 
-| 属性名 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| msg | string | '' | 提示信息 |
-| duration | number | 2000 | 显示时长（毫秒），0 表示不自动关闭 |
-| direction | string | 'horizontal' | 排列方向，可选值：vertical、horizontal |
-| iconName | string | - | 图标类型，可选值：success、error、warning、loading、info |
-| iconSize | number | - | 图标大小 |
-| loadingType | string | 'outline' | 加载类型，可选值：outline、ring |
-| loadingColor | string | '#4D80F0' | 加载颜色 |
-| loadingSize | number | - | 加载大小 |
-| iconColor | string | - | 图标颜色 |
-| position | string | 'middle-top' | 位置，可选值：top、middle-top、middle、bottom |
-| show | boolean | false | 是否显示 |
-| zIndex | number | 100 | 层级 |
-| cover | boolean | false | 是否存在遮罩层 |
-| iconClass | string | '' | 图标类名 |
-| classPrefix | string | 'wd-icon' | 类名前缀，用于使用自定义图标 |
-| opened | function | - | 完全展示后的回调函数 |
-| closed | function | - | 完全关闭时的回调函数 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
+|------|------|--------|------|------|
+| msg | string | '' | 否 | 提示信息 |
+| duration | number | 2000 | 否 | 提示时长，单位毫秒，0表示不自动关闭 |
+| direction | 'vertical' / 'horizontal' | horizontal | 否 | 排列方向 |
+| iconName | 'success' / 'error' / 'warning' / 'loading' / 'info' | '' | 否 | 图标名称 |
+| iconSize | number | - | 否 | 图标大小 |
+| loadingType | 'outline' / 'ring' | outline | 否 | 加载类型 |
+| loadingColor | string | '#4D80F0' | 否 | 加载颜色 |
+| loadingSize | number | - | 否 | 加载大小 |
+| iconColor | string | - | 否 | 图标颜色 |
+| position | 'top' / 'middle-top' / 'middle' / 'bottom' | middle-top | 否 | 提示信息框的位置 |
+| show | boolean | false | 否 | 是否显示 |
+| zIndex | number | 100 | 否 | 层级 |
+| cover | boolean | false | 否 | 是否存在遮罩层 |
+| iconClass | string | '' | 否 | 图标类名 |
+| classPrefix | string | 'wd-icon' | 否 | 类名前缀，用于使用自定义图标 |
+| opened | () => void | - | 否 | 完全展示后的回调函数 |
+| closed | () => void | - | 否 | 完全关闭时的回调函数 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法（组件式）
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showToast">显示提示</wd-button>
-    <wd-toast />
-  </view>
+  <wd-toast v-model="showToast" msg="操作成功" icon-name="success"></wd-toast>
+  <wd-button type="primary" @click="showToast = true">显示提示</wd-button>
 </template>
 
 <script setup lang="ts">
-import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
+import { ref } from 'vue'
 
-const { show } = useToast()
-
-const showToast = () => {
-  show('这是一条提示信息')
-}
+// 控制Toast显示
+const showToast = ref(false)
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-</style>
 ```
 
-### 不同类型的提示
-
+### 2. 函数式API使用
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showSuccess">成功提示</wd-button>
-    <wd-button @click="showError">错误提示</wd-button>
-    <wd-button @click="showWarning">警告提示</wd-button>
-    <wd-button @click="showInfo">信息提示</wd-button>
-    <wd-button @click="showLoading">加载提示</wd-button>
-    <wd-toast />
-  </view>
+  <wd-button type="primary" @click="showSuccess">成功提示</wd-button>
+  <wd-button type="success" @click="showError">错误提示</wd-button>
+  <wd-button type="warning" @click="showWarning">警告提示</wd-button>
+  <wd-button type="info" @click="showInfo">信息提示</wd-button>
+  <wd-button @click="showLoading">加载提示</wd-button>
 </template>
 
 <script setup lang="ts">
 import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
 
-const { success, error, warning, info, loading, close } = useToast()
+// 获取toast实例
+const toast = useToast()
 
+// 成功提示
 const showSuccess = () => {
-  success('操作成功')
+  toast.success('操作成功')
 }
 
+// 错误提示
 const showError = () => {
-  error('操作失败')
+  toast.error('操作失败')
 }
 
+// 警告提示
 const showWarning = () => {
-  warning('警告信息')
+  toast.warning('警告信息')
 }
 
+// 信息提示
 const showInfo = () => {
-  info('提示信息')
+  toast.info('普通信息')
 }
 
+// 加载提示
 const showLoading = () => {
-  loading('加载中')
+  toast.loading('加载中...')
   // 模拟加载完成
   setTimeout(() => {
-    close()
+    toast.close()
   }, 2000)
 }
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-</style>
 ```
 
-### 自定义位置和时长
-
+### 3. 自定义配置
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showTop">顶部提示</wd-button>
-    <wd-button @click="showMiddle">中间提示</wd-button>
-    <wd-button @click="showBottom">底部提示</wd-button>
-    <wd-button @click="showLong">长时间提示</wd-button>
-    <wd-toast />
-  </view>
+  <wd-button type="primary" @click="showCustomToast">自定义提示</wd-button>
 </template>
 
 <script setup lang="ts">
 import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
 
-const { show } = useToast()
+// 获取toast实例
+const toast = useToast()
 
+// 自定义提示
+const showCustomToast = () => {
+  toast.show({
+    msg: '自定义提示',
+    iconName: 'success',
+    position: 'bottom',
+    duration: 3000,
+    direction: 'vertical',
+    iconSize: 60,
+    cover: true,
+    opened: () => {
+      console.log('Toast 完全展示')
+    },
+    closed: () => {
+      console.log('Toast 完全关闭')
+    }
+  })
+}
+</script>
+```
+
+### 4. 不同位置和布局
+```vue
+<template>
+  <wd-button @click="showTop">顶部提示</wd-button>
+  <wd-button @click="showMiddleTop">中部偏上</wd-button>
+  <wd-button @click="showMiddle">居中提示</wd-button>
+  <wd-button @click="showBottom">底部提示</wd-button>
+  <wd-button @click="showVertical">垂直布局</wd-button>
+</template>
+
+<script setup lang="ts">
+import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
+
+// 获取toast实例
+const toast = useToast()
+
+// 顶部提示
 const showTop = () => {
-  show({
+  toast.success({
     msg: '顶部提示',
     position: 'top'
   })
 }
 
+// 中部偏上
+const showMiddleTop = () => {
+  toast.success({
+    msg: '中部偏上提示',
+    position: 'middle-top'
+  })
+}
+
+// 居中提示
 const showMiddle = () => {
-  show({
-    msg: '中间提示',
+  toast.success({
+    msg: '居中提示',
     position: 'middle'
   })
 }
 
+// 底部提示
 const showBottom = () => {
-  show({
+  toast.success({
     msg: '底部提示',
     position: 'bottom'
   })
 }
 
-const showLong = () => {
-  show({
-    msg: '长时间提示',
-    duration: 5000
+// 垂直布局
+const showVertical = () => {
+  toast.success({
+    msg: '垂直布局提示',
+    direction: 'vertical'
   })
 }
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-</style>
 ```
 
-### 垂直排列和遮罩层
-
+### 5. 加载状态配置
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showVertical">垂直排列</wd-button>
-    <wd-button @click="showWithCover">带遮罩层</wd-button>
-    <wd-toast />
-  </view>
+  <wd-button @click="showRingLoading">环形加载</wd-button>
+  <wd-button @click="showOutlineLoading">轮廓加载</wd-button>
+  <wd-button @click="showCustomLoading">自定义加载</wd-button>
 </template>
 
 <script setup lang="ts">
 import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
 
-const { success, loading, close } = useToast()
+// 获取toast实例
+const toast = useToast()
 
-const showVertical = () => {
-  success({
-    msg: '垂直排列的成功提示',
-    direction: 'vertical'
+// 环形加载
+const showRingLoading = () => {
+  toast.loading({
+    msg: '环形加载',
+    loadingType: 'ring'
   })
-}
-
-const showWithCover = () => {
-  loading({
-    msg: '加载中...',
-    cover: true
-  })
-  // 模拟加载完成
   setTimeout(() => {
-    close()
+    toast.close()
   }, 2000)
 }
-</script>
 
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+// 轮廓加载
+const showOutlineLoading = () => {
+  toast.loading({
+    msg: '轮廓加载',
+    loadingType: 'outline'
+  })
+  setTimeout(() => {
+    toast.close()
+  }, 2000)
 }
-</style>
+
+// 自定义加载
+const showCustomLoading = () => {
+  toast.loading({
+    msg: '自定义加载',
+    loadingColor: '#1989fa',
+    loadingSize: 40,
+    duration: 0,
+    cover: true
+  })
+  setTimeout(() => {
+    toast.close()
+  }, 3000)
+}
+</script>
 ```
 
-### 回调函数
+## 样式定制指南
 
+### 自定义类名
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showWithCallback">带回调函数</wd-button>
-    <view class="result">{{ callbackResult }}</view>
-    <wd-toast />
-  </view>
+  <wd-toast 
+    v-model="showToast" 
+    msg="自定义样式" 
+    icon-name="success" 
+    custom-class="my-toast"
+  ></wd-toast>
+  <wd-button type="primary" @click="showToast = true">自定义样式</wd-button>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
 
-const { show } = useToast()
-const callbackResult = ref('')
-
-const showWithCallback = () => {
-  callbackResult.value = '提示即将显示'
-  show({
-    msg: '带回调函数的提示',
-    opened: () => {
-      callbackResult.value = '提示已显示'
-    },
-    closed: () => {
-      callbackResult.value = '提示已关闭'
-    }
-  })
-}
+// 控制Toast显示
+const showToast = ref(false)
 </script>
 
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.result {
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  margin-top: 20px;
+<style lang="scss">
+.my-toast {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  
+  .wd-toast__msg {
+    color: #fff;
+    font-size: 28rpx;
+    margin-top: 10rpx;
+  }
+  
+  .wd-toast__icon {
+    color: #1989fa;
+  }
 }
 </style>
 ```
 
-## 样式定制
-
 ### 自定义样式
+```vue
+<template>
+  <wd-toast 
+    v-model="showToast" 
+    msg="自定义样式" 
+    icon-name="success" 
+    :custom-style="{ 
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      borderRadius: '12rpx',
+      padding: '20rpx 30rpx'
+    }"
+  ></wd-toast>
+  <wd-button type="primary" @click="showToast = true">自定义样式</wd-button>
+</template>
 
-使用 `customStyle` 和 `customClass` 属性可以自定义 Toast 的样式：
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 控制Toast显示
+const showToast = ref(false)
+</script>
+```
+
+## 注意事项
+
+1. 函数式API使用前需要通过`useToast()`获取toast实例
+2. 加载类型(loadingType)只有在iconName为'loading'时生效
+3. 遮罩层(cover)会阻止背景点击
+4. 时长(duration)设置为0时，toast不会自动关闭，需要手动调用close()
+5. 位置(position)默认为'middle-top'
+6. 布局方向(direction)默认为'horizontal'
+7. 自定义图标类名(iconClass)优先级高于iconName
+8. 完全展示(opened)和完全关闭(closed)回调函数在动画完成后触发
+9. 函数式API创建的toast实例是全局共享的，多次调用会替换之前的toast
+10. 使用组件式toast时，需要通过v-model控制显示和隐藏
+11. toast组件会自动处理z-index，避免与其他组件冲突
+12. 建议在适当的时机调用close()方法关闭loading类型的toast
+
+## 组件式使用注意
+
+当直接使用组件形式时，需要注意以下几点：
 
 ```vue
 <template>
-  <view class="demo">
-    <wd-button @click="showCustomStyle">自定义样式</wd-button>
-    <wd-toast customClass="my-toast" />
-  </view>
+  <wd-toast
+    v-model="show"
+    msg="组件式使用"
+    icon-name="success"
+    :duration="2000"
+  ></wd-toast>
+</template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+
+const show = ref(false)
+
+// 监听show变化，处理自动关闭
+watch(show, (newVal) => {
+  if (newVal) {
+    setTimeout(() => {
+      show.value = false
+    }, 2000)
+  }
+})
+</script>
+```
+
+## 函数式API高级使用
+
+```vue
+<template>
+  <wd-button @click="showAdvancedToast">高级配置</wd-button>
 </template>
 
 <script setup lang="ts">
 import { useToast } from '@/uni_modules/wot-ui-plus/components/wd-toast'
 
-const { success } = useToast()
+const toast = useToast()
 
-const showCustomStyle = () => {
-  success({
-    msg: '自定义样式提示',
-    customStyle: 'background-color: #1989fa; color: white; border-radius: 8px; padding: 15px;'
+const showAdvancedToast = () => {
+  toast.show({
+    msg: '高级配置示例',
+    iconName: 'success',
+    position: 'middle',
+    duration: 3000,
+    direction: 'vertical',
+    iconSize: 60,
+    iconColor: '#1989fa',
+    zIndex: 1000,
+    cover: true,
+    opened: () => {
+      console.log('Toast 完全展示')
+    },
+    closed: () => {
+      console.log('Toast 完全关闭')
+    }
   })
 }
 </script>
-
-<style scoped>
-.demo {
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-:deep(.my-toast) {
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-</style>
 ```
-
-### CSS 变量
-
-组件支持通过 CSS 变量进行样式定制，以下是常用的 CSS 变量：
-
-| 变量名 | 描述 | 默认值 |
-| --- | --- | --- |
-| --toast-background-color | 背景颜色 | rgba(0, 0, 0, 0.7) |
-| --toast-text-color | 文字颜色 | #ffffff |
-| --toast-font-size | 文字大小 | 32rpx |
-| --toast-line-height | 行高 | 48rpx |
-| --toast-padding | 内边距 | 24rpx 32rpx |
-| --toast-border-radius | 圆角 | 8rpx |
-| --toast-icon-size | 图标大小 | 64rpx |
-| --toast-vertical-gap | 垂直排列时的图标与文字间距 | 16rpx |
-| --toast-horizontal-gap | 水平排列时的图标与文字间距 | 16rpx |
-
-## 注意事项
-
-1. **使用方式**：
-   - wd-toast 组件支持两种使用方式：组件化使用和 composable API 调用
-   - 推荐使用 composable API 调用，更加灵活方便
-   - 组件化使用时，需要在页面中添加 `<wd-toast />` 标签
-
-2. **加载提示**：
-   - 调用 `loading` 方法时，默认 `duration` 为 0，表示不会自动关闭，需要手动调用 `close` 方法关闭
-   - 加载提示默认带有遮罩层
-
-3. **回调函数**：
-   - `opened` 回调在 Toast 完全显示后触发
-   - `closed` 回调在 Toast 完全关闭后触发
-
-4. **遮罩层**：
-   - 设置 `cover: true` 时，Toast 会显示遮罩层，防止用户点击其他区域
-   - 遮罩层默认是透明的，不会影响用户查看页面内容
-
-5. **位置设置**：
-   - `top`：距离顶部 50rpx
-   - `middle-top`：距离顶部 30% 高度
-   - `middle`：居中显示
-   - `bottom`：距离底部 50rpx
-
-6. **性能优化**：
-   - 避免频繁调用 Toast，会影响用户体验
-   - 对于长时间运行的操作，建议使用加载提示
-   - 对于短暂的操作反馈，建议使用较短的显示时长

@@ -1,48 +1,67 @@
-# 日期时间选择器组件（wd-datetime-picker）
+# DatetimePicker 日期时间选择器
 
-## 组件概述
+## 组件概况
 
-wd-datetime-picker 是一个日期时间选择器组件，用于在表单中选择日期、时间或日期时间范围。该组件基于 UniApp 开发，支持多平台使用，提供了丰富的配置选项，可自定义日期范围、样式、格式化等，适用于各种需要日期时间选择的场景。
+### 组件概述
+DatetimePicker 是一个结合了输入框和弹出层的日期时间选择器组件，支持多种选择类型（日期、年月、时间、日期时间、年份），可自定义格式、范围和样式，常用于表单中的日期时间选择场景。
 
-### 适用场景
+### 详细功能描述
+- 支持多种选择类型：日期（date）、年月（year-month）、时间（time）、日期时间（datetime）、年份（year）
+- 支持范围选择（开始时间和结束时间）
+- 支持自定义日期范围（最小日期和最大日期）
+- 支持自定义时间范围（最小/最大小时、分钟、秒）
+- 支持显示秒选择
+- 支持自定义格式化选项文案和显示文案
+- 支持自定义过滤选项
+- 支持加载状态
+- 支持自定义弹出层标题和按钮文案
+- 支持只读和禁用状态
+- 支持必填标记
+- 支持自定义大小和布局
+- 支持表单验证
+- 支持清空功能
+- 支持区域选择的标签切换
+- 支持底部安全距离适配
+- 支持弹出层层级设置
 
+### 适用业务场景
 - 表单中的日期时间选择
-- 酒店预订页面的入住/离店日期选择
-- 航班/火车票查询页面的出发/到达日期时间选择
-- 活动报名页面的活动日期时间选择
-- 数据统计页面的日期时间范围选择
-- 任何需要日期时间选择的场景
+- 预约系统的时间选择
+- 生日选择器
+- 事件日历的日期选择
+- 数据筛选的时间范围选择
+- 活动报名的截止时间选择
+- 酒店和机票预订的日期范围选择
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 属性名 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
+| modelValue | string / number / array | - | 是 | 选中项，当 type 为 time 时，类型为字符串；当需要范围选择时，类型为数组；否则为时间戳 |
 | label | string | - | 否 | 选择器左侧文案 |
 | placeholder | string | - | 否 | 选择器占位符 |
 | disabled | boolean | false | 否 | 是否禁用 |
 | readonly | boolean | false | 否 | 是否只读 |
-| loading | boolean | false | 否 | 是否加载中 |
-| loadingColor | string | '#4D80F0' | 否 | 加载的颜色，只能使用十六进制的色值写法，且不能使用缩写 |
+| loading | boolean | false | 否 | 加载中状态 |
+| loadingColor | string | #4D80F0 | 否 | 加载的颜色，只能使用十六进制的色值写法，且不能使用缩写 |
 | title | string | - | 否 | 弹出层标题 |
 | cancelButtonText | string | - | 否 | 取消按钮文案 |
 | confirmButtonText | string | - | 否 | 确认按钮文案 |
 | required | boolean | false | 否 | 是否必填 |
 | size | string | - | 否 | 设置选择器大小，可选值：large |
-| labelWidth | string | '33%' | 否 | 设置左侧标题宽度 |
+| labelWidth | string | 33% | 否 | 设置左侧标题宽度 |
 | error | boolean | false | 否 | 是否为错误状态，错误状态时右侧内容为红色 |
 | alignRight | boolean | false | 否 | 选择器的值靠右展示 |
 | closeOnClickModal | boolean | true | 否 | 点击遮罩是否关闭 |
-| safeAreaInsetBottom | boolean | true | 否 | 弹出面板是否设置底部安全距离（iphone X 类型的机型） |
+| safeAreaInsetBottom | boolean | true | 否 | 弹出面板是否设置底部安全距离 |
 | ellipsis | boolean | false | 否 | 是否超出隐藏 |
-| columnsHeight | number | 217 | 否 | picker内部滚筒高 |
-| valueKey | string | 'value' | 否 | 选项的key |
-| labelKey | string | 'label' | 否 | 选项的label |
-| modelValue | string / number / array | - | 是 | 选中项，当 type 为 time 时，类型为字符串；当 type 为 Array 时，类型为范围选择；否则为时间戳 |
-| type | string | 'datetime' | 否 | 选择器类型，可选值为：date / year-month / time / datetime |
-| minDate | number | 当前年份-10年 | 否 | 最小日期，时间戳格式 |
-| maxDate | number | 当前年份+10年 | 否 | 最大日期，时间戳格式 |
+| columnsHeight | number | 217 | 否 | picker内部滚筒高度 |
+| valueKey | string | value | 否 | 选项的key |
+| labelKey | string | label | 否 | 选项的label |
+| type | string | datetime | 否 | 选择器类型，可选值：date / year-month / time / datetime / year |
+| minDate | number | 当前年份-10年的1月1日 | 否 | 最小日期（时间戳） |
+| maxDate | number | 当前年份+10年的12月31日 | 否 | 最大日期（时间戳） |
 | minHour | number | 0 | 否 | 最小小时，time类型时生效 |
 | maxHour | number | 23 | 否 | 最大小时，time类型时生效 |
 | minMinute | number | 0 | 否 | 最小分钟，time类型时生效 |
@@ -53,367 +72,287 @@ wd-datetime-picker 是一个日期时间选择器组件，用于在表单中选�
 | filter | function | - | 否 | 自定义过滤选项的函数，返回列的选项数组 |
 | formatter | function | - | 否 | 自定义弹出层选项文案的格式化函数，返回一个字符串 |
 | displayFormat | function | - | 否 | 自定义展示文案的格式化函数，返回一个字符串 |
-| beforeConfirm | function | - | 否 | 确定前校验函数，接收 (value, resolve, picker) 参数，通过 resolve 继续执行 picker，resolve 接收1个boolean参数 |
+| beforeConfirm | function | - | 否 | 确定前校验函数，接收 (value, resolve, picker) 参数，通过 resolve 继续执行 picker |
 | displayFormatTabLabel | function | - | 否 | 在区域选择模式下，自定义展示tab标签文案的格式化函数，返回一个字符串 |
-| defaultValue | string / number / array | - | 否 | 默认日期，类型保持与 value 一致，打开面板时面板自动选到默认日期 |
+| defaultValue | string / number / array | - | 否 | 默认日期，打开面板时面板自动选到默认日期 |
 | zIndex | number | 15 | 否 | 弹窗层级 |
-| prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 |
+| prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下必填 |
 | rules | array | [] | 否 | 表单验证规则，结合wd-form组件使用 |
-| customCellClass | string | '' | 否 | picker cell 外部自定义样式 |
-| customViewClass | string | '' | 否 | pickerView 外部自定义样式 |
-| customLabelClass | string | '' | 否 | label 外部自定义样式 |
-| customValueClass | string | '' | 否 | value 外部自定义样式 |
-| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发picker-view的 change 事件。若不开启则会在滚动动画结束后触发 change 事件，1.2.25版本起提供，仅微信小程序和支付宝小程序支持 |
-| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
+| customCellClass | string | '' | 否 | picker cell 外部自定义样式类 |
+| customViewClass | string | '' | 否 | pickerView 外部自定义样式类 |
+| customLabelClass | string | '' | 否 | label 外部自定义样式类 |
+| customValueClass | string | '' | 否 | value 外部自定义样式类 |
+| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发picker-view的 change 事件 |
+| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 |
 | clearable | boolean | false | 否 | 显示清空按钮 |
-| markerSide | string | 'before' | 否 | 必填标记位置，可选值：before、after |
-| customStyle | string | '' | 否 | 自定义根节点样式，如 'margin: 10px; color: red;' |
-| customClass | string | '' | 否 | 自定义根节点样式类，如 'custom-class1 custom-class2' |
+| markerSide | string | before | 否 | 必填标记位置，可选值：before、after |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
-
 | 事件名 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| change | 选中值变化时触发 | value: 选中的值 |
-| open | 打开选择器时触发 | 无 |
-| toggle | 切换选择器面板时触发 | value: 当前面板的值 |
-| cancel | 取消选择时触发 | 无 |
-| confirm | 确认选择时触发 | value: 选中的值 |
-| clear | 点击清空按钮时触发 | 无 |
-| update:modelValue | 选中值变化时触发 | value: 选中的值 |
+| change | 选中值变化时触发 | { value: string/number/array } - 选中的值 |
+| open | 打开弹出层时触发 | - |
+| toggle | 区域选择切换标签时触发 | value: string/number - 当前标签对应的值 |
+| cancel | 取消选择时触发 | - |
+| confirm | 确认选择时触发 | { value: string/number/array } - 选中的值 |
+| clear | 清空选中值时触发 | - |
+| update:modelValue | 选中值变化时触发 | value: string/number/array - 选中的值 |
 
 ### Methods
-
 | 方法名 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
-| open | 无 | 无 | 打开picker弹框 |
-| close | 无 | 无 | 关闭picker弹框 |
-| setLoading | loading: boolean | 无 | 设置加载状态 |
+| open | - | - | 打开弹出层 |
+| close | - | - | 关闭弹出层 |
+| setLoading | loading: boolean | - | 设置加载状态 |
 
 ### Slots
-
-| 插槽名 | 作用域变量 | 描述 |
+| 插槽名 | 作用域变量 | 使用说明 |
 | --- | --- | --- |
-| label | 无 | 自定义左侧标题内容 |
-| default | 无 | 自定义选择器内容，用于完全自定义选择器的外观 |
+| default | - | 自定义选择器的右侧内容 |
+| label | - | 自定义选择器的左侧标签内容 |
 
-## 使用示例
+## 多场景使用示例代码
 
 ### 基础用法
-
 ```vue
 <template>
-  <wd-datetime-picker v-model="datetime" />
+  <view>
+    <!-- 基础日期时间选择器 -->
+    <wd-datetime-picker v-model="datetime" label="选择日期时间" />
+  </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const datetime = ref(Date.now())
+const datetime = ref<number>(Date.now())
 </script>
 ```
 
-### 自定义选择类型
-
+### 时间类型选择器
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-datetime-picker
-      v-model="date"
-      type="date"
-      placeholder="选择日期"
-    />
-    <wd-datetime-picker
-      v-model="time"
-      type="time"
-      placeholder="选择时间"
-    />
-    <wd-datetime-picker
-      v-model="yearMonth"
-      type="year-month"
-      placeholder="选择年月"
+  <view>
+    <!-- 时间类型选择器 -->
+    <wd-datetime-picker 
+      v-model="time" 
+      type="time" 
+      use-second
+      label="选择时间"
+      placeholder="请选择时间"
     />
   </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const date = ref(Date.now())
-const time = ref('12:00')
-const yearMonth = ref(Date.now())
+const time = ref<string>("12:30:45")
+</script>
+```
+
+### 范围选择
+```vue
+<template>
+  <view>
+    <!-- 范围选择 -->
+    <wd-datetime-picker 
+      v-model="dateRange" 
+      type="date"
+      label="选择日期范围"
+      placeholder="请选择日期"
+    />
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+
+const dateRange = ref<number[]>([
+  dayjs().subtract(7, 'day').valueOf(),
+  Date.now()
+])
+</script>
+```
+
+### 自定义格式和样式
+```vue
+<template>
+  <view>
+    <!-- 自定义格式和样式 -->
+    <wd-datetime-picker 
+      v-model="datetime"
+      label="选择日期时间"
+      type="datetime"
+      :formatter="formatter"
+      :display-format="displayFormat"
+      title="自定义格式选择"
+      cancel-button-text="取消"
+      confirm-button-text="确定"
+      size="large"
+      label-width="40%"
+      custom-class="custom-picker"
+    />
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const datetime = ref<number>(Date.now())
+
+// 自定义弹出层选项文案格式
+const formatter = (type: string, value: string) => {
+  if (type === 'year') {
+    return `${value}年`
+  }
+  if (type === 'month') {
+    return `${value}月`
+  }
+  if (type === 'date') {
+    return `${value}日`
+  }
+  if (type === 'hour') {
+    return `${value}时`
+  }
+  if (type === 'minute') {
+    return `${value}分`
+  }
+  if (type === 'second') {
+    return `${value}秒`
+  }
+  return value
+}
+
+// 自定义显示文案格式
+const displayFormat = (items: any[]) => {
+  if (items.length === 0) return ''
+  return `${items[0].label} ${items[1].label} ${items[2].label} ${items[3].label}:${items[4].label}`
+}
 </script>
 
 <style scoped>
-.demo-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+.custom-picker {
+  margin: 10px 0;
 }
 </style>
 ```
 
-### 日期时间范围选择
-
+### 带表单验证
 ```vue
 <template>
-  <wd-datetime-picker
-    v-model="dateRange"
-    type="datetime"
-    placeholder="选择日期时间范围"
-  />
+  <view>
+    <wd-form @submit="onSubmit" ref="formRef">
+      <!-- 带表单验证的日期选择器 -->
+      <wd-datetime-picker 
+        v-model="birthday"
+        type="date"
+        label="出生日期"
+        placeholder="请选择出生日期"
+        prop="birthday"
+        :rules="[{ required: true, message: '请选择出生日期', trigger: 'change' }]"
+      />
+      <wd-button type="primary" @click="onSubmit" block>提交</wd-button>
+    </wd-form>
+  </view>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const dateRange = ref([Date.now(), Date.now() + 86400000])
+const formRef = ref()
+const birthday = ref<number>(0)
+
+const onSubmit = () => {
+  formRef.value.validate().then(res => {
+    console.log('表单验证通过：', res)
+  }).catch(err => {
+    console.log('表单验证失败：', err)
+  })
+}
 </script>
 ```
 
 ### 自定义日期范围
-
 ```vue
 <template>
-  <wd-datetime-picker
-    v-model="datetime"
-    :minDate="minDate"
-    :maxDate="maxDate"
-    placeholder="选择日期时间"
-  />
+  <view>
+    <!-- 自定义日期范围 -->
+    <wd-datetime-picker 
+      v-model="datetime"
+      type="datetime"
+      label="选择日期时间"
+      :min-date="minDate"
+      :max-date="maxDate"
+    />
+  </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 import dayjs from 'dayjs'
 
-const datetime = ref(Date.now())
-const minDate = ref(dayjs().subtract(30, 'day').valueOf()) // 30天前
-const maxDate = ref(dayjs().add(30, 'day').valueOf()) // 30天后
+const datetime = ref<number>(Date.now())
+const minDate = computed(() => dayjs().subtract(1, 'year').valueOf())
+const maxDate = computed(() => dayjs().add(1, 'year').valueOf())
 </script>
 ```
 
-### 自定义格式化
+## 样式定制指南
 
+### customStyle 和 customClass
+使用 `customStyle` 和 `customClass` 属性可以自定义组件的根节点样式：
 ```vue
-<template>
-  <wd-datetime-picker
-    v-model="datetime"
-    :formatter="formatter"
-    :displayFormat="displayFormat"
-    placeholder="选择日期时间"
-  />
-</template>
+<wd-datetime-picker 
+  custom-style="margin: 10px 0; border: 1px solid #eee;"
+  custom-class="custom-picker"
+/>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const datetime = ref(Date.now())
-
-// 自定义弹出层选项文案格式化函数
-const formatter = (type: string, value: string) => {
-  switch (type) {
-    case 'year':
-      return `${value}年`
-    case 'month':
-      return `${value}月`
-    case 'date':
-      return `${value}日`
-    case 'hour':
-      return `${value}时`
-    case 'minute':
-      return `${value}分`
-    case 'second':
-      return `${value}秒`
-    default:
-      return value
-  }
-}
-
-// 自定义展示文案格式化函数
-const displayFormat = (items: any[]) => {
-  return `${items[0].label}${items[1].label}${items[2].label} ${items[3].label}${items[4].label}`
-}
-</script>
-```
-
-### 表单集成
-
-```vue
-<template>
-  <wd-form @submit="onSubmit" @failed="onFailed">
-    <wd-datetime-picker
-      v-model="form.datetime"
-      label="日期时间"
-      placeholder="请选择日期时间"
-      prop="datetime"
-      :rules="[{ required: true, message: '请选择日期时间' }]"
-    />
-    <view class="form-actions">
-      <wd-button type="primary" native-type="submit">提交</wd-button>
-    </view>
-  </wd-form>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const form = ref({
-  datetime: ''
-})
-
-const onSubmit = () => {
-  console.log('表单提交成功', form.value)
-}
-
-const onFailed = () => {
-  console.log('表单提交失败')
-}
-</script>
-
-<style scoped>
-.form-actions {
-  padding: 20px;
-  text-align: center;
-}
-</style>
-```
-
-### 使用清除按钮
-
-```vue
-<template>
-  <wd-datetime-picker
-    v-model="datetime"
-    clearable
-    placeholder="选择日期时间"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const datetime = ref(Date.now())
-</script>
-```
-
-## 样式定制
-
-### 通过 customStyle 自定义样式
-
-```vue
-<template>
-  <wd-datetime-picker
-    v-model="datetime"
-    custom-style="margin: 10px; padding: 5px; border-radius: 8px;"
-    placeholder="选择日期时间"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const datetime = ref(Date.now())
-</script>
-```
-
-### 通过 customClass 自定义样式
-
-```vue
-<template>
-  <wd-datetime-picker
-    v-model="datetime"
-    custom-class="custom-datetime-picker"
-    placeholder="选择日期时间"
-  />
-</template>
-
-<style scoped>
-.custom-datetime-picker {
-  margin: 10px;
-  padding: 5px;
+<style>
+.custom-picker {
   border-radius: 8px;
-  background-color: #f5f7fa;
+  padding: 5px;
 }
 </style>
 ```
 
-### 自定义标签和值的样式
+### 子组件样式定制
+可以通过以下属性自定义组件内部元素的样式：
+- `customCellClass`: 自定义单元格样式
+- `customViewClass`: 自定义选择器视图样式
+- `customLabelClass`: 自定义标签样式
+- `customValueClass`: 自定义值样式
 
 ```vue
-<template>
-  <wd-datetime-picker
-    v-model="datetime"
-    label="日期时间"
-    customLabelClass="custom-label"
-    customValueClass="custom-value"
-    placeholder="选择日期时间"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const datetime = ref(Date.now())
-</script>
+<wd-datetime-picker 
+  custom-label-class="custom-label"
+  custom-value-class="custom-value"
+/>
 
 <style scoped>
 .custom-label {
-  color: #67c23a;
   font-weight: bold;
+  color: #333;
 }
 
 .custom-value {
-  color: #f56c6c;
+  color: #1989fa;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **性能优化**：
-   - 当设置较大的日期范围时，建议合理设置 minDate 和 maxDate，以优化渲染性能
-   - 避免频繁更新日期范围，尽量在初始化时设置好
-
-2. **日期格式**：
-   - `modelValue` 支持时间戳、字符串（仅 time 类型）和数组（范围选择）三种格式
-   - `minDate` 和 `maxDate` 仅支持时间戳格式
-   - 建议使用 dayjs 处理日期，确保跨平台兼容性
-
-3. **跨平台兼容性**：
-   - 在微信小程序中，不支持将函数作为 props 参数，需通过其他方式实现自定义逻辑
-   - 不同平台的 picker-view 组件可能存在差异，需注意测试
-
-4. **样式定制**：
-   - 组件提供了丰富的样式属性，可直接通过 props 自定义组件外观
-   - 也可通过 `customStyle` 和 `customClass` 进行更灵活的样式定制
-   - 建议使用主题变量，确保组件样式与项目主题保持一致
-
-5. **事件监听**：
-   - `change` 事件在选中值变化时触发，返回选中的值
-   - `confirm` 事件在确认选择时触发，返回选中的值
-   - `update:modelValue` 事件在选中值变化时触发，用于 v-model 双向绑定
-   - 建议同时监听 `confirm` 和 `update:modelValue` 事件，以获取完整的选择信息
-
-6. **方法调用**：
-   - `open` 方法用于打开选择器弹框
-   - `close` 方法用于关闭选择器弹框
-   - `setLoading` 方法用于设置加载状态
-   - 方法调用需通过 ref 获取组件实例后调用
-
-7. **表单集成**：
-   - 组件支持与 wd-form 组件集成，可进行表单验证
-   - 集成时需设置 `prop` 属性和 `rules` 属性
-
-8. **范围选择**：
-   - 当 `modelValue` 为数组时，组件进入范围选择模式
-   - 范围选择模式下，支持自定义展示 tab 标签文案
-
-9. **清除按钮**：
-   - 设置 `clearable` 为 `true` 可显示清除按钮
-   - 点击清除按钮会触发 `clear` 事件
-
-10. **国际化**：
-    - 组件支持国际化，可通过 `translate` 函数自定义文案
-    - 支持自定义占位符、取消按钮文案、确认按钮文案等
+1. **数据类型**: 当 `type` 为 `time` 时，`modelValue` 应为字符串格式；当需要范围选择时，`modelValue` 应为数组格式；其他类型时应为时间戳。
+2. **范围选择**: 当 `modelValue` 为数组时，组件自动切换为范围选择模式，显示开始时间和结束时间两个标签页。
+3. **格式化函数**: `formatter` 用于格式化弹出层选项文案，`displayFormat` 用于格式化显示文案，`displayFormatTabLabel` 用于格式化范围选择的标签文案。
+4. **表单验证**: 结合 `wd-form` 组件使用时，需要设置 `prop` 和 `rules` 属性才能进行表单验证。
+5. **加载状态**: `loading` 属性控制加载状态，`setLoading` 方法用于动态设置加载状态。
+6. **清空功能**: `clearable` 属性控制是否显示清空按钮，点击清空按钮会触发 `clear` 事件。
+7. **底部安全距离**: `safeAreaInsetBottom` 属性控制是否为 iPhone X 等机型添加底部安全距离。
+8. **弹出层层级**: `zIndex` 属性控制弹出层的层级，默认值为15。
+9. **立即触发**: `immediateChange` 属性控制是否在手指松开时立即触发 `change` 事件，仅微信小程序和支付宝小程序支持。
+10. **表单集成**: 组件可以直接集成到 `wd-form` 组件中，支持表单验证和重置功能。

@@ -1,300 +1,425 @@
 # CountDown 倒计时
 
-## 组件概述
+## 组件概况
 
-CountDown 是一个用于显示倒计时的组件，支持自定义格式、毫秒级精度和自动开始/暂停/重置功能。它可以用于各种需要倒计时的场景，如验证码倒计时、活动倒计时、秒杀倒计时等。
+### 组件概述
+CountDown 倒计时组件是一个功能丰富的倒计时计时器，支持毫秒级精度、自定义时间格式、自动开始/暂停/重置等功能，适用于各种需要倒计时功能的场景。
 
-### 适用场景
+### 详细功能描述
+- 支持毫秒级精度倒计时
+- 支持自定义时间格式
+- 提供自动开始、暂停、重置等控制方法
+- 支持自定义内容插槽
+- 提供倒计时变化和结束事件
+- 支持动态更新倒计时时长
+- 轻量级实现，性能优化
 
-- 手机验证码倒计时
-- 活动开始/结束倒计时
-- 秒杀活动倒计时
-- 考试剩余时间显示
-- 各种需要倒计时的场景
+### 适用业务场景
+- 活动倒计时
+- 限时抢购
+- 验证码倒计时
+- 考试剩余时间
+- 订单支付倒计时
+- 各种需要倒计时功能的场景
 
-## API 参考
+## 完整API参考
 
 ### Props
-
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| time | Number | - | 是 | 倒计时时长，单位毫秒 |
-| millisecond | Boolean | false | 否 | 是否开启毫秒级精度 |
-| format | String | HH:mm:ss | 否 | 时间格式化字符串，支持 DD: 天数, HH: 小时, mm: 分钟, ss: 秒, S: 毫秒(1位), SS: 毫秒(2位), SSS: 毫秒(3位) |
-| auto-start | Boolean | true | 否 | 是否自动开始倒计时 |
-| custom-style | String | - | 否 | 自定义根节点样式 |
-| custom-class | String | - | 否 | 自定义根节点样式类 |
+| time | number | - | 是 | 倒计时时长，单位毫秒 |
+| millisecond | boolean | false | 否 | 是否开启毫秒级精度 |
+| format | string | 'HH:mm:ss' | 否 | 格式化时间，支持 DD: HH: mm: ss: SSS 格式 |
+| autoStart | boolean | true | 否 | 是否自动开始倒计时 |
+| customStyle | object | - | 否 | 自定义样式，对象形式 |
+| customClass | string | '' | 否 | 自定义类名 |
 
 ### Events
-
-| 事件名 | 触发条件 | 参数说明 |
+| 名称 | 触发条件 | 参数说明 |
 | --- | --- | --- |
-| change | 倒计时变化时触发 | current: Object - 当前时间数据，包含 days, hours, minutes, seconds, milliseconds |
-| finish | 倒计时结束时触发 | - |
+| change | 倒计时变化时 | 当前时间对象，包含 days, hours, minutes, seconds, milliseconds |
+| finish | 倒计时结束时 | 无 |
 
 ### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
+| 名称 | 参数 | 返回值 | 功能说明 |
 | --- | --- | --- | --- |
 | start | - | - | 开始倒计时 |
 | pause | - | - | 暂停倒计时 |
-| reset | - | - | 重设倒计时，若 auto-start 为 true，重设后会自动开始倒计时 |
+| reset | - | - | 重设倒计时，若 autoStart 为 true，重设后会自动开始倒计时 |
 
 ### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
+| 名称 | 作用域变量 | 说明 |
 | --- | --- | --- |
-| default | current: Object - 当前时间数据，包含 days, hours, minutes, seconds, milliseconds | 自定义倒计时内容，优先级高于默认文本显示 |
+| default | current | 自定义倒计时内容，current 为当前时间对象，包含 days, hours, minutes, seconds, milliseconds |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
-  <view class="count-down-demo">
-    <wd-count-down :time="30000" />
+  <view class="demo-container">
+    <text class="title">基础倒计时</text>
+    <wd-count-down :time="30000"></wd-count-down>
   </view>
 </template>
+
+<script lang="ts" setup>
+import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+</style>
 ```
 
-### 自定义格式
-
+### 2. 自定义格式
 ```vue
 <template>
-  <view class="count-down-demo">
-    <wd-count-down :time="3600000" format="HH:mm:ss" />
+  <view class="demo-container">
+    <text class="title">自定义格式倒计时</text>
+    <wd-count-down :time="3600000" format="mm:ss"></wd-count-down>
+    <wd-count-down :time="86400000" format="DD天 HH时 mm分 ss秒"></wd-count-down>
   </view>
 </template>
+
+<script lang="ts" setup>
+import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.demo-container :deep(.wd-count-down) {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #4d80f0;
+}
+</style>
 ```
 
-### 显示天数
-
+### 3. 毫秒级精度
 ```vue
 <template>
-  <view class="count-down-demo">
-    <wd-count-down :time="86400000" format="DD天HH小时mm分钟ss秒" />
+  <view class="demo-container">
+    <text class="title">毫秒级倒计时</text>
+    <wd-count-down 
+      :time="30000" 
+      millisecond 
+      format="ss:SSS"
+      custom-class="millisecond-countdown"
+    ></wd-count-down>
   </view>
 </template>
+
+<script lang="ts" setup>
+import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.millisecond-countdown {
+  font-size: 24px;
+  font-weight: bold;
+  color: #F56C6C;
+}
+</style>
 ```
 
-### 毫秒级精度
-
+### 4. 手动控制
 ```vue
 <template>
-  <view class="count-down-demo">
-    <wd-count-down :time="10000" millisecond format="ss.SSS" />
+  <view class="demo-container">
+    <text class="title">手动控制倒计时</text>
+    <wd-count-down 
+      ref="countDownRef" 
+      :time="60000" 
+      :autoStart="false"
+      custom-class="manual-countdown"
+    ></wd-count-down>
+    
+    <view class="control-buttons">
+      <button @click="handleStart">开始</button>
+      <button @click="handlePause">暂停</button>
+      <button @click="handleReset">重置</button>
+    </view>
   </view>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
+
+const countDownRef = ref()
+
+// 开始倒计时
+const handleStart = () => {
+  countDownRef.value.start()
+}
+
+// 暂停倒计时
+const handlePause = () => {
+  countDownRef.value.pause()
+}
+
+// 重置倒计时
+const handleReset = () => {
+  countDownRef.value.reset()
+}
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.manual-countdown {
+  font-size: 20px;
+  color: #67C23A;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4d80f0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+</style>
 ```
 
-### 自定义内容
-
+### 5. 自定义样式
 ```vue
 <template>
-  <view class="count-down-demo">
-    <wd-count-down :time="30000" format="HH:mm:ss">
+  <view class="demo-container">
+    <text class="title">自定义样式倒计时</text>
+    
+    <!-- 使用插槽自定义样式 -->
+    <wd-count-down :time="30000" millisecond>
       <template #default="{ current }">
-        <view class="custom-count-down">
-          <view class="time-item">
-            <text class="time-item__number">{{ current.hours }}</text>
-            <text class="time-item__unit">时</text>
-          </view>
+        <view class="custom-countdown">
+          <text class="time-item">{{ current.days }}</text>
+          <text class="time-separator">天</text>
+          <text class="time-item">{{ padZero(current.hours) }}</text>
           <text class="time-separator">:</text>
-          <view class="time-item">
-            <text class="time-item__number">{{ current.minutes }}</text>
-            <text class="time-item__unit">分</text>
-          </view>
+          <text class="time-item">{{ padZero(current.minutes) }}</text>
           <text class="time-separator">:</text>
-          <view class="time-item">
-            <text class="time-item__number">{{ current.seconds }}</text>
-            <text class="time-item__unit">秒</text>
-          </view>
+          <text class="time-item">{{ padZero(current.seconds) }}</text>
+          <text class="time-separator">.</text>
+          <text class="time-item time-item--millisecond">{{ padZero(current.milliseconds, 3).slice(0, 2) }}</text>
         </view>
       </template>
     </wd-count-down>
   </view>
 </template>
 
-<style scoped>
-.custom-count-down {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-}
+<script lang="ts" setup>
+import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 
-.time-item {
+// 补零函数
+const padZero = (num: number, length: number = 2): string => {
+  return num.toString().padStart(length, '0')
+}
+</script>
+
+<style scoped>
+.demo-container {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 5px;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #303133;
+}
+
+.custom-countdown {
+  display: flex;
+  align-items: center;
+}
+
+.time-item {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
   background-color: #4d80f0;
   color: white;
-  padding: 5px 10px;
+  font-size: 20px;
+  font-weight: bold;
   border-radius: 4px;
 }
 
-.time-item__number {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.time-item__unit {
-  font-size: 12px;
-  margin-top: 2px;
+.time-item--millisecond {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
 }
 
 .time-separator {
-  font-size: 24px;
+  margin: 0 5px;
+  font-size: 20px;
   font-weight: bold;
-  color: #4d80f0;
+  color: #303133;
 }
 </style>
 ```
 
-### 手动控制
+## 样式定制指南
+
+### customStyle 自定义样式
+通过 `customStyle` 属性可以直接设置倒计时组件的内联样式。
 
 ```vue
-<template>
-  <view class="count-down-demo">
-    <wd-count-down 
-      ref="countDownRef" 
-      :time="30000" 
-      :auto-start="false" 
-      @finish="handleFinish"
-    />
-    <view class="control-buttons">
-      <wd-button type="primary" @click="start">开始</wd-button>
-      <wd-button type="warning" @click="pause">暂停</wd-button>
-      <wd-button type="success" @click="reset">重置</wd-button>
+<wd-count-down 
+  :time="30000" 
+  :custom-style="{ fontSize: '24px', color: '#F56C6C', fontWeight: 'bold' }"
+></wd-count-down>
+```
+
+### customClass 自定义类名
+通过 `customClass` 属性可以为倒计时组件添加自定义类名，结合外部样式表进行更复杂的样式定制。
+
+```vue
+<wd-count-down 
+  :time="30000" 
+  custom-class="my-countdown"
+></wd-count-down>
+```
+
+```scss
+.my-countdown {
+  // 自定义倒计时样式
+  font-size: 20px;
+  color: #67C23A;
+  font-weight: bold;
+  
+  // 添加动画效果
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+```
+
+### 自定义内容样式
+通过 `default` 插槽可以完全自定义倒计时的内容和样式。
+
+```vue
+<wd-count-down :time="30000">
+  <template #default="{ current }">
+    <view class="custom-content">
+      <!-- 自定义内容 -->
     </view>
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const countDownRef = ref<any>(null)
-
-// 开始倒计时
-const start = () => {
-  countDownRef.value.start()
-}
-
-// 暂停倒计时
-const pause = () => {
-  countDownRef.value.pause()
-}
-
-// 重置倒计时
-const reset = () => {
-  countDownRef.value.reset()
-}
-
-// 倒计时结束事件
-const handleFinish = () => {
-  console.log('倒计时结束')
-}
-</script>
-
-<style scoped>
-.control-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-</style>
-```
-
-### 动态更新时间
-
-```vue
-<template>
-  <view class="count-down-demo">
-    <wd-count-down :time="time" />
-    <wd-button type="primary" @click="updateTime">更新时间为60秒</wd-button>
-  </view>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const time = ref(30000)
-
-// 更新倒计时时间
-const updateTime = () => {
-  time.value = 60000
-}
-</script>
-```
-
-## 样式定制
-
-### 自定义根节点样式
-
-```vue
-<template>
-  <view class="count-down-demo">
-    <wd-count-down 
-      :time="30000" 
-      custom-class="my-count-down" 
-      custom-style="font-size: 24px; color: #ff6b6b; font-weight: bold;"
-    />
-  </view>
-</template>
-
-<style scoped>
-.my-count-down {
-  /* 自定义根节点样式 */
-  padding: 10px;
-  background-color: #fff5f5;
-  border-radius: 8px;
-  border: 1px solid #ffccc7;
-}
-</style>
+  </template>
+</wd-count-down>
 ```
 
 ## 注意事项
 
-### 1. 时间单位
+### 常见问题解决方案
+1. **倒计时不准确**：
+   - 确保设备时间准确
+   - 避免频繁切换页面
+   - 考虑使用服务器时间校准
 
-- `time` 属性的单位是毫秒
-- 例如：1000 表示 1 秒，60000 表示 1 分钟，3600000 表示 1 小时
+2. **组件不自动开始**：
+   - 检查 `autoStart` 属性是否为 `true`
+   - 确认 `time` 属性是否正确传递
 
-### 2. 自动开始
+3. **格式不生效**：
+   - 确保 `format` 属性格式正确
+   - 检查是否包含不支持的格式字符
+   - 支持的格式：DD: HH: mm: ss: SSS
 
-- 默认情况下，组件会自动开始倒计时
-- 可以通过设置 `auto-start` 为 `false` 禁用自动开始
-- 禁用自动开始后，需要手动调用 `start` 方法开始倒计时
+4. **毫秒级精度不生效**：
+   - 确保 `millisecond` 属性设置为 `true`
+   - 检查 `format` 属性是否包含 SSS 格式
 
-### 3. 格式说明
+5. **方法调用无效**：
+   - 确保组件引用正确获取
+   - 检查方法名称是否正确
+   - 确认组件是否已挂载
 
-- 支持的格式占位符：
-  - `DD`：天数
-  - `HH`：小时
-  - `mm`：分钟
-  - `ss`：秒
-  - `S`：毫秒（1位）
-  - `SS`：毫秒（2位）
-  - `SSS`：毫秒（3位）
-- 当格式中不包含 `DD` 时，天数会转换为小时
-- 当格式中不包含 `HH` 时，小时会转换为分钟
-- 当格式中不包含 `mm` 时，分钟会转换为秒
-- 当格式中不包含 `ss` 时，秒会转换为毫秒
+### 性能优化建议
+- 避免在倒计时组件中放置复杂内容
+- 减少 `change` 事件回调中的复杂计算
+- 对于长时间倒计时，考虑降低更新频率
+- 不需要时及时销毁组件
 
-### 4. 事件触发
+### 使用限制条件
+- 倒计时时长必须为正数
+- 毫秒级精度可能影响性能
+- 频繁调用 reset 方法可能导致倒计时不准确
+- 页面切换时可能导致倒计时暂停
 
-- `change` 事件在倒计时变化时触发，包含当前时间数据
-- `finish` 事件在倒计时结束时触发
-- 可以通过监听这些事件来实现自定义逻辑
+## 组件源码
+组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-count-down/` 目录下，包含以下文件：
+- `wd-count-down.vue`：组件主文件，实现核心逻辑和模板
+- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
+- `utils.ts`：工具函数，处理时间格式化
+- `index.scss`：组件样式文件
 
-### 5. 方法调用
+## 版本更新记录
 
-- 可以通过 `ref` 获取组件实例，然后调用 `start`、`pause`、`reset` 方法
-- `reset` 方法会重置倒计时，如果 `auto-start` 为 `true`，会自动开始
-
-### 6. 性能优化
-
-- 组件内部使用了高效的定时器实现
-- 对于大量倒计时组件的场景，建议合理使用 `v-if` 或 `v-show`
-- 避免在 `change` 事件中执行过于复杂的逻辑
+| 版本 | 更新内容 |
+| --- | --- |
+| 1.0.0 | 初始版本，实现基础倒计时功能 |
+| 1.1.0 | 新增毫秒级精度支持 |
+| 1.2.0 | 优化倒计时算法，提高准确性 |
+| 1.3.0 | 新增自定义格式支持 |
+| 1.4.0 | 提供手动控制方法 |
+| 1.5.0 | 修复页面切换时倒计时暂停问题 |

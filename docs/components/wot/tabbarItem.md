@@ -1,265 +1,264 @@
-# Tabbar Item 标签栏项
+# TabbarItem 标签栏项
 
-## 组件概述
+## 组件概况
 
-Tabbar Item 是标签栏组件的子组件，用于定义单个标签项的内容和配置。它必须与父组件 `wd-tabbar` 配合使用，用于显示标签的标题、图标和徽章等信息，是构建底部导航栏的核心元素。
+### 组件概述
+TabbarItem 是 Tabbar 组件的子组件，用于定义标签栏中的单个标签项。它支持图标、文字、徽标等多种元素组合，可灵活配置标签样式和行为。
 
-### 功能特点
-- 支持自定义标题和图标
-- 支持徽章显示（数字徽章和点状徽章）
-- 支持自定义图标和标题插槽
-- 自动继承父组件的样式配置
-- 支持激活状态的样式变化
+### 详细功能描述
+- 支持设置标签标题和图标
+- 集成徽标功能，支持数字徽标和点状徽标
+- 支持自定义徽标最大值
+- 可通过插槽自定义图标内容
+- 自动响应父组件 Tabbar 的激活状态
+- 支持自定义样式和类名
 
-### 适用场景
-- 应用底部导航栏的单个标签项
-- 功能模块切换的标签按钮
-- 需要显示徽章提示的标签项
-- 自定义图标和样式的标签项
+### 适用业务场景
+- 与 Tabbar 组件配合使用，构建应用底部导航
+- 用于多模块功能切换的标签项
+- 需要显示徽标的导航菜单
 
-## API 参考
+## 完整API参考
 
-### Props
+### Props属性
 
-| 参数名 | 类型 | 默认值 | 必填 | 描述 |
+| 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| title | string | - | 否 | 标签项的标题 |
-| name | number/string | - | 否 | 标签项的唯一标识符，用于 `v-model` 绑定，未设置时使用索引值 |
-| icon | string | - | 否 | 标签项的图标名称，使用内置图标库 |
-| value | number/string/null | null | 否 | 徽章显示值，支持数字和字符串 |
-| isDot | boolean | undefined | 否 | 是否显示点状徽章，优先级高于 `value` |
-| max | number | 99 | 否 | 徽章最大值，超过该值显示为 `${max}+` |
-| badgeProps | object | - | 否 | 徽章属性，透传给 Badge 组件，用于自定义徽章样式和行为 |
-| customClass | string | '' | 否 | 自定义类名，用于覆盖组件样式 |
-| customStyle | object | {} | 否 | 自定义样式，直接应用到组件根元素 |
+| title | string | - | 否 | 标签页的标题 |
+| name | number / string | - | 否 | 唯一标识符，用于区分不同标签页 |
+| icon | string | - | 否 | 图标名称 |
+| value | number / string / null | null | 否 | 徽标显示值 |
+| isDot | boolean | undefined | 否 | 是否显示点状徽标 |
+| max | number | 99 | 否 | 徽标最大值，超过最大值会显示 `${max}+` |
+| badgeProps | object | - | 否 | 徽标属性，透传给 Badge 组件 |
+| customStyle | string / object | - | 否 | 自定义样式 |
+| customClass | string | - | 否 | 自定义类名 |
 
-### Events
+### Events事件
 
-该组件不直接触发任何事件，点击事件由父组件 `wd-tabbar` 统一处理。
+该组件没有定义任何事件。
 
-### Methods
+### Methods方法
 
-该组件未对外暴露任何方法。
+该组件没有对外暴露的方法。
 
-### Slots
+### Slots插槽
 
 | 插槽名 | 作用域变量 | 使用说明 |
 | --- | --- | --- |
-| icon | { active: boolean } | 自定义图标插槽，active 表示当前标签是否激活 |
-| default | - | 默认插槽，用于自定义标签项的整体内容 |
+| icon | { active: boolean } | 自定义图标，active 表示当前标签是否激活 |
 
-## 使用示例
+## 多场景使用示例代码
 
-### 基础用法
-
+### 1. 基础用法
 ```vue
 <template>
   <wd-tabbar v-model="active">
-    <wd-tabbar-item title="首页" icon="home-o" />
-    <wd-tabbar-item title="分类" icon="category-o" />
-    <wd-tabbar-item title="购物车" icon="cart-o" />
-    <wd-tabbar-item title="我的" icon="user-o" />
+    <wd-tabbar-item title="首页" icon="home" name="home"></wd-tabbar-item>
+    <wd-tabbar-item title="分类" icon="category" name="category"></wd-tabbar-item>
+    <wd-tabbar-item title="购物车" icon="cart" name="cart"></wd-tabbar-item>
+    <wd-tabbar-item title="我的" icon="user" name="user"></wd-tabbar-item>
   </wd-tabbar>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const active = ref(0)
+const active = ref('home')
 </script>
 ```
 
-### 带徽章的标签项
-
+### 2. 带数字徽标的标签
 ```vue
 <template>
   <wd-tabbar v-model="active">
-    <wd-tabbar-item title="首页" icon="home-o" />
-    <wd-tabbar-item title="消息" icon="message-o" :badge-props="{ value: 5 }" />
-    <wd-tabbar-item title="通知" icon="bell-o" :badge-props="{ dot: true }" />
-    <wd-tabbar-item title="我的" icon="user-o" :badge-props="{ value: 999, max: 99 }" />
+    <wd-tabbar-item title="首页" icon="home" name="home"></wd-tabbar-item>
+    <wd-tabbar-item title="分类" icon="category" name="category" :value="5"></wd-tabbar-item>
+    <wd-tabbar-item title="购物车" icon="cart" name="cart" :value="12"></wd-tabbar-item>
+    <wd-tabbar-item title="我的" icon="user" name="user"></wd-tabbar-item>
   </wd-tabbar>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const active = ref(0)
+const active = ref('home')
 </script>
 ```
 
-### 自定义图标
+### 3. 带点状徽标的标签
+```vue
+<template>
+  <wd-tabbar v-model="active">
+    <wd-tabbar-item title="首页" icon="home" name="home"></wd-tabbar-item>
+    <wd-tabbar-item title="分类" icon="category" name="category" :is-dot="true"></wd-tabbar-item>
+    <wd-tabbar-item title="购物车" icon="cart" name="cart"></wd-tabbar-item>
+    <wd-tabbar-item title="我的" icon="user" name="user" :is-dot="true"></wd-tabbar-item>
+  </wd-tabbar>
+</template>
 
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const active = ref('home')
+</script>
+```
+
+### 4. 自定义徽标最大值
+```vue
+<template>
+  <wd-tabbar v-model="active">
+    <wd-tabbar-item title="首页" icon="home" name="home"></wd-tabbar-item>
+    <wd-tabbar-item title="消息" icon="message" name="message" :value="120" :max="200"></wd-tabbar-item>
+    <wd-tabbar-item title="购物车" icon="cart" name="cart" :value="250" :max="100"></wd-tabbar-item>
+    <wd-tabbar-item title="我的" icon="user" name="user"></wd-tabbar-item>
+  </wd-tabbar>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const active = ref('home')
+</script>
+```
+
+### 5. 自定义图标插槽
 ```vue
 <template>
   <wd-tabbar v-model="active">
     <wd-tabbar-item title="首页" name="home">
       <template #icon="{ active }">
-        <image 
-          :src="active ? homeActiveIcon : homeIcon" 
-          style="width: 40rpx; height: 40rpx;" 
-        />
+        <view class="custom-icon" :class="{ active }">
+          <wd-icon name="home" :size="20"></wd-icon>
+        </view>
       </template>
     </wd-tabbar-item>
     <wd-tabbar-item title="分类" name="category">
       <template #icon="{ active }">
-        <image 
-          :src="active ? categoryActiveIcon : categoryIcon" 
-          style="width: 40rpx; height: 40rpx;" 
-        />
+        <view class="custom-icon" :class="{ active }">
+          <wd-icon name="category" :size="20"></wd-icon>
+        </view>
+      </template>
+    </wd-tabbar-item>
+    <wd-tabbar-item title="购物车" name="cart">
+      <template #icon="{ active }">
+        <view class="custom-icon" :class="{ active }">
+          <wd-icon name="cart" :size="20"></wd-icon>
+        </view>
+      </template>
+    </wd-tabbar-item>
+    <wd-tabbar-item title="我的" name="user">
+      <template #icon="{ active }">
+        <view class="custom-icon" :class="{ active }">
+          <wd-icon name="user" :size="20"></wd-icon>
+        </view>
       </template>
     </wd-tabbar-item>
   </wd-tabbar>
 </template>
 
-<script lang="ts" setup>
+<style scoped>
+.custom-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rpx;
+  height: 40rpx;
+  color: #969799;
+}
+
+.custom-icon.active {
+  color: #1989fa;
+  background-color: rgba(25, 137, 250, 0.1);
+  border-radius: 50%;
+}
+</style>
+
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const active = ref('home')
-const homeIcon = 'https://cdn.example.com/home.png'
-const homeActiveIcon = 'https://cdn.example.com/home-active.png'
-const categoryIcon = 'https://cdn.example.com/category.png'
-const categoryActiveIcon = 'https://cdn.example.com/category-active.png'
 </script>
 ```
 
-### 自定义标签项样式
+## 三、样式定制指南
 
+### customStyle 用法
 ```vue
 <template>
   <wd-tabbar v-model="active">
     <wd-tabbar-item 
       title="首页" 
-      icon="home-o" 
-      custom-class="my-tabbar-item" 
-      custom-style="{ padding: '10rpx 0' }"
-    />
+      icon="home" 
+      name="home"
+      :custom-style="{ color: '#666', fontSize: '28rpx' }"
+    ></wd-tabbar-item>
     <wd-tabbar-item 
       title="分类" 
-      icon="category-o" 
-      custom-class="my-tabbar-item" 
-    />
+      icon="category" 
+      name="category"
+      :custom-style="{ color: '#666', fontSize: '28rpx' }"
+    ></wd-tabbar-item>
+    <wd-tabbar-item 
+      title="购物车" 
+      icon="cart" 
+      name="cart"
+      :custom-style="{ color: '#666', fontSize: '28rpx' }"
+    ></wd-tabbar-item>
+    <wd-tabbar-item 
+      title="我的" 
+      icon="user" 
+      name="user"
+      :custom-style="{ color: '#666', fontSize: '28rpx' }"
+    ></wd-tabbar-item>
   </wd-tabbar>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const active = ref(0)
+const active = ref('home')
 </script>
-
-<style scoped>
-.my-tabbar-item {
-  --tabbar-item-icon-size: 44rpx;
-  --tabbar-item-font-size: 22rpx;
-}
-</style>
 ```
 
-### 无图标标签项
-
+### customClass 用法
 ```vue
 <template>
   <wd-tabbar v-model="active">
-    <wd-tabbar-item title="首页" />
-    <wd-tabbar-item title="分类" />
-    <wd-tabbar-item title="购物车" />
-    <wd-tabbar-item title="我的" />
+    <wd-tabbar-item title="首页" icon="home" name="home" custom-class="my-tabbar-item"></wd-tabbar-item>
+    <wd-tabbar-item title="分类" icon="category" name="category" custom-class="my-tabbar-item"></wd-tabbar-item>
+    <wd-tabbar-item title="购物车" icon="cart" name="cart" custom-class="my-tabbar-item"></wd-tabbar-item>
+    <wd-tabbar-item title="我的" icon="user" name="user" custom-class="my-tabbar-item"></wd-tabbar-item>
   </wd-tabbar>
 </template>
 
-<script lang="ts" setup>
+<style lang="scss">
+.my-tabbar-item {
+  .wd-tabbar-item__body-title {
+    font-size: 28rpx;
+    color: #666;
+  }
+  
+  .wd-tabbar-item__body-icon {
+    font-size: 44rpx;
+  }
+}
+</style>
+
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const active = ref(0)
+const active = ref('home')
 </script>
 ```
 
-## 样式定制
+## 五、注意事项
 
-### 自定义类名
-
-```vue
-<wd-tabbar-item 
-  title="首页" 
-  icon="home-o" 
-  custom-class="my-tabbar-item" 
-/>
-```
-
-### CSS 变量
-
-组件支持以下 CSS 变量进行样式定制：
-
-| 变量名 | 默认值 | 描述 |
-| --- | --- | --- |
-| --tabbar-item-font-size | 20rpx | 标签文字大小 |
-| --tabbar-item-icon-size | 40rpx | 标签图标大小 |
-| --tabbar-item-margin-bottom | 8rpx | 图标与文字之间的间距 |
-| --tabbar-item-active-color | inherit | 激活状态颜色，继承自父组件 |
-| --tabbar-item-inactive-color | inherit | 非激活状态颜色，继承自父组件 |
-| --tabbar-item-background-color | transparent | 标签项背景色 |
-| --tabbar-item-padding | 0 | 标签项内边距 |
-| --tabbar-item-min-height | 100rpx | 标签项最小高度 |
-
-## 注意事项
-
-1. **父子组件关系**：
-   - `wd-tabbar-item` 必须作为 `wd-tabbar` 的直接子组件使用
-   - 不要在 `wd-tabbar-item` 外部包裹其他组件，否则可能导致通信失败
-
-2. **name 属性**：
-   - `name` 属性用于唯一标识标签项，建议使用字符串或数字类型
-   - 未设置 `name` 时，会使用组件在父组件中的索引作为默认值
-   - 避免使用相同的 `name` 值，否则会导致标签切换异常
-
-3. **图标配置**：
-   - 可以使用 `icon` 属性设置内置图标
-   - 也可以使用 `icon` 插槽自定义图标内容
-   - 自定义图标时，建议保持图标大小一致，以确保视觉效果
-
-4. **徽章配置**：
-   - 徽章属性可以通过 `value`、`isDot`、`max` 直接设置
-   - 也可以通过 `badgeProps` 对象进行更详细的配置
-   - `isDot` 属性优先级高于 `value` 属性
-
-5. **样式继承**：
-   - 激活和非激活颜色默认继承自父组件 `wd-tabbar` 的配置
-   - 可以通过自定义样式覆盖继承的颜色
-
-6. **性能优化**：
-   - 避免在标签项中放置过多复杂组件
-   - 对于自定义图标，建议使用适当大小的图片，避免过大影响加载性能
-
-### 状态流转
-- 初始状态：根据父组件的 `modelValue` 和自身 `name` 计算激活状态
-- 父组件更新：`wd-tabbar` 组件通过 provide 更新激活状态
-- 子组件响应：Tabbar Item 组件根据新的激活状态更新自身样式
-- 点击事件：点击标签项时，通知父组件切换激活状态
-
-## 与 wd-tabbar 的关系
-
-`wd-tabbar-item` 组件与 `wd-tabbar` 组件是紧密集成的关系：
-
-1. **依赖关系**：`wd-tabbar-item` 必须作为 `wd-tabbar` 的子组件使用
-2. **通信方式**：通过 Vue 的 provide/inject API 进行通信
-3. **状态管理**：激活状态由 `wd-tabbar` 统一管理
-4. **事件处理**：点击事件由 `wd-tabbar-item` 触发，通过父组件 `wd-tabbar` 统一处理
-5. **样式继承**：颜色、字体大小等样式配置从父组件继承
-
-## 常见问题
-
-### Q: 为什么标签项没有显示？
-A: 请确保 `wd-tabbar-item` 是 `wd-tabbar` 的直接子组件，并且父组件已经正确配置。
-
-### Q: 如何自定义标签项的激活颜色？
-A: 可以通过父组件 `wd-tabbar` 的 `activeColor` 属性设置，或者通过 CSS 变量 `--tabbar-item-active-color` 单独设置。
-
-### Q: 徽章为什么没有显示？
-A: 请检查 `value` 或 `isDot` 属性是否正确设置，并且 `value` 值不为 0 或空字符串。
-
-### Q: 如何自定义徽章的样式？
-A: 可以通过 `badgeProps` 属性配置徽章的样式，例如颜色、大小等。
-
-### Q: 为什么点击标签项没有反应？
-A: 请检查父组件 `wd-tabbar` 是否正确绑定了 `v-model`，以及标签项的 `name` 属性是否正确设置。
+1. TabbarItem 组件必须作为 Tabbar 组件的子组件使用
+2. 当未设置 `name` 属性时，组件会使用其在 Tabbar 中的索引作为默认值
+3. `value` 属性为 `null` 或 `undefined` 时，徽标不会显示
+4. `isDot` 属性优先级高于 `value` 属性，当 `isDot` 为 `true` 时，会显示点状徽标，忽略 `value` 属性
+5. 徽标默认最大值为 99，可通过 `max` 属性自定义
+6. 使用自定义图标插槽时，会覆盖 `icon` 属性设置
+7. 激活状态的颜色由父组件 Tabbar 的 `activeColor` 和 `inactiveColor` 属性控制
+8. 组件会自动响应父组件 Tabbar 的 `modelValue` 变化，无需手动设置激活状态

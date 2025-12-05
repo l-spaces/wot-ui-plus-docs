@@ -1,271 +1,148 @@
-# wd-gap 间距
+# Gap 间距组件
 
-## 组件概述
+## 组件概况
 
-间距组件是一个用于在页面中创建固定间距的辅助组件，它可以快速设置元素之间的垂直间距，支持自定义高度和背景颜色，并提供底部安全区适配功能。组件采用 Vue3 + TypeScript + UniApp 技术栈实现，具有轻量、易用、灵活等特点。
+### 组件概述
+Gap 组件是一个用于创建固定间距的布局工具组件，通过简单的配置即可在页面中生成指定高度的空白区域，支持自定义背景色和安全区域适配。
 
-### 功能描述
-- 支持自定义间距高度
-- 支持自定义背景颜色
-- 支持底部安全区适配
+### 详细功能描述
+- 支持自定义高度，可传入数字或字符串值
+- 支持自定义背景色
+- 支持底部安全区域适配，确保在全面屏设备上显示正常
 - 支持自定义样式和类名
-- 轻量级设计，性能开销小
+- 轻量级实现，无复杂逻辑
 
-### 适用场景
-- 页面元素之间的垂直间距
-- 列表项之间的分隔
-- 底部导航栏与内容区域的间距适配
-- 任何需要固定垂直间距的场景
+### 适用业务场景
+- 页面模块间的间距分隔
+- 列表项之间的间距
+- 表单元素之间的间距
+- 需要安全区域适配的底部间距
 
-
-## API 参考
+## 完整API参考
 
 ### Props
 | 名称 | 类型 | 默认值 | 必填 | 描述 |
 | --- | --- | --- | --- | --- |
-| height | number/string | 15 | 否 | 间距高度，支持数值和字符串形式，如 15、'15px'、'1rem' |
-| bgColor | string | 'transparent' | 否 | 背景颜色，支持颜色名称、十六进制、RGB 等格式 |
-| safeAreaBottom | boolean | false | 否 | 是否开启底部安全区适配，适配 iPhone X 等机型 |
-| customClass | string | - | 否 | 自定义类名，用于覆盖组件默认样式 |
-| customStyle | string/object | - | 否 | 自定义样式，支持字符串和对象两种格式 |
+| bgColor | string | transparent | 否 | 背景颜色 |
+| safeAreaBottom | boolean | false | 否 | 是否开启底部安全区 |
+| height | string / number | 15 | 否 | 高度 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
 ### Events
-组件未定义任何事件。
+| 事件名 | 触发条件 | 参数说明 |
+| --- | --- | --- |
 
 ### Methods
-组件未对外暴露任何方法。
+| 方法名 | 参数 | 返回值 | 功能说明 |
+| --- | --- | --- | --- |
 
 ### Slots
-组件未定义任何插槽。
+| 插槽名 | 作用域变量 | 使用说明 |
+| --- | --- | --- |
 
-## 多场景使用示例
+## 多场景使用示例代码
 
 ### 基础用法
-
 ```vue
 <template>
-  <view class="container">
-    <view class="box">第一个盒子</view>
+  <view>
+    <text>上方内容</text>
+    <!-- 使用默认高度15px的间距 -->
     <wd-gap />
-    <view class="box">第二个盒子</view>
+    <text>下方内容</text>
   </view>
 </template>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.box {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-</style>
 ```
 
 ### 自定义高度
-
 ```vue
 <template>
-  <view class="container">
-    <view class="box">第一个盒子</view>
-    <wd-gap height="30" />
-    <view class="box">第二个盒子</view>
-    <wd-gap height="50" />
-    <view class="box">第三个盒子</view>
+  <view>
+    <text>上方内容</text>
+    <!-- 自定义高度为30px -->
+    <wd-gap :height="30" />
+    <!-- 也可以使用字符串形式 -->
+    <wd-gap height="20rpx" />
+    <text>下方内容</text>
   </view>
 </template>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.box {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-</style>
 ```
 
-### 自定义背景颜色
-
+### 自定义背景色
 ```vue
 <template>
-  <view class="container">
-    <view class="box">第一个盒子</view>
-    <wd-gap height="20" bg-color="#e5e5e5" />
-    <view class="box">第二个盒子</view>
-    <wd-gap height="20" bg-color="#ff6b6b" />
-    <view class="box">第三个盒子</view>
+  <view>
+    <text>上方内容</text>
+    <!-- 自定义背景色为灰色 -->
+    <wd-gap height="20" bg-color="#f5f5f5" />
+    <text>下方内容</text>
   </view>
 </template>
-
-<style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.box {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-</style>
 ```
 
-### 底部安全区适配
-
+### 底部安全区域适配
 ```vue
 <template>
-  <view class="container">
-    <view class="content">页面内容区域</view>
-    <wd-gap safe-area-bottom />
-    <view class="footer">底部固定区域</view>
+  <view>
+    <text>主要内容区域</text>
+    <!-- 底部安全区适配，确保在全面屏设备上不被遮挡 -->
+    <wd-gap safe-area-bottom height="0" />
+    <!-- 或者同时设置高度和安全区 -->
+    <wd-gap safe-area-bottom height="20" bg-color="#fff" />
   </view>
 </template>
-
-<style scoped>
-.container {
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
-  padding: 20px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-
-.footer {
-  padding: 15px;
-  background-color: #fff;
-  text-align: center;
-  font-size: 14px;
-  color: #666;
-  border-top: 1px solid #e5e5e5;
-}
-</style>
 ```
 
-### 结合自定义样式使用
-
+### 自定义样式和类
 ```vue
 <template>
-  <view class="container">
-    <view class="box">第一个盒子</view>
+  <view>
+    <text>上方内容</text>
+    <!-- 自定义样式和类 -->
     <wd-gap 
       height="20" 
+      custom-style="border-radius: 8px;" 
       custom-class="my-gap"
-      :custom-style="{
-        borderRadius: '10px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-      }"
     />
-    <view class="box">第二个盒子</view>
+    <text>下方内容</text>
   </view>
 </template>
 
 <style scoped>
-.container {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.box {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-
-/* 自定义类名样式 */
 .my-gap {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* 自定义类样式 */
+  border: 1px dashed #ddd;
 }
 </style>
 ```
 
 ## 样式定制指南
 
-### customClass 用法
+### customStyle 用法
+使用 `customStyle` 属性可以直接为间距组件添加内联样式，例如：
 ```vue
-<wd-gap custom-class="my-gap" />
+<wd-gap custom-style="margin: 10px 0; background: linear-gradient(to right, #f00, #00f);" />
+```
+
+### customClass 用法
+通过 `customClass` 属性可以为组件添加自定义CSS类，便于进行更复杂的样式定制：
+```vue
+<wd-gap custom-class="custom-gap" />
 
 <style>
-.my-gap {
-  /* 自定义样式 */
-  background-color: #e5e5e5;
-  border-radius: 8px;
+.custom-gap {
+  /* 全局样式 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 15px;
 }
 </style>
 ```
 
-### customStyle 用法
-```vue
-<wd-gap 
-  :custom-style="{
-    backgroundColor: '#e5e5e5',
-    borderRadius: '8px',
-    margin: '10px 0'
-  }"
-/>
-```
-
-### CSS 变量
-组件支持通过 CSS 变量自定义样式，常用变量如下：
-
-```css
-.wd-gap {
-  /* 自定义高度 */
-  --gap-height: 15px;
-  /* 自定义背景颜色 */
-  --gap-background-color: transparent;
-}
-```
-
 ## 注意事项
 
-1. **性能优化**：
-   - 组件本身非常轻量，性能开销小，可以放心使用
-   - 避免在大量循环中使用不同高度的 gap 组件，建议统一管理间距样式
-
-2. **跨端兼容**：
-   - 组件在不同平台上的表现基本一致
-   - 底部安全区适配功能在支持安全距离的设备上生效，其他设备上会忽略此属性
-
-3. **使用限制**：
-   - 组件仅支持垂直方向的间距设置，不支持水平方向
-   - 高度属性支持数值和字符串形式，但建议使用数值形式，以便组件内部进行单位转换
-
-4. **最佳实践**：
-   - 为不同场景定义统一的间距规范，如小间距(10px)、中间距(20px)、大间距(30px)等
-   - 在页面布局中，合理使用 gap 组件可以使代码更加清晰，避免在多个元素上重复设置 margin 或 padding
-   - 对于需要动态调整的间距，可以通过绑定 height 属性实现
-
-5. **常见问题**：
-   - 问题：底部安全区适配不生效
-     解决方案：确保已设置 `safeAreaBottom: true`，并在支持安全距离的设备上测试
-   - 问题：自定义高度不生效
-     解决方案：检查 height 属性的格式是否正确，支持数值和字符串形式，如 15、'15px' 等
-
+1. **高度单位**: 当传入数字类型的 `height` 属性时，默认使用 `px` 单位，小程序环境下会自动转换为 `rpx`。
+2. **安全区域适配**: 只有在 `safeAreaBottom` 为 `true` 时，组件才会添加安全区域底部内边距。
+3. **背景色**: `bgColor` 属性支持所有CSS颜色值，包括十六进制、RGB、RGBA等。
+4. **性能优化**: 由于该组件结构简单，性能消耗极低，可放心大量使用。
+5. **样式隔离**: 组件使用 `styleIsolation: 'shared'`，确保自定义样式能正常生效。
