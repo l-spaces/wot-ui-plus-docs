@@ -1,30 +1,22 @@
-/** * 捐赠 */
 <template>
   <div>
-    开发一个多端适配的 UI 框架是一项庞大的工程，尤其需要持续跟进 uni-app
-    官方的更新。wot-ui-plus 作者常常为此加班到深夜，只为给开发者带来更好的体验。
-    <br />
-    <br />
-    wot-ui-plus 文档和源码全部开源免费。如果 wot-ui-plus
-    对您的开发工作有所帮助，欢迎捐赠支持项目持续维护与更新。捐赠金额不限，哪怕是一杯可乐，也能带来莫大的鼓励！
-    <el-row :gutter="20">
-      <el-col :md="8" :sm="12" :xs="24">
+    <el-row :gutter="5">
+      <el-col :span="4">
         <div class="sponsor-type">
-          <img src="" />
+          <img src="../../public/images/skm1.png" />
         </div>
       </el-col>
-      <el-col :md="8" :sm="12" :xs="24">
+      <el-col :span="4">
         <div class="sponsor-type">
-          <img src="" />
+          <img src="../../public/images/skm2.png" />
         </div>
       </el-col>
     </el-row>
 
-    下方为历史捐赠者名单，无论金额多少，我们都心怀感激，感谢您的支持！
+    下方为历史赞赏者名单，无论金额多少，我们都心怀感激，感谢您的支持！
     <br />
     如有遗漏，请及时联系我们，我们会尽快补充。
 
-    <br />
     <br />
 
     <!-- <div class="table-header">
@@ -50,7 +42,7 @@
           ></el-avatar>
           <span v-else>--</span>
         </template>
-      </el-table-column> -->
+</el-table-column> -->
       <el-table-column prop="amount" label="金额(元)" />
       <el-table-column prop="donationDate" label="日期" />
       <el-table-column prop="platform" label="平台">
@@ -114,10 +106,12 @@ onMounted(() => {
 
 <style scoped>
 .sponsor-type {
-  width: 100%;
   text-align: center;
   margin: 30px 0;
-  display: inline-block;
+  border: 1px solid #333;
+  border-radius: 10px;
+  width: 230px;
+  height: 230px;
 }
 
 .sponsor-type img {

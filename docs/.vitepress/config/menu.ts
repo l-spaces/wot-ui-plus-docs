@@ -67,28 +67,28 @@ class Menu<T> {
         ]
       },
       {
-        text: '工具',
+        text: '资源',
         activeMatch: `${this.localeStr}/intro`,
         // link: `${this.localeStr}/tools/intro`
         items: [{ text: '起步', link: `${this.localeStr}/tools/intro` }]
       },
-      {
-        text: '模版',
-        activeMatch: `${this.localeStr}/layout`,
-        // link: `${this.localeStr}/layout/intro`
-        items: [{ text: '起步', link: `${this.localeStr}/layout/intro` }]
-      },
-      {
-        text: '资源',
-        // link: `${this.localeStr}/resource/intro`,
-        items: [{ text: '资源下载', link: `${this.localeStr}/resource/intro` }]
-      },
+      // {
+      //   text: '模版',
+      //   activeMatch: `${this.localeStr}/layout`,
+      //   // link: `${this.localeStr}/layout/intro`
+      //   items: [{ text: '起步', link: `${this.localeStr}/layout/intro` }]
+      // },
+      // {
+      //   text: '资源',
+      //   // link: `${this.localeStr}/resource/intro`,
+      //   items: [{ text: '资源下载', link: `${this.localeStr}/resource/intro` }]
+      // },
       {
         text: '交流反馈',
         link: `${this.localeStr}/resource/about`
       },
       {
-        text: '捐赠',
+        text: '赞赏',
         link: `${this.localeStr}/resource/donation`
       }
       // {
@@ -500,7 +500,19 @@ class Menu<T> {
     return [
       {
         text: '起步',
-        items: [{ text: '介绍', link: 'intro' }]
+        items: [{ text: '脚手架与模板', link: 'intro' }]
+      }, {
+        text: 'API对比',
+        items: [
+          {
+            text: '🔍 Vue3+Uniapp组合式API',
+            link: 'api-list'
+          },
+          {
+            text: '📖 Vue3与Uniapp的API对比',
+            link: 'api-contrast'
+          },
+        ]
       }
     ]
   }
