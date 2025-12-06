@@ -41,6 +41,7 @@
     "library",
     "components"
   ],
+  "packageManager": "pnpm@9.2.0",
   "author": "哈哈先生",
   "license": "MIT"
 }
