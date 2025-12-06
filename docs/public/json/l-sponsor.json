@@ -4,25 +4,25 @@
   "data": [
     {
       "title": "wot ui plus",
-      "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
+      "img": "/wot-ui-plus-docs/images/wot-logo.png",
       "link": "https://github.com/l-spaces/wot-ui-plus",
       "hidden": true
     },
     {
       "title": "wot ui plus",
-      "img": "/wot-ui-plus-docs/public/images/001.png",
+      "img": "/wot-ui-plus-docs/images/001.png",
       "link": "https://github.com/l-spaces/wot-ui-plus",
       "hidden": false
     },
     {
       "title": "wot ui plus",
-      "img": "/wot-ui-plus-docs/public/images/002.png",
+      "img": "/wot-ui-plus-docs/images/002.png",
       "link": "https://github.com/l-spaces/wot-ui-plus",
       "hidden": false
     },
     {
       "title": "wot ui plus",
-      "img": "/wot-ui-plus-docs/public/images/003.png",
+      "img": "/wot-ui-plus-docs/images/003.png",
       "link": "https://github.com/l-spaces/wot-ui-plus",
       "hidden": false
     }

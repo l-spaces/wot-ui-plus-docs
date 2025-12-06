@@ -8,7 +8,7 @@
             "items": [
                 {
                     "name": "wot ui plus",
-                    "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
+                    "img": "/wot-ui-plus-docs/images/wot-logo.png",
                     "url": "https://github.com/l-spaces/wot-ui-plus",
                     "hidden": false
                 }
