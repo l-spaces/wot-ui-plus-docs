@@ -1,6 +1,6 @@
 {
   "name": "wot-ui-docs",
-  "version": "1.0.0",
+  "version": "3.1.0",
   "description": "wot-ui 官方文档",
   "main": "index.js",
   "scripts": {
