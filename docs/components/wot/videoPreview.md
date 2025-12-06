@@ -1,5 +1,5 @@
 # VideoPreview 视频预览
-<demo-model url="/subPages/videoPreview/index"></demo-model>
+<demo-model url="/subPages/videoPreview/Index"></demo-model>
 
 ## 组件概况
 

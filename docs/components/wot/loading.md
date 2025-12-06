@@ -1,6 +1,6 @@
 # Loading 加载指示器
 
-<demo-model url="/subPages/loading/index"></demo-model>
+<demo-model url="/subPages/loading/Index"></demo-model>
 
 ## 组件概况
 

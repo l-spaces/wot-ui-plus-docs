@@ -1,6 +1,6 @@
 # CodeInput 验证码输入
 
-<demo-model url="/subPages/codeInput/index"></demo-model>
+<demo-model url="/subPages/codeInput/Index"></demo-model>
 
 ## 组件概况
 

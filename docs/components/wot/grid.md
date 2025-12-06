@@ -1,6 +1,6 @@
 # Grid 网格
 
-<demo-model url="/subPages/grid/index"></demo-model>
+<demo-model url="/subPages/grid/Index"></demo-model>
 
 
 ## 组件概况

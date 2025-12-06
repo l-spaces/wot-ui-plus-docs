@@ -1,6 +1,6 @@
 # GridItem 网格项
 
-<demo-model url="/subPages/gridItem/index"></demo-model>
+<demo-model url="/subPages/gridItem/Index"></demo-model>
 
 
 ## 组件概况

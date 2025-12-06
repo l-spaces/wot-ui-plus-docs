@@ -1,5 +1,5 @@
 # Signature 签名板
-<demo-model url="/subPages/signature/index"></demo-model>
+<demo-model url="/subPages/signature/Index"></demo-model>
 
 ## 组件概况
 

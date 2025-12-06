@@ -1,5 +1,5 @@
 # Slider 滑块选择器
-<demo-model url="/subPages/slider/index"></demo-model>
+<demo-model url="/subPages/slider/Index"></demo-model>
 
 ## 组件概况
 

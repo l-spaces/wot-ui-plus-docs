@@ -1,5 +1,5 @@
 # StickyBox 吸顶容器
-<demo-model url="/subPages/stickyBox/index"></demo-model>
+<demo-model url="/subPages/stickyBox/Index"></demo-model>
 
 ## 组件概况
 

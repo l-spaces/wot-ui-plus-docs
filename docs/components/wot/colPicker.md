@@ -1,6 +1,6 @@
 # ColPicker 多列选择器
 
-<demo-model url="/subPages/colPicker/index"></demo-model>
+<demo-model url="/subPages/colPicker/Index"></demo-model>
 
 ## 组件概况
 

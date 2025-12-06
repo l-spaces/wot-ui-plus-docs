@@ -1,6 +1,6 @@
 # noticeBar 通知栏组件
 
-<demo-model url="/subPages/noticeBar/index"></demo-model>
+<demo-model url="/subPages/noticeBar/Index"></demo-model>
 
 ## 组件概况
 

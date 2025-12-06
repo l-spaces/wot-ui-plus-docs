@@ -1,7 +1,6 @@
 # Icon 图标
 
-<demo-model url="/subPages/icon/index"></demo-model>
-
+<demo-model url="/subPages/icon/Index"></demo-model>
 
 ## 组件概况
 

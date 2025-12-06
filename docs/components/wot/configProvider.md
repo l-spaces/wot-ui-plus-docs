@@ -1,6 +1,6 @@
 # ConfigProvider 配置提供者
 
-<demo-model url="/subPages/configProvider/index"></demo-model>
+<demo-model url="/subPages/configProvider/Index"></demo-model>
 
 ## 组件概况
 

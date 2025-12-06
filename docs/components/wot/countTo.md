@@ -1,6 +1,6 @@
 # CountTo 数字动画
 
-<demo-model url="/subPages/countTo/index"></demo-model>
+<demo-model url="/subPages/countTo/Index"></demo-model>
 
 ## 组件概况
 

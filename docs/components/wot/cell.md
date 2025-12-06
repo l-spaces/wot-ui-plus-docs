@@ -1,6 +1,6 @@
 # Cell 单元格
 
-<demo-model url="/subPages/cell/index"></demo-model>
+<demo-model url="/subPages/cell/Index"></demo-model>
 
 ## 组件概况
 

@@ -1,6 +1,6 @@
 # Img 图片
 
-<demo-model url="/subPages/img/index"></demo-model>
+<demo-model url="/subPages/img/Index"></demo-model>
 
 
 ## 组件概况

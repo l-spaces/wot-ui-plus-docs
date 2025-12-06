@@ -1,5 +1,5 @@
 # Slider Button 滑块解锁按钮
-<demo-model url="/subPages/sliderButton/index"></demo-model>
+<demo-model url="/subPages/sliderButton/Index"></demo-model>
 
 ## 组件概况
 

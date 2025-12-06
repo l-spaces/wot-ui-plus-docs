@@ -1,5 +1,5 @@
 # Watermark 水印
-<demo-model url="/subPages/watermark/index"></demo-model>
+<demo-model url="/subPages/watermark/Index"></demo-model>
 
 ## 组件概况
 

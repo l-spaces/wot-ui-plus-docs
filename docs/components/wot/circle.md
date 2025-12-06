@@ -1,6 +1,6 @@
 # Circle 圆形进度条
 
-<demo-model url="/subPages/circle/index"></demo-model>
+<demo-model url="/subPages/circle/Index"></demo-model>
 
 ## 组件概况
 

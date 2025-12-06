@@ -1,6 +1,6 @@
 # CellGroup 单元格组
 
-<demo-model url="/subPages/cellGroup/index"></demo-model>
+<demo-model url="/subPages/cellGroup/Index"></demo-model>
 
 ## 组件概况
 

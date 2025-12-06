@@ -1,5 +1,5 @@
 # Tooltip 提示
-<demo-model url="/subPages/tooltip/index"></demo-model>
+<demo-model url="/subPages/tooltip/Index"></demo-model>
 
 ## 组件概况
 

@@ -1,6 +1,6 @@
 # IndexAnchor 索引锚点
 
-<demo-model url="/subPages/indexAnchor/index"></demo-model>
+<demo-model url="/subPages/indexAnchor/Index"></demo-model>
 
 
 ## 组件概况

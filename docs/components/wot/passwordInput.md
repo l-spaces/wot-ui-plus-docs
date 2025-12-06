@@ -1,6 +1,6 @@
 # PasswordInput 密码输入框
 
-<demo-model url="/subPages/passwordInput/index"></demo-model>
+<demo-model url="/subPages/passwordInput/Index"></demo-model>
 
 
 ## 组件概况

@@ -1,6 +1,6 @@
 # CollapseItem 折叠面板项
 
-<demo-model url="/subPages/collapseItem/index"></demo-model>
+<demo-model url="/subPages/collapseItem/Index"></demo-model>
 
 ## 组件概况
 

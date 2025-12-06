@@ -1,5 +1,5 @@
 # wd-segmented 分段控制器
-<demo-model url="/subPages/segmented/index"></demo-model>
+<demo-model url="/subPages/segmented/Index"></demo-model>
 
 ## 组件概况
 

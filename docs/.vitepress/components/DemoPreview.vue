@@ -17,7 +17,7 @@ const props = defineProps({
   },
   baseUrl: {
     type: String,
-    default: 'https://h5.wot-ui-plus.cn/#/'
+    default: 'https://l-spaces.github.io/wot-ui-plus/#/'
   }
 })
 

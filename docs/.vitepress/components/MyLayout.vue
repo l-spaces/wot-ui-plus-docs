@@ -78,7 +78,7 @@ const isComponent = computed(() =>
 )
 
 onMounted(() => {
-  open()
+  // open()
   // setInterval(() => {
   //   open();
   // }, 60000 * 5);

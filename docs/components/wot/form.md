@@ -1,6 +1,6 @@
 # Form 表单组件
 
-<demo-model url="/subPages/form/index"></demo-model>
+<demo-model url="/subPages/form/Index"></demo-model>
 
 
 ## 组件概况

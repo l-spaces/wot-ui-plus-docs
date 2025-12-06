@@ -1,5 +1,5 @@
 # Transition 过渡动画
-<demo-model url="/subPages/transition/index"></demo-model>
+<demo-model url="/subPages/transition/Index"></demo-model>
 
 ## 组件概况
 

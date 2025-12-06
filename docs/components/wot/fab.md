@@ -1,6 +1,6 @@
 # Fab 悬浮按钮组件
 
-<demo-model url="/subPages/fab/index"></demo-model>
+<demo-model url="/subPages/fab/Index"></demo-model>
 
 
 ## 组件概况

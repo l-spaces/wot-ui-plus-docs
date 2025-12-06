@@ -1,5 +1,5 @@
 # Table 表格
-<demo-model url="/subPages/table/index"></demo-model>
+<demo-model url="/subPages/table/Index"></demo-model>
 
 ## 组件概况
 

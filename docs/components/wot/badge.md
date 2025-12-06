@@ -1,6 +1,6 @@
 # Badge 徽章
 
-<demo-model url="/subPages/badge/index"></demo-model>
+<demo-model url="/subPages/badge/Index"></demo-model>
 
 ## 组件概况
 

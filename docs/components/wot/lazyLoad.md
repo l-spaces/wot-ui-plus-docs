@@ -1,6 +1,6 @@
 # LazyLoad 懒加载
 
-<demo-model url="/subPages/lazyLoad/index"></demo-model>
+<demo-model url="/subPages/lazyLoad/Index"></demo-model>
 
 
 ## 组件概况

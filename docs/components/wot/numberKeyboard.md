@@ -1,6 +1,6 @@
 # wd-number-keyboard 数字键盘组件
 
-<demo-model url="/subPages/numberKeyboard/index"></demo-model>
+<demo-model url="/subPages/numberKeyboard/Index"></demo-model>
 
 ## 组件概况
 

@@ -1,5 +1,5 @@
 # wd-skeleton 骨架屏
-<demo-model url="/subPages/skeleton/index"></demo-model>
+<demo-model url="/subPages/skeleton/Index"></demo-model>
 
 ## 组件概况
 

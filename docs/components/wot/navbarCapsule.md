@@ -1,6 +1,6 @@
 # navbarCapsule 导航栏胶囊组件
 
-<demo-model url="/subPages/navbarCapsule/index"></demo-model>
+<demo-model url="/subPages/navbarCapsule/Index"></demo-model>
 
 ## 组件概况
 

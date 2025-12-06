@@ -1,5 +1,5 @@
 # Resize 尺寸监听
-<demo-model url="/subPages/resize/index"></demo-model>
+<demo-model url="/subPages/resize/Index"></demo-model>
 
 ## 组件概况
 

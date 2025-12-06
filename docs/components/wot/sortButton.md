@@ -1,5 +1,5 @@
 # SortButton 排序按钮
-<demo-model url="/subPages/sortButton/index"></demo-model>
+<demo-model url="/subPages/sortButton/Index"></demo-model>
 
 ## 组件概况
 

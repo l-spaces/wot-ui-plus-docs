@@ -29,9 +29,6 @@ importers:
       element-plus:
         specifier: ^2.11.1
         version: 2.11.2(vue@3.5.21)
-      esno:
-        specifier: ^4.8.0
-        version: 4.8.0
       markdown-it-mathjax3:
         specifier: ^4.3.2
         version: 4.3.2
@@ -1403,10 +1400,6 @@ packages:
   esm@3.2.25:
     resolution: {integrity: sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==}
     engines: {node: '>=6'}
-
-  esno@4.8.0:
-    resolution: {integrity: sha512-acMtooReAQGzLU0zcuEDHa8S62meh5aIyi8jboYxyvAePdmuWx2Mpwmt0xjwO0bs9/SXf+dvXJ0QJoDWw814Iw==}
-    hasBin: true
 
   esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
@@ -3582,6 +3575,7 @@ snapshots:
       '@esbuild/win32-arm64': 0.27.1
       '@esbuild/win32-ia32': 0.27.1
       '@esbuild/win32-x64': 0.27.1
+    optional: true
 
   escalade@3.2.0: {}
 
@@ -3592,10 +3586,6 @@ snapshots:
   escape-string-regexp@5.0.0: {}
 
   esm@3.2.25: {}
-
-  esno@4.8.0:
-    dependencies:
-      tsx: 4.21.0
 
   esprima@4.0.1: {}
 
@@ -3665,6 +3655,7 @@ snapshots:
   get-tsconfig@4.13.0:
     dependencies:
       resolve-pkg-maps: 1.0.0
+    optional: true
 
   giscus@1.6.0:
     dependencies:
@@ -4236,7 +4227,8 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  resolve-pkg-maps@1.0.0: {}
+  resolve-pkg-maps@1.0.0:
+    optional: true
 
   rfdc@1.4.1: {}
 
@@ -4391,6 +4383,7 @@ snapshots:
       get-tsconfig: 4.13.0
     optionalDependencies:
       fsevents: 2.3.3
+    optional: true
 
   uc.micro@2.1.0: {}
 

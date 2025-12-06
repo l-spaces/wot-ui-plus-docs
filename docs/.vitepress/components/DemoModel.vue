@@ -18,7 +18,7 @@ const props = defineProps({
   },
   baseUrl: {
     type: String,
-    default: 'https://l-spaces.github.io/wot-ui-plus/#/'
+    default: 'https://l-spaces.github.io/wot-ui-plus/#'
   }
 })
 
@@ -30,6 +30,7 @@ const currentTime = () => {
 }
 
 onMounted(() => {
+  console.log(props.baseUrl+props.url)
   const appDiv = document.getElementById('app')
   if (appDiv && !appDiv.classList.contains('demo-preview')) {
     appDiv.classList.add('demo-preview')
@@ -48,7 +49,7 @@ onUnmounted(() => {
   position: fixed;
   z-index: 29;
   right: 20px;
-  width: 330px;
+  width: 360px;
   height: 600px;
   box-sizing: border-box;
   border-radius: 30px;
@@ -57,7 +58,7 @@ onUnmounted(() => {
   top: calc(30vh - 200px);
   height: 100vh;
   min-height: 600px;
-  max-height: 700px;
+  max-height: 800px;
 }
 
 .demo-preview-wrap img {
@@ -80,7 +81,7 @@ onUnmounted(() => {
 .demo-preview-wrap iframe {
   position: relative;
   /* padding: 48px 16px 28px 16px; */
-  padding: 40px 19px;
+  padding: 40px 10px;
   width: 100%;
   height: 100%;
   overflow-y: auto;

@@ -1,6 +1,6 @@
 # Col 栅格列
 
-<demo-model url="/subPages/col/index"></demo-model>
+<demo-model url="/subPages/col/Index"></demo-model>
 
 ## 组件概况
 

@@ -1,6 +1,6 @@
 # Button 按钮
 
-<demo-model url="/subPages/button/index"></demo-model>
+<demo-model url="/subPages/button/Index"></demo-model>
 
 ## 组件概况
 

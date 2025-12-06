@@ -1,6 +1,6 @@
 # Code 验证码倒计时
 
-<demo-model url="/subPages/code/index"></demo-model>
+<demo-model url="/subPages/code/Index"></demo-model>
 
 ## 组件概况
 

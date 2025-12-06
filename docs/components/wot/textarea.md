@@ -1,5 +1,5 @@
 # Textarea 文本域
-<demo-model url="/subPages/textarea/index"></demo-model>
+<demo-model url="/subPages/textarea/Index"></demo-model>
 
 ## 组件概况
 

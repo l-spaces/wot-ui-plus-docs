@@ -1,5 +1,5 @@
 # Toast 提示
-<demo-model url="/subPages/toast/index"></demo-model>
+<demo-model url="/subPages/toast/Index"></demo-model>
 
 ## 组件概况
 

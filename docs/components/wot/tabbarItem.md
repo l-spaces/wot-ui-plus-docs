@@ -1,5 +1,5 @@
 # TabbarItem 标签栏项
-<demo-model url="/subPages/tabbarItem/index"></demo-model>
+<demo-model url="/subPages/tabbarItem/Index"></demo-model>
 
 ## 组件概况
 

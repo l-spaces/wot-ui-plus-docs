@@ -1,6 +1,6 @@
 # IndexBar 索引栏
 
-<demo-model url="/subPages/indexBar/index"></demo-model>
+<demo-model url="/subPages/indexBar/Index"></demo-model>
 
 
 ## 组件概况

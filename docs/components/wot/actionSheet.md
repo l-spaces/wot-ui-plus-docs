@@ -1,6 +1,6 @@
 # ActionSheet 动作面板
 
-<demo-model url="/subPages/actionSheet/index"></demo-model>
+<demo-model url="/subPages/actionSheet/Index"></demo-model>
 
 ## 组件概况
 

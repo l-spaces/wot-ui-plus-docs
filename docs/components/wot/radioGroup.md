@@ -1,5 +1,5 @@
 # RadioGroup 单选框组
-<demo-model url="/subPages/radioGroup/index"></demo-model>
+<demo-model url="/subPages/radioGroup/Index"></demo-model>
 
 ## 组件概况
 

@@ -1,5 +1,5 @@
 # Tag 标签
-<demo-model url="/subPages/tag/index"></demo-model>
+<demo-model url="/subPages/tag/Index"></demo-model>
 
 ## 组件概况
 

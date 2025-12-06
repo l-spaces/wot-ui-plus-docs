@@ -1,6 +1,6 @@
 # Keyboard 键盘组件
 
-<demo-model url="/subPages/keyboard/index"></demo-model>
+<demo-model url="/subPages/keyboard/Index"></demo-model>
 
 
 ## 组件概况

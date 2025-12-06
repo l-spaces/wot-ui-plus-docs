@@ -1,6 +1,6 @@
 # Calendar 日历选择器
 
-<demo-model url="/subPages/calendar/index"></demo-model>
+<demo-model url="/subPages/calendar/Index"></demo-model>
 
 ## 组件概况
 

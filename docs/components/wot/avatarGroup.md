@@ -1,5 +1,7 @@
 # AvatarGroup 头像组
 
+<demo-model url="/subPages/avatarGroup/Index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

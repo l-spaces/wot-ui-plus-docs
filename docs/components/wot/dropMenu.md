@@ -1,6 +1,6 @@
 # DropMenu 下拉菜单
 
-<demo-model url="/subPages/dropMenu/index"></demo-model>
+<demo-model url="/subPages/dropMenu/Index"></demo-model>
 
 
 ## 组件概况

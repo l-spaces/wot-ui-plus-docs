@@ -1,6 +1,6 @@
 # Backtop 回到顶部
 
-<demo-model url="/subPages/backtop/index"></demo-model>
+<demo-model url="/subPages/backtop/Index"></demo-model>
 
 ## 组件概况
 

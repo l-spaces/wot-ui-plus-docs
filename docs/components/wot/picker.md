@@ -1,6 +1,6 @@
 # Picker 选择器
 
-<demo-model url="/subPages/picker/index"></demo-model>
+<demo-model url="/subPages/picker/Index"></demo-model>
 
 ## 组件概况
 

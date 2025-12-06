@@ -1,6 +1,6 @@
 # CountDown 倒计时
 
-<demo-model url="/subPages/countDown/index"></demo-model>
+<demo-model url="/subPages/countDown/Index"></demo-model>
 
 ## 组件概况
 

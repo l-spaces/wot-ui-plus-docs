@@ -1,5 +1,5 @@
 # Tree 树形组件
-<demo-model url="/subPages/tree/index"></demo-model>
+<demo-model url="/subPages/tree/Index"></demo-model>
 
 ## 组件概况
 

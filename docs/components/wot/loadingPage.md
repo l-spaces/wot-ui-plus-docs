@@ -1,6 +1,6 @@
 # LoadingPage 页面加载
 
-<demo-model url="/subPages/loadingPage/index"></demo-model>
+<demo-model url="/subPages/loadingPage/Index"></demo-model>
 
 ## 组件概况
 

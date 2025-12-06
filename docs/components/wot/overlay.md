@@ -1,6 +1,6 @@
 # Overlay 遮罩层组件
 
-<demo-model url="/subPages/overlay/index"></demo-model>
+<demo-model url="/subPages/overlay/Index"></demo-model>
 
 ## 组件概况
 

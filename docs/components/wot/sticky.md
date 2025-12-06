@@ -1,5 +1,5 @@
 # Sticky 吸顶
-<demo-model url="/subPages/sticky/index"></demo-model>
+<demo-model url="/subPages/sticky/Index"></demo-model>
 
 ## 组件概况
 

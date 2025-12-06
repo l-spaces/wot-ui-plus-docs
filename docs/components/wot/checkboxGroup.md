@@ -1,6 +1,6 @@
 # CheckboxGroup 复选框组
 
-<demo-model url="/subPages/checkboxGroup/index"></demo-model>
+<demo-model url="/subPages/checkboxGroup/Index"></demo-model>
 
 ## 组件概况
 

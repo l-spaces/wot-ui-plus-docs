@@ -1,5 +1,5 @@
 # wd-sidebar 侧边栏
-<demo-model url="/subPages/sidebar/index"></demo-model>
+<demo-model url="/subPages/sidebar/Index"></demo-model>
 
 ## 组件概况
 
