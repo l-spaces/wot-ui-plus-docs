@@ -24,12 +24,13 @@ import { h, watch } from 'vue'
 
 // 自定义组件
 import DemoScan from '../components/DemoScan.vue'
-import DemoPreview from '../components/DemoPreview.vue'
 import HomeFooter from '../components/HomeFooter.vue'
 import SitePV from '../components/SitePV.vue'
 import ProjectInfo from '../components/ProjectInfo.vue'
 import TipsDialog from '../components/TipsDialog.vue'
 import DemoModel from '../components/DemoModel.vue'
+import DemoPreview from '../components/DemoPreview.vue'
+import DemoIframe from '../components/DemoIframe.vue'
 import ChatGroup from '../components/ChatGroup.vue'
 import Donation from '../components/Donation.vue'
 import TemplateDownload from '../components/TemplateDownload.vue'
@@ -58,8 +59,6 @@ export default {
     // 注册自定义全局组件
     // 扫码演示
     app.component('DemoScan', DemoScan)
-    // 预览演示
-    app.component('DemoPreview', DemoPreview)
     // 页脚信息
     app.component('HomeFooter', HomeFooter)
     // 站点访问量
@@ -70,6 +69,10 @@ export default {
     app.component('TipsDialog', TipsDialog)
     // 模型演示
     app.component('DemoModel', DemoModel)
+    // 预览演示
+    app.component('DemoPreview', DemoPreview)
+    // 演示Iframe
+    app.component('DemoIframe', DemoIframe)
     // 交流群
     app.component('ChatGroup', ChatGroup)
     // 捐赠

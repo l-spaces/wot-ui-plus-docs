@@ -51,7 +51,6 @@ function fetchAdvList() {
 
 // 分离超级赞助和金牌赞助
 const superSponsors = computed(() => {
-    console.log(data.value)
     return data.value?.find(sponsor => sponsor.tier === 'Platinum')
 })
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { nextTick, onMounted, onUnmounted, provide, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, provide, ref } from 'vue'
 import HomePage from './HomePage.vue'
 import TipsDialog from './TipsDialog.vue'
 import HomeStar from './HomeStar.vue'
@@ -9,10 +9,16 @@ import AdsRightAside from './AdsRightAside.vue'
 import TipsTop from './TipsTop.vue'
 import BackTop from './BackTop.vue'
 import AdsLeftAside from './AdsLeftAside.vue'
+import HomeUnderline from './HomeUnderline.vue'
 import HomeVersion from './HomeVersion.vue'
 import AdsHome from './AdsHome.vue'
+import DemoModel from './DemoModel.vue'
+import DemoPreview from './DemoPreview.vue'
+import DemoIframe from './DemoIframe.vue'
 
 import { ElNotification } from 'element-plus'
+
+const route = useRoute()
 
 const { isDark } = useData()
 const tipsRef = ref()
@@ -67,6 +73,10 @@ const open = () => {
   })
 }
 
+const isComponent = computed(() => 
+  route.path.includes('/components/wot') && !route.path.includes('/use-')
+)
+
 onMounted(() => {
   open()
   // setInterval(() => {
@@ -94,7 +104,7 @@ onUnmounted(() => {
       <!-- 导航栏消息中心 -->
       <!-- <MessageBox @click-tips="tipsRef.showDialog($event)" /> -->
     </template>
-
+    <!-- 首页字体下划线 -->
     <template #home-hero-info-before>
       <HomeUnderline />
     </template>
@@ -105,7 +115,7 @@ onUnmounted(() => {
     <template #home-hero-actions-after>
     </template>
 
-    <!-- 广告位 -->
+    <!-- 首页广告位 -->
     <template #home-hero-after>
       <AdsHome />
     </template>
@@ -123,16 +133,17 @@ onUnmounted(() => {
     <template #layout-top>
       <!-- <TipsTop /> -->
     </template>
-    <!-- end 总是启用 -->
 
     <!-- start 当 layout: 'doc' (默认) 在 frontmatter 中被启用时 -->
-    <!-- 菜单栏前置内容 -->
+    <!-- 菜单栏广告位 -->
     <template #sidebar-nav-before>
       <AdsLeftAside />
     </template>
-    <!-- 侧边栏内容后置内容 -->
+    <!-- 侧边栏广告位 -->
     <template #aside-outline-after>
       <AdsRightAside />
+    </template>
+    <template #aside-ads-before>
     </template>
     <!-- end 当 layout: 'doc' (默认) 在 frontmatter 中被启用时 -->
 
