@@ -41,7 +41,7 @@ import Contributors from '../components/Contributors.vue'
 import Developers from '../components/Developers.vue'
 import HomePartners from '../components/HomePartners.vue'
 import HomeVersion from '../components/HomeVersion.vue'
-import Backtotop from '../components/Backtotop.vue' //返回顶部
+import BackTop from '../components/BackTop.vue'
 import HomeUnderline from '../components/HomeUnderline.vue'
 
 let homePageStyle: HTMLStyleElement | undefined = undefined
@@ -91,7 +91,7 @@ export default {
     // 版本号
     app.component('HomeVersion', HomeVersion)
     // 返回顶部
-    app.component('Backtotop', Backtotop)
+    app.component('BackTop', BackTop)
     // 标题下划线
     app.component('HomeUnderline', HomeUnderline)
     // 图标组件

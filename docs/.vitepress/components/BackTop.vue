@@ -1,5 +1,5 @@
 <!--
- * backtotop.vue
+ * BackTop.vue
  * 返回顶部按钮组件
  * 
  * 功能：

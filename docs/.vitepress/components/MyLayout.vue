@@ -7,6 +7,7 @@ import TipsDialog from './TipsDialog.vue'
 import HomeStar from './HomeStar.vue'
 import AdsRightAside from './AdsRightAside.vue'
 import TipsTop from './TipsTop.vue'
+import BackTop from './BackTop.vue'
 import AdsLeftAside from './AdsLeftAside.vue'
 import HomeVersion from './HomeVersion.vue'
 import AdsHome from './AdsHome.vue'
@@ -116,7 +117,7 @@ onUnmounted(() => {
     </template>
 
     <template #doc-footer-before>
-      <backtotop />
+      <BackTop />
     </template>
     <!-- 布局顶部内容 -->
     <template #layout-top>
