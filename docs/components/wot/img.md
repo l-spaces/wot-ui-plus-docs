@@ -1,5 +1,8 @@
 # Img 图片
 
+<demo-model url="/subPages/img/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

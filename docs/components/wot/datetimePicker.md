@@ -1,5 +1,8 @@
 # DatetimePicker 日期时间选择器
 
+<demo-model url="/subPages/datetimePicker/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

@@ -1,4 +1,5 @@
 # Waterfall 瀑布流
+<demo-model url="/subPages/waterfall/index"></demo-model>
 
 ## 组件概况
 

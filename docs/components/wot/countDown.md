@@ -1,5 +1,7 @@
 # CountDown 倒计时
 
+<demo-model url="/subPages/countDown/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -64,7 +66,6 @@ CountDown 倒计时组件是一个功能丰富的倒计时计时器，支持毫�
 </template>
 
 <script lang="ts" setup>
-import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 </script>
 
 <style scoped>
@@ -92,7 +93,6 @@ import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-c
 </template>
 
 <script lang="ts" setup>
-import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 </script>
 
 <style scoped>
@@ -131,7 +131,6 @@ import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-c
 </template>
 
 <script lang="ts" setup>
-import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 </script>
 
 <style scoped>
@@ -176,7 +175,6 @@ import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-c
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 
 const countDownRef = ref()
 
@@ -257,7 +255,6 @@ button {
 </template>
 
 <script lang="ts" setup>
-import wdCountDown from '@/uni_modules/wot-ui-plus/components/wd-count-down/wd-count-down.vue'
 
 // 补零函数
 const padZero = (num: number, length: number = 2): string => {
@@ -405,21 +402,3 @@ const padZero = (num: number, length: number = 2): string => {
 - 毫秒级精度可能影响性能
 - 频繁调用 reset 方法可能导致倒计时不准确
 - 页面切换时可能导致倒计时暂停
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-count-down/` 目录下，包含以下文件：
-- `wd-count-down.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
-- `utils.ts`：工具函数，处理时间格式化
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础倒计时功能 |
-| 1.1.0 | 新增毫秒级精度支持 |
-| 1.2.0 | 优化倒计时算法，提高准确性 |
-| 1.3.0 | 新增自定义格式支持 |
-| 1.4.0 | 提供手动控制方法 |
-| 1.5.0 | 修复页面切换时倒计时暂停问题 |

@@ -1,5 +1,7 @@
 # Circle 圆形进度条
 
+<demo-model url="/subPages/circle/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -63,8 +65,6 @@ Circle 圆形进度条是一个用于展示进度或百分比数据的可视化�
 </template>
 
 <script lang="ts" setup>
-// 导入组件
-import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
@@ -92,7 +92,6 @@ import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.v
 </template>
 
 <script lang="ts" setup>
-import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
@@ -119,7 +118,6 @@ import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.v
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 
 // 定义渐变色
 const gradientColor = ref({
@@ -152,7 +150,6 @@ const gradientColor = ref({
 </template>
 
 <script lang="ts" setup>
-import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
@@ -180,7 +177,6 @@ import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.v
 </template>
 
 <script lang="ts" setup>
-import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.vue'
 </script>
 
 <style scoped>
@@ -274,19 +270,3 @@ import wdCircle from '@/uni_modules/wot-ui-plus/components/wd-circle/wd-circle.v
 - 进度值范围限制在 0-100 之间，超出范围会被自动截断
 - 渐变色仅支持线性渐变，不支持径向渐变
 - 文字内容过多时可能会超出组件边界，需自行控制文字大小
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-circle/` 目录下，包含以下文件：
-- `wd-circle.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props 类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础圆形进度条功能 |
-| 1.1.0 | 新增渐变色支持和端点形状配置 |
-| 1.2.0 | 优化动画效果和性能 |
-| 1.3.0 | 支持微信小程序 2D Canvas |
-| 1.4.0 | 修复跨平台兼容性问题 |

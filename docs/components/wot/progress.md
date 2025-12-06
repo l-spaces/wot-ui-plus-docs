@@ -1,5 +1,7 @@
 # Progress 进度条
 
+<demo-model url="/subPages/progress/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

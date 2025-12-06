@@ -1,5 +1,7 @@
 # CodeInput 验证码输入
 
+<demo-model url="/subPages/codeInput/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -80,7 +82,6 @@ CodeInput 验证码输入组件是一个专门用于验证码、密码等短数�
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCodeInput from '@/uni_modules/wot-ui-plus/components/wd-code-input/wd-code-input.vue'
 
 const code = ref('')
 </script>
@@ -112,7 +113,6 @@ const code = ref('')
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCodeInput from '@/uni_modules/wot-ui-plus/components/wd-code-input/wd-code-input.vue'
 
 const password = ref('')
 </script>
@@ -144,7 +144,6 @@ const password = ref('')
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCodeInput from '@/uni_modules/wot-ui-plus/components/wd-code-input/wd-code-input.vue'
 
 const code = ref('')
 </script>
@@ -184,7 +183,6 @@ const code = ref('')
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCodeInput from '@/uni_modules/wot-ui-plus/components/wd-code-input/wd-code-input.vue'
 
 const code = ref('')
 </script>
@@ -220,7 +218,6 @@ const code = ref('')
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCodeInput from '@/uni_modules/wot-ui-plus/components/wd-code-input/wd-code-input.vue'
 
 const code = ref('')
 const isCompleted = ref(false)
@@ -334,20 +331,3 @@ const onFinish = (value: string) => {
 - 最大输入长度建议不超过 8 位，过长会影响视觉效果
 - 自定义键盘需要自行实现，组件仅提供 `disabledKeyboard` 属性支持
 - 某些平台可能对自动调整位置功能有不同的实现效果
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-code-input/` 目录下，包含以下文件：
-- `wd-code-input.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props 类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础验证码输入功能 |
-| 1.1.0 | 新增密码模式（dot属性）和线条模式（mode属性） |
-| 1.2.0 | 优化输入框样式和交互体验 |
-| 1.3.0 | 新增自定义样式属性，支持更多样式定制 |
-| 1.4.0 | 修复iOS平台焦点问题 |
-| 1.5.0 | 新增输入完成事件（finish） |

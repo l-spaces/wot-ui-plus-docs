@@ -1,5 +1,7 @@
 # CountTo 数字动画
 
+<demo-model url="/subPages/countTo/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -77,7 +79,6 @@ CountTo 数字动画组件是一个用于数字从起始值平滑过渡到目标
 </template>
 
 <script lang="ts" setup>
-import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
 </script>
 
 <style scoped>
@@ -111,7 +112,6 @@ import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count
 </template>
 
 <script lang="ts" setup>
-import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
 </script>
 
 <style scoped>
@@ -156,7 +156,6 @@ import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
 
 const countToRef = ref()
 
@@ -246,7 +245,6 @@ button {
 </template>
 
 <script lang="ts" setup>
-import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
 </script>
 
 <style scoped>
@@ -306,8 +304,6 @@ import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count
 </template>
 
 <script lang="ts" setup>
-import wdCountTo from '@/uni_modules/wot-ui-plus/components/wd-count-to/wd-count-to.vue'
-import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
 </script>
 
 <style scoped>
@@ -429,20 +425,3 @@ import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
 - 动画时长不宜过长，建议在 1-5 秒之间
 - 过大的数字可能导致动画效果不明显
 - 页面切换时可能导致动画中断
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-count-to/` 目录下，包含以下文件：
-- `wd-count-to.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础数字动画功能 |
-| 1.1.0 | 新增自定义格式和前缀后缀支持 |
-| 1.2.0 | 优化动画效果和性能 |
-| 1.3.0 | 新增手动控制方法 |
-| 1.4.0 | 新增主题类型支持 |
-| 1.5.0 | 修复动画结束时的精度问题 |

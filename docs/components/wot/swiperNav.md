@@ -1,4 +1,5 @@
 # SwiperNav 轮播指示器
+<demo-model url="/subPages/swiperNav/index"></demo-model>
 
 ## 组件概况
 

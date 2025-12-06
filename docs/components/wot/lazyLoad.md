@@ -1,4 +1,7 @@
-# 懒加载组件
+# LazyLoad 懒加载
+
+<demo-model url="/subPages/lazyLoad/index"></demo-model>
+
 
 ## 组件概况
 

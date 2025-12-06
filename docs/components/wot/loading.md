@@ -1,4 +1,6 @@
-# 加载指示器组件
+# Loading 加载指示器
+
+<demo-model url="/subPages/loading/index"></demo-model>
 
 ## 组件概况
 

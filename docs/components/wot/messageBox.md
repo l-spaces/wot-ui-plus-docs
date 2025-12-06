@@ -1,4 +1,6 @@
-# 消息弹窗组件
+# messageBox 消息弹窗组件
+
+<demo-model url="/subPages/messageBox/index"></demo-model>
 
 ## 组件概况
 

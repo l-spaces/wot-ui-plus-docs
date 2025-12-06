@@ -1,4 +1,5 @@
 # Sticky 吸顶
+<demo-model url="/subPages/sticky/index"></demo-model>
 
 ## 组件概况
 

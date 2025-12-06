@@ -1,5 +1,7 @@
 # PickerView 选择器视图
 
+<demo-model url="/subPages/pickerView/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

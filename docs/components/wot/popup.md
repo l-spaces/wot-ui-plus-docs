@@ -1,5 +1,7 @@
 # Popup 弹出层
 
+<demo-model url="/subPages/popup/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

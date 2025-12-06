@@ -1,7 +1,9 @@
 # wd-select-picker 选择器
+<demo-model url="/subPages/selectPicker/index"></demo-model>
 
-## 组件概述
+## 组件概况
 
+### 组件概述
 选择器组件是一种常用的 UI 组件，用于在多个选项之间进行选择。`wd-select-picker` 组件提供了单选和多选两种模式，支持自定义样式、搜索功能、加载状态等，适用于各种需要在多个选项间选择的场景。
 
 ### 功能特性

@@ -1,4 +1,5 @@
 # Text 文本
+<demo-model url="/subPages/text/index"></demo-model>
 
 ## 组件概况
 

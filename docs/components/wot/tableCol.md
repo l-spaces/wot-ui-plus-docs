@@ -1,4 +1,5 @@
 # TableCol 表格列
+<demo-model url="/subPages/tableCol/index"></demo-model>
 
 ## 组件概况
 

@@ -1,4 +1,5 @@
 # Swiper 轮播
+<demo-model url="/subPages/swiper/index"></demo-model>
 
 ## 组件概况
 

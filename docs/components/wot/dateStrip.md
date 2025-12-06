@@ -1,5 +1,8 @@
 # DateStrip 日期选择条组件
 
+<demo-model url="/subPages/dateStrip/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

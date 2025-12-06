@@ -1,5 +1,7 @@
 # Collapse 折叠面板
 
+<demo-model url="/subPages/collapse/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -76,8 +78,6 @@ Collapse 折叠面板是一个用于展示和隐藏内容的组件，支持普�
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeNames = ref(['1'])
 </script>
@@ -115,8 +115,6 @@ const activeNames = ref(['1'])
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeName = ref('1')
 </script>
@@ -152,7 +150,6 @@ const activeName = ref('1')
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
 
 const isExpanded = ref(false)
 </script>
@@ -198,8 +195,6 @@ const isExpanded = ref(false)
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
 
 const isExpanded = ref(false)
 </script>
@@ -263,8 +258,6 @@ const isExpanded = ref(false)
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const collapseRef = ref()
 const activeNames = ref(['1'])
@@ -412,20 +405,3 @@ button {
 - 查看更多模式下 `modelValue` 必须是布尔类型
 - `toggleAll` 方法在手风琴模式下无效
 - 查看更多模式下内容必须是文本或简单元素，复杂组件可能导致样式异常
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-collapse/` 目录下，包含以下文件：
-- `wd-collapse.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础折叠面板功能 |
-| 1.1.0 | 新增查看更多模式 |
-| 1.2.0 | 新增手风琴模式 |
-| 1.3.0 | 新增自定义查看更多按钮插槽 |
-| 1.4.0 | 新增 toggleAll 方法 |
-| 1.5.0 | 优化样式和交互体验 |

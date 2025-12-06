@@ -1,4 +1,5 @@
-# Sidebar Item
+# Sidebar Item 侧边栏子项
+<demo-model url="/subPages/sidebarItem/index"></demo-model>
 
 ## 组件概况
 

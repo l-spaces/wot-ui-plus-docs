@@ -1,5 +1,7 @@
 # ConfigProvider 配置提供者
 
+<demo-model url="/subPages/configProvider/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -53,8 +55,6 @@ ConfigProvider 配置提供者组件是一个用于全局主题配置和样式�
 </template>
 
 <script lang="ts" setup>
-import wdConfigProvider from '@/uni_modules/wot-ui-plus/components/wd-config-provider/wd-config-provider.vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
 </script>
 ```
 
@@ -73,9 +73,6 @@ import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.v
 </template>
 
 <script lang="ts" setup>
-import wdConfigProvider from '@/uni_modules/wot-ui-plus/components/wd-config-provider/wd-config-provider.vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
-import wdCard from '@/uni_modules/wot-ui-plus/components/wd-card/wd-card.vue'
 </script>
 
 <style scoped>
@@ -101,8 +98,6 @@ import wdCard from '@/uni_modules/wot-ui-plus/components/wd-card/wd-card.vue'
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdConfigProvider from '@/uni_modules/wot-ui-plus/components/wd-config-provider/wd-config-provider.vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
 
 // 自定义主题变量
 const customTheme = ref({
@@ -137,10 +132,6 @@ const customTheme = ref({
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdConfigProvider from '@/uni_modules/wot-ui-plus/components/wd-config-provider/wd-config-provider.vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
-import wdCard from '@/uni_modules/wot-ui-plus/components/wd-card/wd-card.vue'
-import wdSwitch from '@/uni_modules/wot-ui-plus/components/wd-switch/wd-switch.vue'
 
 const isDark = ref(false)
 
@@ -190,10 +181,6 @@ const handleThemeChange = () => {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdConfigProvider from '@/uni_modules/wot-ui-plus/components/wd-config-provider/wd-config-provider.vue'
-import wdButton from '@/uni_modules/wot-ui-plus/components/wd-button/wd-button.vue'
-import wdCard from '@/uni_modules/wot-ui-plus/components/wd-card/wd-card.vue'
-import wdInput from '@/uni_modules/wot-ui-plus/components/wd-input/wd-input.vue'
 
 // 品牌化主题变量
 const brandTheme = ref({
@@ -337,18 +324,3 @@ ConfigProvider 通过 CSS 变量实现主题定制，以下是一些常用的主
 - 主题变量的覆盖是全局的，会影响所有子组件
 - 自定义主题变量时，需要确保变量名称与组件库使用的变量名称一致
 - 深色模式可能不支持所有组件，需要测试验证
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-config-provider/` 目录下，包含以下文件：
-- `wd-config-provider.vue`：组件主文件，实现主题配置逻辑
-- `types.ts`：类型定义文件，包含主题变量类型声明
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础主题配置功能 |
-| 1.1.0 | 新增深色模式支持 |
-| 1.2.0 | 优化主题变量传递机制 |
-| 1.3.0 | 新增更多主题变量 |
-| 1.4.0 | 修复主题切换闪烁问题 |

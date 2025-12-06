@@ -1,4 +1,5 @@
 # Switch 开关
+<demo-model url="/subPages/switch/index"></demo-model>
 
 ## 组件概况
 

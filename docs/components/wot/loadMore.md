@@ -1,4 +1,6 @@
-# 加载更多组件
+# LoadMore 加载更多
+
+<demo-model url="/subPages/loadMore/index"></demo-model>
 
 ## 组件概况
 

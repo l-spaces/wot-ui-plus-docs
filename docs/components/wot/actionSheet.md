@@ -1,5 +1,6 @@
-<demo-model url="/pages/componentsA/avatar/index"></demo-model>
 # ActionSheet 动作面板
+
+<demo-model url="/subPages/actionSheet/index"></demo-model>
 
 ## 组件概况
 

@@ -1,4 +1,5 @@
 # Root Portal
+<demo-model url="/subPages/rootPortal/index"></demo-model>
 
 ## 组件概况
 

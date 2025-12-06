@@ -1,5 +1,7 @@
 # CollapseItem 折叠面板项
 
+<demo-model url="/subPages/collapseItem/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -74,8 +76,6 @@ CollapseItem 折叠面板项是 Collapse 组件的子组件，用于创建单个
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeNames = ref(['1'])
 </script>
@@ -118,10 +118,6 @@ const activeNames = ref(['1'])
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
-import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
-import wdBadge from '@/uni_modules/wot-ui-plus/components/wd-badge/wd-badge.vue'
 
 const activeNames = ref(['1'])
 </script>
@@ -184,8 +180,6 @@ const activeNames = ref(['1'])
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeNames = ref(['1'])
 </script>
@@ -222,8 +216,6 @@ const activeNames = ref(['1'])
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeNames = ref([])
 
@@ -289,8 +281,6 @@ const beforeExpand = (name: string) => {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCollapse from '@/uni_modules/wot-ui-plus/components/wd-collapse/wd-collapse.vue'
-import wdCollapseItem from '@/uni_modules/wot-ui-plus/components/wd-collapse-item/wd-collapse-item.vue'
 
 const activeNames = ref(['1'])
 </script>
@@ -442,20 +432,3 @@ const activeNames = ref(['1'])
 - `name` 属性是必填项，且必须唯一
 - 手风琴模式下，同一时间只能展开一个面板
 - 禁用状态下，面板无法展开/收起
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-collapse-item/` 目录下，包含以下文件：
-- `wd-collapse-item.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础折叠面板项功能 |
-| 1.1.0 | 新增自定义标题插槽 |
-| 1.2.0 | 新增展开前钩子函数 |
-| 1.3.0 | 新增自定义内容容器样式属性 |
-| 1.4.0 | 优化展开/收起动画效果 |
-| 1.5.0 | 修复手风琴模式下的兼容性问题 |

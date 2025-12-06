@@ -1,4 +1,5 @@
 # Tabs 标签页
+<demo-model url="/subPages/tabs/index"></demo-model>
 
 ## 组件概况
 

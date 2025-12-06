@@ -1,5 +1,8 @@
 # DropMenuItem 下拉菜单项
 
+<demo-model url="/subPages/dropMenuItem/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

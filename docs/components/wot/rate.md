@@ -1,4 +1,5 @@
 # Rate 评分
+<demo-model url="/subPages/rate/index"></demo-model>
 
 ## 组件概况
 

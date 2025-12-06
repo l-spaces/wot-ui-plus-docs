@@ -1,5 +1,7 @@
 # Avatar 头像
 
+<demo-model url="/subPages/avatar/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

@@ -1,5 +1,7 @@
 # Col 栅格列
 
+<demo-model url="/subPages/col/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -60,8 +62,6 @@ Col 栅格列组件是栅格系统的列元素，与 Row 组件配合使用，�
 </template>
 
 <script lang="ts" setup>
-import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
-import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </script>
 
 <style scoped>
@@ -110,8 +110,6 @@ import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </template>
 
 <script lang="ts" setup>
-import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
-import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </script>
 
 <style scoped>
@@ -154,8 +152,6 @@ import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </template>
 
 <script lang="ts" setup>
-import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
-import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </script>
 
 <style scoped>
@@ -192,8 +188,6 @@ import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </template>
 
 <script lang="ts" setup>
-import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
-import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </script>
 
 <style scoped>
@@ -246,8 +240,6 @@ import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </template>
 
 <script lang="ts" setup>
-import wdRow from '@/uni_modules/wot-ui-plus/components/wd-row/wd-row.vue'
-import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 </script>
 
 <style scoped>
@@ -334,19 +326,3 @@ import wdCol from '@/uni_modules/wot-ui-plus/components/wd-col/wd-col.vue'
 - 列宽和偏移量必须为整数，取值范围0-24
 - 间距（gutter）只能通过 Row 组件设置，Col 组件无法单独设置
 - 嵌套栅格时，内层 Col 的宽度基于父级 Col 的宽度计算
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-col/` 目录下，包含以下文件：
-- `wd-col.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props 类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础栅格列功能 |
-| 1.1.0 | 优化栅格间距计算逻辑 |
-| 1.2.0 | 修复嵌套栅格样式问题 |
-| 1.3.0 | 支持 customStyle 和 customClass 属性 |
-| 1.4.0 | 优化性能，减少不必要的计算 |

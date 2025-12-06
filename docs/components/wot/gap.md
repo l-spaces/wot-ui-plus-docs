@@ -1,5 +1,8 @@
 # Gap 间距组件
 
+<demo-model url="/subPages/gap/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

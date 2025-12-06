@@ -1,5 +1,7 @@
 # Radio 单选框
 
+<demo-model url="/subPages/radio/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

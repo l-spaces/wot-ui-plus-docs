@@ -1,5 +1,8 @@
 # Pagination 分页
 
+<demo-model url="/subPages/pagination/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

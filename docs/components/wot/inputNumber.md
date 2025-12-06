@@ -1,5 +1,8 @@
 # InputNumber 数字输入框
 
+<demo-model url="/subPages/inputNumber/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

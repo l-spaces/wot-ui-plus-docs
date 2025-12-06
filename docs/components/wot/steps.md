@@ -1,4 +1,5 @@
 # Steps 步骤条
+<demo-model url="/subPages/steps/index"></demo-model>
 
 ## 组件概况
 

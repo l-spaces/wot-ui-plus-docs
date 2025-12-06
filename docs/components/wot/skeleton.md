@@ -1,6 +1,9 @@
 # wd-skeleton 骨架屏
+<demo-model url="/subPages/skeleton/index"></demo-model>
 
-## 组件概述
+## 组件概况
+
+### 组件概述
 
 骨架屏组件是一种常用的 UI 组件，用于在内容加载过程中显示占位符，提升用户体验。`wd-skeleton` 组件提供了多种主题样式、动画效果和自定义配置，适用于各种需要加载状态的场景。
 

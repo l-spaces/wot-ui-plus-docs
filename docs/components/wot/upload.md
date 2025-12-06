@@ -1,4 +1,5 @@
 # Upload 上传
+<demo-model url="/subPages/upload/index"></demo-model>
 
 ## 组件概况
 

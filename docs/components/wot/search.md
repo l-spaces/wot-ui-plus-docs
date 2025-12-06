@@ -1,4 +1,5 @@
-# Search
+# Search 搜索框
+<demo-model url="/subPages/search/index"></demo-model>
 
 ## 组件概况
 

@@ -1,4 +1,5 @@
 # Table 表格
+<demo-model url="/subPages/table/index"></demo-model>
 
 ## 组件概况
 

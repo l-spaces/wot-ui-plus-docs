@@ -1,5 +1,7 @@
 # FormItem 表单项组件
 
+<demo-model url="/subPages/formItem/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

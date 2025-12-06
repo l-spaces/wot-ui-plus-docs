@@ -1,5 +1,8 @@
 # FloatingPanel 悬浮面板
 
+<demo-model url="/subPages/floatingPanel/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

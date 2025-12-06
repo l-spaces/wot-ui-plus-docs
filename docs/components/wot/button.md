@@ -1,5 +1,6 @@
-<demo-model url="/pages/componentsA/avatar/index"></demo-model>
 # Button 按钮
+
+<demo-model url="/subPages/button/index"></demo-model>
 
 ## 组件概况
 

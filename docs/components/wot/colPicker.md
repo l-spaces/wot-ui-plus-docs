@@ -1,5 +1,7 @@
 # ColPicker 多列选择器
 
+<demo-model url="/subPages/colPicker/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -105,7 +107,6 @@ ColPicker 多列选择器是一个用于从多列数据中选择值的组件，�
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdColPicker from '@/uni_modules/wot-ui-plus/components/wd-col-picker/wd-col-picker.vue'
 
 const selectedValue = ref(['1', '1-2'])
 
@@ -154,7 +155,6 @@ const columns = ref([
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdColPicker from '@/uni_modules/wot-ui-plus/components/wd-col-picker/wd-col-picker.vue'
 
 const selectedValue = ref(['1', '1-2'])
 const columns = ref([
@@ -241,7 +241,6 @@ const onColumnChange = (option: any) => {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdColPicker from '@/uni_modules/wot-ui-plus/components/wd-col-picker/wd-col-picker.vue'
 
 const selectedValue = ref(['1', '1-2'])
 
@@ -298,8 +297,6 @@ const displayFormat = (selectedItems: any[]) => {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdForm from '@/uni_modules/wot-ui-plus/components/wd-form/wd-form.vue'
-import wdColPicker from '@/uni_modules/wot-ui-plus/components/wd-col-picker/wd-col-picker.vue'
 
 const formRef = ref()
 const selectedValue = ref([])
@@ -370,8 +367,6 @@ const validateForm = async () => {
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import wdColPicker from '@/uni_modules/wot-ui-plus/components/wd-col-picker/wd-col-picker.vue'
-import wdIcon from '@/uni_modules/wot-ui-plus/components/wd-icon/wd-icon.vue'
 
 const selectedValue = ref(['1', '1-2'])
 
@@ -537,21 +532,3 @@ const displayText = computed(() => {
 - 级联选择需要正确实现 `columnChange` 事件
 - 表单验证需要结合 `wd-form` 组件使用
 - 自定义触发器需要设置 `use-default-slot` 为 `true`
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-col-picker/` 目录下，包含以下文件：
-- `wd-col-picker.vue`：组件主文件，实现核心逻辑和模板
-- `types.ts`：类型定义文件，包含 props、事件和方法类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础多列选择功能 |
-| 1.1.0 | 新增级联选择功能 |
-| 1.2.0 | 新增表单验证支持 |
-| 1.3.0 | 优化弹窗动画效果 |
-| 1.4.0 | 新增自动补全数据功能 |
-| 1.5.0 | 修复iOS平台底部安全距离问题 |
-| 1.6.0 | 新增rootPortal属性，解决fixed失效问题 |

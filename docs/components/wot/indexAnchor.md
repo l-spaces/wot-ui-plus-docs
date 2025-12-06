@@ -1,5 +1,8 @@
 # IndexAnchor 索引锚点
 
+<demo-model url="/subPages/indexAnchor/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

@@ -1,5 +1,7 @@
 # Badge 徽章
 
+<demo-model url="/subPages/badge/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

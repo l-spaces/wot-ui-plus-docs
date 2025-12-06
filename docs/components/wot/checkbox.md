@@ -1,5 +1,7 @@
 # Checkbox 复选框
 
+<demo-model url="/subPages/checkbox/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

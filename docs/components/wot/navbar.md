@@ -1,4 +1,6 @@
-# 导航栏组件
+# navbar 导航栏组件
+
+<demo-model url="/subPages/navbar/index"></demo-model>
 
 ## 组件概况
 

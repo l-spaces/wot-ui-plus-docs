@@ -1,5 +1,7 @@
 # CalendarView 日历视图
 
+<demo-model url="/subPages/calendarView/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

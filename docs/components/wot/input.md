@@ -1,5 +1,8 @@
 # Input 输入框
 
+<demo-model url="/subPages/input/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

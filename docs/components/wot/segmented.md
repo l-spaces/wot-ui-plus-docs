@@ -1,7 +1,9 @@
 # wd-segmented 分段控制器
+<demo-model url="/subPages/segmented/index"></demo-model>
 
-## 组件概述
+## 组件概况
 
+### 组件概述
 分段控制器是一种常用的 UI 组件，用于在多个选项之间进行切换。`wd-segmented` 组件提供了两种模式：按钮模式（button）和盒子模式（box），支持自定义颜色、形状、大小等样式，适用于各种需要在多个选项间切换的场景。
 
 ### 功能特性

@@ -1,5 +1,7 @@
 # Curtain 幕帘
 
+<demo-model url="/subPages/curtain/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

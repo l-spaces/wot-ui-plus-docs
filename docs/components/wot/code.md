@@ -1,5 +1,7 @@
 # Code 验证码倒计时
 
+<demo-model url="/subPages/code/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述
@@ -66,7 +68,6 @@ Code 验证码倒计时组件是一个用于管理验证码发送和倒计时功
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import wdCode from '@/uni_modules/wot-ui-plus/components/wd-code/wd-code.vue'
 
 const codeRef = ref()
 const codeText = ref('获取验证码')
@@ -128,7 +129,6 @@ button:disabled {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCode from '@/uni_modules/wot-ui-plus/components/wd-code/wd-code.vue'
 
 const codeRef = ref()
 const codeText = ref('发送验证码')
@@ -183,7 +183,6 @@ button:disabled {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCode from '@/uni_modules/wot-ui-plus/components/wd-code/wd-code.vue'
 
 const codeRef = ref()
 const codeText = ref('获取验证码')
@@ -236,7 +235,6 @@ button:disabled {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import wdCode from '@/uni_modules/wot-ui-plus/components/wd-code/wd-code.vue'
 
 const codeRef = ref()
 const codeText = ref('获取验证码')
@@ -330,7 +328,6 @@ button:disabled {
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import wdCode from '@/uni_modules/wot-ui-plus/components/wd-code/wd-code.vue'
 
 const codeRef = ref()
 const phone = ref('')
@@ -487,19 +484,3 @@ const submitForm = () => {
 - 组件依赖定时器，在某些低功耗模式下可能会有延迟
 - `keepRunning` 功能依赖本地存储，需要确保应用有存储权限
 - 倒计时时长建议设置在合理范围内（10-120秒）
-
-## 组件源码
-组件源码位于 `/src/uni_modules/wot-ui-plus/components/wd-code/` 目录下，包含以下文件：
-- `wd-code.vue`：组件主文件，实现核心逻辑
-- `types.ts`：类型定义文件，包含 props 类型声明
-- `index.scss`：组件样式文件
-
-## 版本更新记录
-
-| 版本 | 更新内容 |
-| --- | --- |
-| 1.0.0 | 初始版本，实现基础验证码倒计时功能 |
-| 1.1.0 | 新增keepRunning功能，支持页面切换保持倒计时 |
-| 1.2.0 | 优化倒计时算法，提高准确性 |
-| 1.3.0 | 新增uniqueKey属性，支持多个组件同时使用 |
-| 1.4.0 | 修复iOS平台定时器问题 |

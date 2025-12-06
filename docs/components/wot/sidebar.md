@@ -1,6 +1,9 @@
 # wd-sidebar 侧边栏
+<demo-model url="/subPages/sidebar/index"></demo-model>
 
-## 组件概述
+## 组件概况
+
+### 组件概述  
 
 侧边栏组件是一种常用的 UI 组件，用于在页面左侧或右侧提供导航选项。`wd-sidebar` 组件提供了一个容器，用于放置 `wd-sidebar-item` 子组件，支持单选、自定义样式、徽标等功能，适用于各种需要侧边导航的场景。
 

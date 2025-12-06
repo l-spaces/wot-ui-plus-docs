@@ -1,4 +1,5 @@
 # Tour 引导
+<demo-model url="/subPages/tour/index"></demo-model>
 
 ## 组件概况
 

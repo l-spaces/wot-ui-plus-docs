@@ -1,4 +1,5 @@
 # Tabbar 标签栏
+<demo-model url="/subPages/tabbar/index"></demo-model>
 
 ## 组件概况
 

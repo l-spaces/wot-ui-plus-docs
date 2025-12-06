@@ -1,5 +1,7 @@
 # Picker 选择器
 
+<demo-model url="/subPages/picker/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

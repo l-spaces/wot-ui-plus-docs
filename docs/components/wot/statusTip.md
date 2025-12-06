@@ -1,4 +1,5 @@
 # StatusTip 状态提示
+<demo-model url="/subPages/statusTip/index"></demo-model>
 
 ## 组件概况
 

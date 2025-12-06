@@ -1,10 +1,12 @@
-# wd-number-keyboard
+# wd-number-keyboard 数字键盘组件
 
-## 组件概述
+<demo-model url="/subPages/numberKeyboard/index"></demo-model>
 
-### 组件类型
+## 组件概况
 
-其他组件
+### 组件概述
+
+wd-number-keyboard组件是一个数字键盘组件，用于在移动端或PC端输入数字。组件支持自定义样式、标题、模式、最大长度等参数，同时提供了确认、删除、关闭等操作。
 
 ### 功能描述
 

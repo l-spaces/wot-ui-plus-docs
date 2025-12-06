@@ -1,5 +1,8 @@
 # ImgCropper 图片裁剪
 
+<demo-model url="/subPages/imgCropper/index"></demo-model>
+
+
 ## 组件概况
 
 ### 组件概述

@@ -1,4 +1,6 @@
-# 通知提示组件
+# notify 通知提示组件
+
+<demo-model url="/subPages/notify/index"></demo-model>
 
 ## 组件概况
 

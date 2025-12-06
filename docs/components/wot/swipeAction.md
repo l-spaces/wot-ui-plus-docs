@@ -1,4 +1,5 @@
 # SwipeAction 滑动操作
+<demo-model url="/subPages/swipeAction/index"></demo-model>
 
 ## 组件概况
 

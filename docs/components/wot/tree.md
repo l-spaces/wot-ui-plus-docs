@@ -1,4 +1,5 @@
 # Tree 树形组件
+<demo-model url="/subPages/tree/index"></demo-model>
 
 ## 组件概况
 

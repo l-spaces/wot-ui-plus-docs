@@ -1,5 +1,7 @@
 # Card 卡片
 
+<demo-model url="/subPages/card/index"></demo-model>
+
 ## 组件概况
 
 ### 组件概述

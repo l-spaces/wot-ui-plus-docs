@@ -1,4 +1,3 @@
-
 /**
  * 演示预览
  */
@@ -41,7 +40,7 @@ const currentTime = () => {
   border-radius: 30px;
   margin: 0 !important;
   
-  top: calc(50vh - 280px + 1rem);
+ top: calc(30vh - 200px);
   height: 100vh;
   min-height: 600px;
   max-height: 700px;
