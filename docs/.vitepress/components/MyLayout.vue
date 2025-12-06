@@ -73,12 +73,12 @@ const open = () => {
   })
 }
 
-const isComponent = computed(() => 
+const isComponent = computed(() =>
   route.path.includes('/components/wot') && !route.path.includes('/use-')
 )
 
 onMounted(() => {
-  // open()
+  open()
   // setInterval(() => {
   //   open();
   // }, 60000 * 5);
