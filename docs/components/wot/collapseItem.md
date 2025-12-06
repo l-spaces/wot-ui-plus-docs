@@ -28,31 +28,31 @@ CollapseItem 折叠面板项是 Collapse 组件的子组件，用于创建单个
 ## 完整API参考
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| title | string | '' | 否 | 折叠栏的标题，可通过 slot 传递自定义内容 |
-| disabled | boolean | false | 否 | 禁用折叠栏 |
-| name | string | - | 是 | 折叠栏的唯一标识符 |
-| beforeExpend | function | - | 否 | 打开前的回调函数，返回 false 可以阻止打开，支持返回 Promise |
-| customBodyClass | string | '' | 否 | 自定义折叠栏内容容器样式类名 |
-| customBodyStyle | string | '' | 否 | 自定义折叠栏内容容器样式 |
-| customStyle | object | - | 否 | 自定义组件样式，对象形式 |
-| customClass | string | '' | 否 | 自定义组件类名 |
+| 名称            | 类型     | 默认值 | 必填 | 描述                                                        |
+| --------------- | -------- | ------ | ---- | ----------------------------------------------------------- |
+| title           | string   | ''     | 否   | 折叠栏的标题，可通过 slot 传递自定义内容                    |
+| disabled        | boolean  | false  | 否   | 禁用折叠栏                                                  |
+| name            | string   | -      | 是   | 折叠栏的唯一标识符                                          |
+| beforeExpend    | function | -      | 否   | 打开前的回调函数，返回 false 可以阻止打开，支持返回 Promise |
+| customBodyClass | string   | ''     | 否   | 自定义折叠栏内容容器样式类名                                |
+| customBodyStyle | string   | ''     | 否   | 自定义折叠栏内容容器样式                                    |
+| customStyle     | object   | -      | 否   | 自定义组件样式，对象形式                                    |
+| customClass     | string   | ''     | 否   | 自定义组件类名                                              |
 
 ### Events
 该组件不触发任何自定义事件，通过与父组件 Collapse 通信实现状态管理。
 
 ### Methods
-| 名称 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| getExpanded | - | boolean | 获取当前展开状态 |
-| updateExpand | useBeforeExpand?: boolean | Promise<void> | 更新展开状态，useBeforeExpand 表示是否执行 beforeExpend 钩子 |
+| 名称         | 参数                      | 返回值        | 功能说明                                                     |
+| ------------ | ------------------------- | ------------- | ------------------------------------------------------------ |
+| getExpanded  | -                         | boolean       | 获取当前展开状态                                             |
+| updateExpand | useBeforeExpand?: boolean | `Promise<void>` | 更新展开状态，useBeforeExpand 表示是否执行 beforeExpend 钩子 |
 
 ### Slots
-| 名称 | 作用域变量 | 说明 |
-| --- | --- | --- |
-| default | - | 折叠面板内容 |
-| title | expanded: boolean, disabled: boolean, isFirst: boolean | 自定义标题内容，提供当前展开状态、禁用状态和是否为第一个面板的信息 |
+| 名称    | 作用域变量                                             | 说明                                                               |
+| ------- | ------------------------------------------------------ | ------------------------------------------------------------------ |
+| default | -                                                      | 折叠面板内容                                                       |
+| title   | expanded: boolean, disabled: boolean, isFirst: boolean | 自定义标题内容，提供当前展开状态、禁用状态和是否为第一个面板的信息 |
 
 ## 多场景使用示例代码
 

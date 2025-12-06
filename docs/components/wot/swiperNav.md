@@ -40,7 +40,7 @@ SwiperNav 是轮播指示器组件，用于配合 Swiper 组件使用，提供�
 
 | 事件名 | 触发条件 | 参数说明 |
 |--------|----------|----------|
-| change | 点击控制按钮时 | { dir: 点击方向（prev、next）, source: 切换方式（nav） } |
+| change | 点击控制按钮时 | `{ dir: 点击方向（prev、next）, source: 切换方式（nav） }` |
 
 ### Methods方法
 
