@@ -59,7 +59,7 @@ const open = () => {
     title: '📢注意',
     offset: 50,
     dangerouslyUseHTMLString: true,
-    message: '<strong>💡 此文档由 <i style="color: #409eff;">AI</i> 生成，如有问题，请可联系作者。<br/>🔔<a style="color: #E4080A;text-decoration:underline" href="https://github.com/l-spaces/wot-ui-docs/issues" target="_blank">点击反馈</a>🤝</strong>',
+    message: '<strong>💡 此文档由 <i style="color: #409eff;">AI</i> 生成，如有问题，请可联系作者。<br/>🔔<a style="color: #E4080A;text-decoration:underline" href="https://github.com/l-spaces/wot-ui-plus-docs/issues" target="_blank">点击反馈</a>🤝</strong>',
     type: 'primary',
     showClose: false,
     duration: 10000,
