@@ -65,7 +65,7 @@ const llmsPlugins = llmstxt({
 }) as unknown as any
 
 export const general = defineConfig({
-  base: '/wot-ui-plus/',
+  base: '/wot-ui-plus-docs/',
   lang: 'zh-Hans',
 
   title: 'wot-ui-plus',
