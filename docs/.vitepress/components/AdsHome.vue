@@ -17,11 +17,11 @@ function fetchAdvList() {
 
 // 分离超级赞助和金牌赞助
 const superSponsors = computed(() => {
-    return data.value?.find(sponsor => sponsor.tier === 'Platinum')
+  return data.value?.find(sponsor => sponsor.tier === 'Platinum')
 })
 
 const goldSponsors = computed(() => {
-    return data.value?.find(sponsor => sponsor.tier === 'Gold')
+  return data.value?.find(sponsor => sponsor.tier === 'Gold')
 })
 
 onMounted(() => {
@@ -114,13 +114,12 @@ onMounted(() => {
 
 // 赞助商名称样式
 .vp-sponsor-name {
-  color: var(--vp-c-text-2);
-  font-size: 0.9rem;
+  // color: var(--vp-c-text-2);
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
+  background-image: -webkit-linear-gradient(120deg, var(--zdy-6) 20%, var(--zdy-3));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 // 不同类型赞助商的差异化样式

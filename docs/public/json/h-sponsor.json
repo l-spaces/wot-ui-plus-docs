@@ -7,35 +7,17 @@
             "size": "small",
             "items": [
                 {
-                    "name": "电商系统",
-                    "img": "",
-                    "url": "https://gitee.com/lijiaxing_boy/huanxing-mall"
-                },
-                {
-                    "name": "wot ui plus",
-                    "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
-                    "url": "https://github.com/l-spaces/wot-ui-plus",
-                    "hidden": false
-                },
-                             {
-                    "name": "wot ui plus",
-                    "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
-                    "url": "https://github.com/l-spaces/wot-ui-plus",
-                    "hidden": false
-                },
-                             {
-                    "name": "wot ui plus",
-                    "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
-                    "url": "https://github.com/l-spaces/wot-ui-plus",
-                    "hidden": false
-                },
-                             {
                     "name": "wot ui plus",
                     "img": "/wot-ui-plus-docs/public/images/wot-logo.png",
                     "url": "https://github.com/l-spaces/wot-ui-plus",
                     "hidden": false
                 }
             ]
+        },
+        {
+            "tier": "Gold",
+            "size": "small",
+            "items": []
         }
     ]
 }

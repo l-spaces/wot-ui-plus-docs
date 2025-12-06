@@ -46,9 +46,8 @@ onMounted(() => {
     <el-carousel v-if="data.length > 0" class="sidebar-advs" height="90px" :interval="3000"
       indicator-position="outside">
       <el-carousel-item v-for="item in data" :key="item.title">
-        <div class="sponsor-item" style="text-align: center;">
-          <img class="sponsor-image" :alt="item.title" :src="`${item.img}`" fit="contain"
-            @click="handleItemClick(item)" />
+        <div class="sponsor-item">
+          <img class="sponsor-image" :alt="item.title" :src="`${item.img}`" fit="contain" @click="handleItemClick(item)" />
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -68,9 +67,5 @@ onMounted(() => {
   background-color: var(--vp-c-bg-soft);
   transition: border-color 0.25s, background-color 0.25s;
   cursor: pointer;
-}
-
-.sponsor-image {
-  max-height: 90px;
 }
 </style>
