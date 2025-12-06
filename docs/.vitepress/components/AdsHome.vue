@@ -1,43 +1,27 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import advList from './../../public/json/h-sponsor.json'
 import axios from 'axios'
 
-const baseUrl = (import.meta as any).env.VITE_BASE_URL || '/json'
+const baseUrl = '/wot-ui-plus-docs/json/h-sponsor.json'
 
-enum AdvType {
-  Super = 'super',
-  Gold = 'gold'
-}
-
-interface AdvItem {
-  type: AdvType,
-  title: string,
-  imageUrl: string,
-  link: string,
-  hidden: boolean
-}
-
-const advData = ref<AdvItem[]>([])
-
-// 2. 辅助函数：将type（如super/gold）转换为标题格式（首字母大写）
-const formatTypeToTitle = (type: AdvType) => {
-  return type === AdvType.Super ? '铂金赞助商' : '钻石赞助商'
-}
+const data = ref<any[]>([])
 
 function fetchAdvList() {
-  axios.get(`${baseUrl}/sponsor.json?updateAt=${Date.now()}`).then(({ data }) => {
-    const { data: list, code } = data
-    advData.value = list.filter((item: { hidden: any }) => !item.hidden)
-  })
+  data.value = advList.data
+  // axios.get(`${baseUrl}?updateAt=${Date.now()}`).then(({ data }) => {
+  //   const { data: list, code } = data
+  //   data.value = list.filter((item: { hidden: any }) => !item.hidden)
+  // })
 }
 
+// 分离超级赞助和金牌赞助
 const superSponsors = computed(() => {
-  return advData.value?.filter(sponsor => sponsor.type === AdvType.Super)
+    return data.value?.find(sponsor => sponsor.tier === 'Platinum')
 })
 
-// 金牌赞助
 const goldSponsors = computed(() => {
-  return advData.value?.filter(sponsor => sponsor.type === AdvType.Gold)
+    return data.value?.find(sponsor => sponsor.tier === 'Gold')
 })
 
 onMounted(() => {
@@ -50,13 +34,12 @@ onMounted(() => {
     <div class="VPHomeSponsor vp-sponsor-section">
       <div class="vp-sponsor-group">
         <h3 class="vp-sponsor-section-title"> 铂金赞助商 </h3>
-        <el-row :gutter="20" justify="center">
-          <el-col :span="8" v-for="item in superSponsors" :key="item.title" style="padding: 10px;">
-            <a :href="item.link" target="_blank">
+        <el-row :gutter="20" justify="center" v-if="superSponsors?.items.length">
+          <el-col :span="8" v-for="item in superSponsors.items" :key="item.name" style="padding: 10px;">
+            <a :href="item.url" target="_blank">
               <div class="vp-sponsor-item" :class="`vp-sponsor-${item.type}`">
-
-                <img v-if="item.imageUrl" :src="item.imageUrl" :alt="item.title" class="vp-sponsor-img" loading="lazy">
-                <div class="vp-sponsor-name">{{ item.title }}</div>
+                <img v-if="item.img" :src="item.img" :alt="item.name" class="vp-sponsor-img" loading="lazy">
+                <div class="vp-sponsor-name">{{ item.name }}</div>
               </div>
             </a>
           </el-col>
@@ -65,12 +48,12 @@ onMounted(() => {
     </div>
     <div class="vp-sponsor-group">
       <h3 class="vp-sponsor-section-title"> 钻石赞助商 </h3>
-      <el-row :gutter="10" justify="center">
-        <el-col :span="4" v-for="item in goldSponsors" :key="item.title" style="padding: 10px;">
-          <a :href="item.link" target="_blank">
+      <el-row :gutter="10" justify="center" v-if="goldSponsors?.items.length">
+        <el-col :span="4" v-for="item in goldSponsors.items" :key="item.name" style="padding: 10px;">
+          <a :href="item.url" target="_blank">
             <div class="vp-sponsor-item" :class="`vp-sponsor-${item.type}`">
-              <img :src="item.imageUrl" :alt="item.title" class="vp-sponsor-img" loading="lazy">
-              <div class="vp-sponsor-name">{{ item.title }}</div>
+              <img v-if="item.img" :src="item.img" :alt="item.name" class="vp-sponsor-img" loading="lazy">
+              <div class="vp-sponsor-name">{{ item.name }}</div>
             </div>
           </a>
         </el-col>

@@ -1,11 +1,6 @@
 <!--
  * 名称：Underline.vue
  * 用途：为首页标题添加动态下划线装饰效果
- * 实现思路：
- *   - 使用SVG创建自定义下划线图形
- *   - 从VitePress的frontmatter中获取英雄区域文本
- *   - 在组件挂载时将文本元素移动到指定位置
- *   - 在组件卸载时恢复元素位置，避免DOM结构混乱
 -->
 <script setup lang="ts">
 import { useData } from 'vitepress'
@@ -56,9 +51,9 @@ const { frontmatter: fm } = useData()
 .hero-svg {
   position: absolute;
   top: 1em;
-  left: 0.2em;
+  left: 0em;
   z-index: -1;
-  width: calc(100% - 0.7em);
+  width: calc(100% - 0.5em);
   height: auto;
   color: var(--vp-c-brand);
 }
