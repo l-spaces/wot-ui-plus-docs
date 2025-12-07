@@ -147,10 +147,10 @@ export default {
     // giscus配置
     giscusTalk(
       {
-        repo: 'l-spaces/wot-ui-plus-docs',
-        repoId: 'R_kgDOQgyhYw',
+        repo: 'l-spaces/wot-ui-plus',
+        repoId: 'R_kgDOQcoD2w',
         category: 'General',
-        categoryId: 'DIC_kwDOQgyhY84CzR3J',
+        categoryId: 'DIC_kwDOQcoD284CzN-h',
         mapping: 'pathname',
         inputPosition: 'bottom',
         lang: 'zh-CN'

@@ -124,7 +124,7 @@
     <wd-button plain>幽灵按钮</wd-button>
     <wd-button round="false">直角按钮</wd-button>
     <wd-button block>块状按钮</wd-button>
-    <wd-button hairline>细边框按钮</wd-button>
+    <wd-button plain hairline>细边框按钮</wd-button>
   </view>
 </template>
 
@@ -150,7 +150,7 @@
     <!-- 加载状态 -->
     <wd-button loading>加载中</wd-button>
     <!-- 自定义加载颜色 -->
-    <wd-button loading loadingColor="#fff" type="primary">加载中</wd-button>
+    <wd-button loading loadingColor="#fb0000ff" type="primary">加载中</wd-button>
     <!-- 禁用状态 -->
     <wd-button disabled>禁用按钮</wd-button>
     <wd-button disabled type="primary">禁用主要按钮</wd-button>

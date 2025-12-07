@@ -165,7 +165,7 @@ class Menu<T> {
           },
           {
             link: 'fab',
-            text: 'FAB 悬浮按钮'
+            text: 'Fab 悬浮按钮'
           },
           {
             link: 'sortButton',
@@ -549,6 +549,15 @@ class Menu<T> {
             link: 'color',
             text: 'Color 主题配置'
           }
+        ]
+      },
+      {
+        text: '组合式API',
+        items: [
+          { text: 'useUpload', link: 'use-upload' },
+          { text: 'useCountDown', link: 'use-count-down' },
+          { text: 'useToast', link: 'use-toast' },
+          { text: 'useMessage', link: 'use-message' }
         ]
       }
     ]
