@@ -50,31 +50,31 @@ class Menu<T> {
           },
           {
             text: '展示组件',
-            link: `${this.localeStr}/wot/pagination`
+            link: `${this.localeStr}/wot/icon`
           },
           {
             text: '表单组件',
-            link: `${this.localeStr}/wot/calendar`
+            link: `${this.localeStr}/wot/input`
           },
           {
             text: '日期时间组件',
-            link: `${this.localeStr}/wot/actionSheet`
+            link: `${this.localeStr}/wot/calendar`
           },
           {
             text: '交互组件',
-            link: `${this.localeStr}/wot/actionSheet`
+            link: `${this.localeStr}/wot/popup`
           },
           {
             text: '输入设备组件',
-            link: `${this.localeStr}/wot/actionSheet`
+            link: `${this.localeStr}/wot/keyboard`
           },
           {
             text: '高级组件',
-            link: `${this.localeStr}/wot/badge`
+            link: `${this.localeStr}/wot/transition`
           },
           {
             text: '配置组件',
-            link: `${this.localeStr}/wot/badge`
+            link: `${this.localeStr}/wot/configProvider`
           },
         ]
       },
@@ -151,6 +151,10 @@ class Menu<T> {
   // components 文档
   sidebarComponents(): DefaultTheme.SidebarItem[] {
     return [
+      {
+        text: '总览',
+        link: 'a'
+      },
       {
         text: '基础组件',
         collapsed: false,
