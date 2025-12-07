@@ -81,7 +81,7 @@ onUnmounted(() => {
 .demo-preview-wrap iframe {
   position: relative;
   /* padding: 48px 16px 28px 16px; */
-  padding: 40px 10px;
+  padding: 40px 15px;
   width: 100%;
   height: 100%;
   overflow-y: auto;

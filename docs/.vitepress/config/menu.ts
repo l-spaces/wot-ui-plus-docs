@@ -49,21 +49,33 @@ class Menu<T> {
             link: `${this.localeStr}/wot/button`
           },
           {
-            text: '导航组件',
+            text: '展示组件',
             link: `${this.localeStr}/wot/pagination`
           },
           {
-            text: '数据输入',
+            text: '表单组件',
             link: `${this.localeStr}/wot/calendar`
           },
           {
-            text: '反馈组件',
+            text: '日期时间组件',
             link: `${this.localeStr}/wot/actionSheet`
           },
           {
-            text: '数据展示',
+            text: '交互组件',
+            link: `${this.localeStr}/wot/actionSheet`
+          },
+          {
+            text: '输入设备组件',
+            link: `${this.localeStr}/wot/actionSheet`
+          },
+          {
+            text: '高级组件',
             link: `${this.localeStr}/wot/badge`
-          }
+          },
+          {
+            text: '配置组件',
+            link: `${this.localeStr}/wot/badge`
+          },
         ]
       },
       {
@@ -140,132 +152,157 @@ class Menu<T> {
   sidebarComponents(): DefaultTheme.SidebarItem[] {
     return [
       {
-        text: '总览',
-        link: 'a'
-      },
-      {
-        text: '基础',
+        text: '基础组件',
         collapsed: false,
         items: [
           {
             link: 'button',
-            text: 'Button 按钮'
-          },
-          {
-            link: 'icon',
-            text: 'Icon 图标'
-          },
-          {
-            link: 'layout',
-            text: 'Layout 布局'
-          },
-          {
-            link: 'configProvider',
-            text: 'ConfigProvider 全局配置'
-          },
-          {
-            link: 'popup',
-            text: 'Popup 弹出层'
-          },
-          {
-            link: 'resize',
-            text: 'Resize 监听元素尺寸变化'
-          },
-          {
-            link: 'transition',
-            text: 'Transition 动画'
+            text: 'Button 按钮组件'
           },
           {
             link: 'fab',
-            text: 'Fab 悬浮按钮'
+            text: 'FAB 悬浮按钮'
           },
           {
-            link: 'text',
-            text: 'Text 文本'
+            link: 'sortButton',
+            text: 'SortButton 排序按钮'
           },
           {
-            link: 'rootPortal',
-            text: 'RootPortal 根节点'
-          }
-        ]
-      },
-      {
-        text: '导航',
-        collapsed: false,
-        items: [
-          {
-            link: 'pagination',
-            text: 'Pagination 分页'
+            link: 'switch',
+            text: 'Switch 开关组件'
           },
           {
-            link: 'popover',
-            text: 'Popover 气泡'
+            link: 'layout',
+            text: 'Layout 布局组件'
           },
           {
-            link: 'tabs',
-            text: 'Tabs 标签页'
+            link: 'grid',
+            text: 'Grid 网格布局'
           },
           {
-            link: 'segmented',
-            text: 'Segmented 分段器'
+            link: 'gap',
+            text: 'Gap 间隔组件'
           },
           {
-            link: 'tabbar',
-            text: 'Tabbar 标签栏'
+            link: 'divider',
+            text: 'Divider 分割线'
+          },
+          {
+            link: 'card',
+            text: 'Card 卡片组件'
+          },
+          {
+            link: 'cell',
+            text: 'Cell 单元格组件'
           },
           {
             link: 'navbar',
             text: 'Navbar 导航栏'
           },
           {
+            link: 'noticeBar',
+            text: 'NoticeBar 通知栏'
+          },
+          {
+            link: 'tabbar',
+            text: 'Tabbar 标签栏'
+          },
+          {
+            link: 'tabs',
+            text: 'Tabs 标签页'
+          },
+          {
             link: 'sidebar',
             text: 'Sidebar 侧边栏'
           },
           {
+            link: 'steps',
+            text: 'Steps 步骤条'
+          },
+          {
             link: 'backtop',
-            text: 'Backtop 回到顶部'
+            text: 'Backtop 返回顶部'
           },
           {
             link: 'indexBar',
             text: 'IndexBar 索引栏'
-          }, {
-            link: 'tour',
-            text: 'Tour 漫游'
           }
         ]
       },
       {
-        text: '数据输入',
+        text: '展示组件',
         collapsed: false,
         items: [
           {
-            link: 'calendar',
-            text: 'Calendar 日历选择器'
+            link: 'icon',
+            text: 'Icon 图标组件'
           },
           {
-            link: 'calendarView',
-            text: 'CalendarView 日历面板'
+            link: 'img',
+            text: 'Img 图片组件'
           },
           {
-            link: 'checkbox',
-            text: 'Checkbox 复选框'
+            link: 'imgCropper',
+            text: 'ImgCropper 图片裁剪'
           },
           {
-            link: 'colPicker',
-            text: 'ColPicker 多列选择器'
+            link: 'avatar',
+            text: 'Avatar 头像组件'
           },
           {
-            link: 'datetimePicker',
-            text: 'DatetimePicker 时间选择器'
+            link: 'badge',
+            text: 'Badge 徽标组件'
           },
           {
-            link: 'datetimePickerView',
-            text: 'DatetimePickerView 时间选择器视图'
+            link: 'text',
+            text: 'Text 文本组件'
           },
           {
-            link: 'form',
-            text: 'Form 表单'
+            link: 'tag',
+            text: 'Tag 标签组件'
           },
+          {
+            link: 'progress',
+            text: 'Progress 进度条'
+          },
+          {
+            link: 'circle',
+            text: 'Circle 环形进度条'
+          },
+          {
+            link: 'rate',
+            text: 'Rate 评分组件'
+          },
+          {
+            link: 'skeleton',
+            text: 'Skeleton 骨架屏'
+          },
+          {
+            link: 'watermark',
+            text: 'Watermark 水印'
+          },
+          {
+            link: 'table',
+            text: 'Table 表格组件'
+          },
+          {
+            link: 'swiper',
+            text: 'Swiper 轮播图'
+          },
+          {
+            link: 'waterfall',
+            text: 'Waterfall 瀑布流'
+          },
+          {
+            link: 'sticky',
+            text: 'Sticky 粘性布局'
+          }
+        ]
+      },
+      {
+        text: '表单组件',
+        collapsed: false,
+        items: [
           {
             link: 'input',
             text: 'Input 输入框'
@@ -279,6 +316,30 @@ class Menu<T> {
             text: 'InputNumber 计数器'
           },
           {
+            link: 'passwordInput',
+            text: 'PasswordInput 密码输入框'
+          },
+          {
+            link: 'code',
+            text: 'Code 验证码获取'
+          },
+          {
+            link: 'codeInput',
+            text: 'CodeInput 验证码输入'
+          },
+          {
+            link: 'search',
+            text: 'Search 搜索框'
+          },
+          {
+            link: 'radio',
+            text: 'Radio 单选框'
+          },
+          {
+            link: 'checkbox',
+            text: 'Checkbox 复选框'
+          },
+          {
             link: 'picker',
             text: 'Picker 选择器'
           },
@@ -287,50 +348,120 @@ class Menu<T> {
             text: 'PickerView 选择器视图'
           },
           {
-            link: 'radio',
-            text: 'Radio 单选框'
-          },
-          {
-            link: 'rate',
-            text: 'Rate 评分'
-          },
-          {
-            link: 'search',
-            text: 'Search 搜索框'
+            link: 'colPicker',
+            text: 'ColPicker 多列选择器'
           },
           {
             link: 'selectPicker',
-            text: 'SelectPicker 单复选选择器'
+            text: 'SelectPicker 选择选择器'
           },
           {
             link: 'slider',
             text: 'Slider 滑块'
           },
           {
-            link: 'switch',
-            text: 'Switch 开关'
+            link: 'segmented',
+            text: 'Segmented 分段器'
           },
           {
-            link: 'upload',
-            text: 'Upload 上传'
-          },
-          {
-            link: 'passwordInput',
-            text: 'PasswordInput 密码输入框'
-          },
-          {
-            link: 'signature',
-            text: 'Signature 签名'
+            link: 'form',
+            text: 'Form 表单组件'
           }
         ]
       },
       {
-        text: '反馈',
+        text: '日期时间组件',
         collapsed: false,
         items: [
           {
+            link: 'calendar',
+            text: 'Calendar 日历组件'
+          },
+          {
+            link: 'calendarView',
+            text: 'CalendarView 日历视图'
+          },
+          {
+            link: 'datetimePicker',
+            text: 'DatetimePicker 日期时间选择器'
+          },
+          {
+            link: 'datetimePickerView',
+            text: 'DatetimePickerView 日期时间选择器视图'
+          },
+          {
+            link: 'countDown',
+            text: 'CountDown 倒计时'
+          },
+          {
+            link: 'countTo',
+            text: 'CountTo 数字动画'
+          },
+          {
+            link: 'dateStrip',
+            text: 'DateStrip 日期横条'
+          }
+        ]
+      },
+      {
+        text: '交互组件',
+        collapsed: false,
+        items: [
+          {
+            link: 'popup',
+            text: 'Popup 弹出层'
+          },
+          {
+            link: 'popover',
+            text: 'Popover 气泡弹出框'
+          },
+          {
+            link: 'overlay',
+            text: 'Overlay 遮罩层'
+          },
+          {
+            link: 'toast',
+            text: 'Toast 轻提示'
+          },
+          {
+            link: 'notify',
+            text: 'Notify 通知提示'
+          },
+          {
+            link: 'messageBox',
+            text: 'MessageBox 消息框'
+          },
+          {
+            link: 'tooltip',
+            text: 'Tooltip 文字提示'
+          },
+          {
             link: 'actionSheet',
             text: 'ActionSheet 动作面板'
+          },
+          {
+            link: 'loading',
+            text: 'Loading 加载中'
+          },
+          {
+            link: 'loadingPage',
+            text: 'LoadingPage 加载页面'
+          },
+          {
+            link: 'loadmore',
+            text: 'Loadmore 加载更多'
+          },
+          {
+            link: 'statusTip',
+            text: 'StatusTip 状态提示'
+          },
+          {
+            link: 'swipeAction',
+            text: 'SwipeAction 滑动操作'
+          },
+          {
+            link: 'collapse',
+            text: 'Collapse 折叠面板'
           },
           {
             link: 'dropMenu',
@@ -341,156 +472,79 @@ class Menu<T> {
             text: 'FloatingPanel 浮动面板'
           },
           {
-            link: 'loading',
-            text: 'Loading 加载'
-          },
-          {
-            link: 'messageBox',
-            text: 'MessageBox 弹框'
-          },
-          {
-            link: 'noticeBar',
-            text: 'NoticeBar 通知栏'
-          },
-          {
-            link: 'overlay',
-            text: 'Overlay 遮罩层'
-          },
-          {
-            link: 'progress',
-            text: 'Progress 进度条'
-          },
-          {
-            link: 'circle',
-            text: 'Circle 环形进度条'
-          },
-          {
-            link: 'sortButton',
-            text: 'SortButton 排序按钮'
-          },
-          {
-            link: 'statusTip',
-            text: 'StatusTip 缺省提示'
-          },
-          {
-            link: 'swipeAction',
-            text: 'SwipeAction 滑动操作'
-          },
-          {
-            link: 'toast',
-            text: 'Toast 轻提示'
-          },
-          {
-            link: 'notify',
-            text: 'Notify 消息通知'
-          },
-          {
-            link: 'tooltip',
-            text: 'Tooltip 文字提示'
-          },
-          {
-            link: 'countDown',
-            text: 'CountDown 倒计时'
-          },
-          {
-            link: 'countTo',
-            text: 'CountTo 数字滚动'
-          },
-          {
-            link: 'keyboard',
-            text: 'Keyboard 虚拟键盘'
-          },
-          {
-            link: 'numberKeyboard',
-            text: 'NumberKeyboard 数字键盘'
+            link: 'sliderButton',
+            text: 'SliderButton 滑动按钮'
           }
         ]
       },
       {
-        text: '数据展示',
+        text: '输入设备组件',
         collapsed: false,
         items: [
           {
-            link: 'badge',
-            text: 'Badge 徽标'
+            link: 'keyboard',
+            text: 'Keyboard 键盘组件'
           },
           {
-            link: 'card',
-            text: 'Card 卡片'
-          },
-          {
-            link: 'cell',
-            text: 'Cell 单元格'
-          },
-          {
-            link: 'collapse',
-            text: 'Collapse 折叠面板'
-          },
-          {
-            link: 'curtain',
-            text: 'Curtain 幕帘'
-          },
-          {
-            link: 'divider',
-            text: 'Divider 分割线'
-          },
-          {
-            link: 'gap',
-            text: 'Gap 间隔槽'
-          },
-          {
-            link: 'img',
-            text: 'Img 图片'
-          },
-          {
-            link: 'imgCropper',
-            text: 'ImgCropper 图片裁剪'
-          },
-          {
-            link: 'grid',
-            text: 'Grid 宫格'
-          },
-          {
-            link: 'loadMore',
-            text: 'LoadMore 加载更多'
-          },
-          {
-            link: 'skeleton',
-            text: 'Skeleton 骨架屏'
-          },
-          {
-            link: 'steps',
-            text: 'Steps 步骤条'
-          },
-          {
-            link: 'sticky',
-            text: 'Sticky 粘性布局'
-          },
-          {
-            link: 'tag',
-            text: 'Tag 标签'
-          },
-          {
-            link: 'watermark',
-            text: 'Watermark 水印'
-          },
-          {
-            link: 'swiper',
-            text: 'Swiper 轮播图'
-          },
-          {
-            link: 'table',
-            text: 'Table 表格'
+            link: 'signature',
+            text: 'Signature 签名板'
           }
         ]
       },
       {
-        text: '组合式API',
+        text: '高级组件',
+        collapsed: false,
         items: [
-          { text: 'useUpload', link: 'use-upload' },
-          { text: 'useCountDown', link: 'use-count-down' },
-          { text: 'useToast', link: 'use-toast' },
-          { text: 'useMessage', link: 'use-message' }
+          {
+            link: 'transition',
+            text: 'Transition 动画组件'
+          },
+          {
+            link: 'curtain',
+            text: 'Curtain 幕布组件'
+          },
+          {
+            link: 'lazyLoad',
+            text: 'LazyLoad 懒加载'
+          },
+          {
+            link: 'resize',
+            text: 'Resize 尺寸监听'
+          },
+          {
+            link: 'rootPortal',
+            text: 'RootPortal 根节点传送'
+          },
+          {
+            link: 'pagination',
+            text: 'Pagination 分页器'
+          },
+          {
+            link: 'tree',
+            text: 'Tree 树形控件'
+          },
+          {
+            link: 'upload',
+            text: 'Upload 上传组件'
+          },
+          {
+            link: 'tour',
+            text: 'Tour 引导组件'
+          }
+        ]
+      },
+      {
+        text: '配置组件',
+        collapsed: false,
+        items: [
+          {
+            link: 'configProvider',
+            text: 'ConfigProvider 全局配置'
+          },
+          {
+            link: 'color',
+            text: 'Color 主题配置'
+          }
         ]
       }
     ]
