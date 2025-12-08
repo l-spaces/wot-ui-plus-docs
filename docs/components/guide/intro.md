@@ -10,6 +10,7 @@
 | npm | ≥ 6.0.0 | 或使用 yarn ≥ 1.22.0 |
 | HBuilderX | ≥ 3.8.7 | 使用 HBuilderX 开发时需要 |
 | uni-app | Vue 3 版本 | 仅支持 Vue 3，不支持 Vue 2 |
+| sass | 1.75.0 | 高版本废除了 `@import` 语法， |
 | 编译器 | Vite | 推荐使用 Vite 编译器 |
 
 ###  安装方式
