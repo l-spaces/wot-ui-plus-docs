@@ -6,6 +6,9 @@
     <div class="pv-col">本站总访问量<span id="busuanzi_value_site_pv"></span>次</div>
     <div class="pv-col">本站总访客数<span id="busuanzi_value_site_uv"></span>人</div>
     <div class="pv-col">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</div>
+    本站总访客数 <span id="busuanzi_site_uv">加载中...</span> 人
+    本页总访客数 <span id="busuanzi_page_uv">加载中...</span> 人
+    今日总访客数 <span id="busuanzi_today_uv">加载中...</span> 人
   </div>
 </template>
 
@@ -33,6 +36,7 @@ function getValue() {
   if (isNext) {
     setTimeout(() => {
       updateValue()
+      console.log('Notify 1000')
     }, 1000) // 1s后再次请求
   }
 }

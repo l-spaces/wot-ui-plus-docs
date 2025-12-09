@@ -113,7 +113,7 @@ export default {
         window.bszCaller.fetch(
           '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
           function () {
-            console.log('Notify bsz')
+            console.log('Notify bsz 1')
           }
         )
       }
@@ -123,7 +123,8 @@ export default {
       () => router.route.data.relativePath,
       () => {
         setTimeout(() => {
-          triggerStats(location.pathname === '/wot-ui-plus-docs/')
+          triggerStats(location.pathname === '/')
+          console.log('Notify bsz 300')
         }, 300)
       },
       { immediate: true }

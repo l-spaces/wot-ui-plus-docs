@@ -123,6 +123,7 @@ export const general = defineConfig({
   head: [
     ...seoHead,
     ['link', { rel: 'icon', href: '/favicon.ico' }],
+     ['script', { src: '//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.abbr.min.js' }],
   ],
 
   themeConfig: {
