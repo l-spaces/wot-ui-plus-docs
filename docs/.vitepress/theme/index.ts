@@ -104,29 +104,10 @@ export default {
     if (typeof window === 'undefined') return
     document.documentElement.classList.add('rainbow')
 
-    // 统计函数
-    function triggerStats(isHomePage = false) {
-      if (isHomePage) return
-      // 不蒜子统计刷新
-      if (window.bszCaller && window.bszCaller.fetch) {
-        // 调用统计刷新
-        window.bszCaller.fetch(
-          '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
-          function () {
-            console.log('Notify bsz 1')
-          }
-        )
-      }
-    }
 
     watch(
       () => router.route.data.relativePath,
-      () => {
-        setTimeout(() => {
-          triggerStats(location.pathname === '/')
-          console.log('Notify bsz 300')
-        }, 300)
-      },
+      () => { },
       { immediate: true }
     )
   },
