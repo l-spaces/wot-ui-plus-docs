@@ -122,9 +122,8 @@ export default {
     watch(
       () => router.route.data.relativePath,
       () => {
-        updateHomePageStyle(location.pathname === '/')
         setTimeout(() => {
-          triggerStats(location.pathname === '/')
+          triggerStats(location.pathname === '/wot-ui-plus-docs/')
         }, 300)
       },
       { immediate: true }
@@ -157,20 +156,3 @@ export default {
   }
 }
 
-// Speed up the rainbow animation on home page
-function updateHomePageStyle(value: any) {
-  if (value) {
-    if (homePageStyle) return
-
-    homePageStyle = document.createElement('style')
-    homePageStyle.innerHTML = `
-    :root {
-      animation: rainbow 12s linear infinite;
-    }`
-    document.body.appendChild(homePageStyle)
-  } else {
-    if (!homePageStyle) return
-    homePageStyle.remove()
-    homePageStyle = undefined
-  }
-}
