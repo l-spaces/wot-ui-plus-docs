@@ -4,7 +4,7 @@
 <template>
   <div class="pv-row container">
     <div class="pv-col">本站总访问量 <span id="busuanzi_site_pv">加载中...</span> 次</div>
-    <div class="pv-col">本站总访客数 <span id="busuanzi_site_uv">加载中...</span> 人</div>
+    <div class="pv-col">本站总访客数 <span id="busuanzi_page_pv">加载中...</span> 人</div>
     <div class="pv-col">今日总访客数 <span id="busuanzi_today_uv">加载中...</span> 人</div>
   </div>
 </template>
