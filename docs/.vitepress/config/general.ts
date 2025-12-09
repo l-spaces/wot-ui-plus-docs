@@ -105,7 +105,7 @@ export const general = defineConfig({
     plugins: [
       groupIconVitePlugin(),
       vitepressProtectPlugin({
-        disableF12: false, // 禁用F12开发者模式
+        disableF12: true, // 禁用F12开发者模式
         disableCopy: false, // 禁用文本复制
         disableSelect: false // 禁用文本选择
       })
