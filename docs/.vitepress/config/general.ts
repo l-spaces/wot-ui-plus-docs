@@ -22,9 +22,9 @@ export const seo = {
   ogTitle: 'wot-ui-plus 组件库 - 官网',
   ogDescription:
     'wot-ui-plus - 基于 Vue3 & TypeScript 的高质量 uni-app 组件库，基于 uview、uviewui、wot-ui-plus、uview ui、uniapp、vue3、typescript、ts、components，打造最强大的 uni-app 生态组件库。',
-  ogUrl: 'https://wot-ui-plus.cn',
+  ogUrl: 'https://l-spaces.github.io/wot-ui-plus-docs/',
   baiduUnion: 'wot-ui-plus官网',
-  baiduImage: 'https://wot-ui-plus.cn/images/website.png'
+  baiduImage: 'https://l-spaces.github.io/wot-ui-plus-docs/images/wot-logo.png'
 }
 
 export const seoHead: [string, Record<string, string>][] = [
@@ -47,7 +47,7 @@ const base = getEnvVar('VITE_BASE', '/')
 
 // Configure vitepress-plugin-llms and coerce types to avoid mismatched vite typings
 const llmsPlugins = llmstxt({
-  domain: seo.ogUrl?.replace(/\/$/, '') || 'https://wot-ui-plus.cn',
+  domain: seo.ogUrl?.replace(/\/$/, '') || 'https://l-spaces.github.io/wot-ui-plus-docs/',
   generateLLMsTxt: true,
   generateLLMsFullTxt: true,
   generateLLMFriendlyDocsForEachPage: true,
@@ -82,7 +82,7 @@ export const general = defineConfig({
     // 使用 `!!code` 防止转换
     codeTransformers: [
       {
-        postprocess(code) {
+        postprocess(code: string) {
           return code.replace(/\[\!\!code/g, '[!code')
         }
       }
@@ -113,7 +113,7 @@ export const general = defineConfig({
     // plugins: llmsPlugins
   },
   sitemap: {
-    hostname: 'https://wot-ui-plus.cn',
+    hostname: 'https://l-spaces.github.io/wot-ui-plus-docs/',
     transformItems(items) {
       return items.filter((item) => !item.url.includes('migration'))
     }

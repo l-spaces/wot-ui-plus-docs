@@ -38,20 +38,20 @@ function getValue() {
 }
 
 function updateValue() {
-  // if ((window as any).bszCaller && (window as any).bszCaller.fetch) {
-  //   // 调用统计刷新
-  //   (window as any).bszCaller.fetch(
-  //     '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
-  //     function (data: any) {
-  //       mapData.forEach(item => {
-  //         const dom = document.getElementById(item.id)
-  //         if (dom) {
-  //           dom.innerHTML = String(data[item.key] + item.offset)
-  //         }
-  //       })
-  //     }
-  //   )
-  // }
+  if ((window as any).bszCaller && (window as any).bszCaller.fetch) {
+    // 调用统计刷新
+    (window as any).bszCaller.fetch(
+      '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
+      function (data: any) {
+        mapData.forEach(item => {
+          const dom = document.getElementById(item.id)
+          if (dom) {
+            dom.innerHTML = String(data[item.key] + item.offset)
+          }
+        })
+      }
+    )
+  }
 }
 
 onMounted(() => {
@@ -79,7 +79,7 @@ onMounted(() => {
 .pv-col {
   flex: 1;
   text-align: center;
-  padding: 20px;
+  padding: 5px;
   border: 1px dashed #2979ff;
   border-radius: 5px;
   color: #666;

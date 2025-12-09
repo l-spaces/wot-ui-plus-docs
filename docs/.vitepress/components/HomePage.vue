@@ -7,13 +7,14 @@
     <!-- <Contributors /> -->
     <!-- <ProjectInfo /> -->
     <HomePartners />
-    <!-- <SitePV /> -->
+    <SitePV />
     <!-- <FooterInfo /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import HomePartners from './HomePartners.vue'
+import SitePV from './SitePV.vue'
 </script>
 
 <style scoped>

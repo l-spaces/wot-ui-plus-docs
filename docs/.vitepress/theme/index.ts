@@ -2,6 +2,7 @@
 import DefaultTheme from 'vitepress/theme'
 // giscusTalk 评论插件
 import giscusTalk from 'vitepress-plugin-comment-with-giscus'
+
 // 自定义样式
 import 'virtual:group-icons.css'
 import './vars.scss'
@@ -105,25 +106,17 @@ export default {
 
     // 统计函数
     function triggerStats(isHomePage = false) {
-      // if (isHomePage) return
-      // // 不蒜子统计刷新
-      // if (window.bszCaller && window.bszCaller.fetch) {
-      //   // 调用统计刷新
-      //   window.bszCaller.fetch(
-      //     '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
-      //     function () {
-      //       console.log('Notify bsz')
-      //     }
-      //   )
-      // }
-      // 百度统计刷新
-      // if (window._hmt) {
-      //   window._hmt.push([
-      //     '_trackPageview',
-      //     location.pathname + location.search
-      //   ])
-      //   console.log('Notify hm')
-      // }
+      if (isHomePage) return
+      // 不蒜子统计刷新
+      if (window.bszCaller && window.bszCaller.fetch) {
+        // 调用统计刷新
+        window.bszCaller.fetch(
+          '//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback',
+          function () {
+            console.log('Notify bsz')
+          }
+        )
+      }
     }
 
     watch(

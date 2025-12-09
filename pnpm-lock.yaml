@@ -26,6 +26,9 @@ importers:
       axios:
         specifier: ^1.11.0
         version: 1.12.2
+      busuanzi.pure.js:
+        specifier: ^1.0.3
+        version: 1.0.3
       element-plus:
         specifier: ^2.11.1
         version: 2.11.2(vue@3.5.21)
@@ -1181,6 +1184,9 @@ packages:
 
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
+
+  busuanzi.pure.js@1.0.3:
+    resolution: {integrity: sha512-tPULdyx+8NNb9geZYDpktKmHAYx9f2LEOBaHyWCaM7iPEMIa/43KgYAUluuU7YG9UFSOFpj4dO7Nj2Vlu3V9Rg==}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -3294,6 +3300,8 @@ snapshots:
 
   buffer-from@1.1.2:
     optional: true
+
+  busuanzi.pure.js@1.0.3: {}
 
   cac@6.7.14: {}
 
