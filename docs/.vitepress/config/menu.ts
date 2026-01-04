@@ -82,7 +82,10 @@ class Menu<T> {
         text: '资源',
         activeMatch: `${this.localeStr}/intro`,
         // link: `${this.localeStr}/tools/intro`
-        items: [{ text: '起步', link: `${this.localeStr}/tools/intro` }]
+        items: [
+          { text: '起步', link: `${this.localeStr}/tools/intro` },
+          { text: '代码提示插件', link: 'https://open-vsx.org/extension/wot-ui-plus/wot-ui-plus-helper', target:'_blank'  }
+        ]
       },
       // {
       //   text: '模版',
