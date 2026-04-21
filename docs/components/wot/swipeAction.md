@@ -3,559 +3,414 @@
 
 ## 组件概况
 
-### 组件概述
-SwipeAction 是滑动操作组件，用于实现列表项的左滑和右滑显示操作按钮功能。它支持自定义左右操作区域，支持禁用滑动，支持滑动状态的双向绑定，适用于各种需要滑动操作的场景。
+SwipeAction 滑动操作组件是一个支持左右滑动手势的容器组件，用于在列表项等场景中隐藏展示操作按钮。用户通过横向滑动内容区域，可滑出左侧或右侧的操作按钮面板，实现删除、编辑、置顶等快捷操作。组件支持单侧或双侧操作按钮、程序化控制展开状态、关闭前拦截钩子、多实例互斥管理以及完整的触摸手势处理（自动区分横向/纵向滑动），适用于消息列表、邮件列表、文件管理等需要隐藏操作入口的场景。
 
-### 详细功能描述
-- 支持左滑和右滑显示操作按钮
-- 支持自定义左右操作区域的内容
-- 支持禁用滑动操作
-- 支持滑动状态的双向绑定
-- 支持关闭前的钩子函数
-- 自动关闭其他已打开的滑动项
-- 支持自定义样式和类名
-- 跨平台兼容
+## 核心功能描述
 
-### 适用业务场景
-- 列表项的滑动删除
-- 列表项的滑动编辑
-- 列表项的滑动分享
-- 任何需要滑动操作的列表场景
+- **左右双侧操作**：通过 `#left` 和 `#right` 插槽分别定义左右两侧操作按钮，可单独使用或同时使用
+- **手势滑动**：支持触摸滑动操作，滑动距离超过按钮宽度 30% 阈值时自动展开对应侧按钮，未达阈值则回弹闭合
+- **程序化控制**：通过 `v-model` 绑定状态值（`'left'`、`'close'`、`'right'`），可从外部控制展开/收起状态
+- **关闭前拦截**：`beforeClose` 钩子函数在每次关闭操作按钮前执行，可接收关闭原因（`click`、`swipe`、`value`）和关闭位置（`left`、`right`、`inside`）
+- **多实例互斥**：多个 SwipeAction 实例共存时，展开当前实例会自动收起其他实例，通过队列机制管理
+- **横纵手势区分**：内置手势方向识别，纵向滑动时不会拦截页面滚动，仅横向滑动时阻止默认行为和事件冒泡
+- **点击关闭**：已展开操作按钮时，点击内容区域会自动收起按钮并触发 `click` 事件，返回关闭位置信息
+- **平滑动画**：收起时带有 600ms cubic-bezier(0.18, 0.89, 0.32, 1) 缓动过渡动画，跟随手指滑动时无动画延迟
+- **溢出隐藏**：容器使用 `overflow: hidden`，操作按钮在未滑出时完全隐藏
+- **暗色模式支持**：通过 `wot-theme-dark` 类名自动适配暗色主题
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- **列表项操作**：消息列表、邮件列表、联系人列表中的删除、标记已读、置顶等操作
+- **文件管理**：文件列表中的删除、重命名、移动、分享等操作入口
+- **购物车操作**：购物车商品项中的删除、收藏、数量修改等操作
+- **通知管理**：通知项的删除、免打扰、归档等操作
+- **需要隐藏操作的列表**：操作按钮不常使用但需要时可快速触达的场景
+- **双侧操作需求**：左侧用于收藏/标记，右侧用于删除/编辑的双向操作场景
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| modelValue | string | close | 否 | 滑动按钮的状态，可选值：left（左滑）、close（关闭状态）、right（右滑） |
-| disabled | boolean | false | 否 | 是否禁用滑动操作 |
-| beforeClose | function | - | 否 | 关闭滑动按钮前调用的钩子函数，参数：(reason, position) |
-| customStyle | string | - | 否 | 自定义根节点样式 |
-| customClass | string | - | 否 | 自定义根节点样式类 |
+## API
 
-### Events事件
+### Props
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| click | 点击滑动操作按钮区域或内容区域 |  value: 点击位置，可选值：left、right、inside  |
-| update:modelValue | 滑动状态改变时 | value: 新的滑动状态，可选值：left、close、right |
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| modelValue | `'left' \| 'close' \| 'right'` | `'close'` | 否 | 滑动按钮的状态，支持 `v-model` 双向绑定 |
+| disabled | boolean | `false` | 否 | 是否禁用滑动操作 |
+| beforeClose | `(reason: SwipeActionReason, position: SwipeActionPosition) => void` | - | 否 | 关闭操作按钮前的钩子函数 |
+| customStyle | string | `''` | 否 | 自定义根节点样式 |
+| customClass | string | `''` | 否 | 自定义根节点类名 |
 
-### Methods方法
+#### modelValue 可选值
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| close | - | - | 关闭滑动操作按钮 |
+| 值 | 状态描述 |
+|---|---------|
+| `left` | 左滑展开，展示左侧操作按钮 |
+| `close` | 关闭状态，不展示任何操作按钮 |
+| `right` | 右滑展开，展示右侧操作按钮 |
 
-### Slots插槽
+#### beforeClose 回调参数
 
-| 插槽名 | 作用域变量 | 使用说明 |
-|--------|------------|----------|
-| default | - | 列表项的主要内容 |
-| left | - | 左滑显示的操作按钮区域 |
-| right | - | 右滑显示的操作按钮区域 |
+**reason**（关闭原因）可选值：
 
-## 多场景使用示例代码
+| 值 | 触发场景 |
+|---|---------|
+| `click` | 用户点击内容区域导致关闭 |
+| `swipe` | 用户反向滑动导致关闭 |
+| `value` | 通过外部修改 `modelValue` 导致关闭 |
 
-### 1. 基础用法
+**position**（关闭位置）可选值：
+
+| 值 | 说明 |
+|---|------|
+| `left` | 关闭的是左侧操作按钮 |
+| `right` | 关闭的是右侧操作按钮 |
+| `inside` | 点击的是内容区域内部（仅 click 原因时返回） |
+
+### Events
+
+| 事件名称 | 回调参数 | 说明 |
+|---------|---------|------|
+| update:modelValue | `'left' \| 'close' \| 'right'` | 滑动状态变化时触发，传入当前状态值 |
+| click | `{ value: 'left' \| 'right' \| 'inside' }` | 点击事件，当操作按钮已展开时点击内容区域触发，`value` 表示点击的位置 |
+
+### Methods
+
+通过 `ref` 获取组件实例后可调用以下方法：
+
+| 方法名称 | 参数 | 说明 |
+|---------|------|------|
+| close | - | 关闭操作按钮（等效于设置 `modelValue` 为 `'close'`） |
+
+### Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 内容区域，通常放置 `wd-cell` 或其他列表项内容 |
+| left | - | 左侧操作按钮区域，向左滑动时展示 |
+| right | - | 右侧操作按钮区域，向右滑动时展示 |
+
+## 使用示例
+
+### 示例 1：基本用法
+
+展示右侧操作按钮的基础用法，最常见的单侧滑动操作场景。
 
 ```vue
 <template>
-  <view class="swipe-action-demo">
-    <wd-swipe-action v-model="swipeStatus">
-      <!-- 列表项内容 -->
-      <view class="list-item">
-        <text>这是一个可滑动的列表项</text>
-      </view>
-      <!-- 右滑操作按钮 -->
+  <view>
+    <!-- 仅右侧操作按钮 -->
+    <wd-swipe-action>
+      <wd-cell title="标题文字" value="内容" />
       <template #right>
-        <view class="action-button action-delete" @click.stop="handleDelete">
-          <text>删除</text>
+        <view class="action">
+          <view class="button" style="background: #fa4350" @click="handleAction('删除')">删除</view>
+          <view class="button" style="background: #f0883a" @click="handleAction('编辑')">编辑</view>
+          <view class="button" style="background: #4d80f0" @click="handleAction('更多')">更多</view>
+        </view>
+      </template>
+    </wd-swipe-action>
+
+    <!-- 多个列表项 -->
+    <wd-swipe-action>
+      <wd-cell title="邮件 1" value="未读" />
+      <template #right>
+        <view class="action">
+          <view class="button" style="background: #fa4350">删除</view>
+          <view class="button" style="background: #4d80f0">标记已读</view>
+        </view>
+      </template>
+    </wd-swipe-action>
+
+    <wd-swipe-action>
+      <wd-cell title="邮件 2" value="已读" />
+      <template #right>
+        <view class="action">
+          <view class="button" style="background: #fa4350">删除</view>
+          <view class="button" style="background: #4d80f0">置顶</view>
         </view>
       </template>
     </wd-swipe-action>
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { useToast } from '@/uni_modules/wot-ui-plus'
 
-const swipeStatus = ref('close')
+  const toast = useToast()
 
-const handleDelete = () => {
-  console.log('删除操作')
-  // 关闭滑动操作
-  swipeStatus.value = 'close'
-}
+  function handleAction(action: string) {
+    toast.show('点击了' + action)
+  }
 </script>
-
-<style scoped>
-.swipe-action-demo {
-  padding: 20rpx;
-  background-color: #f5f5f5;
-}
-
-.list-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 20rpx;
-  background-color: #fff;
-  border-radius: 8rpx;
-}
-
-.action-button {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 30rpx;
-  color: #fff;
-  font-size: 28rpx;
-}
-
-.action-delete {
-  background-color: #f44336;
-}
+<style lang="scss" scoped>
+  .action {
+    height: 100%;
+    display: flex;
+  }
+  .button {
+    display: inline-block;
+    padding: 0 15px;
+    height: 100%;
+    color: white;
+    line-height: 46px;
+  }
 </style>
 ```
 
-### 2. 左右双向滑动
+右侧操作按钮通过 `#right` 插槽定义，内容区域通过默认插槽放置 `wd-cell` 组件。操作按钮区域建议设置 `height: 100%` 使其与内容区域等高。多个 SwipeAction 实例同时存在时，滑动展开一个会自动收起其他已展开的实例。
+
+### 示例 2：左右双侧滑动
+
+同时定义左右两侧操作按钮，支持向左和向右滑动展示不同操作。
 
 ```vue
 <template>
-  <view class="swipe-action-demo">
-    <wd-swipe-action v-model="swipeStatus">
-      <!-- 列表项内容 -->
-      <view class="list-item">
-        <text>这是一个支持左右双向滑动的列表项</text>
-      </view>
-      <!-- 左滑操作按钮 -->
+  <view>
+    <wd-swipe-action>
+      <!-- 左侧操作按钮 -->
       <template #left>
-        <view class="action-button action-favorite" @click.stop="handleFavorite">
-          <text>收藏</text>
+        <view class="action">
+          <view class="button" style="background: #34d19d">置顶</view>
+          <view class="button" style="background: #4d80f0">收藏</view>
         </view>
       </template>
-      <!-- 右滑操作按钮 -->
+
+      <!-- 内容区域 -->
+      <wd-cell title="标题文字" value="内容" />
+
+      <!-- 右侧操作按钮 -->
       <template #right>
-        <view class="action-button action-edit" @click.stop="handleEdit">
-          <text>编辑</text>
-        </view>
-        <view class="action-button action-delete" @click.stop="handleDelete">
-          <text>删除</text>
+        <view class="action">
+          <view class="button" style="background: #f0883a">编辑</view>
+          <view class="button" style="background: #fa4350">删除</view>
         </view>
       </template>
     </wd-swipe-action>
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const swipeStatus = ref('close')
-
-const handleFavorite = () => {
-  console.log('收藏操作')
-  swipeStatus.value = 'close'
-}
-
-const handleEdit = () => {
-  console.log('编辑操作')
-  swipeStatus.value = 'close'
-}
-
-const handleDelete = () => {
-  console.log('删除操作')
-  swipeStatus.value = 'close'
-}
 </script>
-
-<style scoped>
-.swipe-action-demo {
-  padding: 20rpx;
-  background-color: #f5f5f5;
-}
-
-.list-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 20rpx;
-  background-color: #fff;
-  border-radius: 8rpx;
-}
-
-.action-button {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 30rpx;
-  color: #fff;
-  font-size: 28rpx;
-}
-
-.action-favorite {
-  background-color: #ff9800;
-}
-
-.action-edit {
-  background-color: #1989fa;
-}
-
-.action-delete {
-  background-color: #f44336;
-}
+<style lang="scss" scoped>
+  .action {
+    height: 100%;
+    display: flex;
+  }
+  .button {
+    display: inline-block;
+    padding: 0 15px;
+    height: 100%;
+    color: white;
+    line-height: 46px;
+  }
 </style>
 ```
 
-### 3. 列表中使用
+同时使用 `#left` 和 `#right` 插槽可以定义双侧操作。左侧适合放置正向操作（如收藏、置顶、标星），右侧适合放置负向操作（如删除、屏蔽）。滑动时仅能向一侧展开，展开一侧后需先收起才能滑出另一侧。操作按钮数量不受限制，可根据需要自由增减。
+
+### 示例 3：程序化控制状态
+
+通过 `v-model` 绑定状态值，使用外部按钮控制展开/收起。
 
 ```vue
 <template>
-  <view class="swipe-action-demo">
-    <wd-swipe-action 
-      v-for="(item, index) in list" 
-      :key="item.id" 
-      v-model="item.swipeStatus"
-      :before-close="beforeClose"
-    >
-      <!-- 列表项内容 -->
-      <view class="list-item">
-        <text class="item-text">{{ item.text }}</text>
-      </view>
-      <!-- 右滑操作按钮 -->
+  <view>
+    <wd-swipe-action v-model="value">
+      <template #left>
+        <view class="action">
+          <view class="button" style="background: #34d19d">置顶</view>
+          <view class="button" style="background: #4d80f0">收藏</view>
+          <view class="button" style="background: #fa4350">标记</view>
+        </view>
+      </template>
+
+      <wd-cell title="标题文字" value="内容" />
+
       <template #right>
-        <view class="action-button action-delete" @click.stop="handleDelete(index)">
-          <text>删除</text>
+        <view class="action">
+          <view class="button" style="background: #f0883a">编辑</view>
+          <view class="button" style="background: #4d80f0">分享</view>
+          <view class="button" style="background: #fa4350">删除</view>
+        </view>
+      </template>
+    </wd-swipe-action>
+
+    <!-- 外部控制按钮 -->
+    <view class="button-group">
+      <wd-button size="small" @click="changeState('left')">打开左边</wd-button>
+      <wd-button size="small" @click="changeState('close')">关闭所有</wd-button>
+      <wd-button size="small" @click="changeState('right')">打开右边</wd-button>
+    </view>
+  </view>
+</template>
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import type { SwipeActionStatus } from '@/uni_modules/wot-ui-plus/components/wd-swipe-action/types'
+
+  const value = ref<SwipeActionStatus>('close')
+
+  function changeState(position: SwipeActionStatus) {
+    value.value = position
+  }
+</script>
+<style lang="scss" scoped>
+  .action {
+    height: 100%;
+    display: flex;
+  }
+  .button {
+    display: inline-block;
+    padding: 0 15px;
+    height: 100%;
+    color: white;
+    line-height: 46px;
+  }
+  .button-group {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+</style>
+```
+
+通过 `v-model` 绑定 `SwipeActionStatus` 类型的值，可从外部控制组件状态。`'left'` 展开左侧按钮，`'right'` 展开右侧按钮，`'close'` 收起所有按钮。也可以通过 `ref` 获取组件实例后调用 `close()` 方法收起按钮。
+
+### 示例 4：关闭前拦截
+
+使用 `beforeClose` 钩子函数在关闭操作按钮前执行自定义逻辑。
+
+```vue
+<template>
+  <view>
+    <wd-swipe-action v-model="value" :before-close="beforeClose">
+      <template #left>
+        <view class="action">
+          <view class="button" style="background: #34d19d">置顶</view>
+          <view class="button" style="background: #4d80f0">收藏</view>
+        </view>
+      </template>
+
+      <wd-cell title="标题文字" value="内容" />
+
+      <template #right>
+        <view class="action">
+          <view class="button" style="background: #f0883a">编辑</view>
+          <view class="button" style="background: #fa4350">删除</view>
         </view>
       </template>
     </wd-swipe-action>
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
+  import { useToast } from '@/uni_modules/wot-ui-plus'
+  import type { SwipeActionBeforeClose, SwipeActionStatus } from '@/uni_modules/wot-ui-plus/components/wd-swipe-action/types'
 
-// 模拟列表数据
-const list = ref([
-  { id: 1, text: '列表项 1', swipeStatus: 'close' },
-  { id: 2, text: '列表项 2', swipeStatus: 'close' },
-  { id: 3, text: '列表项 3', swipeStatus: 'close' },
-  { id: 4, text: '列表项 4', swipeStatus: 'close' },
-  { id: 5, text: '列表项 5', swipeStatus: 'close' }
-])
+  const toast = useToast()
+  const value = ref<SwipeActionStatus>('close')
 
-// 关闭前的钩子函数
-const beforeClose = (reason: string, position: string) => {
-  console.log('关闭前的钩子函数', reason, position)
-  // 可以在这里添加确认提示等逻辑
-}
-
-// 删除操作
-const handleDelete = (index: number) => {
-  console.log('删除列表项', index)
-  list.value.splice(index, 1)
-}
+  const beforeClose: SwipeActionBeforeClose = (reason, position) => {
+    if (reason === 'click') {
+      toast.show(`点击 ${position} 区域导致滑动按钮关闭`)
+    } else {
+      toast.show(`${reason} 导致 ${position} 滑动按钮关闭`)
+    }
+  }
 </script>
-
-<style scoped>
-.swipe-action-demo {
-  padding: 20rpx;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-}
-
-.list-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 20rpx;
-  background-color: #fff;
-  border-radius: 8rpx;
-}
-
-.item-text {
-  font-size: 28rpx;
-  color: #303133;
-}
-
-.action-button {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 30rpx;
-  color: #fff;
-  font-size: 28rpx;
-}
-
-.action-delete {
-  background-color: #f44336;
-}
+<style lang="scss" scoped>
+  .action {
+    height: 100%;
+    display: flex;
+  }
+  .button {
+    display: inline-block;
+    padding: 0 15px;
+    height: 100%;
+    color: white;
+    line-height: 46px;
+  }
 </style>
 ```
 
-### 4. 禁用滑动
+`beforeClose` 钩子函数接收两个参数：`reason`（关闭原因）和 `position`（关闭位置）。关闭原因包括 `'click'`（点击关闭）、`'swipe'`（滑动关闭）、`'value'`（通过修改 value 关闭），关闭位置包括 `'left'`、`'right'`、`'inside'`。此钩子适合用于关闭前显示确认提示、记录操作日志等场景。注意：此钩子为同步执行，关闭操作会在此钩子执行完毕后继续进行。
+
+### 示例 5：点击事件与禁用状态
+
+展示点击事件监听以及禁用滑动功能的使用方式。
 
 ```vue
 <template>
-  <view class="swipe-action-demo">
-    <wd-swipe-action v-model="swipeStatus" disabled>
-      <!-- 列表项内容 -->
-      <view class="list-item">
-        <text>这是一个禁用滑动的列表项</text>
-      </view>
-      <!-- 右滑操作按钮 -->
+  <view>
+    <!-- 点击事件：已展开操作按钮时点击内容区域会触发 -->
+    <wd-swipe-action @click="handleClick">
+      <wd-cell title="标题文字" value="内容" />
       <template #right>
-        <view class="action-button action-delete" @click.stop="handleDelete">
-          <text>删除</text>
+        <view class="action">
+          <view class="button" style="background: #fa4350">删除</view>
+          <view class="button" style="background: #f0883a">编辑</view>
+          <view class="button" style="background: #4d80f0">更多</view>
+        </view>
+      </template>
+    </wd-swipe-action>
+
+    <!-- 禁用状态：无法滑动，操作按钮始终隐藏 -->
+    <wd-swipe-action disabled>
+      <wd-cell title="此条目已锁定" value="不可操作" />
+      <template #right>
+        <view class="action">
+          <view class="button" style="background: #fa4350">删除</view>
+          <view class="button" style="background: #f0883a">编辑</view>
+        </view>
+      </template>
+    </wd-swipe-action>
+
+    <!-- 动态禁用 -->
+    <wd-swipe-action :disabled="isDisabled">
+      <wd-cell title="动态控制" value="根据条件禁用" />
+      <template #right>
+        <view class="action">
+          <view class="button" style="background: #fa4350">删除</view>
         </view>
       </template>
     </wd-swipe-action>
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
+  import { useToast } from '@/uni_modules/wot-ui-plus'
 
-const swipeStatus = ref('close')
+  const toast = useToast()
+  const isDisabled = ref<boolean>(false)
 
-const handleDelete = () => {
-  console.log('删除操作')
-  swipeStatus.value = 'close'
-}
+  function handleClick({ value }: { value: string }) {
+    toast.show(`点击 ${value} 位置关闭操作按钮`)
+  }
 </script>
-
-<style scoped>
-.swipe-action-demo {
-  padding: 20rpx;
-  background-color: #f5f5f5;
-}
-
-.list-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 20rpx;
-  background-color: #fff;
-  border-radius: 8rpx;
-  opacity: 0.7;
-}
-
-.action-button {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 30rpx;
-  color: #fff;
-  font-size: 28rpx;
-}
-
-.action-delete {
-  background-color: #f44336;
-}
+<style lang="scss" scoped>
+  .action {
+    height: 100%;
+    display: flex;
+  }
+  .button {
+    display: inline-block;
+    padding: 0 15px;
+    height: 100%;
+    color: white;
+    line-height: 46px;
+  }
 </style>
 ```
 
-### 5. 自定义样式
-
-```vue
-<template>
-  <view class="swipe-action-demo">
-    <wd-swipe-action 
-      v-model="swipeStatus"
-      customStyle="background-color: #f0f9ff; border-radius: 16rpx; overflow: hidden;"
-      customClass="my-swipe-action"
-    >
-      <!-- 列表项内容 -->
-      <view class="list-item">
-        <text class="item-title">自定义样式列表项</text>
-        <text class="item-desc">这是一个带有自定义样式的可滑动列表项</text>
-      </view>
-      <!-- 右滑操作按钮 -->
-      <template #right>
-        <view class="action-button action-primary" @click.stop="handlePrimary">
-          <text>主要操作</text>
-        </view>
-        <view class="action-button action-secondary" @click.stop="handleSecondary">
-          <text>次要操作</text>
-        </view>
-      </template>
-    </wd-swipe-action>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const swipeStatus = ref('close')
-
-const handlePrimary = () => {
-  console.log('主要操作')
-  swipeStatus.value = 'close'
-}
-
-const handleSecondary = () => {
-  console.log('次要操作')
-  swipeStatus.value = 'close'
-}
-</script>
-
-<style scoped>
-.swipe-action-demo {
-  padding: 20rpx;
-  background-color: #f5f5f5;
-}
-
-.list-item {
-  padding: 20rpx;
-}
-
-.item-title {
-  display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #303133;
-  margin-bottom: 10rpx;
-}
-
-.item-desc {
-  display: block;
-  font-size: 24rpx;
-  color: #606266;
-}
-
-.action-button {
-  height: 140rpx;
-  line-height: 140rpx;
-  padding: 0 40rpx;
-  color: #fff;
-  font-size: 28rpx;
-}
-
-.action-primary {
-  background-color: #4caf50;
-}
-
-.action-secondary {
-  background-color: #ff9800;
-}
-
-:deep(.my-swipe-action) {
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
-}
-</style>
-```
-
-## 样式定制指南
-
-### 1. 使用customStyle自定义样式
-
-```vue
-<template>
-  <wd-swipe-action 
-    v-model="swipeStatus"
-    customStyle="background-color: #f0f9ff; border-radius: 16rpx; overflow: hidden;"
-  >
-    <!-- 内容 -->
-  </wd-swipe-action>
-</template>
-```
-
-### 2. 使用customClass自定义类名
-
-```vue
-<template>
-  <wd-swipe-action 
-    v-model="swipeStatus"
-    customClass="my-swipe-action"
-  >
-    <!-- 内容 -->
-  </wd-swipe-action>
-</template>
-
-<style scoped>
-:deep(.my-swipe-action) {
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
-  margin-bottom: 20rpx;
-}
-
-:deep(.my-swipe-action .wd-swipe-action__wrapper) {
-  border-radius: 16rpx;
-}
-</style>
-```
-
-### 3. 自定义操作按钮样式
-
-```vue
-<template>
-  <wd-swipe-action v-model="swipeStatus">
-    <!-- 内容 -->
-    <template #right>
-      <view class="custom-action-button custom-action-primary">
-        <text>主要操作</text>
-      </view>
-      <view class="custom-action-button custom-action-secondary">
-        <text>次要操作</text>
-      </view>
-    </template>
-  </wd-swipe-action>
-</template>
-
-<style scoped>
-.custom-action-button {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 40rpx;
-  color: #fff;
-  font-size: 28rpx;
-  border-radius: 0 8rpx 8rpx 0;
-}
-
-.custom-action-primary {
-  background-color: #1989fa;
-}
-
-.custom-action-secondary {
-  background-color: #606266;
-}
-</style>
-```
+`click` 事件在操作按钮已展开时点击内容区域触发，回调参数中 `value` 为 `'left'`、`'right'` 或 `'inside'`，表示点击位置。事件触发后操作按钮会自动收起。设置 `disabled` 为 `true` 后，组件无法响应滑动手势，操作按钮始终保持隐藏状态，`beforeClose` 和 `click` 事件也不会触发。
 
 ## 注意事项
 
-1. **滑动状态**：modelValue属性用于控制滑动状态，可选值为'left'（左滑）、'close'（关闭状态）、'right'（右滑）。
-
-2. **操作按钮区域**：
-   - 使用left插槽定义左滑显示的操作按钮
-   - 使用right插槽定义右滑显示的操作按钮
-   - 操作按钮区域的宽度由内容自动撑开，建议为每个操作按钮设置固定宽度
-
-3. **事件处理**：
-   - click事件会在点击操作按钮区域或内容区域时触发，参数中包含点击位置
-   - update:modelValue事件会在滑动状态改变时触发
-
-4. **关闭机制**：
-   - 点击操作按钮或内容区域会自动关闭滑动操作
-   - 滑动其他列表项会自动关闭当前打开的滑动项
-   - 可以通过调用close方法手动关闭滑动操作
-
-5. **beforeClose钩子**：
-   - beforeClose钩子函数会在关闭滑动操作前调用
-   - 可以在此函数中添加确认提示等逻辑
-   - 参数reason表示关闭原因，可选值为'click'、'swipe'、'value'
-   - 参数position表示关闭位置，可选值为'left'、'right'、'inside'
-
-6. **禁用滑动**：
-   - 设置disabled属性为true可以禁用滑动操作
-   - 禁用状态下，滑动操作按钮不会显示
-
-7. **样式注意**：
-   - 建议为列表项内容设置固定高度，以确保滑动效果正常
-   - 自定义样式时，注意不要影响滑动交互
-   - 操作按钮区域的样式可以自由定制，但建议保持一致的视觉风格
-
-8. **性能优化**：
-   - 在长列表中使用时，建议使用虚拟列表优化性能
-   - 避免在滑动过程中进行复杂的计算或渲染
-
-9. **跨平台兼容性**：
-   - 组件在H5、App和小程序平台表现一致
-   - 在小程序平台，需要注意手势事件的兼容性
-
-10. **嵌套限制**：
-    - 不建议在滑动操作组件内部嵌套其他滑动操作组件
-    - 不建议在滑动操作组件内部使用其他需要手势操作的组件
+1. **多实例互斥管理**：页面中同时存在多个 SwipeAction 组件时，展开其中一个会自动收起其他已展开的实例，这是通过内部队列机制实现的。如需关闭所有 SwipeAction，可调用 `useQueue().closeOutside()` 方法
+2. **滑动阈值**：操作按钮展开的阈值为按钮宽度的 30%（`THRESHOLD = 0.3`），滑动距离超过此比例会自动展开到最大，未达到则回弹收起
+3. **横纵向手势区分**：组件内置手势方向识别，当检测到纵向滑动时会放行事件，不阻止页面滚动；仅横向滑动时调用 `preventDefault()` 和 `stopPropagation()` 阻止默认行为和事件冒泡
+4. **操作按钮完全展开后锁定**：当操作按钮已完全展开时，继续向同一方向滑动不会生效，组件会模拟一次新的 `startDrag` 事件重置滑动起始点
+5. **未存在侧按钮时的行为**：如果某一侧未定义对应插槽（宽度为 0），向该方向滑动时会自动回弹，不会触发任何效果
+6. **点击关闭的逻辑**：当操作按钮已展开时，点击内容区域（非操作按钮区域）会自动收起按钮并触发 `click` 事件，`value` 为 `'inside'`；点击左/右操作按钮区域则 `value` 分别为 `'left'` 或 `'right'`
+7. **过渡动画条件**：跟随手指滑动时（`touching` 为 `true`）不使用过渡动画以保证跟手性；松手后自动修正位置时使用 600ms cubic-bezier(0.18, 0.89, 0.32, 1) 缓动动画
+8. **beforeClose 为同步钩子**：`beforeClose` 是同步执行的函数，不支持返回 Promise 进行异步拦截。如需确认弹窗等异步操作，建议在外部通过 `click` 事件或 `update:modelValue` 事件自行处理
+9. **溢出隐藏**：组件根容器使用 `overflow: hidden`，操作按钮在未滑出时完全不可见，确保不会影响页面布局和其他元素
+10. **外部控制状态时需处理互斥**：通过 `v-model` 程序化设置展开状态时，同样会触发多实例互斥机制，自动收起其他已展开的 SwipeAction 实例

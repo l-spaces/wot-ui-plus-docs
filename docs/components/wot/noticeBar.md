@@ -1,332 +1,265 @@
-# noticeBar 通知栏组件
+# NoticeBar 通知栏
 
-<demo-model url="/subPages/noticeBar/Index"></demo-model>
+用于循环播放提示给用户的通知栏组件，支持水平滚动、垂直切换、多文本轮播等能力。
 
-## 组件概况
+## 何时使用
 
-### 组件概述
-通知栏组件是一个用于展示重要通知信息的组件，支持横向滚动和纵向滚动两种模式，提供了多种预设类型样式，可自定义图标、颜色、背景色等。组件支持点击关闭、自动滚动和手动控制，适用于各种需要展示通知信息的场景。
+- 需要向用户展示滚动播报的通知信息时
+- 需要在有限空间内展示多条轮播公告时
+- 需要支持可关闭、可自定义样式的消息提醒时
 
-### 详细功能描述
-- 支持横向滚动和纵向滚动两种滚动方向
-- 支持多种类型样式：warning（警告）、info（信息）、danger（危险）
-- 可自定义通知文本，支持字符串和字符串数组
-- 支持设置滚动延迟和滚动速度
-- 支持点击关闭通知
-- 支持自定义左侧图标和右侧内容
-- 支持自动换行显示
-- 支持自定义颜色和背景色
-- 提供重置动画方法
-- 支持点击事件
-- 跨平台兼容
+## 基本用法
 
-### 适用业务场景
-- 系统通知展示
-- 活动公告展示
-- 重要信息提示
-- 状态变更通知
-- 促销信息展示
-- 任何需要展示通知信息的场景
-
-## 完整API参考
-
-### Props
-
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| text | string \| string[] | '' | 否 | 设置通知栏文案，支持字符串或字符串数组 |
-| type | 'warning' \| 'info' \| 'danger' \| '' | 'warning' | 否 | 设置通知栏类型 |
-| scrollable | boolean | true | 否 | 是否可滚动 |
-| delay | number | 1 | 否 | 滚动延迟时间（秒） |
-| speed | number | 50 | 否 | 滚动速度（px/s） |
-| closable | boolean | false | 否 | 是否可关闭 |
-| wrapable | boolean | false | 否 | 是否换行显示 |
-| prefix | string | - | 否 | 设置左侧图标，使用 icon 章节中的图标名 |
-| color | string | - | 否 | 文字、图标颜色 |
-| backgroundColor | string | - | 否 | 背景颜色 |
-| direction | 'horizontal' \| 'vertical' | 'horizontal' | 否 | 滚动方向 |
-| customStyle | string | - | 否 | 自定义样式 |
-| customClass | string | - | 否 | 自定义类名 |
-
-### Events
-
-| 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| close | 点击关闭按钮时 | - |
-| next | 纵向滚动切换到下一条时 | 当前索引值 |
-| click | 点击通知栏内容时 | 点击的文本内容和索引值 |
-
-### Methods
-
-| 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| reset | - | void | 重置通知栏动画，重新开始滚动 |
-
-### Slots
-
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| prefix | - | 自定义左侧图标，优先级高于prefix属性 |
-| suffix | - | 自定义右侧内容，优先级高于closable属性 |
-| default | - | 自定义通知内容，优先级高于text属性 |
-
-## 多场景使用示例
-
-### 基础用法
+最基本的用法，通过 `text` 传入通知文案，`prefix` 设置左侧图标。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar text="这是一条通知信息" />
-  </view>
+  <wd-notice-bar
+    text="这是一条消息提示信息，这是一条消息提示信息，这是一条消息提示信息"
+    prefix="warn-bold"
+  />
 </template>
 ```
 
-### 不同类型的通知栏
+## 进阶示例
+
+### 示例一：不同类型
+
+通过 `type` 属性修改通知栏的类型，支持 `warning` | `info` | `danger` 三种类型，每种类型对应不同的背景色和文字颜色。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar text="这是一条警告通知" type="warning" />
-    <wd-notice-bar text="这是一条信息通知" type="info" />
-    <wd-notice-bar text="这是一条危险通知" type="danger" />
-  </view>
+  <wd-notice-bar
+    type="danger"
+    text="当前网络不可用，请检查你的网络设置"
+    prefix="wifi-error"
+  />
+  <wd-notice-bar
+    type="info"
+    text="点击查看信息详情，点击查看信息详情，点击查看信息详情"
+    prefix="check-outline"
+  />
 </template>
 ```
 
-### 带关闭按钮的通知栏
+### 示例二：可关闭通知栏
+
+设置 `closable` 属性，通知栏右侧会出现关闭按钮，点击后隐藏通知栏并触发 `close` 事件。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar 
-      text="这是一条可关闭的通知" 
-      closable 
-      @close="onClose"
-    />
-  </view>
+  <wd-notice-bar
+    text="这是一条消息提示信息，这是一条消息提示信息，这是一条消息提示信息。"
+    closable
+    prefix="warn-bold"
+    @close="handleClose"
+  />
 </template>
 
-<script lang="ts" setup>
-const onClose = () => {
+<script setup lang="ts">
+function handleClose() {
   console.log('通知栏已关闭')
 }
 </script>
 ```
 
-### 纵向滚动的通知栏
+### 示例三：多文本轮播（水平）
+
+将 `text` 设置为字符串数组，组件会自动轮播数组中的每条文本，配合 `next` 事件可监听切换逻辑。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar 
-      :text="noticeList" 
-      direction="vertical"
-      scrollable
-      delay="2"
-      @next="onNext"
-    />
-  </view>
+  <wd-notice-bar
+    :text="textArray"
+    prefix="check-outline"
+    @next="onNext"
+    @click="handleClick"
+  />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const noticeList = ref([
-  '第一条通知信息',
-  '第二条通知信息',
-  '第三条通知信息'
+const textArray = ref([
+  '欢迎使用 wot-ui-plus',
+  '该组件库基于 uniapp Vue3 TS 构建',
+  '项目地址：https://github.com/moonofweisheng/wot-design-uni',
+  '我们的目标是打造最强 uniapp 组件库',
+  '诚挚邀请大家共同建设'
 ])
 
 const onNext = (index: number) => {
-  console.log('当前显示的通知索引：', index)
+  console.log('展示下一条，index:', index)
+  console.log('文本是：' + textArray.value[index])
+}
+
+const handleClick = (result: { index: number; text: string }) => {
+  console.log('点击了第', result.index + 1, '条:', result.text)
 }
 </script>
 ```
 
-### 自定义样式的通知栏
+### 示例四：垂直滚动
+
+将 `direction` 设置为 `vertical`，文本会以垂直方向上下切换轮播。可通过 `delay` 调整切换间隔时间（单位：秒）。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar 
-      text="这是一条自定义样式的通知" 
-      prefix="notice"
-      color="#1890FF"
-      background-color="#E6F7FF"
-      :custom-style="{ padding: '10rpx 20rpx' }"
-      @click="onClick"
-    />
-  </view>
+  <wd-notice-bar
+    :text="textArray"
+    prefix="warn-bold"
+    direction="vertical"
+    :delay="3"
+    @click="handleClick"
+  />
 </template>
 
-<script lang="ts" setup>
-const onClick = (data: { index: number; text: string }) => {
-  console.log('点击了通知栏：', data)
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const textArray = ref([
+  '欢迎使用 wot-ui-plus',
+  '该组件库基于 uniapp Vue3 TS 构建',
+  '我们的目标是打造最强 uniapp 组件库'
+])
+
+const handleClick = (result: { index: number; text: string }) => {
+  console.log(result)
 }
 </script>
 ```
 
-### 使用插槽自定义内容
+### 示例五：自定义颜色
+
+通过 `color` 和 `background-color` 属性自定义文字颜色和背景颜色。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar>
-      <template #prefix>
-        <wd-icon name="warning" color="#FAAD14" />
-      </template>
-      <template #default>
-        <text>这是一条使用插槽自定义内容的通知</text>
-      </template>
-      <template #suffix>
-        <wd-button type="text" size="small" @click="onClickButton">查看详情</wd-button>
-      </template>
-    </wd-notice-bar>
-  </view>
-</template>
-
-<script lang="ts" setup>
-const onClickButton = () => {
-  console.log('点击了查看详情按钮')
-}
-</script>
-```
-
-### 不换行的通知栏
-
-```vue
-<template>
-  <view>
-    <wd-notice-bar 
-      text="这是一条不换行的通知信息，当内容过长时会自动滚动显示" 
-      :scrollable="true" 
-      :wrapable="false"
-    />
-  </view>
+  <wd-notice-bar
+    text="这是一条消息提示信息，这是一条消息提示信息，这是一条消息提示信息"
+    prefix="check-outline"
+    color="#34D19D"
+    background-color="#f0f9eb"
+  />
 </template>
 ```
 
-### 使用ref控制通知栏
+### 示例六：多行展示
+
+设置 `wrapable` 为 `true` 且 `scrollable` 为 `false` 可实现文本多行换行展示。
 
 ```vue
 <template>
-  <view>
-    <wd-notice-bar 
-      ref="noticeBarRef" 
-      text="这是一条可重置的通知" 
-      direction="vertical"
-      :text="noticeList"
-    />
-    <wd-button @click="resetNoticeBar">重置通知栏</wd-button>
-  </view>
+  <wd-notice-bar
+    text="这是一条消息提示信息这是一条消息提示信息这是一条消息提示信息这是一条消息提示信息这是一条消息提示信息这是一条消息提示信息"
+    wrapable
+    :scrollable="false"
+  />
+</template>
+```
+
+### 示例七：自定义插槽
+
+通过 `prefix` 和 `suffix` 插槽可以自定义左侧和右侧内容。
+
+```vue
+<template>
+  <wd-notice-bar :scrollable="false">
+    <template #prefix>
+      <wd-icon name="attention">占位符</wd-icon>
+    </template>
+    通知被禁或时段内消息屏蔽可能造成消息...
+    <template #suffix>
+      <view style="color: #4d80f0">查看</view>
+    </template>
+  </wd-notice-bar>
+</template>
+```
+
+### 示例八：重置播放动画
+
+通过组件实例的 `reset()` 方法可以手动重置通知栏的播放动画。
+
+```vue
+<template>
+  <wd-notice-bar
+    ref="noticeRef"
+    :text="textArray"
+    prefix="warn-bold"
+    direction="vertical"
+    :delay="3"
+  />
+  <wd-button @click="handleReset">重置播放动画</wd-button>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import type { NoticeBarInstance } from '@/uni_modules/wot-ui-plus/components/wd-notice-bar/types'
 
-const noticeBarRef = ref<NoticeBarInstance | null>(null)
-const noticeList = ref([
-  '第一条通知信息',
-  '第二条通知信息',
-  '第三条通知信息'
+const noticeRef = ref<NoticeBarInstance>()
+const textArray = ref([
+  '欢迎使用 wot-ui-plus',
+  '该组件库基于 uniapp Vue3 TS 构建',
+  '我们的目标是打造最强 uniapp 组件库'
 ])
 
-const resetNoticeBar = () => {
-  noticeBarRef.value?.reset()
+const handleReset = () => {
+  noticeRef.value?.reset()
 }
 </script>
 ```
 
-## 样式定制指南
+## API
 
-### 自定义样式
+### Props
 
-通过 `customStyle` 属性可以自定义通知栏的样式：
+| 属性名 | 说明 | 类型 | 默认值 |
+|--------|------|------|--------|
+| text | 通知栏文案，支持字符串或字符串数组 | `string \| string[]` | `''` |
+| type | 通知栏类型 | `'warning' \| 'info' \| 'danger' \| ''` | `'warning'` |
+| scrollable | 是否可滚动 | `boolean` | `true` |
+| delay | 滚动延迟时间（秒） | `number` | `1` |
+| speed | 滚动速度（px/s） | `number` | `50` |
+| closable | 是否可关闭 | `boolean` | `false` |
+| wrapable | 是否换行显示 | `boolean` | `false` |
+| prefix | 左侧图标名称（使用 icon 章节中的图标名） | `string` | `-` |
+| color | 文字、图标颜色 | `string` | `-` |
+| background-color | 背景颜色 | `string` | `-` |
+| direction | 滚动方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| custom-style | 自定义根节点样式 | `string` | `-` |
+| custom-class | 自定义根节点 class | `string` | `-` |
 
-```vue
-<wd-notice-bar 
-  text="自定义样式的通知栏" 
-  :custom-style="{
-    padding: '10rpx 20rpx',
-    borderRadius: '4rpx',
-    fontSize: '26rpx'
-  }"
-/>
-```
+### Events
 
-### 自定义类名
+| 事件名 | 说明 | 回调参数 |
+|--------|------|----------|
+| close | 关闭按钮点击时触发 | `-` |
+| next | 切换下一条通知时触发 | `(index: number): void` |
+| click | 点击通知栏内容时触发 | `(result: { index: number; text: string }): void` |
 
-通过 `customClass` 属性可以添加自定义类名，然后在样式文件中定义样式：
+> `click` 事件回调参数说明：
+> - `index`: 当前点击文本在数组中的索引（text 为数组时）
+> - `text`: 当前点击的文本内容
 
-```vue
-<wd-notice-bar 
-  text="自定义类名的通知栏" 
-  custom-class="my-notice-bar"
-/>
-```
+### Slots
 
-```scss
-.my-notice-bar {
-  /* 自定义通知栏容器样式 */
-  padding: 10rpx 20rpx;
-  border-radius: 4rpx;
-  font-size: 26rpx;
-  
-  .wd-notice-bar__content {
-    /* 自定义内容样式 */
-    line-height: 40rpx;
-  }
-  
-  .wd-notice-bar__prefix {
-    /* 自定义前缀图标样式 */
-    margin-right: 10rpx;
-  }
-  
-  .wd-notice-bar__suffix {
-    /* 自定义后缀样式 */
-    margin-left: 10rpx;
-  }
-}
-```
+| 插槽名 | 说明 |
+|--------|------|
+| prefix | 自定义左侧内容，与 `prefix` 属性互斥 |
+| suffix | 自定义右侧内容，与 `closable` 属性互斥 |
+
+### Expose
+
+通过 `ref` 可以获取组件实例，调用实例方法。
+
+| 方法名 | 说明 | 类型 |
+|--------|------|------|
+| reset | 重置通知栏动画 | `() => void` |
 
 ## 注意事项
 
-1. 滚动方向选择：
-   - `horizontal`：横向滚动，适用于单行文本内容较长的场景
-   - `vertical`：纵向滚动，适用于多条通知信息轮流展示的场景
-   - 当 `direction` 为 `vertical` 时，`text` 属性支持传入字符串数组
-
-2. 滚动控制：
-   - `scrollable`：控制是否滚动，默认为 `true`
-   - `delay`：滚动延迟时间，单位为秒，默认为 1 秒
-   - `speed`：滚动速度，单位为 px/s，默认为 50 px/s
-   - 当 `wrapable` 为 `true` 时，`scrollable` 会被忽略，文本会自动换行显示
-
-3. 内容显示：
-   - 当 `text` 为字符串且内容过长时，可通过 `scrollable` 控制是否滚动
-   - 当 `wrapable` 为 `true` 时，文本会自动换行显示，不支持滚动
-   - 当 `direction` 为 `vertical` 且 `text` 为数组时，会轮流展示每条文本
-
-4. 事件处理：
-   - `close` 事件在点击关闭按钮时触发
-   - `next` 事件在纵向滚动切换到下一条时触发，返回当前索引值
-   - `click` 事件在点击通知内容时触发，返回当前索引和文本内容
-
-5. 样式定制：
-   - 可通过 `type` 属性快速设置预设样式
-   - 可通过 `color` 和 `backgroundColor` 属性自定义颜色和背景色
-   - 可通过 `prefix` 属性设置左侧图标，或通过 `prefix` 插槽自定义左侧内容
-   - 可通过 `suffix` 插槽自定义右侧内容
-
-6. 性能优化：
-   - 对于多条通知信息，建议使用纵向滚动模式，减少DOM节点数量
-   - 当通知内容较多时，可考虑使用分页或滚动加载
-   - 避免在通知栏中放置过于复杂的内容，影响滚动性能
-
-7. 最佳实践：
-   - 根据通知的重要程度选择合适的 `type` 属性
-   - 通知文本应简洁明了，避免过长
-   - 对于重要通知，可添加关闭按钮，允许用户关闭
-   - 结合实际场景选择合适的滚动方向和滚动速度
+1. 使用垂直滚动（`direction="vertical"`）且 `text` 为数组时，文本会逐条垂直切换轮播；如果数组仅有一条文本则不会滚动。
+2. 水平滚动模式下，`scrollable` 为 `true` 时文本会从右往左无限循环滚动；`scrollable` 为 `false` 时超出部分以省略号截断。
+3. 组件支持 `keep-alive` 缓存，在组件激活（`onActivated`）时自动恢复动画，失活（`onDeactivated`）时自动停止动画。
+4. `prefix` 属性与 `prefix` 插槽互斥：设置了 `prefix` 属性时显示图标，否则显示 `prefix` 插槽内容。
+5. `closable` 属性与 `suffix` 插槽互斥：设置了 `closable` 时显示关闭按钮，否则显示 `suffix` 插槽内容。

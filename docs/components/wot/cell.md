@@ -1,394 +1,441 @@
 # Cell 单元格
-
 <demo-model url="/subPages/cell/Index"></demo-model>
 
 ## 组件概况
 
-### 组件概述
-Cell 单元格组件是列表中的基本组成单元，用于展示一条信息，支持左侧图标、标题、描述，右侧内容、箭头等多种元素，常用于设置页面、详情页面、列表展示等场景。
+Cell 单元格组件是列表信息展示的基础组件，通常以列表的形式呈现单条信息，支持标题、描述、图标、内容等多种信息展示形式。由 `wd-cell-group` 单元格组容器和 `wd-cell` 单元格两个关联组件组成，可组合使用构建结构清晰的列表界面。
 
-### 详细功能描述
-- 支持左侧图标、标题、描述信息展示
-- 支持右侧内容、箭头、自定义图标
-- 支持跳转链接功能
-- 支持点击反馈效果
-- 支持不同大小设置（默认、large）
-- 支持垂直居中对齐
-- 支持垂直布局（标题在上，内容在下）
-- 支持必填标记显示及位置自定义
-- 支持表单验证规则绑定
-- 支持自定义样式和类名
-- 支持省略号显示
+`wd-cell-group` 作为单元格的外层包裹容器，提供分组标题、分组边框、卡片风格等容器级别的控制能力；`wd-cell` 作为具体的单元格内容载体，提供标题、值、描述、图标、跳转等丰富的内容展示能力。两个组件之间通过 Vue 依赖注入机制进行联动，实现边框显示控制等协同效果。
 
-### 适用业务场景
-- 设置页面的选项列表
-- 详情页面的信息展示
-- 导航菜单列表
-- 表单中的表单项
-- 任何需要展示键值对信息的场景
+## 核心功能描述
 
-## 完整API参考
+- **分组管理**：通过 `wd-cell-group` 对单元格进行分组，支持分组标题和分组右侧内容展示
+- **信息展示**：支持标题（title）、内容值（value）、描述信息（label）三段式布局
+- **图标集成**：内置图标支持（icon prop）和自定义图标插槽（#icon）
+- **页面跳转**：支持配置跳转地址（to）、跳转方式（replace），自动处理页面导航
+- **尺寸控制**：提供默认和 large 两种尺寸规格
+- **表单集成**：支持与 `wd-form` 组件联动，展示必填标记、表单验证错误信息
+- **布局灵活**：支持水平布局和上下垂直布局（vertical），支持垂直居中对齐
+- **点击反馈**：支持 hover 效果，可配置点击响应区域
+- **文本处理**：支持文本省略号显示（ellipsis）、自定义对齐方式
+- **样式定制**：提供自定义类名、样式及多种 customClass 用于插槽样式定制
 
-### Props属性
+## 适用业务场景
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| title | string | - | 否 | 标题 |
-| value | string/number | - | 否 | 右侧内容 |
-| icon | string | - | 否 | 图标类名 |
-| iconSize | string/number | - | 否 | 图标大小 |
-| label | string | - | 否 | 描述信息 |
-| isLink | boolean | false | 否 | 是否为跳转链接 |
-| to | string | - | 否 | 跳转地址 |
-| replace | boolean | false | 否 | 跳转时是否替换栈顶页面 |
-| clickable | boolean | false | 否 | 开启点击反馈，is-link 默认开启 |
-| size | string | - | 否 | 设置单元格大小，可选值：large |
-| border | boolean | void 0 | 否 | 是否展示边框线 |
-| titleWidth | string | - | 否 | 设置左侧标题宽度 |
-| center | boolean | false | 否 | 是否垂直居中，默认顶部居中 |
-| required | boolean | false | 否 | 是否必填 |
-| vertical | boolean | false | 否 | 表单属性，上下结构 |
-| prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 |
-| rules | array | [] | 否 | 表单验证规则，结合wd-form组件使用 |
-| customIconClass | string | - | 否 | icon 使用 slot 时的自定义样式 |
-| customLabelClass | string | - | 否 | label 使用 slot 时的自定义样式 |
-| customValueClass | string | - | 否 | value 使用 slot 时的自定义样式 |
-| customTitleClass | string | - | 否 | title 使用 slot 时的自定义样式 |
-| valueAlign | string | right | 否 | value 文字对齐方式，可选值：left、right、center |
-| ellipsis | boolean | false | 否 | 是否超出隐藏，显示省略号 |
-| useTitleSlot | boolean | true | 否 | 是否启用title插槽，默认启用，用来解决插槽传递时v-slot和v-if冲突问题 |
-| markerSide | string | before | 否 | 必填标记位置，可选值：before（标签前）、after（标签后） |
-| customStyle | string | - | 否 | 自定义根节点样式 |
-| customClass | string | - | 否 | 自定义根节点样式类 |
+- **设置页面**：用户设置、系统配置等列表式信息展示
+- **表单布局**：作为表单域的外层容器，配合表单组件使用
+- **信息列表**：个人信息展示、订单信息、账户详情等结构化数据展示
+- **导航菜单**：带箭头指示的功能入口、帮助与反馈等跳转入口
+- **卡片列表**：使用 `insert` 属性展示为圆角卡片风格的分组列表
+- **混合内容**：单元格右侧可嵌入按钮、开关、滑块等各类交互组件
 
-### Events事件
+## API
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| click | 单元格被点击，且isLink或clickable为true时 | - |
+### wd-cell-group Props
 
-### Methods方法
+| 参数 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
+|------|------|------|--------|--------|----------|
+| title | 分组标题 | string | - | - | - |
+| value | 分组右侧内容 | string | - | - | - |
+| useSlot | 是否启用插槽 | boolean | - | false | - |
+| border | 是否展示边框线 | boolean | - | false | - |
+| insert | 是否展示为圆角卡片风格 | boolean | - | false | - |
+| customStyle | 自定义根节点样式 | string | - | '' | - |
+| customClass | 自定义根节点样式类 | string | - | '' | - |
 
-该组件没有对外暴露的方法。
+### wd-cell Props
 
-### Slots插槽
+| 参数 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
+|------|------|------|--------|--------|----------|
+| title | 标题 | string | - | - | - |
+| value | 右侧内容 | string \| number | - | '' | - |
+| icon | 图标类名 | string | - | - | - |
+| iconSize | 图标大小 | string \| number | - | - | - |
+| label | 描述信息 | string | - | - | - |
+| isLink | 是否为跳转链接 | boolean | - | false | - |
+| to | 跳转地址 | string | - | - | - |
+| replace | 跳转时是否替换栈顶页面 | boolean | - | false | - |
+| clickable | 开启点击反馈，is-link 默认开启 | boolean | - | false | - |
+| size | 设置单元格大小 | string | 'large' | - | - |
+| border | 是否展示边框线 | boolean | - | undefined | - |
+| titleWidth | 设置左侧标题宽度 | string | - | - | - |
+| center | 是否垂直居中，默认顶部居中 | boolean | - | false | - |
+| required | 是否必填 | boolean | - | false | - |
+| vertical | 表单属性，上下结构 | boolean | - | false | - |
+| prop | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 | string | - | - | - |
+| rules | 表单验证规则，结合 wd-form 组件使用 | FormItemRule[] | - | [] | - |
+| customIconClass | icon 使用 slot 时的自定义样式 | string | - | '' | - |
+| customLabelClass | label 使用 slot 时的自定义样式 | string | - | '' | - |
+| customValueClass | value 使用 slot 时的自定义样式 | string | - | '' | - |
+| customTitleClass | title 使用 slot 时的自定义样式 | string | - | '' | - |
+| valueAlign | value 文字对齐方式 | string | 'left' \| 'right' | 'right' | - |
+| ellipsis | 是否超出隐藏，显示省略号 | boolean | - | false | - |
+| useTitleSlot | 是否启用 title 插槽，默认启用。用来解决插槽传递时 v-slot 和 v-if 冲突问题 | boolean | - | true | - |
+| markerSide | 必填标记位置 | string | 'before' \| 'after' | 'before' | - |
+| arrowDirection | 箭头方向，只在 is-link 为 true 时生效 | string | 'left' \| 'up' \| 'down' \| 'right' | 'right' | - |
+| customStyle | 自定义根节点样式 | string | - | '' | - |
+| customClass | 自定义根节点样式类 | string | - | '' | - |
 
-| 插槽名 | 作用域变量 | 使用说明 |
-|--------|------------|----------|
-| default | - | 右侧内容区域，替换value属性 |
-| icon | - | 左侧图标区域，替换icon属性 |
-| title | - | 标题区域，替换title属性 |
-| label | - | 描述信息区域，替换label属性 |
-| right-icon | - | 右侧图标区域，替换默认箭头 |
+### wd-cell Events
 
-## 多场景使用示例代码
+| 事件名称 | 说明 | 回调参数 |
+|----------|------|----------|
+| click | 点击单元格时触发 | - |
 
-### 1. 基础用法
+> 注意：`click` 事件仅在 `clickable` 或 `isLink` 属性为 `true` 时触发。
 
-```vue
-<template>
-  <wd-cell-group>
-    <wd-cell title="姓名" value="张三" />
-    <wd-cell title="性别" value="男" />
-    <wd-cell title="年龄" value="25" />
-  </wd-cell-group>
-</template>
+### wd-cell Methods
 
-<script lang="ts" setup>
-// 基础单元格用法，展示键值对信息
-</script>
-```
+组件实例暴露的方法，可通过 ref 调用：
 
-### 2. 带图标和跳转
+| 方法名 | 说明 | 参数 |
+|--------|------|------|
+| - | 暂无暴露方法 | - |
 
-```vue
-<template>
-  <wd-cell-group>
-    <wd-cell 
-      title="个人资料" 
-      icon="user" 
-      isLink 
-      to="/pages/user/profile"
-    />
-    <wd-cell 
-      title="消息中心" 
-      icon="message" 
-      isLink 
-      to="/pages/message/list"
-    >
-      <wd-badge slot="right-icon" modelValue="5" />
-    </wd-cell>
-    <wd-cell 
-      title="设置" 
-      icon="setting" 
-      isLink 
-      to="/pages/setting/index"
-    />
-  </wd-cell-group>
-</template>
+### wd-cell-group Slots
 
-<script lang="ts" setup>
-// 带图标和跳转功能的单元格，展示导航菜单
-</script>
-```
+| 插槽名 | 说明 |
+|--------|------|
+| title | 自定义分组标题 |
+| value | 自定义分组右侧内容 |
+| default | 单元格内容插槽，用于放置 `wd-cell` 组件 |
 
-### 3. 垂直布局和描述信息
+### wd-cell Slots
+
+| 插槽名 | 说明 |
+|--------|------|
+| default | 自定义右侧内容（value）区域 |
+| title | 自定义左侧标题区域（需配合 `use-title-slot` 属性使用） |
+| label | 自定义左侧描述信息区域 |
+| icon | 自定义左侧图标区域 |
+| right-icon | 自定义右侧箭头区域（当 `isLink` 为 false 时生效） |
+
+## 使用示例
+
+### 示例一：基本用法
+
+最基础的单元格展示，包含标题和内容值。
 
 ```vue
 <template>
   <wd-cell-group>
-    <wd-cell 
-      title="商品名称" 
-      label="这是一个非常好用的商品，值得购买" 
-      vertical 
-      size="large"
-    >
-      <view class="custom-value">
-        <text class="price">¥99.00</text>
-        <text class="stock">库存: 100件</text>
-      </view>
-    </wd-cell>
-    <wd-cell 
-      title="商品描述" 
-      label="商品的详细描述信息，包含商品的功能、材质、尺寸等"
-      vertical
-    >
-      <view class="custom-value">查看详情</view>
-    </wd-cell>
+    <wd-cell title="标题文字" value="内容" />
+    <wd-cell title="标题文字" label="描述信息" value="内容" />
   </wd-cell-group>
 </template>
 
 <script lang="ts" setup>
-// 垂直布局的单元格，展示商品信息
+  import { ref } from 'vue'
 </script>
 
-<style scoped>
-.custom-value {
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.price {
-  font-size: 32rpx;
-  color: #fa4350;
-  font-weight: bold;
-}
-
-.stock {
-  font-size: 24rpx;
-  color: #909399;
-}
+<style lang="scss" scoped>
 </style>
 ```
 
-### 4. 表单必填项
+### 示例二：图标展示
 
-```vue
-<template>
-  <wd-form :model="form" :rules="rules">
-    <wd-cell-group>
-      <wd-cell 
-        title="用户名" 
-        prop="username" 
-        required 
-        markerSide="after"
-      >
-        <wd-input v-model="form.username" placeholder="请输入用户名" />
-      </wd-cell>
-      <wd-cell 
-        title="密码" 
-        prop="password" 
-        required
-      >
-        <wd-input v-model="form.password" type="password" placeholder="请输入密码" />
-      </wd-cell>
-      <wd-cell 
-        title="邮箱" 
-        prop="email" 
-        label="用于接收验证码" 
-        required
-      >
-        <wd-input v-model="form.email" placeholder="请输入邮箱" />
-      </wd-cell>
-    </wd-cell-group>
-  </wd-form>
-</template>
-
-<script lang="ts" setup>
-import { reactive } from 'vue'
-
-// 表单数据
-const form = reactive({
-  username: '',
-  password: '',
-  email: ''
-})
-
-// 表单验证规则
-const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
-  ]
-}
-</script>
-```
-
-### 5. 自定义样式和点击事件
+单元格左侧展示图标，支持内置图标和自定义图标插槽。
 
 ```vue
 <template>
   <wd-cell-group>
-    <wd-cell 
-      title="自定义样式" 
-      value="点击查看" 
-      clickable 
-      customClass="custom-cell"
-      customTitleClass="custom-title"
-      customValueClass="custom-value"
-      @click="handleClick"
-    />
-    <wd-cell 
-      title="省略号显示" 
-      value="这是一段很长的文本内容，超过一定长度会显示省略号" 
-      ellipsis 
-      size="large"
-    />
-    <wd-cell 
-      title="无箭头跳转" 
-      isLink 
-      to="/pages/detail"
-    >
-      <template #right-icon>
-        <wd-icon name="arrow-right" size="24" />
+    <wd-cell title="标题文字" value="内容" icon="setting" />
+    <wd-cell title="标题文字" value="内容">
+      <template #icon>
+        <view class="cell-icon"></view>
       </template>
     </wd-cell>
   </wd-cell-group>
 </template>
 
 <script lang="ts" setup>
-import { showToast } from '@/utils/toast'
-
-// 处理单元格点击事件
-const handleClick = () => {
-  showToast('点击了自定义样式单元格')
-}
+  import { ref } from 'vue'
 </script>
 
-<style scoped>
-/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
-:deep(.custom-cell) {
-  background-color: #f5f7fa;
-}
-
-:deep(.custom-title) {
-  font-weight: bold;
-  color: #4D80F0;
-}
-
-:deep(.custom-value) {
-  color: #34d19d;
-}
+<style lang="scss" scoped>
+  .cell-icon {
+    display: block;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 4px 0;
+    background: url('https://img10.360buyimg.com/jmadvertisement/jfs/t1/71075/7/3762/1820/5d1f26d1E0d600b9e/a264c901943080ac.png') no-repeat;
+    background-size: cover;
+  }
 </style>
 ```
 
-## 样式定制指南
+### 示例三：分组标题
 
-### 1. 使用customStyle自定义样式
-
-```vue
-<template>
-  <wd-cell 
-    title="自定义样式" 
-    value="示例" 
-    customStyle="background-color: #f0f2f5; padding: 30rpx;"
-  />
-</template>
-```
-
-### 2. 使用customClass自定义类名
+为单元格组设置分组标题和分组右侧内容。
 
 ```vue
 <template>
-  <wd-cell 
-    title="自定义类名" 
-    value="示例" 
-    customClass="my-cell"
-  />
+  <wd-cell-group title="交易管理" value="内容">
+    <wd-cell title="标题文字" value="内容" />
+    <wd-cell
+      title="标题文字"
+      label="黄鹤断矶头，故人今在否？旧江山浑是新愁。欲买桂花同载酒，终不似，少年游。"
+      value="内容"
+    />
+  </wd-cell-group>
 </template>
 
-<style scoped>
-/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
-:deep(.my-cell) {
-  margin: 20rpx;
-  border-radius: 12rpx;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
+<script lang="ts" setup>
+  import { ref } from 'vue'
+</script>
+
+<style lang="scss" scoped>
 </style>
 ```
 
-### 3. 自定义各区域样式
+### 示例四：大尺寸单元格
+
+使用 `size="large"` 设置大尺寸单元格，适合需要更大点击区域或更突出展示的场。
 
 ```vue
 <template>
-  <wd-cell 
-    title="自定义区域样式" 
-    value="示例" 
-    customIconClass="custom-icon"
-    customTitleClass="custom-title"
-    customLabelClass="custom-label"
-    customValueClass="custom-value"
-    label="描述信息"
-    icon="info"
-  />
+  <wd-cell-group>
+    <wd-cell size="large" title="标题文字" value="内容" />
+    <wd-cell size="large" title="标题文字" value="内容" icon="setting" is-link />
+    <wd-cell size="large" title="标题文字" label="描述信息" value="内容" />
+  </wd-cell-group>
 </template>
 
-<style scoped>
-/* 自定义各区域样式 */
-:deep(.custom-icon) {
-  color: #4D80F0;
-  margin-right: 20rpx;
-}
+<script lang="ts" setup>
+  import { ref } from 'vue'
+</script>
 
-:deep(.custom-title) {
-  font-weight: bold;
-  font-size: 32rpx;
-}
+<style lang="scss" scoped>
+</style>
+```
 
-:deep(.custom-label) {
-  color: #909399;
-  font-size: 24rpx;
-}
+### 示例五：边框线控制
 
-:deep(.custom-value) {
-  color: #34d19d;
-  font-size: 28rpx;
-}
+通过 `wd-cell-group` 的 `border` 属性控制整体边框，也可通过 `wd-cell` 的 `border` 属性单独控制某个单元格的边框。
+
+```vue
+<template>
+  <wd-cell-group title="交易管理" border>
+    <wd-cell title="标题文字" value="内容" />
+    <wd-cell :border="false" title="标题文字" label="这一个cell不想要边框" value="内容" />
+    <wd-cell title="标题文字" label="描述信息" value="内容" />
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+### 示例六：点击事件与页面跳转
+
+配置点击事件回调，或设置跳转链接实现页面导航。
+
+```vue
+<template>
+  <wd-toast />
+  <wd-cell-group>
+    <wd-cell title="标题文字" value="内容" clickable @click="handleClick" />
+    <wd-cell title="帮助与反馈" is-link to="/pages/index/Index" />
+    <wd-cell title="设置" value="内容" is-link to="/pages/button/Index" replace />
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import { useToast } from '@/uni_modules/wot-ui-plus'
+
+  const toast = useToast()
+
+  function handleClick() {
+    toast.show('点击了单元格')
+  }
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+### 示例七：表单属性
+
+与表单组件结合使用，展示必填标记、上下布局等表单相关特性。
+
+```vue
+<template>
+  <wd-cell-group border>
+    <wd-cell title="必填" required>
+      <wd-rate v-model="rate" icon="dong" active-icon="dong" @change="handleRateChange" />
+    </wd-cell>
+    <wd-cell title="必填星号在右" required marker-side="after">
+      <wd-rate v-model="rate1" icon="dong" active-icon="dong" @change="handleRateChange" />
+    </wd-cell>
+    <wd-cell title="上下结构" vertical required marker-side="after">
+      <wd-slider v-model="slider" @change="handleSliderChange" />
+    </wd-cell>
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const rate = ref(0)
+  const rate1 = ref(0)
+  const slider = ref(0)
+
+  function handleRateChange({ value }: any) {
+    console.log(value)
+  }
+  function handleSliderChange({ value }: any) {
+    console.log(value)
+  }
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+### 示例八：自定义插槽内容
+
+通过插槽在单元格右侧嵌入按钮、开关、自定义文本等丰富内容。
+
+```vue
+<template>
+  <wd-cell-group>
+    <wd-cell title="标题文字" center>
+      <wd-button custom-class="custom-value" size="small" plain>按钮</wd-button>
+    </wd-cell>
+    <wd-cell title="标题文字" center>
+      <view class="custom-value" style="height: 32px">
+        <wd-switch v-model="switchValue" @change="handleSwitchChange" />
+      </view>
+    </wd-cell>
+    <wd-cell title="标题文字" is-link to="/pages/index/index">
+      <view class="custom-text">订购</view>
+    </wd-cell>
+    <wd-cell>
+      <template #title>
+        <view>
+          <view style="display: inline-block">标题文字</view>
+          <view class="end-time">30天后到期</view>
+        </view>
+      </template>
+    </wd-cell>
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const switchValue = ref('')
+
+  function handleSwitchChange({ value }: any) {
+    console.log(value)
+  }
+</script>
+
+<style lang="scss" scoped>
+  .custom-value {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    white-space: nowrap;
+  }
+  .custom-text {
+    color: #f0883a;
+  }
+  .end-time {
+    display: inline-block;
+    margin-left: 8px;
+    border: 1px solid #faa21e;
+    padding: 0 4px;
+    font-size: 10px;
+    color: #faa21e;
+  }
+</style>
+```
+
+### 示例九：文本省略显示
+
+当内容较长时，使用 `ellipsis` 属性控制文本超出时显示省略号，并配合 `value-align` 设置对齐方式。
+
+```vue
+<template>
+  <wd-cell-group>
+    <wd-cell title="正常显示" value="这是一段很长的文字内容，通常情况下会完整显示" />
+    <wd-cell
+      title="省略号显示"
+      value="这是一段很长的文字内容，当启用ellipsis属性时，超出部分将显示省略号"
+      ellipsis
+    />
+    <wd-cell
+      title="左对齐省略"
+      value="这是一段很长的文字内容，左对齐并启用省略号功能"
+      value-align="left"
+      ellipsis
+    />
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+### 示例十：设置标题宽度与卡片风格
+
+通过 `title-width` 控制标题宽度保持一致，使用 `insert` 属性展示卡片风格。
+
+```vue
+<template>
+  <wd-cell-group>
+    <wd-cell
+      title="标题文字"
+      label="这里是文字描述这里是文字描述这里是文字描述"
+      title-width="200px"
+      value="内容"
+    />
+  </wd-cell-group>
+
+  <wd-cell-group title="交易管理" insert>
+    <wd-cell title="标题文字" value="内容" />
+    <wd-cell title="标题文字" value="内容" />
+  </wd-cell-group>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+</script>
+
+<style lang="scss" scoped>
 </style>
 ```
 
 ## 注意事项
 
-1. **边框线显示**：border属性默认为void 0，会继承cell-group组件的border属性值，cell-group默认显示边框线。
+1. **边框显示机制**：当 `wd-cell` 嵌套在 `wd-cell-group` 中时，边框显示受父组件控制。`wd-cell-group` 设置 `border` 为 `true` 时，除第一个子单元格外的其他单元格会自动显示顶部边框。若 `wd-cell` 单独使用或未设置 `border`，则 `border` 值为 `undefined`，不显示边框。
 
-2. **跳转链接**：isLink为true时，点击单元格会跳转到to属性指定的页面，to属性必须是有效的路由地址。
+2. **插槽启用条件**：使用 `#title` 插槽时，必须同时设置 `use-title-slot` 属性（默认为 `true`），否则插槽不会渲染。这是为了解决 uni-app 中 `v-slot` 和 `v-if` 冲突的问题。
 
-3. **必填标记位置**：required为true时，会显示必填标记，可通过markerSide属性设置标记位置（before或after）。
+3. **左侧区域显示逻辑**：`wd-cell` 的左侧区域（`wd-cell__left`）仅在满足以下条件之一时才渲染：存在 `icon` 属性或 `#icon` 插槽、存在 `title` 属性或 `#title` 插槽（配合 `useTitleSlot`）、存在 `label` 属性或 `#label` 插槽。
 
-4. **插槽优先级**：插槽的优先级高于对应的属性，例如title插槽会替换title属性。
+4. **点击事件触发条件**：`click` 事件仅在 `clickable` 或 `isLink` 为 `true` 时触发。若两者均为 `false`，点击单元格不会触发 `click` 事件。
 
-5. **title插槽使用**：useTitleSlot属性默认为true，启用title插槽，当需要在title属性和title插槽之间动态切换时，可设置useTitleSlot为false。
+5. **页面跳转行为**：设置 `to` 属性的同时必须设置 `isLink` 为 `true` 才会触发跳转。`replace` 为 `true` 时使用 `uni.redirectTo` 替换当前页面，否则使用 `uni.navigateTo` 打开新页面。
 
-6. **垂直布局**：vertical为true时，标题和描述信息会垂直排列，标题在上，描述信息在下。
+6. **表单验证联动**：`prop` 属性用于与 `wd-form` 组件的 `model` 字段名对应，配合 `rules` 属性可实现表单验证。验证错误信息会通过 `errorMessage` 计算属性从父级 `wd-form` 获取并显示在单元格底部。
 
-7. **点击反馈**：isLink或clickable为true时，会启用点击反馈效果，hover-class为"is-hover"。
+7. **必填标记显示**：`required` 属性为 `true` 时显示红色星号标记。标记位置可通过 `markerSide` 设置为 `'before'`（标题前，默认）或 `'after'`（标题后）。此外，如果父级 `wd-form` 中配置了包含 `required: true` 的校验规则，也会自动显示必填标记。
 
-8. **表单校验**：当cell组件在wd-form组件内使用时，prop属性用于绑定表单数据字段，rules属性用于设置验证规则。
+8. **垂直布局**：设置 `vertical` 为 `true` 时，单元格切换为上下布局模式，右侧内容显示在标题下方，此时 `value-align` 属性不生效（默认左对齐）。
 
-9. **省略号显示**：ellipsis为true时，右侧内容会显示省略号，需要确保内容区域有足够的宽度限制。
+9. **样式定制**：`customIconClass`、`customLabelClass`、`customValueClass`、`customTitleClass` 分别用于在使用对应插槽时为插槽内容添加自定义 CSS 类名，方便对插槽内容进行样式定制。
 
-10. **单元格大小**：size属性可选值为"large"，用于设置大尺寸单元格，增加内边距和字体大小。
+10. **暗色模式**：组件原生支持暗色模式，当根节点包含 `wot-theme-dark` 类名时，组件会自动切换为暗色主题样式。

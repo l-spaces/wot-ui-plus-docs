@@ -4,479 +4,305 @@
 
 ## 组件概况
 
-### 组件概述
-ActionSheet 动作面板组件是从底部弹出的操作菜单，用于展示一系列可选择的操作选项，支持普通操作列表和带图标面板两种形式，常用于确认操作、选择选项等场景。
+ActionSheet 动作面板是一个从底部弹出的选择器组件，用于展示一组操作选项或自定义面板内容。该组件基于 Popup 弹出层实现，通过底部滑入动画展示菜单列表，支持普通列表选项和图标面板两种展示模式，为用户提供了清晰、简洁的操作选择入口。在移动端应用中，动作面板常用于分享菜单、操作选择、确认提示等场景，能够有效减少页面跳转，提升用户操作效率。
 
-### 详细功能描述
-- 支持两种展示形式：普通操作列表和带图标面板
-- 支持标题和关闭按钮
-- 支持取消按钮
-- 支持选项禁用和加载状态
-- 支持多行面板展示
-- 支持自定义样式和类名
-- 支持点击遮罩关闭
-- 支持点击选项后自动关闭
-- 支持底部安全距离适配
-- 支持懒渲染
-- 支持从页面中脱离（解决fixed失效问题）
+## 核心功能描述
 
-### 适用业务场景
-- 确认删除、分享等操作
-- 选择图片来源（拍照/从相册选择）
-- 选择支付方式
-- 选择商品规格
-- 任何需要从底部弹出选择菜单的场景
+- **双模式展示**：支持 `actions` 普通列表模式和 `panels` 图标面板模式，满足不同场景的视觉需求
+- **选项状态管理**：支持选项的禁用（disabled）、加载中（loading）、自定义颜色（color）等状态
+- **单行/多行面板**：panels 支持一维数组单行滚动展示，也支持二维数组多行展示
+- **子描述信息**：actions 模式支持通过 `subname` 字段展示辅助描述信息
+- **安全区域适配**：内置底部安全区域（safe-area-inset-bottom）支持，适配 iPhone X 等异形屏机型
+- **懒渲染优化**：默认开启懒渲染（lazyRender），触发展示时才渲染内容，提升页面性能
+- **根脱离支持**：通过 `rootPortal` 属性解决 fixed 定位失效问题，适配 H5、APP、小程序多端场景
+- **丰富的事件机制**：提供 open、opened、close、closed、cancel、select、click-modal 等完整生命周期事件
+- **暗色模式支持**：内置 dark 主题样式，自动跟随系统主题切换
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- **分享操作**：在内容详情页提供分享到微信好友、朋友圈、QQ 等平台的快捷操作面板
+- **文件操作**：在文件列表页提供复制、移动、删除、重命名等文件管理操作
+- **图片操作**：在图片预览时提供保存到相册、分享、识别等操作选项
+- **账户设置**：在个人中心页面提供退出登录、切换账号、清除缓存等设置操作
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| modelValue | boolean | - | 是 | 设置菜单显示隐藏 |
-| actions | array | [] | 否 | 菜单选项，数组元素为Action对象 |
-| panels | array | [] | 否 | 自定义面板项，可为字符串数组、对象数组或二维数组（多行展示） |
-| title | string | - | 否 | 标题 |
-| cancelText | string | - | 否 | 取消按钮文案 |
-| closeOnClickAction | boolean | true | 否 | 点击选项后是否关闭菜单 |
-| closeOnClickModal | boolean | true | 否 | 点击遮罩是否关闭菜单 |
-| duration | number | 200 | 否 | 弹框动画持续时间（毫秒） |
-| zIndex | number | 10 | 否 | 菜单层级 |
-| lazyRender | boolean | true | 否 | 弹层内容懒渲染，触发展示时才渲染内容 |
-| safeAreaInsetBottom | boolean | true | 否 | 是否设置底部安全距离（适配iPhone X等机型） |
-| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，解决fixed失效问题 |
-| customHeaderClass | string | - | 否 | 自定义头部样式类 |
-| customStyle | string | - | 否 | 自定义根节点样式 |
-| customClass | string | - | 否 | 自定义根节点样式类 |
+## API
 
-### Events事件
+### Props
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| select | 选择菜单选项时 | item: 选中的选项对象, index: 选中的索引, rowIndex?: 行索引（多行面板时）, colIndex?: 列索引（面板时） |
-| click-modal | 点击遮罩时 | - |
-| cancel | 点击取消按钮时 | - |
-| closed | 菜单关闭动画结束后 | - |
-| close | 菜单开始关闭时 | - |
-| open | 菜单开始打开时 | - |
-| opened | 菜单打开动画结束后 | - |
-| update:modelValue | 菜单显示状态变化时 | newValue: 新的显示状态 |
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| modelValue | boolean | false | 是 | 控制动作面板的显示与隐藏，支持 v-model 双向绑定 |
+| actions | Action[] | [] | 否 | 菜单选项列表，每项包含 name（名称）、subname（描述）、color（颜色）、disabled（禁用）、loading（加载中） |
+| panels | Panel \| Panel[] | [] | 否 | 自定义面板项，一维数组为单行滚动展示，二维数组为多行展示，每项包含 iconUrl（图标地址）、title（标题） |
+| title | string | - | 否 | 面板标题，显示在面板顶部 |
+| cancelText | string | - | 否 | 取消按钮文案，设置后底部显示取消按钮 |
+| closeOnClickAction | boolean | true | 否 | 点击选项后是否自动关闭面板 |
+| closeOnClickModal | boolean | true | 否 | 点击遮罩层是否自动关闭面板 |
+| duration | number | 200 | 否 | 弹出层动画持续时间（毫秒） |
+| zIndex | number | 10 | 否 | 面板层级（z-index） |
+| lazyRender | boolean | true | 否 | 是否开启懒渲染，触发展示时才渲染内容 |
+| safeAreaInsetBottom | boolean | true | 否 | 是否设置底部安全距离，适配 iPhone X 等机型 |
+| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题（H5: teleport, APP: renderjs, 小程序: root-portal） |
+| customHeaderClass | string | '' | 否 | 自定义 header 头部样式类名 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点类名 |
 
-### Methods方法
+### Events
 
-该组件没有对外暴露的方法。
+| 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
+|---------|---------|---------|-------------|
+| select | 点击选中某个选项时触发 | `(data: { item: Action \| Panel, index?: number, rowIndex?: number, colIndex?: number })` | actions 模式返回 item（选项对象）和 index（索引）；panels 单行模式返回 item 和 index；panels 多行模式返回 item、rowIndex（行索引）和 colIndex（列索引） |
+| cancel | 点击取消按钮时触发 | - | 无参数 |
+| close | 面板关闭时触发 | - | 无参数 |
+| closed | 面板关闭动画完成时触发 | - | 无参数 |
+| open | 面板开始打开时触发 | - | 无参数 |
+| opened | 面板打开动画完成时触发 | - | 无参数 |
+| click-modal | 点击遮罩层时触发 | - | 无参数 |
+| update:modelValue | 面板显示状态变化时触发（v-model 支持） | `(value: boolean)` | 新的显示状态值 |
 
-### Slots插槽
+### Methods
 
-| 插槽名 | 作用域变量 | 使用说明 |
-|--------|------------|----------|
-| default | - | 自定义内容区域，位于actions/panels和cancel按钮之间 |
+组件本身不对外暴露方法，面板的显示与隐藏通过 `v-model` 或 `modelValue` 属性控制。
 
-## 多场景使用示例代码
+### Slots
 
-### 1. 基础用法
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 自定义面板内容区域，在 actions/panels 列表和取消按钮之间插入自定义内容，可用于展示自定义表单、图文信息等 |
 
-```vue
-<template>
-  <view class="action-sheet-demo">
-    <wd-button type="primary" @click="show = true">打开动作面板</wd-button>
-    <wd-action-sheet v-model="show" :actions="actions" @select="handleSelect" />
-  </view>
-</template>
+## 使用示例
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { showToast } from '@/utils/toast'
+### 示例 1：基础用法
 
-// 基础动作面板用法
-const show = ref(false)
-
-// 动作列表
-const actions = ref([
-  { name: '选项一' },
-  { name: '选项二' },
-  { name: '选项三' }
-])
-
-// 处理选择事件
-const handleSelect = (event: any) => {
-  showToast(`选择了：${event.item.name}`)
-}
-</script>
-
-<style scoped>
-.action-sheet-demo {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500rpx;
-}
-</style>
-```
-
-### 2. 带标题和取消按钮
+最基础的菜单选项展示，通过 `actions` 属性传入选项列表，支持显示子描述信息。
 
 ```vue
 <template>
-  <view class="action-sheet-demo">
-    <wd-button type="success" @click="show = true">带标题和取消按钮</wd-button>
-    <wd-action-sheet 
-      v-model="show" 
-      :actions="actions" 
-      title="请选择操作" 
-      cancelText="取消" 
-      @select="handleSelect" 
-      @cancel="handleCancel"
-    />
+  <view>
+    <wd-button @click="showActions">弹出菜单</wd-button>
+    <wd-action-sheet v-model="show" :actions="actions" />
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { showToast } from '@/utils/toast'
+  import { ref } from 'vue'
 
-// 带标题和取消按钮的动作面板
-const show = ref(false)
+  const show = ref<boolean>(false)
+  const actions = ref<any[]>([])
 
-// 动作列表
-const actions = ref([
-  { name: '分享', color: '#4D80F0' },
-  { name: '收藏', color: '#f0883a' },
-  { name: '举报', color: '#fa4350' }
-])
-
-// 处理选择事件
-const handleSelect = (event: any) => {
-  showToast(`选择了：${event.item.name}`)
-}
-
-// 处理取消事件
-const handleCancel = () => {
-  showToast('已取消')
-}
-</script>
-
-<style scoped>
-.action-sheet-demo {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500rpx;
-}
-</style>
-```
-
-### 3. 面板形式（带图标）
-
-```vue
-<template>
-  <view class="action-sheet-demo">
-    <wd-button type="warning" @click="show = true">面板形式</wd-button>
-    <wd-action-sheet 
-      v-model="show" 
-      :panels="panels" 
-      title="选择支付方式" 
-      cancelText="取消" 
-      @select="handleSelect"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { showToast } from '@/utils/toast'
-
-// 面板形式的动作面板
-const show = ref(false)
-
-// 面板数据
-const panels = ref([
-  { iconUrl: 'https://example.com/wechat.png', title: '微信支付' },
-  { iconUrl: 'https://example.com/alipay.png', title: '支付宝' },
-  { iconUrl: 'https://example.com/unionpay.png', title: '银联支付' },
-  { iconUrl: 'https://example.com/card.png', title: '银行卡支付' }
-])
-
-// 处理选择事件
-const handleSelect = (event: any) => {
-  showToast(`选择了：${event.item.title}`)
-}
-</script>
-
-<style scoped>
-.action-sheet-demo {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500rpx;
-}
-</style>
-```
-
-### 4. 多行面板和禁用状态
-
-```vue
-<template>
-  <view class="action-sheet-demo">
-    <wd-button type="error" @click="show = true">多行面板和禁用状态</wd-button>
-    <wd-action-sheet 
-      v-model="show" 
-      :actions="actions" 
-      :panels="multiPanels" 
-      title="选择商品规格" 
-      cancelText="取消" 
-      @select="handleSelect"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { showToast } from '@/utils/toast'
-
-// 多行面板和禁用状态的动作面板
-const show = ref(false)
-
-// 动作列表（带禁用和加载状态）
-const actions = ref([
-  { name: '选项一', disabled: true },
-  { name: '选项二', loading: true },
-  { name: '选项三' }
-])
-
-// 多行面板数据
-const multiPanels = ref([
-  [
-    { iconUrl: 'https://example.com/red.png', title: '红色' },
-    { iconUrl: 'https://example.com/blue.png', title: '蓝色' },
-    { iconUrl: 'https://example.com/green.png', title: '绿色' }
-  ],
-  [
-    { iconUrl: 'https://example.com/small.png', title: '小码' },
-    { iconUrl: 'https://example.com/medium.png', title: '中码' },
-    { iconUrl: 'https://example.com/large.png', title: '大码' }
-  ]
-])
-
-// 处理选择事件
-const handleSelect = (event: any) => {
-  if (event.item.title) {
-    showToast(`选择了：${event.item.title}`)
-  } else {
-    showToast(`选择了：${event.item.name}`)
+  function showActions() {
+    show.value = true
+    actions.value = [
+      {
+        name: '选项1'
+      },
+      {
+        name: '选项2'
+      },
+      {
+        name: '选项3',
+        subname: '描述信息'
+      }
+    ]
   }
-}
 </script>
-
-<style scoped>
-.action-sheet-demo {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500rpx;
-}
-</style>
 ```
 
-### 5. 自定义样式和插槽
+该示例展示了最基本的动作面板用法，点击按钮后面板从底部弹出，显示三个菜单选项，第三个选项附带了灰色的描述信息。
+
+### 示例 2：选项状态与取消按钮
+
+展示选项的多种状态（自定义颜色、禁用、加载中），并添加取消按钮。
 
 ```vue
 <template>
-  <view class="action-sheet-demo">
-    <wd-button type="info" @click="show = true">自定义样式和插槽</wd-button>
-    <wd-action-sheet 
-      v-model="show" 
-      :actions="actions" 
-      title="自定义样式" 
-      cancelText="取消"
-      customStyle="border-radius: 20rpx; background-color: #f5f7fa;"
-      customClass="my-action-sheet"
-      customHeaderClass="my-header"
-      @select="handleSelect"
-    >
-      <view class="custom-content">
-        <text class="custom-text">这是自定义内容区域</text>
-        <wd-button type="primary" size="small" @click="handleCustom">自定义按钮</wd-button>
-      </view>
+  <view>
+    <wd-button @click="showActions">弹出菜单</wd-button>
+    <wd-action-sheet v-model="show" :actions="actions" cancel-text="取消" @close="close" />
+  </view>
+</template>
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const show = ref<boolean>(false)
+  const actions = ref<any[]>([])
+
+  function showActions() {
+    show.value = true
+    actions.value = [
+      {
+        name: '颜色',
+        color: '#0083ff'
+      },
+      {
+        name: '禁用',
+        disabled: true
+      },
+      {
+        loading: true
+      }
+    ]
+  }
+
+  function close() {
+    show.value = false
+  }
+</script>
+```
+
+该示例中，第一个选项使用蓝色文字，第二个选项处于禁用状态（灰色且不可点击），第三个选项显示加载动画。底部显示取消按钮，点击可关闭面板。
+
+### 示例 3：自定义面板单行展示
+
+使用 `panels` 属性展示带图标的单行滚动面板，常用于分享场景。
+
+```vue
+<template>
+  <view>
+    <wd-button @click="showActions">弹出菜单</wd-button>
+    <wd-action-sheet v-model="show" :panels="panels" cancel-text="取消" @close="close" @select="select" />
+  </view>
+</template>
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const show = ref<boolean>(false)
+  const panels = ref<any[]>([])
+
+  function showActions() {
+    show.value = true
+    panels.value = [
+      {
+        iconUrl: 'https://img12.360buyimg.com/imagetools/jfs/t1/122016/33/6657/1362/5f0692a1E8708d245/e47299e5945a6956.png',
+        title: '微信好友'
+      },
+      {
+        iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/111572/11/11734/1245/5f0692a1E39d13d21/b35dfe9243bd6c2a.png',
+        title: '微信朋友圈'
+      },
+      {
+        iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/132639/25/4003/945/5f069336E18778248/fa181913030bed8a.png',
+        title: 'QQ好友'
+      },
+      {
+        iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/134807/4/3950/1256/5f069336E76949e27/d20641da8e699f07.png',
+        title: '微信收藏'
+      }
+    ]
+  }
+
+  function close() {
+    show.value = false
+  }
+
+  function select({ item, index }: { item: any; index: number }) {
+    console.log(`当前选中：${item.title}，下标：${index}`)
+  }
+</script>
+```
+
+该示例使用面板模式展示带图标的选项，选项横向排列可左右滚动，每项包含图标和标题。点击选项时触发 select 事件，返回选中项的信息。
+
+### 示例 4：自定义面板多行展示
+
+使用二维数组传入 `panels`，实现多行面板布局。
+
+```vue
+<template>
+  <view>
+    <wd-button @click="showActions">弹出菜单</wd-button>
+    <wd-action-sheet v-model="show" :panels="panels" cancel-text="取消" @close="close" @select="select" />
+  </view>
+</template>
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const show = ref<boolean>(false)
+  const panels = ref<any[]>([])
+
+  function showActions() {
+    show.value = true
+    panels.value = [
+      [
+        {
+          iconUrl: 'https://img12.360buyimg.com/imagetools/jfs/t1/122016/33/6657/1362/5f0692a1E8708d245/e47299e5945a6956.png',
+          title: '微信好友'
+        },
+        {
+          iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/111572/11/11734/1245/5f0692a1E39d13d21/b35dfe9243bd6c2a.png',
+          title: '微信朋友圈'
+        },
+        {
+          iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/132639/25/4003/945/5f069336E18778248/fa181913030bed8a.png',
+          title: 'QQ好友'
+        },
+        {
+          iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/134807/4/3950/1256/5f069336E76949e27/d20641da8e699f07.png',
+          title: '微信收藏'
+        }
+      ],
+      [
+        {
+          iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/132639/25/4003/945/5f069336E18778248/fa181913030bed8a.png',
+          title: 'QQ好友'
+        },
+        {
+          iconUrl: 'https://img14.360buyimg.com/imagetools/jfs/t1/134807/4/3950/1256/5f069336E76949e27/d20641da8e699f07.png',
+          title: '微信收藏'
+        }
+      ]
+    ]
+  }
+
+  function close() {
+    show.value = false
+  }
+
+  function select({ item, rowIndex, colIndex }: { item: any; rowIndex: number; colIndex: number }) {
+    console.log(`当前选中：${item.title}，行下标：${rowIndex}，列下标：${colIndex}`)
+  }
+</script>
+```
+
+该示例通过二维数组定义多行面板，每行内的选项可横向滚动。多行模式下 select 事件返回 rowIndex（行索引）和 colIndex（列索引），方便定位选中项。
+
+### 示例 5：标题与自定义内容
+
+使用 `title` 属性设置面板标题，并通过默认插槽插入自定义内容。
+
+```vue
+<template>
+  <view>
+    <wd-button @click="showActions">弹出菜单</wd-button>
+    <wd-action-sheet v-model="show" title="标题" @close="close" cancel-text="取消">
+      <view style="padding: 15px 15px 150px 15px">自定义内容区域</view>
     </wd-action-sheet>
   </view>
 </template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { showToast } from '@/utils/toast'
+  import { ref } from 'vue'
 
-// 自定义样式和插槽的动作面板
-const show = ref(false)
+  const show = ref<boolean>(false)
 
-// 动作列表
-const actions = ref([
-  { name: '选项一', subname: '描述信息' },
-  { name: '选项二', subname: '描述信息' }
-])
+  function showActions() {
+    show.value = true
+  }
 
-// 处理选择事件
-const handleSelect = (event: any) => {
-  showToast(`选择了：${event.item.name}`)
-}
-
-// 处理自定义按钮点击
-const handleCustom = () => {
-  showToast('点击了自定义按钮')
-  show.value = false
-}
-</script>
-
-<style scoped>
-.action-sheet-demo {
-  padding: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500rpx;
-}
-
-.custom-content {
-  padding: 30rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20rpx;
-  border-top: 1rpx solid #ebedf0;
-  border-bottom: 1rpx solid #ebedf0;
-}
-
-.custom-text {
-  font-size: 28rpx;
-  color: #666;
-}
-
-/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
-:deep(.my-action-sheet) {
-  margin: 0 20rpx calc(var(--window-bottom) + 20rpx) 20rpx;
-}
-
-:deep(.my-header) {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-}
-</style>
-```
-
-## 样式定制指南
-
-### 1. 使用customStyle自定义样式
-
-```vue
-<template>
-  <wd-action-sheet 
-    v-model="show" 
-    :actions="actions" 
-    customStyle="border-radius: 20rpx; margin: 0 20rpx;"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-const actions = ref([{ name: '选项一' }, { name: '选项二' }])
+  function close() {
+    show.value = false
+  }
 </script>
 ```
 
-### 2. 使用customClass自定义类名
-
-```vue
-<template>
-  <wd-action-sheet 
-    v-model="show" 
-    :actions="actions" 
-    customClass="custom-action-sheet"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-const actions = ref([{ name: '选项一' }, { name: '选项二' }])
-</script>
-
-<style scoped>
-/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
-:deep(.custom-action-sheet) {
-  background-color: #f0f2f5;
-  border-radius: 20rpx;
-  overflow: hidden;
-}
-
-:deep(.custom-action-sheet .wd-action-sheet__action) {
-  color: #333;
-  font-size: 32rpx;
-}
-</style>
-```
-
-### 3. 自定义头部样式
-
-```vue
-<template>
-  <wd-action-sheet 
-    v-model="show" 
-    :actions="actions" 
-    title="自定义头部" 
-    customHeaderClass="custom-header"
-  />
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const show = ref(false)
-const actions = ref([{ name: '选项一' }, { name: '选项二' }])
-</script>
-
-<style scoped>
-/* 注意：需要使用 ::v-deep 或 /deep/ 穿透 scoped 样式 */
-:deep(.custom-header) {
-  background-color: #4D80F0;
-  color: #fff;
-  font-weight: bold;
-  padding: 30rpx;
-}
-</style>
-```
+该示例展示了带标题的面板，并在默认插槽中插入了自定义内容区域，适用于需要在动作面板中展示复杂内容的场景。标题右侧会自动显示关闭按钮。
 
 ## 注意事项
 
-1. **actions和panels的区别**：
-   - actions用于展示普通操作列表，支持禁用、加载状态和子标题
-   - panels用于展示带图标面板，支持单行和多行展示
-   - 两者可以同时使用，actions会显示在panels下方
-
-2. **closeOnClickAction**：点击选项后是否自动关闭菜单，默认为true
-
-3. **closeOnClickModal**：点击遮罩层是否关闭菜单，默认为true
-
-4. **safeAreaInsetBottom**：在iPhone X等全面屏机型上，为true时会自动添加底部安全距离
-
-5. **rootPortal**：当页面中存在fixed定位元素时，可能会出现层级问题，设置rootPortal为true可以解决此问题
-
-6. **lazyRender**：默认为true，只有当菜单显示时才会渲染内容，提高性能
-
-7. **title和cancelText**：如果不设置title，头部区域会隐藏；如果不设置cancelText，取消按钮会隐藏
-
-8. **actions中的disabled和loading**：当disabled为true或loading为true时，选项不可点击
-
-9. **panels的二维数组**：当panels为二维数组时，会多行展示，每行一个数组元素
-
-10. **事件触发顺序**：打开时：open → after-enter → opened；关闭时：close → after-leave → closed
-
-11. **样式优先级**：customStyle会覆盖默认样式，customClass可以通过深度选择器覆盖组件内部样式
-
-12. **zIndex**：可以通过zIndex属性调整菜单的层级，确保在其他元素上方显示
+1. **actions 与 panels 互斥**：同时传入 `actions` 和 `panels` 时，两者会同时渲染，建议根据实际需求只使用其中一个
+2. **modelValue 必填**：`modelValue` 为必填属性，必须使用 v-model 或 :modelValue 控制面板显示状态
+3. **disabled 与 loading 状态**：当选项的 `disabled` 或 `loading` 为 true 时，点击该选项不会触发 select 事件
+4. **自动关闭控制**：设置 `closeOnClickAction` 为 false 时，点击选项后面板不会自动关闭，需在 select 事件回调中手动关闭
+5. **面板模式 select 事件参数差异**：actions 模式返回 `{ item, index }`，panels 单行模式返回 `{ item, index }`，panels 多行模式返回 `{ item, rowIndex, colIndex }`，需根据实际模式处理回调参数
+6. **rootPortal 使用场景**：当面板内部包含 fixed 定位元素或在某些平台出现定位异常时，可设置 `rootPortal` 为 true 将面板脱离当前页面层级
+7. **自定义内容高度**：使用默认插槽插入自定义内容时，需注意内容高度可能超出屏幕，建议配合滚动容器使用
+8. **样式自定义**：当同时使用 actions/panels 时，组件会自动添加 margin 和 border-radius 样式形成卡片效果；不使用这些属性时则采用全屏底部样式
+9. **性能优化**：默认开启懒渲染（lazyRender），面板内容只在首次展示时渲染，关闭后不会销毁，适合需要频繁开关的场景

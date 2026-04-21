@@ -3,261 +3,195 @@
 
 ## 组件概况
 
-### 组件概述
-评分组件用于用户对商品、服务、内容等进行评分，通常用于电商商品评价、服务评价、内容评分等场景。wd-rate 组件提供了灵活的配置选项，支持完整评分和半星评分、自定义图标、颜色、大小、数量等功能。
+`wd-rate` 是一个评分组件，用于展示和收集用户对某一事物的评分反馈。组件支持点击和滑动选择评分、半星选择、只读/禁用状态、自定义图标和颜色等功能。通过 `v-model` 实现评分值的双向数据绑定。
 
-### 详细功能描述
-- 支持完整评分和半星评分
-- 支持自定义评分最大值（默认为5）
-- 支持只读模式
-- 支持自定义图标大小和间距
-- 支持自定义未选中和选中的图标颜色
-- 支持自定义图标类名
-- 支持禁用状态
-- 支持分段颜色
-- 支持再次点击清空评分
-- 支持触摸滑动评分
-- 支持双向绑定
-- 支持 change 事件
+## 核心功能描述
 
-### 适用业务场景
-- 电商商品评价
-- 服务质量评分
-- 内容评分（文章、视频、音乐等）
-- 应用商店评分
-- 调查问卷评分
-- 用户反馈评分
+- **点击/滑动评分**：支持点击单个图标进行评分，也支持在组件上滑动来快速选择评分值。滑动评分通过 `touchmove` 事件监听触摸位置，自动计算覆盖的评分项索引
+- **半选支持**：通过 `allow-half` 属性开启半选功能，点击图标的左半部分可选择半星评分值
+- **自定义图标**：通过 `icon` 和 `active-icon` 属性可自定义未选中和已选中状态的图标名称
+- **颜色自定义**：`active-color` 支持传入单个颜色值或颜色数组，颜色数组可实现分段颜色效果（如评分值低于 60% 使用第一种颜色，高于 60% 使用第二种颜色）
+- **只读与禁用**：支持 `readonly`（只读）和 `disabled`（禁用）两种状态
+- **可清空评分**：通过 `clearable` 属性，当评分值为最小值（`allow-half` 时为 0.5，否则为 1）时再次点击可清空为 0
+- **v-model 双向绑定**：通过 `modelValue` 属性实现评分值的双向绑定
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- 商品评价/服务评价评分
+- 内容质量评分（文章、视频、音乐等）
+- 应用评分/满意度调查
+- 星级等级展示（如酒店星级、会员等级）
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| num | number | 5 | 否 | 评分最大值 |
-| modelValue | string / number / null | null | 否 | 当前分数，使用v-model进行双向绑定 |
-| readonly | boolean | false | 否 | 是否只读 |
-| size | string | '16px' | 否 | 图标大小 |
-| space | string | '4px' | 否 | 图标间距 |
-| color | string | '#E8E8E8' | 否 | 未选中的图标颜色 |
-| activeColor | string / array | 'linear-gradient(180deg, rgba(255,238,0,1) 0%,rgba(250,176,21,1) 100%)' | 否 | 选中的图标颜色，支持传颜色数组（用于分段颜色） |
-| icon | string | 'star-filled' | 否 | 未选中的图标类名 |
-| activeIcon | string | 'star-filled' | 否 | 选中的图标类名 |
-| disabled | boolean | false | 否 | 是否禁用 |
-| disabledColor | string | 'linear-gradient(315deg, rgba(177,177,177,1) 0%,rgba(199,199,199,1) 100%)' | 否 | 禁用的图标颜色 |
-| allowHalf | boolean | false | 否 | 是否允许半选 |
-| clearable | boolean | false | 否 | 当 clearable 属性设置为 true，再次点击相同的值时，可以将值重置为 0 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+## 使用示例
 
-### Events事件
+### 示例一：基本用法
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| update:modelValue | 评分值改变时 | value: number - 评分值 |
-| change | 评分值改变时 | { value: number } - 评分值 |
-
-### Methods方法
-
-该组件没有对外暴露的方法。
-
-### Slots插槽
-
-该组件没有定义插槽。
-
-## 多场景使用示例代码
-
-### 1. 基础用法
+最基础的评分组件，通过 `v-model` 绑定当前评分值，支持点击清空。
 
 ```vue
 <template>
-  <view class="rate-demo">
-    <view class="demo-title">基础用法</view>
-    <wd-rate v-model="rating" />
-    <view class="rate-info">评分：{{ rating }}</view>
-  </view>
+  <wd-rate v-model="value" clearable @change="handleChange" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const rating = ref(3)
-</script>
+const value = ref<number>(5)
 
-<style scoped>
-.rate-demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+function handleChange({ value }: { value: number }) {
+  console.log('当前评分:', value)
 }
+</script>
+```
 
-.demo-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+### 示例二：只读与禁用状态
+
+通过 `readonly` 和 `disabled` 属性控制组件的交互状态。只读状态下用户无法修改评分，禁用状态下组件呈现灰色不可用状态。
+
+```vue
+<template>
+  <!-- 只读状态，用户无法修改评分 -->
+  <wd-rate v-model="readonlyValue" readonly />
+
+  <!-- 禁用状态，组件呈现不可用状态 -->
+  <wd-rate v-model="disabledValue" disabled />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const readonlyValue = ref<number>(3)
+const disabledValue = ref<number>(2)
+</script>
+```
+
+### 示例三：自定义颜色
+
+通过 `active-color` 属性修改选中状态的颜色，支持传入颜色数组实现分段颜色效果。
+
+```vue
+<template>
+  <!-- 单一选中颜色 -->
+  <wd-rate
+    v-model="value1"
+    active-color="linear-gradient(180deg, rgba(255,238,0,1) 0%,rgba(250,176,21,1) 100%)"
+    @change="handleChange"
+  />
+
+  <!-- 分段颜色：评分值 <= 60% 使用第一种颜色，> 60% 使用第二种颜色 -->
+  <wd-rate
+    v-model="value2"
+    :active-color="[
+      'linear-gradient(180deg, rgba(255,238,0,1) 0%,rgba(250,176,21,1) 100%)',
+      'linear-gradient(315deg, rgba(245,34,34,1) 0%,rgba(255,117,102,1) 100%)'
+    ]"
+  />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const value1 = ref<number>(3)
+const value2 = ref<number>(4)
+
+function handleChange({ value }: { value: number }) {
+  console.log('当前评分:', value)
 }
-
-.rate-info {
-  font-size: 16px;
-  color: #666;
-}
-</style>
+</script>
 ```
 
-### 2. 半星评分
+### 示例四：自定义图标和尺寸
+
+通过 `icon`、`active-icon`、`size`、`space` 等属性自定义图标和布局。
 
 ```vue
 <template>
-  <view class="rate-demo">
-    <view class="demo-title">半星评分</view>
-    <wd-rate v-model="rating" allow-half />
-    <view class="rate-info">评分：{{ rating }}</view>
-  </view>
+  <!-- 自定义图标 -->
+  <wd-rate v-model="value1" icon="dong" active-icon="dong" active-color="#4D80F0" />
+
+  <!-- 自定义图标大小和间距 -->
+  <wd-rate v-model="value2" space="10px" size="30px" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const rating = ref(3.5)
+const value1 = ref<number>(3)
+const value2 = ref<number>(5)
 </script>
 ```
 
-### 3. 自定义数量和大小
+### 示例五：半选和可清空
+
+通过 `allow-half` 属性开启半选功能，通过 `clearable` 属性支持再次点击最小值时清空评分。
 
 ```vue
 <template>
-  <view class="rate-demo">
-    <view class="demo-title">自定义数量和大小</view>
-    <wd-rate v-model="rating" :num="10" size="24px" />
-    <view class="rate-info">评分：{{ rating }}</view>
-  </view>
+  <!-- 允许半选 -->
+  <wd-rate v-model="halfValue" allow-half />
+
+  <!-- 允许清空评分（不含半选） -->
+  <wd-rate v-model="clearValue" clearable />
+
+  <!-- 允许清空评分（含半选） -->
+  <wd-rate v-model="clearHalfValue" clearable allow-half />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const rating = ref(7)
+const halfValue = ref<number>(2.5)
+const clearValue = ref<number>(3)
+const clearHalfValue = ref<number>(3.5)
 </script>
 ```
 
-### 4. 自定义颜色
+## API
 
-```vue
-<template>
-  <view class="rate-demo">
-    <view class="demo-title">自定义颜色</view>
-    <wd-rate v-model="rating" color="#E0E0E0" active-color="#4CAF50" />
-    <view class="demo-subtitle">分段颜色</view>
-    <wd-rate v-model="rating2" active-color="['#FF4D4F', '#4D80F0']" />
-  </view>
-</template>
+### Props
 
-<script lang="ts" setup>
-import { ref } from 'vue'
+| 属性名 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
+|--------|------|------|--------|--------|----------|
+| v-model / modelValue | 当前分数，使用 v-model 进行双向绑定 | string \| number \| null | - | null | - |
+| num | 评分最大值 | number | - | 5 | - |
+| size | 图标大小 | string | - | '16px' | - |
+| space | 图标间距 | string | - | '4px' | - |
+| color | 未选中的图标颜色 | string | - | '#E8E8E8' | - |
+| active-color | 选中的图标颜色，支持传颜色数组用于分段颜色 | `string \| Array<string>` | - | 'linear-gradient(180deg, rgba(255,238,0,1) 0%,rgba(250,176,21,1) 100%)' | - |
+| icon | 未选中的图标类名 | string | - | 'star-filled' | - |
+| active-icon | 选中的图标类名 | string | - | 'star-filled' | - |
+| disabled | 是否禁用 | boolean | - | false | - |
+| disabled-color | 禁用的图标颜色 | string | - | 'linear-gradient(315deg, rgba(177,177,177,1) 0%,rgba(199,199,199,1) 100%)' | - |
+| readonly | 是否只读 | boolean | - | false | - |
+| allow-half | 是否允许半选 | boolean | - | false | - |
+| clearable | 当 clearable 属性设置为 true，再次点击相同的值时（最小值），可以将值重置为 0 | boolean | - | false | - |
+| custom-style | 根节点自定义样式 | string | - | - | - |
+| custom-class | 根节点自定义类名 | string | - | - | - |
 
-const rating = ref(4)
-const rating2 = ref(4)
-</script>
+### Events
 
-<style scoped>
-.demo-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-</style>
-```
+| 事件名 | 说明 | 参数 |
+|--------|------|------|
+| change | 评分值改变时触发 | `{ value: number }` - 当前评分值 |
 
-### 5. 只读和禁用
+### Slots
 
-```vue
-<template>
-  <view class="rate-demo">
-    <view class="demo-title">只读和禁用</view>
-    <view class="demo-subtitle">只读模式</view>
-    <wd-rate v-model="rating" readonly />
-    <view class="demo-subtitle">禁用模式</view>
-    <wd-rate v-model="rating2" disabled />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const rating = ref(4)
-const rating2 = ref(3)
-</script>
-```
-
-### 6. 自定义图标
-
-```vue
-<template>
-  <view class="rate-demo">
-    <view class="demo-title">自定义图标</view>
-    <wd-rate v-model="rating" icon="heart" active-icon="heart-filled" color="#E0E0E0" active-color="#FF4D4F" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const rating = ref(4)
-</script>
-```
-
-## 样式定制指南
-
-### customStyle 用法
-使用 customStyle 属性可以自定义评分组件的内联样式，例如修改边距、背景色等。
-
-```vue
-<wd-rate 
-  v-model="rating"
-  custom-style="margin: 20px; padding: 10px; background-color: #f5f7fa; border-radius: 8px;"
-/>
-```
-
-### customClass 用法
-使用 customClass 属性可以为评分组件添加自定义样式类，便于在外部 CSS 中进行样式定制。
-
-```vue
-<wd-rate 
-  v-model="rating"
-  custom-class="my-rate"
-/>
-
-<style scoped>
-:deep(.my-rate) {
-  --wd-rate-icon-color: #E0E0E0;
-  --wd-rate-active-color: #4D80F0;
-  --wd-rate-disabled-color: #BDBDBD;
-}
-</style>
-```
+该组件不提供插槽。
 
 ## 注意事项
 
-1. **modelValue 属性**：modelValue 用于绑定评分值，支持字符串、数字或 null 类型，使用 v-model 进行双向绑定。
+1. **modelValue 类型校验**：组件要求 `modelValue` 必须为 `number` 类型。如果传入非 number 类型，控制台会输出错误信息 `[wot ui] error(wd-rate): the value of wd-rate should be a number`。
 
-2. **allowHalf 属性**：allowHalf 用于允许半星评分，当 allowHalf 为 true 时，用户可以选择半星评分。
+2. **active-color 数组校验**：当 `active-color` 传入数组时，数组不能为空。如果传入空数组，控制台会输出错误信息 `activeColor cannot be an empty array`。
 
-3. **readonly 属性**：readonly 用于设置评分组件为只读模式，只读模式下用户无法点击或滑动评分。
+3. **分段颜色计算逻辑**：当 `active-color` 为数组且长度大于 0 时，组件会根据当前评分值与最大评分值的比例来决定使用哪种颜色。如果评分值小于等于最大值的 60%，使用数组第一个元素的颜色；否则使用数组第二个元素的颜色。如果数组没有第二个元素，则始终使用第一个元素的颜色。
 
-4. **disabled 属性**：disabled 用于禁用评分组件，禁用后无法点击或滑动评分，且图标颜色变为禁用颜色。
+4. **半选实现原理**：半选功能通过在每个评分图标上覆盖一个宽度为 50% 的透明层（`.wd-rate__item-half`）实现。点击该透明层时，触发半选逻辑，评分值为当前索引加 0.5。半选层的点击事件会阻止事件冒泡（`@click.stop`）。
 
-5. **activeColor 属性**：activeColor 支持两种形式：
-   - 字符串形式：如 '#4D80F0'，表示所有选中的图标使用同一种颜色
-   - 数组形式：如 ['#FF4D4F', '#4D80F0']，表示分段颜色，评分较低时使用第一种颜色，评分较高时使用第二种颜色
+5. **滑动评分**：组件通过监听 `touchmove` 事件实现滑动选择评分。滑动时获取所有评分项的位置信息，根据触摸点的 `clientX` 坐标判断覆盖的评分项索引，再根据是否开启半选以及触摸点在评分项中的具体位置来计算半选/全选的评分值。在只读或禁用状态下，滑动评分功能不生效。
 
-6. **clearable 属性**：clearable 用于允许再次点击相同的值时重置为 0，当 clearable 为 true 时，点击当前评分值会将评分重置为 0。
+6. **clearable 清空逻辑**：当 `clearable` 为 `true` 时，如果点击的评分值与当前 `modelValue` 相等且等于最小值（开启 `allow-half` 时为 0.5，否则为 1），则将评分值重置为 0。
 
-7. **触摸滑动评分**：组件支持触摸滑动评分，在移动设备上可以通过滑动手势快速调整评分。
+7. **选中颜色通过背景色实现**：组件通过 wd-icon 的 `custom-style` 设置 `background` 属性来实现颜色效果，配合 `-webkit-background-clip: text` 和 `color: transparent` 实现文字/图标的渐变色填充效果。
 
-8. **性能优化**：对于频繁更新的评分组件，建议使用 readonly 模式，避免不必要的渲染开销。
-
-9. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在触摸滑动评分方面。
-
-10. **样式定制**：可以通过 CSS 变量修改评分组件的样式，包括图标颜色、大小、间距等。
+8. **禁用状态颜色**：当组件处于禁用状态时，已选中图标会使用 `disabled-color` 属性指定的颜色，而不是 `active-color`。

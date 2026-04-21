@@ -1,483 +1,245 @@
-# Sticky 吸顶
+# Sticky 粘性定位
+
 <demo-model url="/subPages/sticky/Index"></demo-model>
 
 ## 组件概况
 
-### 组件概述
-Sticky 是吸顶组件，用于实现元素在滚动到指定位置时固定在视口顶部的效果。它支持自定义吸顶距离和层级，可与 StickyBox 组件配合使用，实现多个吸顶元素的堆叠效果，适用于各种需要固定顶部的场景。
+Sticky 粘性定位组件由 `wd-sticky` 和 `wd-sticky-box` 两个关联组件组成。`wd-sticky` 用于实现元素的粘性定位效果，当页面滚动到指定位置时，元素会固定在视口顶部。`wd-sticky-box` 是一个容器组件，用于包裹 `wd-sticky`，限制吸顶元素的活动范围，使其仅在容器边界内吸顶。该组件通过 IntersectionObserver API 实现滚动监听，适用于需要固定在页面顶部的导航栏、筛选条件、操作按钮等场景。
 
-### 详细功能描述
-- 支持自定义吸顶距离
-- 支持自定义层级
-- 自动监听元素大小变化，适应动态内容
-- 支持与 StickyBox 组件配合使用，实现多个吸顶元素的堆叠效果
-- 支持自定义样式和类名
-- 跨平台兼容
+## 核心功能描述
 
-### 适用业务场景
-- 页面导航栏吸顶
-- 表格头部吸顶
-- 筛选条件吸顶
-- 商品分类吸顶
-- 阅读进度条吸顶
-- 任何需要吸顶效果的场景
+- **基础吸顶**：将 `wd-sticky` 包裹需要吸顶的内容，滚动到页面顶部时自动固定定位，滚动回原位置时恢复文档流
+- **吸顶距离控制**：通过 `offset-top` 属性设置元素距离视口顶部的偏移距离，实现吸顶后与顶部留白
+- **容器范围限制**：将 `wd-sticky` 放置在 `wd-sticky-box` 内部，吸顶元素仅在容器范围内生效，离开容器后自动恢复为绝对定位
+- **动态内容适配**：内置 `wd-resize` 监听子组件尺寸变化，当内容高度或宽度动态改变时自动重新计算吸顶位置
+- **层级控制**：通过 `z-index` 属性控制吸顶元素的堆叠层级，确保在页面滚动时不被其他元素遮挡
+- **H5 端导航栏适配**：H5 端自动识别并适配 44px 导航栏高度，确保吸顶元素位于导航栏下边沿
+- **动态插入支持**：组件支持在运行时动态插入内容，插入后自动重新建立滚动监听
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- **列表页筛选栏**：在商品列表、数据列表等长页面中，筛选条件和排序控件需要始终保持在顶部可视区域，方便用户随时切换筛选条件
+- **文章/详情页目录导航**：在长文章或产品详情页面中，目录导航需要在滚动时固定在顶部，帮助用户快速定位到不同章节
+- **多 Tab 切换头部**：包含多个 Tab 标签页的内容区域，Tab 导航在滚动时吸顶，保持导航可见性
+- **表单操作栏**：在长表单页面中，提交按钮和重要操作信息在滚动到一定位置后固定在顶部，提升操作便捷性
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| zIndex | number | 1 | 否 | 吸顶元素的层级 |
-| offsetTop | number | 0 | 否 | 吸顶距离，单位为px |
-| customStyle | string | - | 否 | 自定义根节点样式 |
-| customClass | string | - | 否 | 自定义根节点样式类 |
+## API
 
-### Events事件
+### wd-sticky Props
 
-该组件没有对外暴露的事件。
+| 属性名称 | 数据类型 | 默认值 | 是否必填 | 说明 |
+| --- | --- | --- | --- | --- |
+| offsetTop | number | 0 | 否 | 吸顶距离，元素距离视口顶部多少像素时触发吸顶 |
+| zIndex | number | 1 | 否 | 吸顶元素的层级堆叠顺序，值越大越靠前 |
+| customStyle | string | '' | 否 | 自定义组件根元素样式 |
+| customClass | string | '' | 否 | 自定义组件根元素类名 |
 
-### Methods方法
+### wd-sticky Events
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| setPosition | boxLeaved: boolean, position: string, top: number | - | 设置吸顶元素的位置，内部使用 |
-| stickyState | - | object | 吸顶状态对象，包含position、boxLeaved、top、height、width、state属性 |
-| offsetTop | - | number | 吸顶距离，内部使用 |
+当前源码中未通过 `defineEmits` 派发自定义事件。
 
-### Slots插槽
+### wd-sticky Methods
 
-| 插槽名 | 作用域变量 | 使用说明 |
-|--------|------------|----------|
-| default | - | 用于放置需要吸顶的内容 |
+通过 `defineExpose` 暴露以下方法：
 
-## 多场景使用示例代码
+| 方法名称 | 参数 | 说明 |
+| --- | --- | --- |
+| setPosition | boxLeaved: boolean, position: string, top: number | 手动设置吸顶位置状态，供 wd-sticky-box 内部调用 |
 
-### 1. 基础用法
+### wd-sticky Slots
 
-```vue
-<template>
-  <view class="sticky-demo">
-    <view class="sticky-content">
-      <view v-for="item in 50" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
-      <wd-sticky offset-top="80">
-        <view class="sticky-box">
-          这是吸顶内容
-        </view>
-      </wd-sticky>
-      <view v-for="item in 50" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
-    </view>
-  </view>
-</template>
+| 插槽名称 | 作用域参数 | 使用场景 |
+| --- | --- | --- |
+| default | - | 用于放置需要吸顶的内容，支持任意自定义内容 |
 
-<script lang="ts" setup>
-// 基础吸顶用法
-</script>
+### wd-sticky-box Props
 
-<style scoped>
-.sticky-demo {
-  padding: 20rpx;
-}
+| 属性名称 | 数据类型 | 默认值 | 是否必填 | 说明 |
+| --- | --- | --- | --- | --- |
+| customStyle | string | '' | 否 | 自定义容器根元素样式 |
+| customClass | string | '' | 否 | 自定义容器根元素类名 |
 
-.sticky-content {
-  background-color: #f5f5f5;
-  border-radius: 12rpx;
-  padding: 20rpx;
-}
+### wd-sticky-box Events
 
-.sticky-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
+当前源码中未通过 `defineEmits` 派发自定义事件。
 
-.sticky-box {
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  background-color: #1989fa;
-  color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-</style>
-```
+### wd-sticky-box Methods
 
-### 2. 自定义吸顶距离和层级
+当前源码中未通过 `defineExpose` 暴露实例方法。内部通过 provide/inject 机制与 `wd-sticky` 子组件通信。
+
+### wd-sticky-box Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+| --- | --- | --- |
+| default | - | 用于包裹 `wd-sticky` 组件及其内容，定义吸顶元素的活动容器范围 |
+
+## 使用示例
+
+### 示例 1：基础吸顶
+
+效果说明：将按钮包裹在 `wd-sticky` 中，页面滚动时按钮会在到达视口顶部时自动吸顶固定，向下滚动回原始位置后恢复文档流。
 
 ```vue
 <template>
-  <view class="sticky-demo">
-    <view class="sticky-content">
-      <view v-for="item in 30" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
-      <wd-sticky offset-top="120" :z-index="10">
-        <view class="sticky-box">
-          自定义吸顶距离和层级
-        </view>
-      </wd-sticky>
-      <view v-for="item in 30" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
-    </view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-// 自定义吸顶距离和层级
-</script>
-
-<style scoped>
-.sticky-demo {
-  padding: 20rpx;
-}
-
-.sticky-content {
-  background-color: #f5f5f5;
-  border-radius: 12rpx;
-  padding: 20rpx;
-}
-
-.sticky-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-
-.sticky-box {
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  background-color: #4caf50;
-  color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-</style>
-```
-
-### 3. 多个吸顶元素
-
-```vue
-<template>
-  <view class="sticky-demo">
-    <wd-sticky-box>
-      <view class="sticky-content">
-        <view v-for="item in 20" :key="item" class="sticky-item">
-          <text>{{ item }}</text>
-        </view>
-        <wd-sticky>
-          <view class="sticky-box sticky-box-1">
-            第一个吸顶元素
-          </view>
-        </wd-sticky>
-        <view v-for="item in 20" :key="item" class="sticky-item">
-          <text>{{ item }}</text>
-        </view>
-        <wd-sticky>
-          <view class="sticky-box sticky-box-2">
-            第二个吸顶元素
-          </view>
-        </wd-sticky>
-        <view v-for="item in 40" :key="item" class="sticky-item">
-          <text>{{ item }}</text>
-        </view>
-      </view>
-    </wd-sticky-box>
-  </view>
-</template>
-
-<script lang="ts" setup>
-// 多个吸顶元素配合使用
-</script>
-
-<style scoped>
-.sticky-demo {
-  padding: 20rpx;
-}
-
-.sticky-content {
-  background-color: #f5f5f5;
-  border-radius: 12rpx;
-  padding: 20rpx;
-}
-
-.sticky-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-
-.sticky-box {
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-
-.sticky-box-1 {
-  background-color: #1989fa;
-}
-
-.sticky-box-2 {
-  background-color: #4caf50;
-}
-</style>
-```
-
-### 4. 动态内容吸顶
-
-```vue
-<template>
-  <view class="sticky-demo">
-    <view class="sticky-content">
-      <view v-for="item in 20" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
+  <view style="height: 250vh">
+    <view class="demo-block">
       <wd-sticky>
-        <view class="sticky-box" :style="{ height: boxHeight + 'rpx' }">
-          <text>{{ dynamicText }}</text>
-          <wd-button size="small" @click="changeHeight">改变高度</wd-button>
-        </view>
+        <wd-button type="success">基础吸顶</wd-button>
       </wd-sticky>
-      <view v-for="item in 40" :key="item" class="sticky-item">
-        <text>{{ item }}</text>
-      </view>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const boxHeight = ref(80)
-const dynamicText = ref('动态内容吸顶')
-
-const changeHeight = () => {
-  boxHeight.value = boxHeight.value === 80 ? 120 : 80
-  dynamicText.value = `高度已改变为 ${boxHeight.value}rpx`
-}
+<script setup lang="ts">
+/* 本示例无需额外逻辑。 */
 </script>
 
-<style scoped>
-.sticky-demo {
-  padding: 20rpx;
-}
-
-.sticky-content {
-  background-color: #f5f5f5;
-  border-radius: 12rpx;
-  padding: 20rpx;
-}
-
-.sticky-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-}
-
-.sticky-box {
-  line-height: 80rpx;
-  text-align: center;
-  background-color: #ff9800;
-  color: #fff;
-  border-radius: 8rpx;
-  margin-bottom: 20rpx;
-  padding: 20rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10rpx;
+<style scoped lang="scss">
+.demo-block {
+  padding: 15px 0;
 }
 </style>
 ```
 
-### 5. 导航栏吸顶
+### 示例 2：设置吸顶距离
+
+效果说明：通过 `offset-top` 属性设置吸顶距离为 50px，元素吸顶后距离视口顶部保留 50px 的间距，适用于顶部有导航栏或搜索框需要避让的场景。
 
 ```vue
 <template>
-  <view class="sticky-demo">
-    <view class="sticky-content">
-      <view class="page-header">
-        <text class="page-title">页面标题</text>
-      </view>
-      <wd-sticky offset-top="0">
-        <view class="nav-bar">
-          <view 
-            v-for="tab in tabs" 
-            :key="tab" 
-            class="nav-item" 
-            :class="{ active: activeTab === tab }"
-            @click="activeTab = tab"
-          >
-            <text>{{ tab }}</text>
-          </view>
-        </view>
+  <view style="height: 250vh">
+    <view class="demo-block">
+      <wd-sticky :offset-top="50">
+        <wd-button>吸顶距离 50px</wd-button>
       </wd-sticky>
-      <view v-for="item in 60" :key="item" class="sticky-item">
-        <text>{{ activeTab }} - {{ item }}</text>
-      </view>
     </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const tabs = ['推荐', '热门', '最新', '关注']
-const activeTab = ref(tabs[0])
+<script setup lang="ts">
+/* 本示例无需额外逻辑。 */
 </script>
 
-<style scoped>
-.sticky-demo {
-  padding: 0;
-}
-
-.page-header {
-  height: 200rpx;
-  background-color: #1989fa;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.page-title {
-  font-size: 36rpx;
-  font-weight: bold;
-}
-
-.nav-bar {
-  display: flex;
-  background-color: #fff;
-  border-bottom: 1rpx solid #ebedf0;
-}
-
-.nav-item {
-  flex: 1;
-  height: 88rpx;
-  line-height: 88rpx;
-  text-align: center;
-  font-size: 28rpx;
-  color: #606266;
-  position: relative;
-}
-
-.nav-item.active {
-  color: #1989fa;
-}
-
-.nav-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40rpx;
-  height: 4rpx;
-  background-color: #1989fa;
-  border-radius: 2rpx;
-}
-
-.sticky-item {
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-color: #f5f5f5;
-  border-bottom: 1rpx solid #ebedf0;
+<style scoped lang="scss">
+.demo-block {
+  padding: 15px 0;
 }
 </style>
 ```
 
-## 样式定制指南
+### 示例 3：相对容器吸顶
 
-### 1. 使用customStyle自定义样式
-
-```vue
-<template>
-  <view class="sticky-demo">
-    <wd-sticky 
-      customStyle="border-radius: 12rpx; box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);"
-    >
-      <view class="sticky-box">
-        自定义样式吸顶
-      </view>
-    </wd-sticky>
-  </view>
-</template>
-```
-
-### 2. 使用customClass自定义类名
+效果说明：将 `wd-sticky` 放置在 `wd-sticky-box` 容器内，吸顶元素仅在容器范围内生效。当滚动到容器底部边界时，元素会从固定定位切换为绝对定位，跟随容器一起滚动出视口。
 
 ```vue
 <template>
-  <view class="sticky-demo">
-    <wd-sticky customClass="my-sticky">
-      <view class="sticky-box">
-        自定义类名吸顶
-      </view>
-    </wd-sticky>
+  <view style="height: 250vh">
+    <view class="demo-block">
+      <wd-sticky-box>
+        <view class="custom-container">
+          <wd-sticky>
+            <wd-button type="warning">相对容器吸顶</wd-button>
+          </wd-sticky>
+        </view>
+      </wd-sticky-box>
+    </view>
   </view>
 </template>
 
-<script lang="ts" setup>
-// 自定义类名示例
+<script setup lang="ts">
+/* 本示例无需额外逻辑。 */
 </script>
 
-<style scoped>
-:deep(.my-sticky) {
-  border-radius: 12rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+<style scoped lang="scss">
+.demo-block {
+  padding: 15px 0;
 }
 
-.sticky-box {
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  background-color: #1989fa;
-  color: #fff;
+.custom-container {
+  height: 120px;
+  width: 100vw;
+  background-color: #ffffff;
+}
+</style>
+```
+
+### 示例 4：容器吸顶 + 自定义吸顶距离
+
+效果说明：结合 `wd-sticky-box` 和 `offset-top` 属性，在容器范围内吸顶的同时距离视口顶部保留 150px 间距，适用于页面头部存在多个固定元素的复杂场景。
+
+```vue
+<template>
+  <view style="height: 250vh">
+    <view class="demo-block">
+      <wd-sticky-box>
+        <view class="custom-container">
+          <wd-sticky :offset-top="150">
+            <wd-button type="warning">容器吸顶 + 150px 间距</wd-button>
+          </wd-sticky>
+        </view>
+      </wd-sticky-box>
+    </view>
+  </view>
+</template>
+
+<script setup lang="ts">
+/* 本示例无需额外逻辑。 */
+</script>
+
+<style scoped lang="scss">
+.demo-block {
+  padding: 15px 0;
+}
+
+.custom-container {
+  height: 120px;
+  width: 100vw;
+  background-color: #ffffff;
+}
+</style>
+```
+
+### 示例 5：动态插入内容
+
+效果说明：通过条件渲染控制 `wd-sticky` 内部内容的显示与隐藏，内容动态插入后组件会自动重新计算尺寸并建立滚动监听，无需手动处理。
+
+```vue
+<template>
+  <view style="height: 250vh">
+    <view class="demo-block">
+      <wd-button type="info" plain @click="handleInsert">点击插入</wd-button>
+      <wd-sticky>
+        <wd-button type="error" v-if="show">动态生成的内容</wd-button>
+      </wd-sticky>
+    </view>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const show = ref<boolean>(false)
+
+function handleInsert() {
+  show.value = true
+}
+</script>
+
+<style scoped lang="scss">
+.demo-block {
+  padding: 15px 0;
 }
 </style>
 ```
 
 ## 注意事项
 
-1. **吸顶距离**：offsetTop 属性用于设置吸顶元素距离顶部的距离，单位为 px，默认值为 0。
-
-2. **层级设置**：zIndex 属性用于设置吸顶元素的层级，确保吸顶元素显示在其他元素之上。
-
-3. **多个吸顶元素**：当需要实现多个吸顶元素时，建议使用 StickyBox 组件包裹，以实现正确的堆叠效果。
-
-4. **动态内容**：组件会自动监听内容大小变化，适应动态调整的内容高度。
-
-5. **性能优化**：组件内部使用了 IntersectionObserver API 监听元素位置变化，性能较高，但在大量使用时仍需注意性能影响。
-
-6. **跨平台兼容性**：组件在 H5、App 和小程序平台表现一致，但在 H5 平台会自动计算导航栏高度。
-
-7. **布局注意**：吸顶元素的父容器应避免使用 `overflow: hidden` 或 `position: relative` 等可能影响吸顶效果的样式。
-
-8. **内容大小**：吸顶元素的内容大小应适中，避免过大的内容导致吸顶区域占用过多屏幕空间。
-
-9. **样式继承**：customStyle 和 customClass 会应用到吸顶元素的根节点上，可以通过穿透选择器修改内部样式。
-
-10. **初始化位置**：组件会在初始化时计算元素位置，确保初始状态正确。
+- **wd-sticky 必须搭配 wd-resize**：`wd-sticky` 内部依赖 `wd-resize` 组件监听内容尺寸变化，请确保在使用时不要移除或替换该内部依赖。
+- **wd-sticky-box 与 wd-sticky 配对使用**：`wd-sticky-box` 需要通过 provide/inject 机制与内部的 `wd-sticky` 子组件通信实现容器范围吸顶，因此 `wd-sticky` 必须作为 `wd-sticky-box` 的直接后代或嵌套后代使用。
+- **容器高度限制**：`wd-sticky` 内容的高度不应大于或等于 `wd-sticky-box` 容器的高度，否则吸顶逻辑无意义，组件会强制将定位设为 absolute。
+- **IntersectionObserver 兼容性**：组件使用 `uni.createIntersectionObserver` 实现滚动监听，在不同平台（H5、小程序、App）的 IntersectionObserver API 行为可能存在差异，建议在目标平台进行充分测试。
+- **H5 端导航栏适配**：H5 端会自动增加 44px 导航栏高度的偏移计算，包括吸顶位置计算和元素边界查询。其他端不受影响。
+- **动态内容重算**：当 `wd-sticky` 或 `wd-sticky-box` 内部内容尺寸发生变化时，组件会自动清除旧的 IntersectionObserver 并重新创建，确保吸顶位置计算的准确性。
+- **zIndex 层级建议**：`wd-sticky` 默认 zIndex 为 1，若页面中存在其他固定定位元素，请根据实际层级关系调高该值确保吸顶元素不被遮挡。
+- **fixed 定位特性**：吸顶状态下元素使用 fixed 定位，会从文档流中脱离。`wd-sticky` 的根元素会保持相对定位并占据原始空间，避免页面出现布局跳动。
+- **多平台 position 判断差异**：H5 和 APP-PLUS 端在判断吸顶触发条件时使用严格小于比较（`<`），其他端使用小于等于比较（`<=``），这是为了适配各平台渲染引擎的细微差异。

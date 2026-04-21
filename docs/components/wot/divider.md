@@ -1,214 +1,195 @@
-# Divider 分割线组件
-
+# Divider 分割线
 <demo-model url="/subPages/divider/Index"></demo-model>
-
 
 ## 组件概况
 
-### 组件概述
-Divider 组件是一个用于分隔内容区块的布局组件，支持水平和垂直两种方向，可自定义样式、内容位置和线宽，常用于列表、表单、卡片等组件之间的分隔。
+Divider 分割线组件用于在页面或内容区块之间创建视觉分隔，帮助用户区分不同的内容模块。该组件支持水平和垂直两种方向，提供实线与虚线样式选择，并支持在分割线中插入文字或图标等自定义内容，可灵活控制内容位置与颜色，适用于多种布局场景，是构建清晰信息层级不可或缺的界面元素。
 
-### 详细功能描述
-- 支持水平和垂直两种分割线方向
-- 支持自定义分割线颜色
-- 支持实线和虚线两种样式
-- 支持 0.5px 细线和正常线宽
-- 支持在水平分割线中间、左侧或右侧添加自定义内容
-- 支持自定义样式和类名
-- 轻量级实现，无复杂逻辑
+## 核心功能描述
 
-### 适用业务场景
-- 列表项之间的分隔
-- 表单区块之间的分隔
-- 卡片组件之间的分隔
-- 页面内容区域的分隔
-- 导航菜单的分隔
-- 对话框内容区域的分隔
+- **方向切换**：支持水平分割线（默认）与垂直分割线，适配不同布局需求
+- **实线与虚线**：默认显示实线，通过 `dashed` 属性可切换为虚线样式
+- **Hairline 细线**：默认显示 0.5px 的细线效果，提升视觉精致度
+- **内容展示**：支持在分割线中间插入文字、图标等自定义内容
+- **内容位置控制**：水平分割线可设置内容居左、居中或居右对齐
+- **自定义颜色**：支持自定义文字和线条颜色
+- **暗色模式支持**：内置 dark 主题样式，自动跟随系统主题切换
 
-## 完整API参考
+## 适用业务场景
+
+- **内容分隔**：在列表项、段落或功能模块之间添加分割线，区分不同内容区域
+- **信息层级划分**：在详情页中使用分割线划分基本信息、详细描述、评论等不同层级
+- **垂直元素分隔**：在导航栏、工具栏等水平排列的元素之间使用垂直分割线进行视觉区分
+- **数据分组展示**：在表格或卡片列表中使用分割线对数据进行分组展示
+
+## API
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| color | string | - | 否 | 自定义分割线颜色 |
-| contentPosition | string | center | 否 | 内容位置，可选值为 `left` `right` `center` |
+
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| color | string | - | 否 | 自定义分割线及内容颜色 |
+| contentPosition | string | 'center' | 否 | 内容位置，可选值为 `left`、`center`、`right` |
 | dashed | boolean | false | 否 | 是否显示为虚线 |
 | vertical | boolean | false | 否 | 是否为垂直分割线 |
-| hairline | boolean | true | 否 | 是否显示为 0.5px 的线 |
+| hairline | boolean | true | 否 | 是否显示为 0.5px 的细线 |
 | customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+| customClass | string | '' | 否 | 自定义根节点类名 |
 
 ### Events
-| 事件名 | 触发条件 | 参数说明 |
-| --- | --- | --- |
+
+组件不对外暴露任何事件。
 
 ### Methods
-| 方法名 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
+
+组件不对外暴露任何方法。
 
 ### Slots
-| 插槽名 | 作用域变量 | 使用说明 |
-| --- | --- | --- |
-| default | - | 水平分割线的内容插槽，仅在非垂直方向下显示 |
 
-## 多场景使用示例代码
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 自定义分割线中间的内容，可插入文字、图标或其他组件。仅在水平分割线（`vertical` 为 `false`）时生效 |
 
-### 基础用法
+## 使用示例
+
+### 示例 1：基础用法
+
+最基础的分割线用法，展示实线细线效果。
+
 ```vue
 <template>
   <view>
-    <text>上方内容</text>
-    <!-- 基础水平分割线 -->
-    <wd-divider />
-    <text>下方内容</text>
+    <wd-divider></wd-divider>
+    <wd-divider :hairline="false"></wd-divider>
   </view>
 </template>
+<script lang="ts" setup>
+</script>
 ```
 
-### 垂直分割线
-```vue
-<template>
-  <view class="flex-container">
-    <text>左侧内容</text>
-    <!-- 垂直分割线 -->
-    <wd-divider vertical />
-    <text>右侧内容</text>
-  </view>
-</template>
+第一条分割线默认开启 `hairline` 属性，显示为 0.5px 的细线；第二条分割线关闭 `hairline`，显示为常规宽度的分割线。
 
-<style scoped>
-.flex-container {
-  display: flex;
-  align-items: center;
-}
-</style>
-```
+### 示例 2：展示文本
 
-### 自定义颜色和样式
+在分割线中间插入文字内容，默认居中显示。
+
 ```vue
 <template>
   <view>
-    <text>上方内容</text>
-    <!-- 自定义颜色的分割线 -->
-    <wd-divider color="#1989fa" />
-    <!-- 虚线分割线 -->
-    <wd-divider dashed />
-    <!-- 自定义颜色和虚线 -->
-    <wd-divider color="#fa2c19" dashed />
-    <!-- 正常线宽的分割线 -->
-    <wd-divider hairline="false" />
-    <text>下方内容</text>
+    <wd-divider>展示文本</wd-divider>
   </view>
 </template>
+<script lang="ts" setup>
+</script>
 ```
 
-### 带内容的分割线
+通过默认插槽插入文本内容，文本两侧会自动延伸出分割线，形成内容居中的分割效果。
+
+### 示例 3：自定义渲染内容
+
+在分割线中间插入图标等自定义内容。
+
 ```vue
 <template>
   <view>
-    <text>上方内容</text>
-    <!-- 带内容的分割线，默认居中 -->
     <wd-divider>
-      <text class="divider-content">分割线内容</text>
+      <wd-icon name="down" size="20" />
     </wd-divider>
-    <!-- 内容居左 -->
-    <wd-divider content-position="left">
-      <text class="divider-content">左侧内容</text>
-    </wd-divider>
-    <!-- 内容居右 -->
-    <wd-divider content-position="right">
-      <text class="divider-content">右侧内容</text>
-    </wd-divider>
-    <!-- 带图标和文字的分割线 -->
-    <wd-divider>
-      <view class="divider-content">
-        <text class="icon">📌</text>
-        <text>重要分割线</text>
-      </view>
-    </wd-divider>
-    <text>下方内容</text>
   </view>
 </template>
-
-<style scoped>
-.divider-content {
-  font-size: 14px;
-  color: #646566;
-  padding: 0 12px;
-}
-</style>
+<script lang="ts" setup>
+</script>
 ```
 
-### 自定义样式和类
+该示例在分割线中间插入了一个向下箭头图标，适用于需要引导用户注意力的场景，如展开更多内容提示等。
+
+### 示例 4：内容位置
+
+控制分割线中文字或内容的对齐位置。
+
 ```vue
 <template>
   <view>
-    <text>上方内容</text>
-    <!-- 自定义样式的分割线 -->
-    <wd-divider 
-      custom-style="margin: 20px 0; padding: 10px 0;" 
-      custom-class="my-divider"
-    />
-    <!-- 垂直分割线自定义样式 -->
-    <view class="flex-container">
-      <text>左侧内容</text>
-      <wd-divider 
-        vertical 
-        custom-style="height: 20px; margin: 0 10px;" 
-      />
-      <text>右侧内容</text>
+    <wd-divider>中间</wd-divider>
+    <wd-divider content-position="left">左侧</wd-divider>
+    <wd-divider content-position="right">右侧</wd-divider>
+  </view>
+</template>
+<script lang="ts" setup>
+</script>
+```
+
+通过 `contentPosition` 属性可以控制内容的位置，可选值为 `left`（左侧）、`center`（居中，默认值）、`right`（右侧）。内容位置的设置仅在水平分割线且存在插槽内容时生效。
+
+### 示例 5：虚线分割
+
+展示虚线样式的分割线效果。
+
+```vue
+<template>
+  <view>
+    <wd-divider dashed></wd-divider>
+    <wd-divider dashed>虚线分割</wd-divider>
+  </view>
+</template>
+<script lang="ts" setup>
+</script>
+```
+
+通过 `dashed` 属性可将分割线设置为虚线样式，适用于需要弱化分隔感或表示可选/非强制内容的场景。
+
+### 示例 6：自定义颜色
+
+自定义分割线及文字的颜色。
+
+```vue
+<template>
+  <view>
+    <wd-divider color="#4D80F0">自定义颜色</wd-divider>
+  </view>
+</template>
+<script lang="ts" setup>
+</script>
+```
+
+通过 `color` 属性可同时修改分割线和文字的颜色，适用于需要与主题色保持一致或强调特定分隔区域的场景。
+
+### 示例 7：垂直分割线
+
+在水平排列的元素之间使用垂直分割线进行视觉分隔。
+
+```vue
+<template>
+  <view>
+    <view class="content">
+      <text>文本</text>
+      <wd-divider vertical />
+      <text>文本</text>
+      <wd-divider vertical dashed />
+      <text>文本</text>
+      <wd-divider vertical :hairline="false" />
+      <text>文本</text>
+      <wd-divider vertical color="#1989fa" />
+      <text>文本</text>
     </view>
-    <text>下方内容</text>
   </view>
 </template>
-
-<style scoped>
-.flex-container {
-  display: flex;
-  align-items: center;
-}
-
-.my-divider {
-  /* 自定义类样式 */
-  background-color: #f5f7fa;
-}
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .content {
+    padding: 12rpx 15px;
+  }
 </style>
 ```
 
-## 样式定制指南
-
-### customStyle 用法
-使用 `customStyle` 属性可以直接为分割线添加内联样式，例如：
-```vue
-<wd-divider custom-style="margin: 20px 0; color: #1989fa;" />
-```
-
-### customClass 用法
-通过 `customClass` 属性可以为组件添加自定义CSS类，便于进行更复杂的样式定制：
-```vue
-<wd-divider custom-class="custom-divider" />
-
-<style>
-.custom-divider {
-  /* 全局样式 */
-  margin: 20px 0;
-  padding: 10px 0;
-  background-color: #f5f7fa;
-}
-</style>
-```
-
-### 垂直分割线样式调整
-对于垂直分割线，可以通过自定义样式调整其高度、边距等：
-```vue
-<wd-divider vertical custom-style="height: 30px; margin: 0 15px;" />
-```
+垂直分割线通过 `vertical` 属性开启，适用于工具栏、导航菜单等水平排列元素的视觉分隔。垂直模式下支持虚线、细线、自定义颜色等所有基础属性，但不支持插入内容插槽。
 
 ## 注意事项
 
-1. **内容插槽**: 只有水平分割线（`vertical` 为 `false`）支持内容插槽，垂直分割线不显示插槽内容。
-2. **线宽设置**: `hairline` 属性为 `true` 时，分割线显示为 0.5px 细线，`false` 时显示为 1px 正常线宽。
-3. **颜色继承**: 分割线颜色会同时应用到线条和插槽内容上，如需单独设置内容颜色，需在插槽内部元素上设置。
-4. **内容位置**: 只有在设置了插槽内容时，`contentPosition` 属性才会生效。
-5. **样式隔离**: 组件使用 `styleIsolation: 'shared'`，确保自定义样式能正常生效。
-6. **性能优化**: 由于该组件结构简单，性能消耗极低，可放心大量使用。
+1. **垂直分割线不支持内容插槽**：当 `vertical` 设置为 `true` 时，默认插槽内容不会渲染，垂直分割线仅作为纯分割线使用
+2. **内容位置仅水平模式生效**：`contentPosition` 属性仅在水平分割线（`vertical` 为 `false`）且存在插槽内容时生效
+3. **hairline 默认开启**：默认情况下分割线显示为 0.5px 的细线效果，如需常规宽度线条需显式设置 `hairline` 为 `false`
+4. **customStyle 优先级**：通过 `customStyle` 设置的样式会与组件内部样式合并，优先级高于默认样式
+5. **暗色模式适配**：组件已内置暗色主题样式，颜色值会自动适配系统主题，无需额外配置
+6. **垂直分割线对齐方式**：垂直分割线使用 `display: inline-block` 和 `vertical-align: middle`，与相邻文本元素自然居中对齐

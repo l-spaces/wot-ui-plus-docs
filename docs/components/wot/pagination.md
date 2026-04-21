@@ -2,241 +2,191 @@
 
 <demo-model url="/subPages/pagination/Index"></demo-model>
 
-
 ## 组件概况
 
-### 组件概述
-分页组件用于展示和切换页码，通常用于列表页、数据表格、搜索结果页等需要分页显示数据的场景。wd-pagination 组件提供了灵活的配置选项，支持页码切换、总条数显示、图标/文本模式切换等功能。
+Pagination 分页组件是一个用于长数据列表或表格场景的页码导航组件。该组件提供上一页/下一页按钮、当前页码与总页数显示、以及可选的分页信息展示功能。支持文字和图标两种导航按钮样式，支持 v-model 双向绑定当前页码，并在页码切换时触发 change 事件。当总页数只有一页时，可选择隐藏整个组件。适用于需要分页展示数据的各种业务场景。
 
-### 详细功能描述
-- 支持当前页双向绑定
-- 支持总页数自动计算或手动设置
-- 支持上一页/下一页切换
-- 支持图标模式和文本模式切换
-- 支持显示总条数、当前页信息
-- 支持自定义上一页/下一页文本
-- 支持总页数为1时隐藏分页组件
-- 支持国际化文本
-- 支持自定义样式和类名
+## 核心功能描述
 
-### 适用业务场景
-- 列表页数据分页
-- 数据表格分页
-- 搜索结果页分页
-- 长列表加载更多
-- 任何需要分页显示数据的场景
+- **页码切换导航**：提供上一页和下一页按钮，当前页码为第一页时上一页按钮禁用，当前页码为最后一页时下一页按钮禁用
+- **页码信息展示**：居中显示当前页码与总页数的比例关系，格式为 "当前页 / 总页数"
+- **图标模式**：通过 `show-icon` 属性切换为图标导航模式，使用箭头图标替代文字 "上一页 / 下一页"
+- **分页信息提示**：通过 `show-message` 属性展示分页详细信息，包括当前页码、总条数和每页条数，信息通过国际化翻译系统输出
+- **自动页数计算**：当传入 `total`（总条数）和 `pageSize`（每页条数）时，组件自动通过 `Math.ceil(total / pageSize)` 计算总页数，优先于 `totalPage` 属性
+- **单页隐藏**：通过 `hide-if-one-page` 属性控制在总页数只有一页时是否隐藏整个分页组件，减少不必要的 UI 元素
+- **自定义按钮文案**：通过 `prev-text` 和 `next-text` 属性自定义上一页和下一页按钮的显示文字，未设置时使用国际化默认值
+- **按钮样式联动**：可点击状态的按钮使用实心样式（plain 为 false），禁用状态的按钮使用线框样式（plain 为 true）
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- **数据列表分页**：在商品列表、用户列表、订单列表等数据展示场景中，将大量数据分页展示，提升页面加载性能和用户体验
+- **表格分页导航**：在管理后台的数据表格底部放置分页组件，配合每页显示条数设置，方便用户浏览和管理大批量数据
+- **搜索结果分页**：在搜索结果页中展示分页导航，让用户能够逐页浏览搜索结果
+- **信息流分页加载**：在需要控制单次加载数据量的场景中，通过分页组件替代无限滚动，提供更明确的浏览进度感知
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| modelValue | number | - | 是 | 当前页 |
-| totalPage | number | 1 | 否 | 总页数，如果有total，则优先使用total计算页数 |
-| showIcon | boolean | false | 否 | 是否展示分页为Icon图标 |
-| showMessage | boolean | false | 否 | 是否展示总条数 |
-| total | number | 0 | 否 | 总条数 |
-| pageSize | number | 10 | 否 | 每页条数 |
-| prevText | string | - | 否 | 上一页文本 |
-| nextText | string | - | 否 | 下一页文本 |
-| hideIfOnePage | boolean | true | 否 | 总页数只有一页时是否隐藏 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+## API
 
-### Events事件
+### Props
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| change | 页码改变时 | { value: number } - 新的页码值 |
-| update:modelValue | 页码改变时 | number - 新的页码值 |
+| 属性名称 | 数据类型 | 默认值 | 是否必填 | 说明 |
+| --- | --- | --- | --- | --- |
+| v-model / modelValue | number | - | 是 | 当前页码，支持双向绑定 |
+| totalPage | number | 1 | 否 | 总页数，如果同时传入了 total 则优先使用 total 和 pageSize 计算 |
+| total | number | 0 | 否 | 数据总条数，组件会自动根据 total 和 pageSize 计算总页数 |
+| pageSize | number | 10 | 否 | 每页显示的数据条数，与 total 配合使用计算总页数 |
+| showIcon | boolean | false | 否 | 是否使用图标模式显示上一页/下一页按钮，默认显示文字 |
+| showMessage | boolean | false | 否 | 是否展示分页信息提示，包括当前页、总条数和每页条数 |
+| hideIfOnePage | boolean | true | 否 | 当总页数只有一页时是否隐藏整个组件 |
+| prevText | string | - | 否 | 上一页按钮的自定义文字，未设置时使用国际化默认值 "上一页" |
+| nextText | string | - | 否 | 下一页按钮的自定义文字，未设置时使用国际化默认值 "下一页" |
+| customStyle | string | '' | 否 | 自定义组件根元素样式 |
+| customClass | string | '' | 否 | 自定义组件根元素类名 |
 
-### Methods方法
+### Events
 
-该组件没有对外暴露的方法。
+| 事件名称 | 回调参数 | 说明 |
+| --- | --- | --- |
+| change | { value: number } | 页码切换时触发，返回切换后的目标页码值 |
+| update:modelValue | number | 页码值更新时触发，用于 v-model 双向绑定 |
 
-### Slots插槽
+### Methods
 
-该组件没有定义插槽。
+当前源码中未通过 `defineExpose` 暴露实例方法。
 
-## 多场景使用示例代码
+### Slots
 
-### 1. 基础用法
+当前源码中未提供自定义插槽。
+
+## 使用示例
+
+### 示例 1：基础用法
+
+效果说明：展示分页组件的最小接入方式，通过 v-model 绑定当前页码，传入 total 总条数后组件自动计算总页数，点击上一页/下一页按钮切换页码。
 
 ```vue
 <template>
-  <view class="pagination-demo">
-    <wd-pagination 
-      v-model="currentPage" 
-      :total="100" 
-      :page-size="10" 
-      @change="handlePageChange"
-    />
-    <view class="page-info">当前页码：{{ currentPage }}</view>
-  </view>
+  <wd-pagination v-model="page" :total="total" @change="handleChange"></wd-pagination>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const currentPage = ref(1)
+const page = ref<number>(1)
+const total = ref<number>(190)
 
-const handlePageChange = (params: { value: number }) => {
-  console.log('页码改变', params.value)
+function handleChange({ value }: { value: number }) {
+  console.log('当前切换到第', value, '页')
+  // 在此处根据 value 请求对应页的数据
 }
 </script>
 
-<style scoped>
-.pagination-demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.page-info {
-  font-size: 16px;
-  color: #666;
-}
+<style scoped lang="scss">
+/* 本示例无需额外样式。 */
 </style>
 ```
 
-### 2. 显示总条数
+### 示例 2：图标模式
+
+效果说明：通过 `show-icon` 属性启用图标导航模式，上一页和下一页按钮显示为箭头图标而非文字，适用于空间紧凑的场景或偏好图形化交互的设计。
 
 ```vue
 <template>
-  <view class="pagination-demo">
-    <wd-pagination 
-      v-model="currentPage" 
-      :total="150" 
-      :page-size="20" 
-      show-message
-    />
-  </view>
+  <wd-pagination
+    v-model="page"
+    :total="total"
+    show-icon
+    @change="handleChange"
+  ></wd-pagination>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const currentPage = ref(1)
-</script>
-```
+const page = ref<number>(1)
+const total = ref<number>(19)
 
-### 3. 图标模式
-
-```vue
-<template>
-  <view class="pagination-demo">
-    <wd-pagination 
-      v-model="currentPage" 
-      :total="200" 
-      :page-size="15" 
-      show-icon
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const currentPage = ref(1)
-</script>
-```
-
-### 4. 自定义上一页/下一页文本
-
-```vue
-<template>
-  <view class="pagination-demo">
-    <wd-pagination 
-      v-model="currentPage" 
-      :total="120" 
-      :page-size="10" 
-      prev-text="上一页" 
-      next-text="下一页"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const currentPage = ref(1)
-</script>
-```
-
-### 5. 总页数为1时不隐藏
-
-```vue
-<template>
-  <view class="pagination-demo">
-    <wd-pagination 
-      v-model="currentPage" 
-      :total="5" 
-      :page-size="10" 
-      :hide-if-one-page="false"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const currentPage = ref(1)
-</script>
-```
-
-## 样式定制指南
-
-### customStyle 用法
-使用 customStyle 属性可以自定义分页组件的内联样式，例如修改颜色、字体大小、间距等。
-
-```vue
-<wd-pagination 
-  v-model="currentPage" 
-  :total="100" 
-  :page-size="10" 
-  custom-style="color: #409eff; font-size: 14px; gap: 10px;"
-/>
-```
-
-### customClass 用法
-使用 customClass 属性可以为分页组件添加自定义样式类，便于在外部 CSS 中进行样式定制。
-
-```vue
-<wd-pagination 
-  v-model="currentPage" 
-  :total="100" 
-  :page-size="10" 
-  custom-class="my-pagination"
-/>
-
-<style scoped>
-:deep(.my-pagination) {
-  --wd-button-default-color: #606266;
-  --wd-button-default-bg-color: #f5f7fa;
-  --wd-button-default-border-color: #dcdfe6;
-  --wd-button-plain-color: #409eff;
-  --wd-button-plain-border-color: #c6e2ff;
+function handleChange({ value }: { value: number }) {
+  console.log('当前切换到第', value, '页')
+  // 在此处根据 value 请求对应页的数据
 }
+</script>
+
+<style scoped lang="scss">
+/* 本示例无需额外样式。 */
+</style>
+```
+
+### 示例 3：展示分页信息提示
+
+效果说明：同时开启 `show-icon` 和 `show-message` 属性，按钮显示为图标的同时，组件底部展示详细的分页信息，包括当前所在页、数据总条数以及每页显示的条数，帮助用户了解当前浏览位置和数据总量。
+
+```vue
+<template>
+  <wd-pagination
+    v-model="page"
+    :total="total"
+    :page-size="pageSize"
+    show-icon
+    show-message
+    @change="handleChange"
+  ></wd-pagination>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const page = ref<number>(1)
+const total = ref<number>(160)
+const pageSize = ref<number>(20)
+
+function handleChange({ value }: { value: number }) {
+  console.log('当前切换到第', value, '页')
+  // 在此处根据 value 请求对应页的数据
+}
+</script>
+
+<style scoped lang="scss">
+/* 本示例无需额外样式。 */
+</style>
+```
+
+### 示例 4：自定义按钮文字
+
+效果说明：通过 `prev-text` 和 `next-text` 属性自定义上下页按钮的显示文案，适用于需要非默认文字描述的场景，如使用 "前一篇 / 后一篇" 等特殊文案。
+
+```vue
+<template>
+  <wd-pagination
+    v-model="page"
+    :total-page="10"
+    prev-text="前一篇"
+    next-text="后一篇"
+    @change="handleChange"
+  ></wd-pagination>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const page = ref<number>(1)
+
+function handleChange({ value }: { value: number }) {
+  console.log('当前切换到第', value, '页')
+}
+</script>
+
+<style scoped lang="scss">
+/* 本示例无需额外样式。 */
 </style>
 ```
 
 ## 注意事项
 
-1. **总页数计算**：如果同时设置了 total 和 totalPage 属性，组件会优先使用 total 和 pageSize 计算总页数，忽略 totalPage 属性。
-
-2. **双向绑定**：组件支持使用 v-model 双向绑定 currentPage，也可以使用 :model-value 和 @update:model-value 手动绑定。
-
-3. **hideIfOnePage 属性**：当 hideIfOnePage 为 true 且总页数只有一页时，分页组件会自动隐藏。
-
-4. **showMessage 属性**：当 showMessage 为 true 时，组件会显示当前页、总页数、总条数等信息。
-
-5. **showIcon 属性**：当 showIcon 为 true 时，上一页/下一页按钮会显示为图标，否则显示为文本。
-
-6. **国际化支持**：组件内置了国际化支持，默认使用英文文本，也可以通过 prevText 和 nextText 属性自定义文本。
-
-7. **性能优化**：对于大数据量的场景，建议使用 total 属性计算总页数，而不是手动设置 totalPage 属性。
-
-8. **样式定制**：可以通过 customStyle 和 customClass 属性自定义组件样式，也可以通过 CSS 变量修改组件的主题色、边框颜色等。
+- **必须绑定 modelValue**：`modelValue` 是必填属性，请通过 v-model 或 :model-value 绑定当前页码。当前页码小于等于 1 时上一页按钮禁用，大于等于总页数时下一页按钮禁用。
+- **总页数计算优先级**：当同时传入 `total` 和 `totalPage` 时，组件优先使用 `total` 除以 `pageSize` 计算总页数。建议根据实际业务情况选择传入方式：有数据总量时传入 `total`，直接知道页数时传入 `totalPage`。
+- **单页自动隐藏**：`hide-if-one-page` 默认值为 true，即总页数只有一页时整个组件不会渲染。如需在单页时仍然显示分页组件，请将此属性设为 false。
+- **国际化文案**：未设置 `prev-text` 和 `next-text` 时，按钮文字来自组件库的国际化系统，默认文案为 "上一页" 和 "下一页"。分页信息提示中的文案（如 "第 x 页"、"共 x 条"、"每页 x 条"）同样由国际化系统提供。
+- **按钮状态联动**：按钮的 `plain` 属性与可点击状态联动，可点击时为实心按钮，禁用时为线框样式，同时按钮会设置 `disabled` 属性阻止点击。请勿通过外部 CSS 覆盖按钮的禁用状态。
+- **页数变更重新计算**：当 `total` 属性发生变化时，组件会自动重新计算总页数。请确保传入的 `pageSize` 值始终大于 0，否则可能导致计算异常（除以零）。
+- **页码边界保护**：点击上一页按钮时，如果当前页码小于 2 则不触发切换；点击下一页按钮时，如果当前页码大于等于总页数减 1 则不触发切换，防止越界。
+- **暗色主题适配**：组件内置了对 wot-theme-dark 暗色主题的样式适配，在暗色模式下背景色和文字颜色会自动切换，无需额外配置。

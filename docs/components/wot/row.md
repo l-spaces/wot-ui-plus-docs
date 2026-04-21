@@ -1,282 +1,370 @@
-# Row 行容器
+# Row 栅格布局
 <demo-model url="/subPages/row/Index"></demo-model>
 
 ## 组件概况
 
-### 组件概述
-Row组件是一个栅格布局的行容器组件，用于配合Col组件实现响应式栅格系统。它提供了列间距控制和自动换行功能，帮助开发者快速构建灵活的网格布局。
+Row 栅格布局组件由 `wd-row` 和 `wd-col` 两个关联组件组成，基于经典的 24 分栏栅格系统，用于快速构建灵活的页面布局。`wd-row` 作为行容器管理列间距与换行行为，`wd-col` 作为列元素控制宽度占比与偏移距离，两者配合使用可实现响应式、高自由度的页面排版。
 
-### 详细功能描述
-- 支持设置列之间的间距（gutter）
-- 支持自动换行（wrap）
-- 配合Col组件实现完整的栅格布局系统
-- 支持自定义样式和类名
-- 响应式设计，适配不同屏幕尺寸
-- 支持多端适配
+## 核心功能描述
 
-### 适用业务场景
-- 页面布局设计
-- 表单布局
-- 卡片网格展示
-- 响应式导航栏
-- 商品列表展示
-- 复杂数据表格布局
+- **24 分栏系统**：采用 24 分栏设计，`span` 取值范围为 0~24，可灵活组合实现任意宽度比例
+- **列间距控制**：通过 `gutter` 属性设置列元素之间的间距，单位为 px
+- **列偏移**：通过 `offset` 属性实现列的左侧偏移，偏移量同样基于 24 分栏计算
+- **自动换行**：通过 `wrap` 属性控制列元素是否自动换行，适用于动态内容场景
+- **Flex 布局**：行容器基于 Flex 布局实现，列元素使用 float 浮动布局
+- **数值校验**：组件内置对 `gutter`、`span`、`offset` 的合法性校验，非法值会在控制台输出警告
 
-## 完整API参考
+## 适用业务场景
 
-### Props
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| gutter | number | 0 | 否 | 列元素之间的间距（单位为px），必须大于等于0 |
-| wrap | boolean | false | 否 | 是否自动换行 |
-| customClass | string | - | 否 | 自定义类名 |
-| customStyle | object | - | 否 | 自定义样式，对象形式 |
+- **表单布局**：多列表单字段的对齐排版，如两列、三列表单
+- **信息卡片排列**：产品列表、新闻卡片等需要等宽或不等宽排列的场景
+- **响应式页面结构**：页面主体与侧边栏的组合布局
+- **数据看板**：统计面板、数据卡片的网格化展示
+- **复杂页面骨架**：作为页面整体结构的布局骨架，嵌套其他业务组件
+
+## API
+
+### wd-row Props
+
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| gutter | number | `0` | 否 | 列元素之间的间距（单位为 px），必须大于等于 0 |
+| wrap | boolean | `false` | 否 | 是否允许列元素自动换行 |
+| customStyle | string | `''` | 否 | 自定义根节点样式 |
+| customClass | string | `''` | 否 | 自定义根节点类名 |
+
+### wd-col Props
+
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| span | number | `24` | 否 | 列元素宽度，基于 24 分栏系统，必须大于等于 0 |
+| offset | number | `0` | 否 | 列元素左侧偏移距离，基于 24 分栏系统，必须大于等于 0 |
+| customStyle | string | `''` | 否 | 自定义根节点样式 |
+| customClass | string | `''` | 否 | 自定义根节点类名 |
 
 ### Events
-无
+
+组件不对外暴露任何事件。
 
 ### Methods
-无
+
+组件不对外暴露任何方法。
 
 ### Slots
-| 插槽名 | 作用域变量 | 说明 |
-|--------|------------|------|
-| default | - | 默认插槽，用于放置wd-col组件 |
 
-## 多场景使用示例
+#### wd-row Slots
 
-### 基础用法
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 默认插槽，用于放置 `wd-col` 列元素 |
+
+#### wd-col Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 默认插槽，用于放置任意内容（文字、图片、其他组件等） |
+
+## 使用示例
+
+### 示例 1：基础用法
+
+展示不同分栏比例的布局效果，通过 `span` 属性控制每列的宽度占比。
+
 ```vue
 <template>
   <view>
+    <!-- 单列占满整行 -->
     <wd-row>
-      <wd-col span="12">
-        <view class="demo-col">span: 12</view>
+      <wd-col :span="24">
+        <view class="bg-dark1">span: 24</view>
       </wd-col>
-      <wd-col span="12">
-        <view class="demo-col">span: 12</view>
+    </wd-row>
+
+    <!-- 两列等分 -->
+    <wd-row>
+      <wd-col :span="12">
+        <view class="bg-dark">span: 12</view>
+      </wd-col>
+      <wd-col :span="12">
+        <view class="bg-light">span: 12</view>
+      </wd-col>
+    </wd-row>
+
+    <!-- 三列等分 -->
+    <wd-row>
+      <wd-col :span="8">
+        <view class="bg-dark">span: 8</view>
+      </wd-col>
+      <wd-col :span="8">
+        <view class="bg-light">span: 8</view>
+      </wd-col>
+      <wd-col :span="8">
+        <view class="bg-dark">span: 8</view>
+      </wd-col>
+    </wd-row>
+
+    <!-- 四列等分 -->
+    <wd-row>
+      <wd-col :span="6">
+        <view class="bg-dark">span: 6</view>
+      </wd-col>
+      <wd-col :span="6">
+        <view class="bg-light">span: 6</view>
+      </wd-col>
+      <wd-col :span="6">
+        <view class="bg-dark">span: 6</view>
+      </wd-col>
+      <wd-col :span="6">
+        <view class="bg-light">span: 6</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
-
-<style scoped>
-.demo-col {
-  background-color: #409eff;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 4px;
-}
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .bg-dark1,
+  .bg-dark,
+  .bg-light {
+    border-radius: 4px;
+    min-height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+  .bg-dark1 {
+    background: #99a9bf;
+    color: #fff;
+  }
+  .bg-dark {
+    background: #d3dce6;
+  }
+  .bg-light {
+    background: #e5e9f2;
+  }
 </style>
 ```
 
-### 设置列间距
+`span` 属性默认值为 24，表示列元素占满整行宽度。将多个列的 `span` 值相加等于 24 时，它们恰好铺满一行。常见的等分组合有：`12 + 12`（两列）、`8 + 8 + 8`（三列）、`6 + 6 + 6 + 6`（四列）。
+
+### 示例 2：分栏偏移
+
+通过 `offset` 属性实现列的左侧偏移，用于创建不对称布局或居中效果。
+
+```vue
+<template>
+  <view>
+    <!-- 第二列偏移 4 栏 -->
+    <wd-row>
+      <wd-col :span="4">
+        <view class="bg-dark">span: 4</view>
+      </wd-col>
+      <wd-col :span="8" :offset="4">
+        <view class="bg-light">span: 8 offset: 4</view>
+      </wd-col>
+    </wd-row>
+
+    <!-- 两列分别偏移 4 栏 -->
+    <wd-row>
+      <wd-col :span="8" :offset="4">
+        <view class="bg-dark">span: 8 offset: 4</view>
+      </wd-col>
+      <wd-col :span="8" :offset="4">
+        <view class="bg-light">span: 8 offset: 4</view>
+      </wd-col>
+    </wd-row>
+  </view>
+</template>
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .bg-dark,
+  .bg-light {
+    border-radius: 4px;
+    min-height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+  .bg-dark {
+    background: #d3dce6;
+  }
+  .bg-light {
+    background: #e5e9f2;
+  }
+</style>
+```
+
+`offset` 属性的计算方式与 `span` 相同，均基于 24 分栏系统。例如 `offset="4"` 表示向左偏移 4/24 的宽度。偏移量与 `span` 值之和不应超过 24，否则会导致布局溢出。
+
+### 示例 3：分栏间隔
+
+通过 `gutter` 属性为列元素之间添加间距，使布局更加舒展。
+
 ```vue
 <template>
   <view>
     <wd-row :gutter="20">
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
+      <wd-col :span="8">
+        <view class="bg-dark">span: 8</view>
       </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
+      <wd-col :span="8">
+        <view class="bg-light">span: 8</view>
       </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
-      </wd-col>
-    </wd-row>
-  </view>
-</template>
-
-<style scoped>
-.demo-col {
-  background-color: #67c23a;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 4px;
-}
-</style>
-```
-
-### 自动换行
-```vue
-<template>
-  <view>
-    <wd-row :gutter="10" wrap>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
-      </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
-      </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
-      </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
-      </wd-col>
-      <wd-col span="8">
-        <view class="demo-col">span: 8</view>
+      <wd-col :span="8">
+        <view class="bg-dark">span: 8</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
-
-<style scoped>
-.demo-col {
-  background-color: #e6a23c;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 4px;
-}
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .bg-dark,
+  .bg-light {
+    border-radius: 4px;
+    min-height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+  .bg-dark {
+    background: #d3dce6;
+  }
+  .bg-light {
+    background: #e5e9f2;
+  }
 </style>
 ```
 
-### 响应式布局
+设置 `gutter="20"` 后，`wd-row` 会自动在左右两侧各设置 -10px 的外边距（负值），同时每个 `wd-col` 在左右两侧各设置 10px 的内边距，从而实现列与列之间 20px 的间距效果。注意 `gutter` 值必须大于等于 0，否则会输出错误日志。
+
+### 示例 4：混合比例布局
+
+结合实际业务场景，展示不同宽度比例的混合布局。
+
 ```vue
 <template>
   <view>
-    <wd-row :gutter="15" wrap>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
+    <!-- 主内容区 + 侧边栏（3:1 比例） -->
+    <wd-row :gutter="16">
+      <wd-col :span="18">
+        <view class="content-card">主内容区域</view>
       </wd-col>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
+      <wd-col :span="6">
+        <view class="sidebar-card">侧边栏</view>
       </wd-col>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
+    </wd-row>
+
+    <!-- 三栏不等宽布局 -->
+    <wd-row :gutter="16">
+      <wd-col :span="4">
+        <view class="nav-card">导航</view>
       </wd-col>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
+      <wd-col :span="16">
+        <view class="content-card">内容区</view>
       </wd-col>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
-      </wd-col>
-      <wd-col span="24" xs="12" sm="8" md="6" lg="4">
-        <view class="demo-col">响应式列</view>
+      <wd-col :span="4">
+        <view class="tool-card">工具区</view>
       </wd-col>
     </wd-row>
   </view>
 </template>
-
-<style scoped>
-.demo-col {
-  background-color: #f56c6c;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 4px;
-}
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .content-card,
+  .sidebar-card,
+  .nav-card,
+  .tool-card {
+    border-radius: 4px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  .content-card {
+    background: #d3dce6;
+  }
+  .sidebar-card {
+    background: #e5e9f2;
+  }
+  .nav-card {
+    background: #99a9bf;
+    color: #fff;
+  }
+  .tool-card {
+    background: #e5e9f2;
+  }
 </style>
 ```
 
-### 嵌套行布局
+### 示例 5：内容嵌套
+
+在列元素中嵌套任意业务组件或自定义内容。
+
 ```vue
 <template>
   <view>
-    <wd-row :gutter="10">
-      <wd-col span="12">
-        <view class="demo-col">
-          <wd-row :gutter="5" wrap>
-            <wd-col span="12">
-              <view class="demo-col demo-col-small">嵌套列 1</view>
-            </wd-col>
-            <wd-col span="12">
-              <view class="demo-col demo-col-small">嵌套列 2</view>
-            </wd-col>
-            <wd-col span="12">
-              <view class="demo-col demo-col-small">嵌套列 3</view>
-            </wd-col>
-            <wd-col span="12">
-              <view class="demo-col demo-col-small">嵌套列 4</view>
-            </wd-col>
-          </wd-row>
+    <wd-row :gutter="12">
+      <wd-col :span="8">
+        <view class="card">
+          <view class="card-title">卡片一</view>
+          <view class="card-desc">这是栅格布局中的自定义内容</view>
         </view>
       </wd-col>
-      <wd-col span="12">
-        <view class="demo-col">span: 12</view>
+      <wd-col :span="8">
+        <view class="card">
+          <view class="card-title">卡片二</view>
+          <view class="card-desc">支持嵌套任意组件</view>
+        </view>
+      </wd-col>
+      <wd-col :span="8">
+        <view class="card">
+          <view class="card-title">卡片三</view>
+          <view class="card-desc">灵活的布局方案</view>
+        </view>
       </wd-col>
     </wd-row>
   </view>
 </template>
-
-<style scoped>
-.demo-col {
-  background-color: #909399;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  border-radius: 4px;
-}
-
-.demo-col-small {
-  padding: 10px;
-  margin: 5px 0;
-}
+<script lang="ts" setup>
+</script>
+<style lang="scss" scoped>
+  .card {
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: #999;
+  }
 </style>
-```
-
-## 样式定制指南
-
-### 自定义类名
-通过`customClass`属性可以为Row组件添加自定义类名，用于覆盖默认样式。
-
-```vue
-<wd-row custom-class="my-row">
-  <!-- 内容 -->
-</wd-row>
-
-<style>
-.my-row {
-  /* 自定义样式 */
-  background-color: #f0f2f5;
-  padding: 20px;
-  border-radius: 8px;
-}
-</style>
-```
-
-### 自定义样式对象
-通过`customStyle`属性可以直接设置组件的内联样式。
-
-```vue
-<wd-row :custom-style="{ backgroundColor: '#f0f2f5', padding: '20px', borderRadius: '8px' }">
-  <!-- 内容 -->
-</wd-row>
 ```
 
 ## 注意事项
 
-1. **与Col组件配合使用**：Row组件必须与Col组件配合使用才能实现完整的栅格布局功能。
-
-2. **gutter参数限制**：gutter参数必须大于等于0，否则会在控制台输出警告信息。
-
-3. **响应式设计**：结合Col组件的xs、sm、md、lg、xl属性，可以实现不同屏幕尺寸下的响应式布局。
-
-4. **嵌套布局**：Row组件支持嵌套使用，但建议不要嵌套过深，以免影响性能和代码可读性。
-
-5. **样式隔离**：Row组件使用了`styleIsolation: 'shared'`，允许外部样式穿透到组件内部。
-
-6. **虚拟主机模式**：组件开启了`virtualHost: true`，在页面渲染时会被作为虚拟节点处理，不会生成额外的DOM元素。
-
-7. **多端适配**：组件支持H5、App、小程序等多端平台，但在不同平台上可能存在细微的样式差异。
-
-## 常见问题
-
-1. **Q: 为什么设置了gutter属性后，列元素之间没有间距？**
-   A: 请确保Row组件的直接子元素是Col组件，gutter属性只对直接子Col元素生效。
-
-2. **Q: 如何实现不等宽列布局？**
-   A: 通过设置Col组件的span属性为不同值，可以实现不等宽列布局。
-
-3. **Q: 为什么在小程序中Row组件的样式不生效？**
-   A: 请检查是否正确引入了组件样式，或者尝试使用自定义类名来覆盖默认样式。
-
-4. **Q: 如何实现垂直居中对齐？**
-   A: 可以通过自定义样式为Row组件添加`align-items: center`来实现垂直居中对齐。
-
-5. **Q: 支持的最大列数是多少？**
-   A: 栅格系统默认将一行分为24列，因此Col组件的span属性最大值为24。
+1. **分栏总和规则**：一行内所有列的 `span` 值之和应等于 24，若超过 24 则超出部分会自动换行（需配合 `wrap` 属性）或溢出容器
+2. **gutter 必须大于等于 0**：`gutter` 属性值小于 0 时，组件会输出错误日志到控制台，且不会产生预期间距效果
+3. **span/offset 必须大于等于 0**：`span` 和 `offset` 属性值小于 0 时，组件会输出错误日志到控制台
+4. **gutter 间距实现原理**：设置 `gutter` 后，`wd-row` 会添加左右负外边距（值为 `gutter / 2`），`wd-col` 会添加左右内边距（值为 `gutter / 2`），列内容的 `background-clip` 设为 `content-box`，确保背景色不覆盖间距区域
+5. **wrap 属性控制换行**：默认 `wrap` 为 `false`，列元素不会自动换行；设置为 `true` 时，列元素会在超过容器宽度时自动换行，适用于列数不固定的动态场景
+6. **默认 span 值为 24**：不设置 `span` 属性时，`wd-col` 默认占满整行宽度（24/24）
+7. **float 布局实现**：列元素底层使用 `float: left` 实现浮动布局，行容器使用 Flex 布局，并在行末通过 `::after` 伪元素清除浮动
+8. **customStyle 与 customClass 的使用**：通过 `customStyle` 和 `customClass` 可以对 `wd-row` 和 `wd-col` 进行自定义样式扩展，建议在列元素的内容区域设置样式，避免覆盖组件内部的定位逻辑

@@ -1,364 +1,263 @@
-# Signature 签名板
+# Signature 签名
 <demo-model url="/subPages/signature/Index"></demo-model>
 
 ## 组件概况
 
-### 组件概述
-Signature组件是一个功能丰富的签名组件，支持签名绘制、压感模式、撤销恢复、清空等功能，并能将签名导出为图片。它适用于需要用户手写签名的场景，如合同签署、表单确认等。
+Signature 签名组件是一个基于 Canvas 绘制的电子签名板组件，支持普通笔迹和笔锋（压感）两种绘制模式。组件内置撤销、恢复、清空等操作功能，支持将签名结果导出为 PNG/JPG 图片。签名板可以通过 `v-model` 或组件实例方法进行控制，支持自定义画笔颜色、宽度、画板背景、画板尺寸等配置。该组件广泛应用于电子合同签署、快递签收、工单确认等需要手写签名的业务场景。
 
-### 详细功能描述
-- 支持基本的签名绘制功能
-- 支持压感模式（笔锋效果），根据绘制速度调整笔画宽度
-- 支持撤销和恢复功能，可自定义撤销步长
-- 支持清空签名功能
-- 支持导出签名为图片，可自定义图片类型、质量和缩放比例
-- 支持自定义签名笔颜色和宽度
-- 支持自定义画布背景色
-- 支持禁用画布滚动
-- 支持自定义底部按钮文本和样式
-- 支持多端适配
+## 核心功能描述
 
-### 适用业务场景
-- 合同签署页面
-- 表单确认签名
-- 电子签名功能
-- 手写批注功能
-- 身份验证签名
+- **Canvas 绘制签名**：基于 UniApp Canvas API 实现流畅的手写签名绘制
+- **笔锋（压感）模式**：通过 `pressure` 属性开启笔锋效果，根据书写速度动态调整笔画粗细，快速书写产生细线条，慢速书写产生粗线条
+- **贝塞尔曲线平滑绘制**：笔锋模式下使用二次贝塞尔曲线（quadraticCurveTo）实现平滑笔画
+- **撤销与恢复**：开启 `enable-history` 后支持多步撤销和恢复操作，通过 `step` 属性控制步长
+- **清空签名**：一键清空画板内容
+- **导出图片**：将签名结果导出为指定格式（PNG/JPG）的临时文件，支持自定义导出质量（`quality`）和缩放比例（`export-scale`）
+- **自定义画笔**：通过 `pen-color` 和 `line-width` 自定义画笔颜色和宽度
+- **自定义画板**：支持设置画板的宽度（`width`）、高度（`height`）和背景色（`background-color`）
+- **按钮自定义**：通过 `#footer` 插槽完全自定义底部操作按钮区域
+- **禁用签名**：通过 `disabled` 属性禁止用户在画板上绘制
+- **压感参数调节**：支持自定义笔锋模式下的最小宽度（`min-width`）、最大宽度（`max-width`）和最小速度阈值（`min-speed`）
+- **平台兼容**：适配微信小程序（2D Canvas）和其他平台（非 2D Canvas）
 
-## 完整API参考
+## 适用业务场景
 
-### Props
-| 参数 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
+- **电子合同签署**：在电子签约场景中采集用户手写签名
+- **快递签收**：物流配送场景中收件人签名确认
+- **工单确认**：服务工单完成后客户签名确认
+- **审批流程**：移动审批流程中主管手写签字
+- **表单签署**：各类业务表单需要手写签名确认的场景
+- **弹窗签名**：在弹窗中展示签名板，签名完成后自动关闭弹窗
+- **横屏签名**：在横屏模式下进行签名，适配平板等大屏设备
+
+## API
+
+### Signature Props
+
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
 | penColor | string | '#000' | 否 | 签名笔颜色 |
-| lineWidth | number | 3 | 否 | 签名笔宽度 |
-| clearText | string | - | 否 | 清空按钮的文本 |
-| revokeText | string | - | 否 | 撤回按钮的文本 |
-| restoreText | string | - | 否 | 恢复按钮的文本 |
-| confirmText | string | - | 否 | 确认按钮的文本 |
-| fileType | string | 'png' | 否 | 目标文件的类型 |
-| quality | number | 1 | 否 | 目标文件的质量 |
-| exportScale | number | 1 | 否 | 导出图片的缩放比例 |
+| lineWidth | number | 3 | 否 | 签名笔宽度（非笔锋模式下生效） |
+| clearText | string | '' | 否 | 清空按钮的文本，未设置时跟随国际化配置 |
+| revokeText | string | '' | 否 | 撤回按钮的文本，未设置时跟随国际化配置 |
+| restoreText | string | '' | 否 | 恢复按钮的文本，未设置时跟随国际化配置 |
+| undoText | string | '' | 否 | 撤回按钮的文本，未设置时跟随国际化配置 |
+| redoText | string | '' | 否 | 恢复按钮的文本，未设置时跟随国际化配置 |
+| confirmText | string | '' | 否 | 确认按钮的文本，未设置时跟随国际化配置 |
+| fileType | string | 'png' | 否 | 目标文件的类型，支持 png / jpg |
+| quality | number | 1 | 否 | 目标文件的质量，取值范围 0~1 |
+| exportScale | number | 1 | 否 | 导出图片的缩放比例，值越大图片越清晰 |
 | disabled | boolean | false | 否 | 是否禁用签名板 |
-| height | number | - | 否 | 画布的高度 |
-| width | number | - | 否 | 画布的宽度 |
+| height | number / string | - | 否 | 画布的高度 |
+| width | number / string | - | 否 | 画布的宽度 |
 | backgroundColor | string | - | 否 | 画板的背景色 |
 | disableScroll | boolean | true | 否 | 是否禁用画布滚动 |
-| enableHistory | boolean | false | 否 | 是否开启历史记录 |
+| enableHistory | boolean | false | 否 | 是否开启历史记录（撤销/恢复） |
 | step | number | 1 | 否 | 撤回和恢复的步长 |
-| undoText | string | - | 否 | 撤回按钮的文本（已废弃，使用revokeText） |
-| redoText | string | - | 否 | 恢复按钮的文本（已废弃，使用restoreText） |
-| pressure | boolean | false | 否 | 是否启用压感模式(笔锋) |
+| pressure | boolean | false | 否 | 是否启用压感模式（笔锋） |
 | minWidth | number | 2 | 否 | 压感模式下笔画最小宽度 |
 | maxWidth | number | 6 | 否 | 压感模式下笔画最大宽度 |
 | minSpeed | number | 1.5 | 否 | 最小速度阈值，影响压感模式下的笔画宽度变化 |
-| customClass | string | - | 否 | 自定义类名 |
-| customStyle | object | - | 否 | 自定义样式，对象形式 |
+| customStyle | string | '' | 否 | 自定义根节点样式 |
+| customClass | string | '' | 否 | 自定义根节点样式类 |
 
-### Events
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| start | 开始绘制时 | 触摸事件对象 |
-| end | 结束绘制时 | 触摸事件对象 |
-| signing | 绘制过程中 | 触摸事件对象 |
-| confirm | 确认签名并生成图片后 | SignatureResult对象，包含tempFilePath、success、width、height |
-| clear | 清空签名后 | 无 |
+### Signature Events
 
-### Methods
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| init | forceUpdate?: boolean | void | 初始化签名板 |
-| clear | 无 | void | 清空签名 |
+| 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
+|---------|---------|---------|-------------|
+| start | 开始绘制签名时触发 | `(event: TouchEvent)` | 原生触摸事件对象 |
+| end | 结束绘制签名时触发 | `(event: TouchEvent)` | 原生触摸事件对象 |
+| signing | 签名绘制过程中持续触发 | `(event: TouchEvent)` | 原生触摸事件对象 |
+| confirm | 确认签名后生成图片时触发 | `(result: SignatureResult)` | 包含图片临时路径、宽度、高度和成功状态 |
+| clear | 清空签名时触发 | 无 | - |
+
+### Signature Methods
+
+通过 ref 可以获取 `wd-signature` 实例并调用以下方法：
+
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| init | `(forceUpdate?: boolean)` | void | 初始化签名板，`forceUpdate` 表示是否强制更新 |
+| clear | 无 | void | 清除签名 |
 | confirm | 无 | void | 确认签名并生成图片 |
-| restore | 无 | void | 恢复上一步操作 |
+| restore | 无 | void | 恢复上一步操作（重做） |
 | revoke | 无 | void | 撤销上一步操作 |
 
-### Slots
-| 插槽名 | 作用域变量 | 说明 |
-|--------|------------|------|
-| footer | clear: 清空签名函数, confirm: 确认签名函数, currentStep: 当前步骤, revoke: 撤销函数, restore: 恢复函数, can-undo: 是否可撤销, can-redo: 是否可恢复, history-list: 历史线条列表 | 自定义底部按钮区域，默认显示清空、撤销、恢复、确认按钮 |
+### Signature Slots
 
-## 多场景使用示例
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| footer | `{ clear, confirm, currentStep, restore, revoke, canUndo, canRedo, historyList }` | 自定义底部操作按钮区域，包含清除、确认、撤销、恢复等操作 |
 
-### 基础用法
+### SignatureResult 类型
+
+```ts
+interface SignatureResult {
+  tempFilePath: string   // 生成图片的临时路径
+  success: boolean       // 是否成功生成图片
+  width: number          // 生成图片的宽度
+  height: number         // 生成图片的高度
+}
+```
+
+## 使用示例
+
+### 示例一：基础签名
+
+最常用的签名用法，包含基础的签名绘制、清空和确认功能。
+
 ```vue
 <template>
-  <view>
-    <wd-signature 
-      @confirm="handleConfirm" 
-      @clear="handleClear"
-      placeholder="请在此处签名"
-    ></wd-signature>
-  </view>
+  <wd-signature
+    @confirm="confirm"
+    @clear="clear"
+    :export-scale="2"
+    background-color="#ffffff"
+  />
 </template>
 
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
-  // 处理签名图片
+<script lang="ts" setup>
+import type { SignatureResult } from '@/uni_modules/wot-ui-plus/components/wd-signature/types'
+
+function confirm(result: SignatureResult) {
+  if (result.success) {
+    uni.previewImage({
+      urls: [result.tempFilePath]
+    })
+  }
 }
 
-const handleClear = () => {
+function clear() {
   console.log('签名已清空')
 }
 </script>
 ```
 
-### 自定义样式和颜色
+### 示例二：笔锋模式与历史记录
+
+开启笔锋（压感）模式，实现类似真实手写笔的效果，并结合历史记录支持撤销和恢复操作。
+
 ```vue
 <template>
-  <view>
-    <wd-signature 
-      pen-color="#409eff" 
-      line-width="4" 
-      background-color="#f5f7fa"
-      @confirm="handleConfirm"
-    ></wd-signature>
-  </view>
+  <!-- 基础笔锋模式 -->
+  <wd-signature pressure :height="300" />
+
+  <!-- 自定义笔锋参数 -->
+  <wd-signature
+    pressure
+    :height="300"
+    :min-width="1"
+    :max-width="6"
+    :min-speed="1.5"
+    background-color="#f5f5f5"
+  />
+
+  <!-- 笔锋模式 + 历史记录 -->
+  <wd-signature
+    pressure
+    enable-history
+    :height="300"
+    :min-width="1"
+    :max-width="6"
+    background-color="#f5f5f5"
+  />
+</template>
+```
+
+### 示例三：自定义底部按钮
+
+通过 `#footer` 插槽完全自定义底部按钮区域，实现更灵活的操作控制。
+
+```vue
+<template>
+  <wd-signature :disabled="disabled" enable-history :step="3">
+    <template #footer="{ clear, confirm, currentStep, restore, revoke, historyList }">
+      <wd-button block @click="changeDisabled" v-if="disabled">开始签名</wd-button>
+      <block v-if="!disabled">
+        <wd-button size="small" plain @click="revoke" :disabled="currentStep <= 0">撤回</wd-button>
+        <wd-button size="small" plain @click="restore" :disabled="currentStep >= historyList.length">恢复</wd-button>
+        <wd-button size="small" plain @click="clear">清除</wd-button>
+        <wd-button size="small" @click="confirm">确定</wd-button>
+      </block>
+    </template>
+  </wd-signature>
 </template>
 
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const disabled = ref(true)
+
+function changeDisabled() {
+  disabled.value = false
 }
 </script>
 ```
 
-### 启用压感模式
+### 示例四：弹窗中使用签名板
+
+在弹窗中展示签名板，打开弹窗时通过 `init` 方法重新初始化画板，签名完成后自动关闭弹窗并预览签名图片。
+
 ```vue
 <template>
-  <view>
-    <wd-signature 
-      pressure 
-      :min-width="2" 
-      :max-width="8"
-      :min-speed="1.5"
-      @confirm="handleConfirm"
-    ></wd-signature>
-  </view>
+  <wd-button type="primary" @click="showPopup = true">打开签名板</wd-button>
+
+  <wd-popup
+    v-model="showPopup"
+    closable
+    safe-area-inset-bottom
+    position="bottom"
+    custom-style="padding: 48px 20px 20px 20px; border-radius: 16px 16px 0 0;"
+    @after-enter="signatureRef?.init()"
+  >
+    <wd-signature
+      ref="signatureRef"
+      :height="300"
+      enable-history
+      pressure
+      background-color="#f5f5f5"
+      @confirm="handlePopupConfirm"
+    />
+  </wd-popup>
 </template>
 
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
+<script lang="ts" setup>
+import { ref } from 'vue'
+import type { SignatureInstance, SignatureResult } from '@/uni_modules/wot-ui-plus/components/wd-signature/types'
+
+const showPopup = ref(false)
+const signatureRef = ref<SignatureInstance>()
+
+function handlePopupConfirm(result: SignatureResult) {
+  showPopup.value = false
+  if (result.success) {
+    uni.previewImage({
+      urls: [result.tempFilePath]
+    })
+  }
 }
 </script>
 ```
 
-### 启用历史记录（撤销/恢复）
+### 示例五：自定义画笔样式
+
+自定义画笔颜色和宽度，适配不同视觉风格需求。
+
 ```vue
 <template>
-  <view>
-    <wd-signature 
-      enable-history 
-      revoke-text="撤销" 
-      restore-text="恢复"
-      :step="1"
-      @confirm="handleConfirm"
-    ></wd-signature>
-  </view>
+  <wd-signature pen-color="#0083ff" :line-width="4" />
 </template>
-
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
-}
-</script>
-```
-
-### 自定义底部按钮
-```vue
-<template>
-  <view>
-    <wd-signature 
-      @confirm="handleConfirm" 
-      @clear="handleClear"
-    >
-      <template #footer="{ clear, confirm, canUndo, canRedo, revoke, restore }">
-        <view class="custom-footer">
-          <wd-button size="small" plain @click="revoke" :disabled="!canUndo">撤销</wd-button>
-          <wd-button size="small" plain @click="restore" :disabled="!canRedo">恢复</wd-button>
-          <wd-button size="small" plain @click="clear">清空</wd-button>
-          <wd-button size="small" type="primary" @click="confirm">确认签名</wd-button>
-        </view>
-      </template>
-    </wd-signature>
-  </view>
-</template>
-
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
-}
-
-const handleClear = () => {
-  console.log('签名已清空')
-}
-</script>
-
-<style scoped>
-.custom-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
-  background-color: #f5f7fa;
-  border-radius: 8px;
-}
-</style>
-```
-
-### 自定义导出配置
-```vue
-<template>
-  <view>
-    <wd-signature 
-      file-type="jpg" 
-      :quality="0.8" 
-      :export-scale="2"
-      @confirm="handleConfirm"
-    ></wd-signature>
-  </view>
-</template>
-
-<script setup lang="ts">
-const handleConfirm = (event: any) => {
-  console.log('签名图片路径:', event.tempFilePath)
-  console.log('图片质量:', event.quality)
-  console.log('图片缩放比例:', event.exportScale)
-}
-</script>
-```
-
-## 样式定制指南
-
-### 自定义类名
-通过`customClass`属性可以为Signature组件添加自定义类名，用于覆盖默认样式。
-
-```vue
-<wd-signature custom-class="my-signature">
-  <!-- 内容 -->
-</wd-signature>
-
-<style>
-.my-signature {
-  /* 自定义样式 */
-  margin: 20px;
-  border: 2px solid #ebeef5;
-  border-radius: 8px;
-  overflow: hidden;
-}
-</style>
-```
-
-### 自定义样式对象
-通过`customStyle`属性可以直接设置组件的内联样式。
-
-```vue
-<wd-signature :custom-style="{ margin: '20px', border: '2px solid #ebeef5', borderRadius: '8px', overflow: 'hidden' }">
-  <!-- 内容 -->
-</wd-signature>
 ```
 
 ## 注意事项
 
-1. **canvas上下文创建**：组件会在挂载后自动创建canvas上下文，初始化画布。
-
-2. **图片导出**：
-   - 支持png和jpg两种图片类型
-   - 图片质量范围为0-1，1表示最高质量
-   - 导出图片的缩放比例默认为1，可根据需要调整
-
-3. **压感模式**：
-   - 压感模式下，笔画宽度会根据绘制速度自动调整
-   - 可通过minWidth和maxWidth设置笔画的最小和最大宽度
-   - 可通过minSpeed调整速度阈值，影响笔画宽度的变化灵敏度
-
-4. **历史记录**：
-   - 开启历史记录后，会保存所有绘制的线条
-   - 可通过step属性设置撤销和恢复的步长
-   - 撤销和恢复操作会清空重做记录
-
-5. **禁用状态**：
-   - 设置disabled为true时，签名板不可绘制
-   - 禁用状态下，所有按钮仍可点击
-
-6. **事件触发**：
-   - start事件在触摸开始时触发
-   - end事件在触摸结束时触发
-   - signing事件在绘制过程中持续触发
-   - confirm事件在点击确认按钮或调用confirm方法时触发
-   - clear事件在点击清空按钮或调用clear方法时触发
-
-7. **多端适配**：
-   - 组件在不同平台上可能存在细微的样式差异
-   - 在微信小程序上使用了canvas 2D上下文，其他平台使用了传统的canvas上下文
-
-8. **废弃属性**：
-   - undoText和redoText属性已废弃，建议使用revokeText和restoreText替代
-
-## 常见问题
-
-1. **Q: 为什么签名板无法绘制？**
-   A: 请检查是否设置了disabled属性为true，或者canvas上下文创建失败。
-
-2. **Q: 如何调整签名板的大小？**
-   A: 可以通过设置width和height属性来调整签名板的大小。
-
-3. **Q: 为什么导出的图片质量不高？**
-   A: 可以通过调整quality属性来提高图片质量，最大值为1。
-
-4. **Q: 如何自定义底部按钮？**
-   A: 可以使用footer插槽来自定义底部按钮，完全控制按钮的样式和行为。
-
-5. **Q: 为什么撤销/恢复功能不生效？**
-   A: 请确保enableHistory属性设置为true，并且已经绘制了线条。
-
-6. **Q: 如何清空签名板？**
-   A: 可以点击清空按钮，或者调用clear方法来清空签名板。
-
-7. **Q: 如何获取签名图片？**
-   A: 可以通过监听confirm事件来获取签名图片的路径，或者调用confirm方法手动触发。
-
-8. **Q: 为什么压感模式没有效果？**
-   A: 请确保pressure属性设置为true，并且minWidth和maxWidth属性设置合理。
-
-## 类型定义
-
-### SignatureResult
-```typescript
-type SignatureResult = {
-  tempFilePath: string  // 生成图片的临时路径
-  success: boolean      // 是否成功生成图片
-  width: number         // 生成图片的宽度
-  height: number        // 生成图片的高度
-}
-```
-
-### Line
-```typescript
-interface Line {
-  points: Point[]       // 线条所包含的所有点的数组
-  color: string         // 线条颜色
-  width: number         // 线条宽度
-  backgroundColor?: string  // 线条背景色 (可选)
-  isPressure?: boolean  // 是否为笔锋模式的线条 (可选)
-}
-```
-
-### Point
-```typescript
-interface Point {
-  x: number             // 点的横坐标
-  y: number             // 点的纵坐标
-  t: number             // 点的时间戳
-  speed?: number        // 当前点的绘制速度 (可选)
-  distance?: number     // 与上一个点的距离 (可选)
-  lineWidth?: number    // 当前点的线宽 (可选，用于笔锋模式)
-  lastX1?: number       // 贝塞尔曲线第一个控制点的x坐标 (可选)
-  lastY1?: number       // 贝塞尔曲线第一个控制点的y坐标 (可选)
-  lastX2?: number       // 贝塞尔曲线第二个控制点的x坐标 (可选)
-  lastY2?: number       // 贝塞尔曲线第二个控制点的y坐标 (可选)
-  isFirstPoint?: boolean  // 是否为线条的第一个点 (可选)
-}
-```
+- **Canvas 平台差异**：微信小程序使用 2D Canvas（`type="2d"`），其他平台使用传统 Canvas，组件内部已做兼容处理
+- **导出图片清晰度**：`export-scale` 值越大，导出图片越清晰，但文件体积也会相应增大。建议根据实际业务需求设置，移动端通常设为 2 即可获得较好的清晰度
+- **笔锋模式原理**：笔锋模式通过检测书写速度来动态调整笔画宽度，快速书写产生细线条，慢速书写产生粗线条。笔画宽度变化率被限制在最大 20%，以确保笔画过渡平滑
+- **撤销步长**：`step` 属性控制每次撤销/恢复的线条数量，默认为 1（每次撤销一条笔迹）
+- **弹窗中初始化**：在弹窗中使用签名板时，需在弹窗动画完成后的 `@after-enter` 事件中调用 `init()` 方法重新初始化画板，否则可能因尺寸计算不准确导致画板显示异常
+- **背景透明色判断**：组件内部会自动判断背景色是否为透明色，透明背景不会进行填充绘制
+- **禁用状态**：设置 `disabled` 为 `true` 后，画板上的触摸事件将被忽略，无法进行签名绘制
+- **文件质量**：`quality` 属性仅在 `fileType` 为 `jpg` 时生效，取值范围为 0~1
+- **历史记录内存**：开启 `enable-history` 后，所有笔迹记录会保存在内存中，大量笔迹可能会占用较多内存
+- **钉钉小程序兼容性**：钉钉小程序中 `canvasToTempFilePath` 返回的文件路径字段为 `filePath` 而非 `tempFilePath`，组件内部已做兼容处理

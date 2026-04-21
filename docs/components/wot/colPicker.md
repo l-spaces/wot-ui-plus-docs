@@ -1,534 +1,625 @@
 # ColPicker 多列选择器
-
 <demo-model url="/subPages/colPicker/Index"></demo-model>
+
+多列选择器是一种通过分列递进选择来完成多层级数据选择的交互组件，常用于省市区选择、分类选择等具有层级关系的数据场景。
 
 ## 组件概况
 
-### 组件概述
-ColPicker 多列选择器是一个用于从多列数据中选择值的组件，支持级联选择、自定义展示格式、表单验证等功能。它提供了直观的交互界面，允许用户在多列数据中进行选择，并支持各种自定义配置。
+ColPicker 组件是一个基于弹窗面板的多列级联选择器。用户通过点击列标题切换不同列的列表，逐列进行选择后确认完成。组件支持异步加载下级数据、自定义展示文案、选择前校验、自动补全列数据等高级功能，并与表单校验系统深度集成。
 
-### 详细功能描述
-- 支持多列数据选择，可配置级联关系
-- 支持自定义展示文案格式化
-- 提供表单验证支持，可结合 wd-form 使用
-- 支持禁用和只读状态
-- 支持自定义样式和类名
-- 支持弹出层标题和占位符配置
-- 提供确认前校验机制
-- 支持自动补全数据功能
-- 支持底部安全距离适配
-- 支持从页面中脱离，解决 fixed 失效问题
-- 支持国际化
+### 核心功能描述
+
+- **多列级联选择**：支持二维数组数据展示，通过列标题栏切换不同列，逐列递进选择
+- **列导航指示器**：顶部列标题带有底部指示线，点击可快速切换列，滑动时自动跟随
+- **异步数据加载**：通过 columnChange 回调异步获取下一列数据，加载期间自动显示 loading 状态
+- **自动补全**：autoComplete 模式下，当 columns 数据不足时自动触发 columnChange 补齐数据
+- **自定义展示文案**：displayFormat 函数可自定义选择结果的展示格式
+- **选择前校验**：beforeConfirm 支持在确认前进行异步校验，校验不通过可阻止选择
+- **表单集成**：原生支持 wd-form 表单校验，支持 prop 和 rules 属性
+- **自定义触发器**：支持通过默认插槽使用自定义组件（如按钮）触发选择器
+- **选项禁用与提示**：支持单个选项禁用，支持在选项下方显示提示文案
+- **弹窗控制**：支持点击遮罩关闭、zIndex 层级控制、底部安全区域适配
 
 ### 适用业务场景
-- 地址选择（省市区三级联动）
-- 日期时间选择（年月日时分秒）
-- 商品分类选择
-- 多维度数据筛选
-- 表单中的多列选择项
-- 各种需要从层级数据中选择值的场景
 
-## 完整API参考
+- 省市区/行政区划选择
+- 商品多级分类选择
+- 组织架构选择（部门-团队-人员）
+- 任何需要多级联动的选择场景
+- 需要异步加载子级数据的层级选择
+
+---
+
+## API
 
 ### Props
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-| --- | --- | --- | --- | --- |
-| modelValue | array | - | 是 | 选中项，数组格式，对应每一列的选中值 |
-| columns | array | [] | 否 | 选择器数据，二维数组，每一项为一列数据 |
-| label | string | - | 否 | 选择器左侧文案 |
-| labelWidth | string | '33%' | 否 | 设置左侧标题宽度 |
-| useLabelSlot | boolean | false | 否 | 使用 label 插槽时设置该选项 |
-| useDefaultSlot | boolean | false | 否 | 使用默认插槽时设置该选项 |
-| disabled | boolean | false | 否 | 禁用状态 |
-| readonly | boolean | false | 否 | 只读状态 |
-| placeholder | string | - | 否 | 选择器占位符 |
-| title | string | - | 否 | 弹出层标题 |
-| columnChange | function | - | 否 | 列数据变化事件，接收当前列的选中项 item、当前列下标、当前列选中项下标、下一列数据处理函数 resolve、结束选择 finish |
-| displayFormat | function | - | 否 | 自定义展示文案的格式化函数，返回一个字符串 |
-| beforeConfirm | function | - | 否 | 确定前校验函数，接收 (value, resolve) 参数，通过 resolve 继续执行 picker，resolve 接收 1 个 boolean 参数 |
-| alignRight | boolean | false | 否 | 选择器的值靠右展示 |
-| error | boolean | false | 否 | 是否为错误状态，错误状态时右侧内容为红色 |
-| required | boolean | false | 否 | 是否必填 |
-| size | string | - | 否 | 设置选择器大小，可选值：large |
-| valueKey | string | 'value' | 否 | 选项对象中，value 对应的 key |
-| labelKey | string | 'label' | 否 | 选项对象中，展示的文本对应的 key |
-| tipKey | string | 'tip' | 否 | 选项对象中，提示文案对应的 key |
-| loadingColor | string | '#4D80F0' | 否 | loading 图标的颜色 |
-| closeOnClickModal | boolean | true | 否 | 点击遮罩是否关闭 |
-| autoComplete | boolean | false | 否 | 自动触发 column-change 事件来补全数据，当 columns 为空数组或者 columns 数组长度小于 value 数组长度时，会自动触发 column-change |
-| zIndex | number | 15 | 否 | 弹窗层级 |
-| safeAreaInsetBottom | boolean | true | 否 | 弹出面板是否设置底部安全距离（iphone X 类型的机型） |
-| ellipsis | boolean | false | 否 | 是否超出隐藏 |
-| prop | string | - | 否 | 表单域 model 字段名，在使用表单校验功能的情况下，该属性是必填的 |
-| rules | array | [] | 否 | 表单验证规则，结合wd-form组件使用 |
-| lineWidth | number | - | 否 | 底部条宽度，单位像素 |
-| lineHeight | number | - | 否 | 底部条高度，单位像素 |
-| customViewClass | string | '' | 否 | label 外部自定义样式 |
-| customLabelClass | string | '' | 否 | value 外部自定义样式 |
-| customValueClass | string | '' | 否 | 自定义值样式类名 |
-| rootPortal | boolean | false | 否 | 是否从页面中脱离出来，用于解决各种 fixed 失效问题 (H5: teleport, APP: renderjs, 小程序: root-portal) |
-| markerSide | string | 'before' | 否 | 必填标记位置，可选值：before、after |
-| customStyle | object | - | 否 | 自定义样式，对象形式 |
-| customClass | string | - | 否 | 自定义类名 |
+
+| 参数 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
+|------|------|------|--------|--------|----------|
+| modelValue / v-model | 选中项，数组形式 | Array<string \| number> | - | - | - |
+| columns | 选择器数据，二维数组 | Record<string, any>[][] | - | [] | - |
+| label | 选择器左侧文案 | string | - | - | - |
+| labelWidth | 左侧标题宽度 | string | - | 33% | - |
+| useLabelSlot | 是否使用 label 插槽 | boolean | - | false | - |
+| useDefaultSlot | 是否使用默认插槽（自定义触发器） | boolean | - | false | - |
+| disabled | 是否禁用 | boolean | - | false | - |
+| readonly | 是否只读 | boolean | - | false | - |
+| placeholder | 选择器占位符 | string | - | - | - |
+| title | 弹出层标题 | string | - | - | - |
+| columnChange | 列变化回调，用于动态加载下一列数据 | Function | - | - | - |
+| displayFormat | 自定义展示文案的格式化函数 | Function | - | - | - |
+| beforeConfirm | 确定前校验函数 | Function | - | - | - |
+| alignRight | 选择器的值是否靠右展示 | boolean | - | false | - |
+| error | 是否为错误状态（值为红色） | boolean | - | false | - |
+| required | 是否必填 | boolean | - | false | - |
+| size | 选择器大小 | string | large | - | - |
+| valueKey | 选项对象中 value 对应的 key | string | - | value | - |
+| labelKey | 选项对象中展示文本对应的 key | string | - | label | - |
+| tipKey | 选项对象中提示文案对应的 key | string | - | tip | - |
+| loadingColor | loading 图标的颜色 | string | - | #4D80F0 | - |
+| closeOnClickModal | 点击遮罩是否关闭 | boolean | - | true | - |
+| autoComplete | 是否自动触发 columnChange 补全数据 | boolean | - | false | - |
+| zIndex | 弹窗层级 | number | - | 15 | - |
+| safeAreaInsetBottom | 是否设置底部安全距离 | boolean | - | true | - |
+| ellipsis | 是否超出隐藏 | boolean | - | false | - |
+| prop | 表单域 model 字段名，用于表单校验 | string | - | - | - |
+| rules | 表单验证规则 | FormItemRule[] | - | [] | - |
+| lineWidth | 底部条宽度，单位像素 | number \| string | - | - | - |
+| lineHeight | 底部条高度，单位像素 | number \| string | - | - | - |
+| customViewClass | value 外部自定义样式类 | string | - | '' | - |
+| customLabelClass | label 外部自定义样式类 | string | - | '' | - |
+| customValueClass | value 外部自定义样式类 | string | - | '' | - |
+| rootPortal | 是否从页面中脱离出来 | boolean | - | false | - |
+| markerSide | 必填标记位置 | string | before / after | before | - |
+| customStyle | 自定义根节点样式 | string | - | '' | - |
+| customClass | 自定义根节点类名 | string | - | '' | - |
 
 ### Events
-| 名称 | 触发条件 | 参数说明 |
-| --- | --- | --- |
-| update:modelValue | 选择值变化时 | 当前选中的值数组 |
-| confirm | 确认选择时 | 包含 value 和 selectedItems 的对象，value 为选中值数组，selectedItems 为选中项对象数组 |
-| close | 关闭选择器时 | 无 |
+
+| 事件名 | 说明 | 回调参数 | 最低版本 |
+|--------|------|----------|----------|
+| update:modelValue | 绑定值变化时触发 | 选中项的值数组 | - |
+| confirm | 点击确定时触发 | { value: 选中值数组, selectedItems: 选中项对象数组 } | - |
+| close | 关闭弹框时触发 | - | - |
 
 ### Methods
-| 名称 | 参数 | 返回值 | 功能说明 |
-| --- | --- | --- | --- |
-| open | - | - | 打开选择器 |
-| close | - | - | 关闭选择器 |
+
+通过组件 ref 可调用以下方法：
+
+| 方法名 | 说明 | 参数 | 返回值 |
+|--------|------|------|--------|
+| open | 打开选择器弹框 | - | - |
+| close | 关闭选择器弹框 | - | - |
 
 ### Slots
-| 名称 | 作用域变量 | 说明 |
-| --- | --- | --- |
-| default | - | 自定义选择器触发器 |
-| label | - | 自定义左侧标签 |
 
-## 多场景使用示例代码
+| 插槽名 | 说明 | 最低版本 |
+|--------|------|----------|
+| label | 左侧标题插槽，覆盖 label 属性 | - |
+| default | 默认插槽，用于自定义触发选择器的元素（需配合 useDefaultSlot） | - |
 
-### 1. 基础用法
+---
+
+## 使用示例
+
+### 示例一：基本用法
+
+最基础的多列选择器，通过 columnChange 回调动态加载下一列数据。
+
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-col-picker 
-      v-model="selectedValue" 
-      :columns="columns" 
-      label="基础选择"
-    ></wd-col-picker>
-    <text class="result">选择结果：{{ selectedValue }}</text>
+  <view>
+    <wd-cell-group border>
+      <!-- 基本用法：通过 columnChange 动态加载数据 -->
+      <wd-col-picker
+        label="选择地址"
+        v-model="value1"
+        :columns="columns"
+        :column-change="columnChange"
+        @confirm="handleConfirm"
+      />
+
+      <!-- 设置标题 -->
+      <wd-col-picker
+        label="选择地址"
+        v-model="value2"
+        title="请选择所在地区"
+        :columns="columns"
+        :column-change="columnChange"
+      />
+
+      <!-- 值靠右展示 -->
+      <wd-col-picker
+        label="选择地址"
+        v-model="value3"
+        align-right
+        :columns="columns"
+        :column-change="columnChange"
+      />
+    </wd-cell-group>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { ColPickerColumnChange } from '@/uni_modules/wot-ui-plus/components/wd-col-picker/types'
 
-const selectedValue = ref(['1', '1-2'])
-
-// 基础数据
-const columns = ref([
-  [
-    { value: '1', label: '选项1' },
-    { value: '2', label: '选项2' },
-    { value: '3', label: '选项3' }
-  ],
-  [
-    { value: '1-1', label: '选项1-1' },
-    { value: '1-2', label: '选项1-2' },
-    { value: '1-3', label: '选项1-3' }
-  ]
+// 假设 colPickerData 为省市区数据源
+const colPickerData = ref<Record<string, any>[]>([])
+const columns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text
+  }))
 ])
+
+const value1 = ref<any[]>([])
+const value2 = ref<any[]>([])
+const value3 = ref<any[]>([])
+
+// 根据当前选中项动态加载下一列数据
+const columnChange: ColPickerColumnChange = ({ selectedItem, resolve, finish }) => {
+  // 根据 selectedItem.value 获取子级数据
+  const children = getChildrenByValue(selectedItem.value)
+  if (children && children.length) {
+    resolve(
+      children.map((item) => ({
+        value: item.value,
+        label: item.text
+      }))
+    )
+  } else {
+    // 没有子级数据时调用 finish 结束选择
+    finish()
+  }
+}
+
+function getChildrenByValue(value: string): any[] {
+  // 实际项目中应从数据源或接口获取
+  return []
+}
+
+function handleConfirm({ value, selectedItems }: any) {
+  console.log('选中值：', value)
+  console.log('选中项：', selectedItems)
+}
 </script>
-
-<style scoped>
-.demo-container {
-  padding: 20px;
-}
-
-.result {
-  display: block;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #606266;
-}
-</style>
 ```
 
-### 2. 级联选择
+### 示例二：异步加载与自动补全
+
+数据异步获取场景，以及使用 autoComplete 自动补全已选值对应的列数据。
+
 ```vue
 <template>
-  <view class="demo-container">
-    <wd-col-picker 
-      v-model="selectedValue" 
-      :columns="columns" 
-      label="级联选择"
-      :columnChange="onColumnChange"
-    ></wd-col-picker>
-    <text class="result">选择结果：{{ selectedValue }}</text>
+  <view>
+    <wd-cell-group border>
+      <!-- 异步加载数据（带有 loading 状态和失败处理） -->
+      <wd-col-picker
+        label="选择地址"
+        v-model="value1"
+        :columns="columns"
+        :column-change="asyncColumnChange"
+      />
+
+      <!-- 自动补全模式：columns 为空时自动触发 columnChange -->
+      <wd-col-picker
+        label="初始选项"
+        v-model="value2"
+        :columns="emptyColumns"
+        :column-change="columnChange"
+        auto-complete
+      />
+    </wd-cell-group>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import type { ColPickerColumnChange } from '@/uni_modules/wot-ui-plus/components/wd-col-picker/types'
 
-const selectedValue = ref(['1', '1-2'])
-const columns = ref([
-  [
-    { value: '1', label: '选项1' },
-    { value: '2', label: '选项2' },
-    { value: '3', label: '选项3' }
-  ],
-  [] // 第二列数据通过 columnChange 动态加载
+const colPickerData = ref<Record<string, any>[]>([])
+const columns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text
+  }))
 ])
+const emptyColumns = ref<any[]>([])
+const value1 = ref<any[]>([])
+const value2 = ref<string[]>([])
 
-// 列数据变化事件
-const onColumnChange = (option: any) => {
-  const { selectedItem, index, resolve, finish } = option
-  
-  // 模拟异步加载数据
+onMounted(() => {
+  // 设置初始选中值，autoComplete 会自动加载对应列数据
+  value2.value = ['150000', '150100', '150121']
+})
+
+// 异步加载，模拟接口请求
+const asyncColumnChange: ColPickerColumnChange = ({ selectedItem, resolve, finish }) => {
   setTimeout(() => {
-    let nextColumn = []
-    
-    if (index === 0) {
-      // 根据第一列选择加载第二列数据
-      switch (selectedItem.value) {
-        case '1':
-          nextColumn = [
-            { value: '1-1', label: '选项1-1' },
-            { value: '1-2', label: '选项1-2' },
-            { value: '1-3', label: '选项1-3' }
-          ]
-          break
-        case '2':
-          nextColumn = [
-            { value: '2-1', label: '选项2-1' },
-            { value: '2-2', label: '选项2-2' }
-          ]
-          break
-        case '3':
-          nextColumn = [
-            { value: '3-1', label: '选项3-1' },
-            { value: '3-2', label: '选项3-2' },
-            { value: '3-3', label: '选项3-3' },
-            { value: '3-4', label: '选项3-4' }
-          ]
-          break
-      }
-      
-      // 调用 resolve 加载下一列数据
-      resolve(nextColumn)
+    // 模拟随机失败
+    if (Math.random() > 0.7) {
+      finish(false)
+      console.error('数据请求失败，请重试')
+      return
+    }
+    const children = getChildrenByValue(selectedItem.value)
+    if (children && children.length) {
+      resolve(
+        children.map((item) => ({
+          value: item.value,
+          label: item.text
+        }))
+      )
     } else {
-      // 最后一列选择完成，调用 finish 结束选择
       finish()
     }
-  }, 500)
-}
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20px;
+  }, 300)
 }
 
-.result {
-  display: block;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #606266;
-}
-</style>
-```
-
-### 3. 自定义展示格式
-```vue
-<template>
-  <view class="demo-container">
-    <wd-col-picker 
-      v-model="selectedValue" 
-      :columns="columns" 
-      label="自定义格式"
-      :displayFormat="displayFormat"
-      placeholder="请选择"
-    ></wd-col-picker>
-    <text class="result">选择结果：{{ selectedValue }}</text>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const selectedValue = ref(['1', '1-2'])
-
-// 数据
-const columns = ref([
-  [
-    { value: '1', label: '选项1' },
-    { value: '2', label: '选项2' }
-  ],
-  [
-    { value: '1-1', label: '选项1-1' },
-    { value: '1-2', label: '选项1-2' }
-  ]
-])
-
-// 自定义展示格式
-const displayFormat = (selectedItems: any[]) => {
-  return selectedItems.map(item => item.label).join(' / ')
-}
-</script>
-
-<style scoped>
-.demo-container {
-  padding: 20px;
-}
-
-.result {
-  display: block;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #606266;
-}
-</style>
-```
-
-### 4. 表单验证
-```vue
-<template>
-  <view class="demo-container">
-    <wd-form ref="formRef">
-      <wd-col-picker 
-        v-model="selectedValue" 
-        :columns="columns" 
-        label="表单验证"
-        prop="picker"
-        :rules="[{ required: true, message: '请选择选项' }]"
-        error
-      ></wd-col-picker>
-    </wd-form>
-    <button @click="validateForm" class="validate-btn">验证表单</button>
-    <text class="result">{{ validateResult }}</text>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const formRef = ref()
-const selectedValue = ref([])
-const validateResult = ref('')
-
-// 数据
-const columns = ref([
-  [
-    { value: '1', label: '选项1' },
-    { value: '2', label: '选项2' }
-  ]
-])
-
-// 验证表单
-const validateForm = async () => {
-  try {
-    await formRef.value.validate()
-    validateResult.value = '验证通过'
-  } catch (error: any) {
-    validateResult.value = `验证失败：${error.message}`
+const columnChange: ColPickerColumnChange = async ({ selectedItem, resolve, finish }) => {
+  await sleep(0.3)
+  const children = getChildrenByValue(selectedItem.value)
+  if (children && children.length) {
+    resolve(
+      children.map((item) => ({
+        value: item.value,
+        label: item.text
+      }))
+    )
+  } else {
+    finish()
   }
 }
-</script>
 
-<style scoped>
-.demo-container {
-  padding: 20px;
+function getChildrenByValue(value: string): any[] {
+  // 实际项目中应从数据源或接口获取
+  return []
 }
 
-.validate-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #4d80f0;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.result {
-  display: block;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #606266;
-}
-</style>
-```
-
-### 5. 自定义触发器
-```vue
-<template>
-  <view class="demo-container">
-    <wd-col-picker 
-      v-model="selectedValue" 
-      :columns="columns"
-      use-default-slot
-    >
-      <!-- 自定义触发器 -->
-      <view class="custom-trigger">
-        <text class="trigger-text">点击选择</text>
-        <text class="trigger-value">{{ displayText }}</text>
-        <wd-icon name="arrow-right" custom-class="trigger-icon"></wd-icon>
-      </view>
-    </wd-col-picker>
-    <text class="result">选择结果：{{ selectedValue }}</text>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { computed, ref } from 'vue'
-
-const selectedValue = ref(['1', '1-2'])
-
-// 数据
-const columns = ref([
-  [
-    { value: '1', label: '选项1' },
-    { value: '2', label: '选项2' }
-  ],
-  [
-    { value: '1-1', label: '选项1-1' },
-    { value: '1-2', label: '选项1-2' }
-  ]
-])
-
-// 计算显示文本
-const displayText = computed(() => {
-  if (!selectedValue.value.length) return '请选择'
-  
-  let text = ''
-  selectedValue.value.forEach((value, index) => {
-    const column = columns.value[index]
-    if (column) {
-      const item = column.find((item: any) => item.value === value)
-      if (item) {
-        text += item.label + ' '
-      }
-    }
+function sleep(second: number = 1) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1000 * second)
   })
-  
-  return text.trim()
-})
+}
 </script>
-
-<style scoped>
-.demo-container {
-  padding: 20px;
-}
-
-.custom-trigger {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background-color: #f5f7fa;
-  border-radius: 8px;
-}
-
-.trigger-text {
-  font-size: 14px;
-  color: #606266;
-  margin-right: 10px;
-}
-
-.trigger-value {
-  flex: 1;
-  font-size: 14px;
-  color: #303133;
-  text-align: right;
-}
-
-.trigger-icon {
-  margin-left: 10px;
-  color: #c0c4cc;
-}
-
-.result {
-  display: block;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #606266;
-}
-</style>
 ```
 
-## 样式定制指南
+### 示例三：禁用状态与选项配置
 
-### customStyle 自定义样式
-通过 `customStyle` 属性可以直接设置选择器的内联样式。
+组件级别禁用、只读状态，以及单个选项的禁用和提示。
 
 ```vue
-<wd-col-picker 
-  v-model="selectedValue" 
-  :columns="columns" 
-  label="自定义样式"
-  :custom-style="{ backgroundColor: '#f0f2f5', borderRadius: '8px' }"
-></wd-col-picker>
-```
+<template>
+  <view>
+    <wd-cell-group border>
+      <!-- 禁用状态 -->
+      <wd-col-picker
+        label="禁用"
+        disabled
+        v-model="value1"
+        :columns="columns"
+        :column-change="columnChange"
+      />
 
-### customClass 自定义类名
-通过 `customClass` 属性可以为选择器添加自定义类名，结合外部样式表进行更复杂的样式定制。
+      <!-- 只读状态 -->
+      <wd-col-picker
+        label="只读"
+        readonly
+        v-model="value2"
+        :columns="columns"
+        :column-change="columnChange"
+      />
 
-```vue
-<wd-col-picker 
-  v-model="selectedValue" 
-  :columns="columns" 
-  label="自定义类名"
-  custom-class="my-col-picker"
-></wd-col-picker>
-```
+      <!-- 禁用特定选项 -->
+      <wd-col-picker
+        label="禁用选项"
+        v-model="value3"
+        :columns="disabledColumns"
+        :column-change="columnChange"
+      />
 
-```scss
-.my-col-picker {
-  // 自定义选择器样式
-  margin: 10px 0;
-  
-  .wd-col-picker__cell {
-    // 自定义选择器单元格样式
-    padding: 12px 0;
+      <!-- 选项带有提示信息 -->
+      <wd-col-picker
+        label="选项提示信息"
+        v-model="value4"
+        :columns="tipColumns"
+        :column-change="columnChange"
+      />
+    </wd-cell-group>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import type { ColPickerColumnChange } from '@/uni_modules/wot-ui-plus/components/wd-col-picker/types'
+
+const colPickerData = ref<Record<string, any>[]>([])
+const columns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text
+  }))
+])
+
+const value1 = ref<any[]>(['130000', '130200', '130204'])
+const value2 = ref<any[]>(['130000', '130200', '130204'])
+const value3 = ref<any[]>([])
+const value4 = ref<any[]>([])
+
+// 带禁用选项的数据
+const disabledColumns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text,
+    disabled: item.value === '140000'
+  }))
+])
+
+// 带提示信息的选项数据
+const tipColumns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text,
+    disabled: item.value === '140000',
+    tip:
+      item.value === '140000'
+        ? '该地区无货暂时无法选择'
+        : item.value === '150000'
+          ? '该地区配送时间可能较长'
+          : ''
+  }))
+])
+
+const columnChange: ColPickerColumnChange = ({ selectedItem, resolve, finish }) => {
+  const children = getChildrenByValue(selectedItem.value)
+  if (children && children.length) {
+    resolve(
+      children.map((item) => ({
+        value: item.value,
+        label: item.text
+      }))
+    )
+  } else {
+    finish()
   }
 }
+
+function getChildrenByValue(value: string): any[] {
+  return []
+}
+</script>
 ```
 
-### 自定义触发器样式
-使用 `default` 插槽可以完全自定义选择器的触发器样式。
+### 示例四：自定义展示与选择前校验
+
+使用 displayFormat 自定义选中结果的展示文案，以及通过 beforeConfirm 进行确认前校验。
 
 ```vue
-<wd-col-picker 
-  v-model="selectedValue" 
-  :columns="columns"
-  use-default-slot
->
-  <view class="custom-trigger">
-    <!-- 自定义内容 -->
+<template>
+  <view>
+    <wd-cell-group border>
+      <!-- 自定义展示文案格式 -->
+      <wd-col-picker
+        label="展示格式化"
+        v-model="value1"
+        :columns="columns"
+        :column-change="columnChange"
+        :display-format="displayFormat"
+      />
+
+      <!-- 确认前校验 -->
+      <wd-col-picker
+        label="before-confirm"
+        v-model="value2"
+        :columns="columns"
+        :column-change="columnChange"
+        :before-confirm="beforeConfirm"
+      />
+
+      <!-- 错误状态 -->
+      <wd-col-picker
+        label="错误"
+        error
+        v-model="value3"
+        :columns="columns"
+        :column-change="columnChange"
+      />
+
+      <!-- 必填状态 -->
+      <wd-col-picker
+        label="必填"
+        required
+        v-model="value4"
+        :columns="columns"
+        :column-change="columnChange"
+      />
+
+      <!-- 必填星号在右侧 -->
+      <wd-col-picker
+        label="必填星号在右"
+        required
+        v-model="value5"
+        :columns="columns"
+        :column-change="columnChange"
+        marker-side="after"
+      />
+    </wd-cell-group>
   </view>
-</wd-col-picker>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import type { ColPickerColumnChange } from '@/uni_modules/wot-ui-plus/components/wd-col-picker/types'
+
+const colPickerData = ref<Record<string, any>[]>([])
+const columns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text
+  }))
+])
+
+const value1 = ref<any[]>(['130000', '130200', '130204'])
+const value2 = ref<any[]>([])
+const value3 = ref<any[]>([])
+const value4 = ref<any[]>([])
+const value5 = ref<any[]>([])
+
+// 自定义展示文案格式
+const displayFormat = (selectedItems: Record<string, any>[]) => {
+  // 将倒数第二列和最后一列的值用横线连接展示
+  return selectedItems[selectedItems.length - 2].label + '-' + selectedItems[selectedItems.length - 1].label
+}
+
+// 确认前校验
+const beforeConfirm = (
+  value: (string | number)[],
+  selectedItems: Record<string, any>[],
+  resolve: (isPass: boolean) => void
+) => {
+  // 校验第三列的值是否大于指定阈值
+  if (parseInt(String(value[2])) > 120000) {
+    console.error('该地区库存不足')
+    resolve(false)
+  } else {
+    resolve(true)
+  }
+}
+
+const columnChange: ColPickerColumnChange = ({ selectedItem, resolve, finish }) => {
+  const children = getChildrenByValue(selectedItem.value)
+  if (children && children.length) {
+    resolve(
+      children.map((item) => ({
+        value: item.value,
+        label: item.text
+      }))
+    )
+  } else {
+    finish()
+  }
+}
+
+function getChildrenByValue(value: string): any[] {
+  return []
+}
+</script>
 ```
+
+### 示例五：自定义触发器与大尺寸样式
+
+使用默认插槽自定义触发选择器的元素，以及大尺寸样式展示。
+
+```vue
+<template>
+  <view>
+    <!-- 大尺寸样式 -->
+    <wd-col-picker
+      label="选择地址"
+      v-model="value1"
+      size="large"
+      :columns="columns"
+      :column-change="columnChange"
+    />
+
+    <!-- 不传 label -->
+    <wd-col-picker
+      v-model="value2"
+      :columns="columns"
+      :column-change="columnChange"
+    />
+
+    <!-- 自定义触发按钮 -->
+    <view style="margin-left: 15px">
+      <view style="margin-bottom: 10px">当前选中项: {{ displayValue }}</view>
+
+      <wd-col-picker
+        v-model="value3"
+        use-default-slot
+        :columns="columns"
+        :column-change="columnChange"
+        style="display: inline-block"
+        @confirm="handleConfirm"
+      >
+        <wd-button>选择地址</wd-button>
+      </wd-col-picker>
+    </view>
+  </view>
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import type { ColPickerColumnChange } from '@/uni_modules/wot-ui-plus/components/wd-col-picker/types'
+
+const colPickerData = ref<Record<string, any>[]>([])
+const columns = ref<any[]>([
+  colPickerData.value.map((item) => ({
+    value: item.value,
+    label: item.text
+  }))
+])
+
+const value1 = ref<any[]>([])
+const value2 = ref<any[]>([])
+const value3 = ref<any[]>([])
+const displayValue = ref<string>('')
+
+const columnChange: ColPickerColumnChange = ({ selectedItem, resolve, finish }) => {
+  const children = getChildrenByValue(selectedItem.value)
+  if (children && children.length) {
+    resolve(
+      children.map((item) => ({
+        value: item.value,
+        label: item.text
+      }))
+    )
+  } else {
+    finish()
+  }
+}
+
+function handleConfirm({ selectedItems }: any) {
+  displayValue.value = selectedItems
+    .map((item: any) => item.label)
+    .join('')
+}
+
+function getChildrenByValue(value: string): any[] {
+  return []
+}
+</script>
+```
+
+---
 
 ## 注意事项
 
-### 常见问题解决方案
-1. **数据不显示**：
-   - 检查 `columns` 属性是否为二维数组
-   - 确认 `valueKey` 和 `labelKey` 与数据结构匹配
-   - 检查数据是否正确传递给组件
+1. **columns 数据格式**：`columns` 属性必须为二维数组，即 `Record<string, any>[][]`。第一层数组的每个元素代表一列的数据。如果传入的 columns 不是二维数组，组件会在控制台输出错误提示。
 
-2. **级联选择不生效**：
-   - 确保 `columnChange` 事件正确处理
-   - 检查是否正确调用了 `resolve` 函数加载下一列数据
-   - 确认异步数据加载逻辑正确
+2. **columnChange 回调机制**：`columnChange` 是 ColPicker 的核心回调函数。当用户选择某一列的选项时触发，回调参数包含 `selectedItem`（当前选中项对象）、`index`（当前列下标）、`rowIndex`（选中项在该列的下标）、`resolve`（用于传入下一列数据）、`finish`（用于结束选择流程）。必须调用 `resolve` 或 `finish` 来完成数据加载流程。
 
-3. **表单验证不生效**：
-   - 确保组件被包裹在 `wd-form` 组件内
-   - 检查 `prop` 属性是否正确设置
-   - 确认 `rules` 属性格式正确
+3. **resolve 与 finish 的使用**：
+   - 调用 `resolve(nextColumn)` 传入下一列的数据数组，组件会自动切换到下一列
+   - 调用 `finish()` 表示当前已选到最后一列，组件会自动触发确认
+   - 调用 `finish(false)` 表示选择流程异常终止（如请求失败），不会触发确认
 
-4. **弹窗层级问题**：
-   - 调整 `zIndex` 属性值
-   - 尝试设置 `rootPortal` 为 `true`
+4. **autoComplete 自动补全**：当 `autoComplete` 为 `true` 且 columns 为空数组或 columns 数组长度小于 modelValue 数组长度时，组件会自动触发 `columnChange` 来补全数据。适用于编辑场景中已保存了选中值但需要动态加载对应列数据的场景。
 
-5. **底部安全距离问题**：
-   - 确保 `safeAreaInsetBottom` 属性设置为 `true`
-   - 检查是否需要调整自定义样式以适应安全距离
+5. **displayFormat 展示格式化**：`displayFormat` 接收已选中项的对象数组作为参数，返回一个字符串用于在 cell 中展示。如果不设置该函数，组件默认将所有选中项的 labelKey 字段拼接展示。
 
-### 性能优化建议
-- 避免一次性加载大量数据，使用 `columnChange` 事件动态加载
-- 对于静态数据，尽量在组件外部定义，避免每次渲染重新创建
-- 减少 `displayFormat` 函数中的复杂计算
-- 避免频繁修改 `columns` 属性
+6. **beforeConfirm 校验时机**：`beforeConfirm` 在选择流程结束（调用 `finish()`）时触发，用于在最终确认前进行校验。校验通过需调用 `resolve(true)`，不通过调用 `resolve(false)`。
 
-### 使用限制条件
-- `columns` 属性必须是二维数组
-- `modelValue` 属性必须是数组格式
-- 级联选择需要正确实现 `columnChange` 事件
-- 表单验证需要结合 `wd-form` 组件使用
-- 自定义触发器需要设置 `use-default-slot` 为 `true`
+7. **选项禁用与提示**：在 columns 数据中，为选项对象设置 `disabled: true` 可禁用该选项。设置 `tip` 字段可在选项 label 下方显示提示文案（对应 tipKey，默认为 `tip`）。
+
+8. **自定义字段名映射**：通过 `valueKey`、`labelKey`、`tipKey` 可以自定义选项对象中 value、label、tip 字段对应的 key 名，默认分别为 `value`、`label`、`tip`。
+
+9. **选择取消回退**：当用户在弹窗中修改选择后关闭弹窗（未点击确认），组件会自动恢复到上一次确认的状态。
+
+10. **自定义触发器**：使用默认插槽时，必须设置 `use-default-slot` 为 `true`，此时组件不会渲染默认的 cell，而是将插槽内容作为触发选择器的元素。
+
+11. **rootPortal 脱离文档流**：当 `rootPortal` 为 `true` 时，弹窗会从页面文档流中脱离出来，用于解决 fixed 定位失效的问题。在 H5 端使用 teleport，在 APP 端使用 renderjs，在小程序端使用 root-portal。
+
+12. **表单校验集成**：使用 `prop` 和 `rules` 属性时，需要将组件放置在 `wd-form` 组件内，以便参与表单校验流程。
