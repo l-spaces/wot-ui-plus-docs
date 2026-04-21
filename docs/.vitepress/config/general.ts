@@ -39,7 +39,9 @@ export const seoHead: [string, Record<string, string>][] = [
   ['meta', { name: 'apple-mobile-web-app-title', content: 'wot-ui-plus官网' }],
   ['meta', { itemprop: 'image', content: seo.baiduImage }],
   ['meta', { property: 'og:image', content: seo.baiduImage }],
-   ['script',{defer: '',async: '',src: '//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js'}]
+  ['script',{defer: '',async: '',src: '//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js'}],
+  ['script',{defer: 'true', async: '',src: 'https://cloud.umami.is/script.js', 'data-website-id': '0694cfbf-79b0-41a6-b38c-5f96ffde7844'}]
+   
 ]
 
 // 获取环境变量
