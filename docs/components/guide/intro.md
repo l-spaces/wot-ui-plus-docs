@@ -32,7 +32,7 @@ pnpm add wot-ui-plus
 
 ```bash
 # 安装指定版本
-npm install wot-ui-plus@3.1.0 --save
+npm install wot-ui-plus@3.3.0 --save
 
 # 安装最新版本
 npm install wot-ui-plus@latest --save
