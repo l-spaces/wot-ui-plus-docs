@@ -38,7 +38,8 @@ export const seoHead: [string, Record<string, string>][] = [
   ['meta', { property: 'og:url', content: seo.ogUrl }],
   ['meta', { name: 'apple-mobile-web-app-title', content: 'wot-ui-plus官网' }],
   ['meta', { itemprop: 'image', content: seo.baiduImage }],
-  ['meta', { property: 'og:image', content: seo.baiduImage }]
+  ['meta', { property: 'og:image', content: seo.baiduImage }],
+   ['script',{defer: '',async: '',src: '//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js'}]
 ]
 
 // 获取环境变量
