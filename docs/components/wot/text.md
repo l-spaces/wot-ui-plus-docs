@@ -1,162 +1,81 @@
 # Text 文本
-<demo-model url="/subPages/text/Index"></demo-model>
 
-## 组件概况
+## 组件概述
 
-用于展示文本的组件，支持主题设置、脱敏处理、日期格式化、金额格式化、多行省略等功能。
+Text 文本组件用于展示文本内容，支持多种主题类型、文本处理模式（日期、手机号、姓名、金额）、脱敏处理、装饰线、行数限制等功能。
 
-## 代码演示
+## 核心功能描述
 
-### 基本用法
+- **主题类型**：default、primary、success、warning、error
+- **文本模式**：text（普通文本）、date（日期）、phone（手机号）、name（姓名）、price（金额）
+- **脱敏处理**：手机号和姓名模式支持脱敏显示
+- **装饰线**：underline（下划线）、line-through（删除线）、overline（上划线）
+- **行数限制**：超出指定行数显示省略号
+- **点击拨号**：手机号模式支持点击拨打电话
 
-通过 `text` 属性设置要显示的文本内容。
+## 适用业务场景
 
-```html
-<wd-text text="这是一段普通的文本内容"></wd-text>
-```
-
-### 主题类型
-
-通过 `type` 属性设置文本的主题类型，支持 `primary`、`error`、`success`、`warning`、`default`。
-
-```html
-<view style="display: flex">
-  <wd-text type="primary" text="主色"></wd-text>
-  <wd-text type="error" text="错误"></wd-text>
-  <wd-text type="success" text="成功"></wd-text>
-  <wd-text type="warning" text="警告"></wd-text>
-  <wd-text text="默认"></wd-text>
-</view>
-```
-
-### 自定义样式
-
-通过 `color`、`size`、`bold`、`lineHeight`、`decoration` 等属性自定义文本样式。
-
-```html
-<!-- 自定义颜色 -->
-<wd-text text="自定义颜色文本" color="#36B8C2"></wd-text>
-
-<!-- 粗体 -->
-<wd-text text="粗体文本" bold></wd-text>
-
-<!-- 字体大小 -->
-<wd-text text="16px字体" size="16px"></wd-text>
-
-<!-- 文字装饰 -->
-<wd-text text="下划线文本" type="warning" decoration="underline"></wd-text>
-
-<!-- 删除线 -->
-<wd-text text="16354.156" mode="price" type="success" decoration="line-through" prefix="￥"></wd-text>
-```
-
-### 多行省略
-
-通过 `lines` 属性设置文本显示的行数，超出指定行数后显示省略号，最大值为 5。
-
-```html
-<wd-text :text="longText" :lines="2" size="16px"></wd-text>
-```
-
-### 文本脱敏
-
-通过设置 `mode` 为 `phone` 或 `name`，并配合 `format` 属性实现文本脱敏。
-
-```html
-<!-- 姓名脱敏：张长三 -> 张**三 -->
-<wd-text text="张长三" mode="name" :format="true"></wd-text>
-
-<!-- 手机号脱敏：18888888888 -> 188****8888 -->
-<wd-text text="18888888888" mode="phone" :format="true"></wd-text>
-```
-
-### 日期格式化
-
-通过设置 `mode` 为 `date`，将时间戳格式化为 `YYYY-MM-DD` 格式的日期。
-
-```html
-<!-- 1719976636911 -> 2024-07-03 -->
-<wd-text text="1719976636911" mode="date"></wd-text>
-```
-
-### 金额格式化
-
-通过设置 `mode` 为 `price`，将数字格式化为带千分位分隔符的金额格式，保留两位小数。
-
-```html
-<!-- 16354.156 -> 16,354.16 -->
-<wd-text text="16354.156" mode="price" type="success" prefix="￥"></wd-text>
-```
-
-### 前后置内容
-
-通过 `prefix`、`suffix` 属性或 `prefix`、`suffix` 插槽添加前后置内容。
-
-```html
-<!-- 使用属性 -->
-<wd-text text="12345678901" mode="phone" :format="true" type="primary" prefix="Prefix" suffix="Suffix"></wd-text>
-
-<!-- 使用插槽 -->
-<wd-text text="12345678901" mode="phone" :format="true" type="primary">
-  <template #prefix>
-    <text>前置插槽</text>
-  </template>
-  <template #suffix>
-    <wd-icon name="phone-call-filled"></wd-icon>
-  </template>
-</wd-text>
-```
+- **价格展示**：使用 price 模式格式化金额
+- **手机号展示**：使用 phone 模式脱敏显示
+- **多行文本**：使用 lines 限制行数
 
 ## API
 
-### Text Props
+### Props
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-|--------|------|------|--------|--------|
-| type | 主题类型 | string | `primary` / `error` / `success` / `warning` / `default` | `default` |
-| text | 文字内容 | string / number | - | `''` |
-| size | 字体大小 | number / string | - | `''` |
-| mode | 文本处理的匹配模式 | string | `text` / `date` / `phone` / `name` / `price` | `text` |
-| decoration | 文字装饰 | string | `underline` / `line-through` / `overline` | `none` |
-| call | mode=phone时，点击文本是否拨打电话 | boolean | - | `false` |
-| bold | 是否粗体 | boolean | - | `false` |
-| format | 是否脱敏，当mode为phone和name时生效 | boolean | - | `false` |
-| color | 文本颜色 | string | - | `''` |
-| prefix | 前置内容 | string | - | `''` |
-| suffix | 后置内容 | string | - | `''` |
-| lines | 文本显示的行数，超出此行数将显示省略号，最大值为5 | number | - | - |
-| lineHeight | 文本行高 | string | - | `''` |
-| custom-style | 自定义根节点样式 | string | - | `''` |
-| custom-class | 自定义根节点样式类 | string | - | `''` |
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| type | String | 'default' | 否 | 主题类型，可选值：default / primary / success / warning / error |
+| text | String / Number | '' | 否 | 文本内容 |
+| size | String / Number | '' | 否 | 字体大小 |
+| mode | String | 'text' | 否 | 文本模式，可选值：text / date / phone / name / price |
+| decoration | String | 'none' | 否 | 文字装饰，可选值：none / underline / line-through / overline |
+| call | Boolean | false | 否 | 手机号模式点击是否拨打电话 |
+| bold | Boolean | false | 否 | 是否粗体 |
+| format | Boolean | false | 否 | 是否脱敏（phone/name 模式生效） |
+| color | String | '' | 否 | 文本颜色 |
+| prefix | String | - | 否 | 前置插槽名称 |
+| suffix | String | - | 否 | 后置插槽名称 |
+| lines | Number | - | 否 | 文本显示行数，超出显示省略号，最大 5 |
+| lineHeight | String | '' | 否 | 文本行高 |
+| customStyle | String | '' | 否 | 自定义根节点样式 |
+| customClass | String | '' | 否 | 自定义根节点样式类 |
 
-### Text Events
+## 使用示例
 
-| 事件名 | 说明 | 回调参数 |
-|--------|------|----------|
-| click | 点击文本时触发 | `(event: Event)` |
+### 示例1：基础用法
 
-### Text Slots
+```vue
+<template>
+  <wd-text text="普通文本" />
+  <wd-text type="primary" text="主要文本" />
+  <wd-text type="error" text="错误文本" />
+</template>
+```
 
-| 插槽名 | 说明 |
-|--------|------|
-| prefix | 前置内容插槽 |
-| suffix | 后置内容插槽 |
+### 示例2：文本模式
 
-## 类型定义
+```vue
+<template>
+  <wd-text mode="price" text="1999.50" />
+  <wd-text mode="phone" text="13812345678" format />
+  <wd-text mode="name" text="张三丰" format />
+  <wd-text mode="date" text="2024-01-15" />
+</template>
+```
 
-### TextType
+### 示例3：装饰与行数限制
 
-```ts
-export type TextType = 'default' | 'primary' | 'success' | 'warning' | 'error'
+```vue
+<template>
+  <wd-text text="删除线文本" decoration="line-through" />
+  <wd-text text="下划线文本" decoration="underline" />
+  <wd-text :lines="2" text="这是一段很长的文本内容，超出两行后会显示省略号..." />
+</template>
 ```
 
 ## 注意事项
 
-1. `lines` 属性最大值为 5，设置大于 5 的值可能不会生效。
-2. 当设置了 `color` 属性时，`type` 属性定义的主题颜色将不再生效。
-3. `format` 属性仅在 `mode` 为 `phone` 或 `name` 时生效。
-4. `mode` 为 `date` 时，`text` 属性应为时间戳（毫秒）。
-5. `mode` 为 `price` 时，文本会自动添加千分位分隔符并保留两位小数。
-6. 脱敏规则：
-   - 姓名脱敏：保留首尾字符，中间用 `**` 替换，例如 `张长三` -> `张**三`
-   - 手机号脱敏：保留前三位和后四位，中间用 `****` 替换，例如 `18888888888` -> `188****8888`
+- `format` 脱敏仅在 phone 和 name 模式下生效
+- `call` 仅在 phone 模式下生效
+- `lines` 最大值为 5

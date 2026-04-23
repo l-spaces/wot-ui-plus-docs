@@ -6,124 +6,124 @@
 
 **组件总数**：约 120+ 个独立组件（含关联组件）
 
----
+***
 
 ## 二、组件分组清单
 
 ### 2.1 表单类组件（共 22 篇文档）
 
-| 文档文件 | 主组件 | 关联组件 | 分组说明 |
-|---------|--------|---------|---------|
-| button.md | wd-button | - | 按钮组件，常用于表单提交与操作触发 |
-| radio.md | wd-radio | wd-radio-group | 单选框及单选框组，配合使用 |
-| checkbox.md | wd-checkbox | wd-checkbox-group | 复选框及复选框组，配合使用 |
-| form.md | wd-form | wd-form-item | 表单容器及表单项，配合使用 |
-| input.md | wd-input | - | 输入框，独立组件 |
-| textarea.md | wd-textarea | - | 文本域，独立组件 |
-| input-number.md | wd-input-number | - | 数字输入框，独立组件 |
-| switch.md | wd-switch | - | 开关组件，独立组件 |
-| picker.md | wd-picker | - | 选择器 |
-| picker-view.md | wd-picker-view | - | 选择器视图 |
-| datetime-picker.md | wd-datetime-picker | - | 日期时间选择器 |
-| datetime-picker-view.md | wd-datetime-picker-view | - | 日期时间选择器视图 |
-| col-picker.md | wd-col-picker | - | 多列选择器，独立组件 |
-| select-picker.md | wd-select-picker | - | 下拉选择器，独立组件 |
-| keyboard.md | wd-keyboard | wd-keyboard/key | 虚拟键盘（含子组件） |
-| number-keyboard.md | wd-number-keyboard | wd-number-keyboard/key | 数字键盘（含子组件） |
-| code.md | wd-code | - | 验证码 |
-| code-input.md | wd-code-input | - | 验证码输入框 |
-| password-input.md | wd-password-input | - | 密码输入框，独立组件 |
-| search.md | wd-search | - | 搜索框，独立组件 |
-| signature.md | wd-signature | - | 签名组件，独立组件 |
-| upload.md | wd-upload | - | 上传组件，独立组件 |
+| 文档文件                     | 主组件                     | 关联组件                   | 分组说明              |
+| ------------------------ | ----------------------- | ---------------------- | ----------------- |
+| button.md                | wd-button               | -                      | 按钮组件，常用于表单提交与操作触发 |
+| radio.md                 | wd-radio                | wd-radio-group         | 单选框及单选框组，配合使用     |
+| checkbox.md              | wd-checkbox             | wd-checkbox-group      | 复选框及复选框组，配合使用     |
+| form.md                  | wd-form                 | wd-form-item           | 表单容器及表单项，配合使用     |
+| input.md                 | wd-input                | -                      | 输入框，独立组件          |
+| textarea.md              | wd-textarea             | -                      | 文本域，独立组件          |
+| inputNumber.md          | wd-input-number         | -                      | 数字输入框，独立组件        |
+| switch.md                | wd-switch               | -                      | 开关组件，独立组件         |
+| picker.md                | wd-picker               | -                      | 选择器               |
+| pickerView.md          | wd-picker-view          | -                      | 选择器视图             |
+| datetimePicker.md       | wd-datetime-picker      | -                      | 日期时间选择器           |
+| datetimePickerView.md | wd-datetime-picker-view | -                      | 日期时间选择器视图         |
+| colPicker.md            | wd-col-picker           | -                      | 多列选择器，独立组件        |
+| selectPicker.md         | wd-select-picker        | -                      | 下拉选择器，独立组件        |
+| keyboard.md              | wd-keyboard             | wd-keyboard/key        | 虚拟键盘（含子组件）        |
+| numberKeyboard.md       | wd-number-keyboard      | wd-number-keyboard/key | 数字键盘（含子组件）        |
+| code.md                  | wd-code                 | -                      | 验证码               |
+| codeInput.md            | wd-code-input           | -                      | 验证码输入框            |
+| passwordInput.md        | wd-password-input       | -                      | 密码输入框，独立组件        |
+| search.md                | wd-search               | -                      | 搜索框，独立组件          |
+| signature.md             | wd-signature            | -                      | 签名组件，独立组件         |
+| upload.md                | wd-upload               | -                      | 上传组件，独立组件         |
 
 ### 2.2 反馈类组件（共 12 篇文档）
 
-| 文档文件 | 主组件 | 关联组件 | 分组说明 |
-|---------|--------|---------|---------|
-| toast.md | wd-toast | - | 消息提示，独立组件 |
-| message-box.md | wd-message-box | - | 消息框，独立组件 |
-| notify.md | wd-notify | - | 通知，独立组件 |
-| loading.md | wd-loading | - | 加载中，独立组件 |
-| loadmore.md | wd-loadmore | - | 加载更多，独立组件 |
-| loading-page.md | wd-loading-page | - | 页面加载，独立组件 |
-| status-tip.md | wd-status-tip | - | 状态提示，独立组件 |
-| skeleton.md | wd-skeleton | - | 骨架屏，独立组件 |
-| action-sheet.md | wd-action-sheet | - | 动作面板，独立组件 |
-| overlay.md | wd-overlay | - | 遮罩层，独立组件 |
-| popup.md | wd-popup | - | 弹出层，独立组件 |
-| curtain.md | wd-curtain | - | 幕帘，独立组件 |
+| 文档文件            | 主组件             | 关联组件 | 分组说明      |
+| --------------- | --------------- | ---- | --------- |
+| toast.md        | wd-toast        | -    | 消息提示，独立组件 |
+| messageBox.md  | wd-message-box  | -    | 消息框，独立组件  |
+| notify.md       | wd-notify       | -    | 通知，独立组件   |
+| loading.md      | wd-loading      | -    | 加载中，独立组件  |
+| loadMore.md     | wd-loadmore     | -    | 加载更多，独立组件 |
+| loadingPage.md | wd-loading-page | -    | 页面加载，独立组件 |
+| statusTip.md   | wd-status-tip   | -    | 状态提示，独立组件 |
+| skeleton.md     | wd-skeleton     | -    | 骨架屏，独立组件  |
+| actionSheet.md | wd-action-sheet | -    | 动作面板，独立组件 |
+| overlay.md      | wd-overlay      | -    | 遮罩层，独立组件  |
+| popup.md        | wd-popup        | -    | 弹出层，独立组件  |
+| curtain.md      | wd-curtain      | -    | 幕帘，独立组件   |
 
 ### 2.3 导航类组件（共 10 篇文档）
 
-| 文档文件 | 主组件 | 关联组件 | 分组说明 |
-|---------|--------|---------|---------|
-| tabbar.md | wd-tabbar | wd-tabbar-item | 标签栏及标签项，配合使用 |
-| tabs.md | wd-tabs | wd-tab | 标签页及标签，配合使用 |
-| sidebar.md | wd-sidebar | wd-sidebar-item | 侧边栏及侧边项，配合使用 |
-| drop-menu.md | wd-drop-menu | wd-drop-menu-item | 下拉菜单及菜单项，配合使用 |
-| navbar.md | wd-navbar | wd-navbar-capsule | 导航栏及胶囊导航 |
-| sticky.md | wd-sticky | wd-sticky-box | 粘性定位及粘性容器 |
-| backtop.md | wd-backtop | - | 回到顶部，独立组件 |
-| pagination.md | wd-pagination | - | 分页，独立组件 |
-| sort-button.md | wd-sort-button | - | 排序按钮，独立组件 |
-| index-bar.md | wd-index-bar | wd-index-anchor | 索引栏及索引锚点 |
+| 文档文件           | 主组件            | 关联组件              | 分组说明          |
+| -------------- | -------------- | ----------------- | ------------- |
+| tabbar.md      | wd-tabbar      | wd-tabbar-item    | 标签栏及标签项，配合使用  |
+| tabs.md        | wd-tabs        | wd-tab            | 标签页及标签，配合使用   |
+| sidebar.md     | wd-sidebar     | wd-sidebar-item   | 侧边栏及侧边项，配合使用  |
+| dropMenu.md   | wd-drop-menu   | wd-drop-menu-item | 下拉菜单及菜单项，配合使用 |
+| navbar.md      | wd-navbar      | wd-navbar-capsule | 导航栏及胶囊导航      |
+| sticky.md      | wd-sticky      | wd-sticky-box     | 粘性定位及粘性容器     |
+| backtop.md     | wd-backtop     | -                 | 回到顶部，独立组件     |
+| pagination.md  | wd-pagination  | -                 | 分页，独立组件       |
+| sortButton.md | wd-sort-button | -                 | 排序按钮，独立组件     |
+| indexBar.md   | wd-index-bar   | wd-index-anchor   | 索引栏及索引锚点      |
 
 ### 2.4 展示类组件（共 31 篇文档）
 
-| 文档文件 | 主组件 | 关联组件 | 分组说明 |
-|---------|--------|---------|---------|
-| text.md | wd-text | - | 文本，独立组件 |
-| icon.md | wd-icon | - | 图标，独立组件 |
-| img.md | wd-img | - | 图片，独立组件 |
-| divider.md | wd-divider | - | 分割线，独立组件 |
-| tag.md | wd-tag | - | 标签，独立组件 |
-| badge.md | wd-badge | - | 徽章，独立组件 |
-| avatar.md | wd-avatar | wd-avatar-group | 头像及头像组 |
-| cell.md | wd-cell | wd-cell-group | 单元格及单元格组 |
-| card.md | wd-card | - | 卡片，独立组件 |
-| count-down.md | wd-count-down | - | 倒计时，独立组件 |
-| count-to.md | wd-count-to | - | 数字滚动，独立组件 |
-| calendar.md | wd-calendar | - | 日历 |
-| calendar-view.md | wd-calendar-view | - | 日历视图（含 month/panel 等子组件） |
-| notice-bar.md | wd-notice-bar | - | 通知栏，独立组件 |
-| progress.md | wd-progress | - | 进度条，独立组件 |
-| circle.md | wd-circle | - | 圆形进度，独立组件 |
-| rate.md | wd-rate | - | 评分，独立组件 |
-| slider.md | wd-slider | - | 滑块 |
-| slider-button.md | wd-slider-button | - | 滑块按钮 |
-| segmented.md | wd-segmented | - | 分段器，独立组件 |
-| collapse.md | wd-collapse | wd-collapse-item | 折叠面板及折叠项，配合使用 |
-| steps.md | wd-steps | wd-step | 步骤条及步骤项 |
-| swiper.md | wd-swiper | wd-swiper-nav | 轮播图及轮播导航 |
-| tour.md | wd-tour | - | 新手引导，独立组件 |
-| tree.md | wd-tree | - | 树形控件，独立组件 |
-| watermark.md | wd-watermark | - | 水印，独立组件 |
-| gap.md | wd-gap | - | 间距，独立组件 |
-| resize.md | wd-resize | - | 自适应，独立组件 |
-| floating-panel.md | wd-floating-panel | - | 浮动面板，独立组件 |
-| tooltip.md | wd-tooltip | - | 文字提示，独立组件 |
-| popover.md | wd-popover | - | 气泡卡片，独立组件 |
+| 文档文件              | 主组件               | 关联组件             | 分组说明                     |
+| ----------------- | ----------------- | ---------------- | ------------------------ |
+| text.md           | wd-text           | -                | 文本，独立组件                  |
+| icon.md           | wd-icon           | -                | 图标，独立组件                  |
+| img.md            | wd-img            | -                | 图片，独立组件                  |
+| divider.md        | wd-divider        | -                | 分割线，独立组件                 |
+| tag.md            | wd-tag            | -                | 标签，独立组件                  |
+| badge.md          | wd-badge          | -                | 徽章，独立组件                  |
+| avatar.md         | wd-avatar         | wd-avatar-group  | 头像及头像组                   |
+| cell.md           | wd-cell           | wd-cell-group    | 单元格及单元格组                 |
+| card.md           | wd-card           | -                | 卡片，独立组件                  |
+| countDown.md     | wd-count-down     | -                | 倒计时，独立组件                 |
+| countTo.md       | wd-count-to       | -                | 数字滚动，独立组件                |
+| calendar.md       | wd-calendar       | -                | 日历                       |
+| calendarView.md | wd-calendar-view  | -                | 日历视图（含 month/panel 等子组件） |
+| noticeBar.md     | wd-notice-bar     | -                | 通知栏，独立组件                 |
+| progress.md       | wd-progress       | -                | 进度条，独立组件                 |
+| circle.md         | wd-circle         | -                | 圆形进度，独立组件                |
+| rate.md           | wd-rate           | -                | 评分，独立组件                  |
+| slider.md         | wd-slider         | -                | 滑块                       |
+| sliderButton.md  | wd-slider-button  | -                | 滑块按钮                     |
+| segmented.md      | wd-segmented      | -                | 分段器，独立组件                 |
+| collapse.md       | wd-collapse       | wd-collapse-item | 折叠面板及折叠项，配合使用            |
+| steps.md          | wd-steps          | wd-step          | 步骤条及步骤项                  |
+| swiper.md         | wd-swiper         | wd-swiper-nav    | 轮播图及轮播导航                 |
+| tour.md           | wd-tour           | -                | 新手引导，独立组件                |
+| tree.md           | wd-tree           | -                | 树形控件，独立组件                |
+| watermark.md      | wd-watermark      | -                | 水印，独立组件                  |
+| gap.md            | wd-gap            | -                | 间距，独立组件                  |
+| resize.md         | wd-resize         | -                | 自适应，独立组件                 |
+| floatingPanel.md | wd-floating-panel | -                | 浮动面板，独立组件                |
+| tooltip.md        | wd-tooltip        | -                | 文字提示，独立组件                |
+| popover.md        | wd-popover        | -                | 气泡卡片，独立组件                |
 
 ### 2.5 布局类组件（共 13 篇文档）
 
-| 文档文件 | 主组件 | 关联组件 | 分组说明 |
-|---------|--------|---------|---------|
-| row.md | wd-row | wd-col | 行及列，配合使用 |
-| grid.md | wd-grid | wd-grid-item | 网格及网格项，配合使用 |
-| table.md | wd-table | wd-table-col | 表格及表格列，配合使用 |
-| fab.md | wd-fab | - | 悬浮按钮，独立组件 |
-| swipe-action.md | wd-swipe-action | - | 滑动操作，独立组件 |
-| transition.md | wd-transition | - | 过渡动画，独立组件 |
-| root-portal.md | wd-root-portal | - | 根门户，独立组件 |
-| config-provider.md | wd-config-provider | - | 全局配置，独立组件 |
-| lazy-load.md | wd-lazy-load | - | 懒加载，独立组件 |
-| date-strip.md | wd-date-strip | - | 日期条，独立组件 |
-| img-cropper.md | wd-img-cropper | - | 图片裁剪，独立组件 |
-| video-preview.md | wd-video-preview | - | 视频预览，独立组件 |
-| waterfall.md | wd-waterfall | - | 瀑布流，独立组件 |
+| 文档文件               | 主组件                | 关联组件         | 分组说明        |
+| ------------------ | ------------------ | ------------ | ----------- |
+| row.md            | wd-row             | wd-col       | 行及列，配合使用    |
+| grid.md            | wd-grid            | wd-grid-item | 网格及网格项，配合使用 |
+| table.md           | wd-table           | wd-table-col | 表格及表格列，配合使用 |
+| fab.md             | wd-fab             | -            | 悬浮按钮，独立组件   |
+| swipeAction.md    | wd-swipe-action    | -            | 滑动操作，独立组件   |
+| transition.md      | wd-transition      | -            | 过渡动画，独立组件   |
+| rootPortal.md     | wd-root-portal     | -            | 根门户，独立组件    |
+| configProvider.md | wd-config-provider | -            | 全局配置，独立组件   |
+| lazyLoad.md       | wd-lazy-load       | -            | 懒加载，独立组件    |
+| dateStrip.md      | wd-date-strip      | -            | 日期条，独立组件    |
+| imgCropper.md     | wd-img-cropper     | -            | 图片裁剪，独立组件   |
+| videoPreview.md  | wd-video-preview   | -            | 视频预览，独立组件   |
+| waterfall.md       | wd-waterfall       | -            | 瀑布流，独立组件    |
 
----
+***
 
 ## 三、文档标准模板结构
 
@@ -205,18 +205,20 @@
 [注意事项、常见问题、性能优化建议、已知限制]
 ```
 
----
+***
 
 ## 四、实施步骤
 
-### 阶段一：组件源码深度分析（预计 15 个组件批次处理）
+### 阶段一：组件源码深度分析（根据‘组件分组清单’逐条分析）
 
 **步骤 1.1**：读取每个组件的以下核心文件：
+
 - `wd-xxx/wd-xxx.vue`：组件主实现
 - `wd-xxx/types.ts`：类型定义
 - `wd-xxx/index.scss`：样式文件
 
 **步骤 1.2**：提取关键信息：
+
 - Props 定义（从 props 对象或 defineProps 中提取）
 - Events 声明（从 $emit 调用中提取）
 - Methods 方法（从 expose 或 public 方法中提取）
@@ -224,18 +226,20 @@
 - 组件关联关系（从 useParent/useChildren composable 中提取）
 
 **步骤 1.3**：分析示例应用：
+
 - 读取 `subPages/xxx/Index.vue` 及相关 demo 文件
 - 提取实际使用模式和最佳实践
 
-### 阶段二：文档批量生成
+### 阶段二：文档生成
 
-**步骤 2.1**：按照分组清单，逐组生成文档
+**步骤 2.1**：按照分组清单，逐条生成文档
 
 **步骤 2.2**：每篇文档生成流程：
-1. 创建文件（文件名：组件英文名小写+.md）
+
+1. 创建文件（文件名：组件英文名使用 camelCase 命名，并以 `.md` 作为扩展名）
 2. 填写一级标题（格式：`# ComponentName 中文名称`）
 3. 编写组件概况（基于源码注释和功能分析）
-4. 编写核心功能描述（基于实现逻辑）
+4. 编写功能描述（基于实现逻辑）
 5. 编写适用业务场景（基于示例文件）
 6. 填写 Props 表格（严格按源码提取）
 7. 填写 Events 表格（严格按 $emit 提取）
@@ -252,16 +256,17 @@
 **步骤 3.4**：确保 customStyle、customClass 始终在 Props 表最后
 **步骤 3.5**：确保表格格式统一、代码块格式规范
 
----
+***
 
 ## 五、关键技术要点
 
 ### 5.1 关联组件识别
 
 通过以下 composable 判断组件关联关系：
+
 - `useParent`：查找父组件，说明当前组件是子组件
 - `useChildren`：查找子组件，说明当前组件是父组件
-- 组件名中的 `-group`、`-item`、`-view` 后缀通常是关联组件标识
+- 组件名中的 `-group`、`-item` 后缀通常是关联组件标识
 
 ### 5.2 Props 提取规则
 
@@ -288,7 +293,7 @@
 - 示例必须可直接复制到项目运行
 - 严禁编造脱离源码实际能力的示例
 
----
+***
 
 ## 六、输出清单
 
@@ -297,48 +302,54 @@
 ### 总计：约 88 篇文档
 
 **表单类**：22 篇
-- button.md, radio.md, checkbox.md, form.md, input.md, textarea.md, input-number.md
-- switch.md, picker.md, picker-view.md, datetime-picker.md, datetime-picker-view.md
-- col-picker.md, select-picker.md, keyboard.md, number-keyboard.md, code.md, code-input.md
-- password-input.md, search.md, signature.md, upload.md
+
+- button.md, radio.md, checkbox.md, form.md, input.md, textarea.md, inputNumber.md
+- switch.md, picker.md, pickerView.md, datetimePicker.md, datetimePickerView.md
+- colPicker.md, selectPicker.md, keyboard.md, numberKeyboard.md, code.md, codeInput.md
+- passwordInput.md, search.md, signature.md, upload.md
 
 **反馈类**：12 篇
-- toast.md, message-box.md, notify.md, loading.md, loadmore.md, loading-page.md
-- status-tip.md, skeleton.md, action-sheet.md, overlay.md, popup.md, curtain.md
+
+- toast.md, messageBox.md, notify.md, loading.md, loadMore.md, loadingPage.md
+- statusTip.md, skeleton.md, actionSheet.md, overlay.md, popup.md, curtain.md
 
 **导航类**：10 篇
-- tabbar.md, tabs.md, sidebar.md, drop-menu.md, navbar.md, sticky.md
-- backtop.md, pagination.md, sort-button.md, index-bar.md
+
+- tabbar.md, tabs.md, sidebar.md, dropMenu.md, navbar.md, sticky.md
+- backtop.md, pagination.md, sortButton.md, indexBar.md
 
 **展示类**：31 篇
+
 - text.md, icon.md, img.md, divider.md, tag.md, badge.md, avatar.md, cell.md, card.md
-- count-down.md, count-to.md, calendar.md, calendar-view.md, notice-bar.md, progress.md
-- circle.md, rate.md, slider.md, slider-button.md, segmented.md, collapse.md, steps.md
+- countDown.md, countTo.md, calendar.md, calendarView.md, noticeBar.md, progress.md
+- circle.md, rate.md, slider.md, sliderButton.md, segmented.md, collapse.md, steps.md
 - swiper.md, tour.md, tree.md, watermark.md
-- gap.md, resize.md, floating-panel.md, tooltip.md, popover.md
+- gap.md, resize.md, floatingPanel.md, tooltip.md, popover.md
 
 **布局类**：13 篇
-- row.md, grid.md, table.md, fab.md, swipe-action.md, transition.md, root-portal.md
-- config-provider.md, lazy-load.md, date-strip.md, img-cropper.md, video-preview.md, waterfall.md
 
----
+- row.md, grid.md, table.md, fab.md, swipeAction.md, transition.md, rootPortal.md
+- configProvider.md, lazyLoad.md, dateStrip.md, imgCropper.md, videoPreview.md, waterfall.md
+
+***
 
 ## 七、执行策略
 
-1. **分批处理**：按功能分类分批处理，每批处理 5-10 个组件组
+1. **分批处理**：按功能分类分批处理，每批处理 2-5 个组件组
 2. **并行分析**：同时读取多个组件源码提高效率
 3. **质量优先**：每个组件文档生成后立即验证结构完整性
 4. **参考优先**：所有示例优先从 subPages 目录提取，确保实用性
 5. **严格遵循**：严格按照源码实现编写，绝不臆造 API
 
----
+***
 
 ## 八、注意事项
 
 1. 文件编码统一为 UTF-8
-2. 文件名采用组件英文名称小写+中划线格式（如 action-sheet.md）
+2. 文件名采用组件英文名称的 camelCase 格式（如 `actionSheet.md`）
 3. 一级标题格式严格遵循 `# ComponentName 中文名称`
 4. 表格使用标准 Markdown 表格语法
-5. 代码块使用 ```vue、```javascript 等语言标识
+5. 代码块使用 `vue、`javascript 等语言标识
 6. customStyle、customClass 属性始终放在 Props 表最后
 7. 所有描述基于源码实现，不虚构版本兼容性承诺
+
