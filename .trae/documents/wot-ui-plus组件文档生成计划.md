@@ -10,10 +10,11 @@
 
 ## 二、组件分组清单
 
-### 2.1 表单类组件（共 14 篇文档）
+### 2.1 表单类组件（共 22 篇文档）
 
 | 文档文件 | 主组件 | 关联组件 | 分组说明 |
 |---------|--------|---------|---------|
+| button.md | wd-button | - | 按钮组件，常用于表单提交与操作触发 |
 | radio.md | wd-radio | wd-radio-group | 单选框及单选框组，配合使用 |
 | checkbox.md | wd-checkbox | wd-checkbox-group | 复选框及复选框组，配合使用 |
 | form.md | wd-form | wd-form-item | 表单容器及表单项，配合使用 |
@@ -34,6 +35,7 @@
 | password-input.md | wd-password-input | - | 密码输入框，独立组件 |
 | search.md | wd-search | - | 搜索框，独立组件 |
 | signature.md | wd-signature | - | 签名组件，独立组件 |
+| upload.md | wd-upload | - | 上传组件，独立组件 |
 
 ### 2.2 反馈类组件（共 12 篇文档）
 
@@ -52,7 +54,7 @@
 | popup.md | wd-popup | - | 弹出层，独立组件 |
 | curtain.md | wd-curtain | - | 幕帘，独立组件 |
 
-### 2.3 导航类组件（共 12 篇文档）
+### 2.3 导航类组件（共 10 篇文档）
 
 | 文档文件 | 主组件 | 关联组件 | 分组说明 |
 |---------|--------|---------|---------|
@@ -67,7 +69,7 @@
 | sort-button.md | wd-sort-button | - | 排序按钮，独立组件 |
 | index-bar.md | wd-index-bar | wd-index-anchor | 索引栏及索引锚点 |
 
-### 2.4 展示类组件（共 28 篇文档）
+### 2.4 展示类组件（共 31 篇文档）
 
 | 文档文件 | 主组件 | 关联组件 | 分组说明 |
 |---------|--------|---------|---------|
@@ -83,7 +85,7 @@
 | count-down.md | wd-count-down | - | 倒计时，独立组件 |
 | count-to.md | wd-count-to | - | 数字滚动，独立组件 |
 | calendar.md | wd-calendar | - | 日历 |
-| calendar-view.md | wd-calendar-view | - | 日历视图（含month/panel等子组件） |
+| calendar-view.md | wd-calendar-view | - | 日历视图（含 month/panel 等子组件） |
 | notice-bar.md | wd-notice-bar | - | 通知栏，独立组件 |
 | progress.md | wd-progress | - | 进度条，独立组件 |
 | circle.md | wd-circle | - | 圆形进度，独立组件 |
@@ -91,6 +93,7 @@
 | slider.md | wd-slider | - | 滑块 |
 | slider-button.md | wd-slider-button | - | 滑块按钮 |
 | segmented.md | wd-segmented | - | 分段器，独立组件 |
+| collapse.md | wd-collapse | wd-collapse-item | 折叠面板及折叠项，配合使用 |
 | steps.md | wd-steps | wd-step | 步骤条及步骤项 |
 | swiper.md | wd-swiper | wd-swiper-nav | 轮播图及轮播导航 |
 | tour.md | wd-tour | - | 新手引导，独立组件 |
@@ -185,7 +188,13 @@
 
 [示例效果说明]
 
-### 示例3：[高级应用场景]
+### 示例3：[具体功能描述]
+
+[完整的vue代码块，包含template/script/style]
+
+[示例效果说明]
+
+### 示例4：[高级应用场景]
 
 [完整的vue代码块，包含template/script/style]
 
@@ -285,12 +294,13 @@
 
 最终将在 `D:\IdeaSpace\MySpace\wot-ui-docs\docs\components\wot` 目录生成以下文档：
 
-### 总计：约 79 篇文档
+### 总计：约 88 篇文档
 
-**表单类**：17 篇
-- radio.md, checkbox.md, form.md, input.md, textarea.md, input-number.md, switch.md
-- picker.md, datetime-picker.md, col-picker.md, select-picker.md
-- keyboard.md, number-keyboard.md, code.md, password-input.md, search.md, signature.md
+**表单类**：22 篇
+- button.md, radio.md, checkbox.md, form.md, input.md, textarea.md, input-number.md
+- switch.md, picker.md, picker-view.md, datetime-picker.md, datetime-picker-view.md
+- col-picker.md, select-picker.md, keyboard.md, number-keyboard.md, code.md, code-input.md
+- password-input.md, search.md, signature.md, upload.md
 
 **反馈类**：12 篇
 - toast.md, message-box.md, notify.md, loading.md, loadmore.md, loading-page.md
@@ -300,10 +310,11 @@
 - tabbar.md, tabs.md, sidebar.md, drop-menu.md, navbar.md, sticky.md
 - backtop.md, pagination.md, sort-button.md, index-bar.md
 
-**展示类**：28 篇
+**展示类**：31 篇
 - text.md, icon.md, img.md, divider.md, tag.md, badge.md, avatar.md, cell.md, card.md
-- count-down.md, count-to.md, calendar.md, notice-bar.md, progress.md, circle.md, rate.md
-- slider.md, segmented.md, steps.md, swiper.md, tour.md, tree.md, watermark.md
+- count-down.md, count-to.md, calendar.md, calendar-view.md, notice-bar.md, progress.md
+- circle.md, rate.md, slider.md, slider-button.md, segmented.md, collapse.md, steps.md
+- swiper.md, tour.md, tree.md, watermark.md
 - gap.md, resize.md, floating-panel.md, tooltip.md, popover.md
 
 **布局类**：13 篇
