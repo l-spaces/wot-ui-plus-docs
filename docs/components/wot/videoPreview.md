@@ -1,6 +1,6 @@
-# VideoPreview 视频预览
+﻿# VideoPreview 视频预览
 
-## 组件概述
+## 组件概况
 
 VideoPreview 视频预览组件用于视频的全屏预览播放，支持自定义标题、封面图等功能。通过 ref 调用 `open` 方法打开预览，`close` 方法关闭预览。通常与 Upload 组件配合使用。
 

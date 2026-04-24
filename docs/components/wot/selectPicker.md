@@ -1,6 +1,6 @@
-# SelectPicker 下拉选择器
+﻿# SelectPicker 下拉选择器
 
-## 组件概述
+## 组件概况
 
 SelectPicker 下拉选择器用于从平面选项列表中进行单选或多选。组件内部基于 `wd-action-sheet`、`wd-checkbox-group`、`wd-radio-group` 组合实现，支持搜索过滤、确认前校验、自动确认和清空能力，适合标签选择、人员选择和列表型配置场景。
 

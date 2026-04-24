@@ -1,6 +1,6 @@
-# DatetimePicker 日期时间选择器
+﻿# DatetimePicker 日期时间选择器
 
-## 组件概述
+## 组件概况
 
 DatetimePicker 日期时间选择器用于选择日期和时间，支持 date、year-month、time、datetime、year 五种类型。提供日期范围限制、自定义格式化、过滤选项、确认前校验等功能。基于 Picker 组件封装，点击后弹出底部面板进行选择。
 

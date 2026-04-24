@@ -1,6 +1,6 @@
-# RootPortal 根门户
+﻿# RootPortal 根门户
 
-## 组件概述
+## 组件概况
 
 RootPortal 根门户组件用于将子元素从当前组件树中脱离出来渲染到页面根节点，解决 fixed 定位在嵌套组件中失效的问题。在不同平台使用不同实现：H5 使用 Teleport，微信/支付宝小程序使用 root-portal，App 端使用 renderjs。
 

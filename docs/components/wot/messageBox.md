@@ -1,6 +1,6 @@
-# MessageBox 消息框
+﻿# MessageBox 消息框
 
-## 组件概述
+## 组件概况
 
 MessageBox 消息框组件用于确认类操作和输入类操作，适合删除确认、重要操作提示、原因填写等场景。组件通过函数式调用 `useMessage()` 使用，支持 `alert`、`confirm`、`prompt` 三种模式，并返回 Promise 以便业务代码统一处理结果。
 

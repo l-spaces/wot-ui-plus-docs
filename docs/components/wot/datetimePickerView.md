@@ -1,6 +1,6 @@
-# DatetimePickerView 日期时间选择器视图
+﻿# DatetimePickerView 日期时间选择器视图
 
-## 组件概述
+## 组件概况
 
 DatetimePickerView 日期时间选择器视图是 `wd-datetime-picker` 的平铺形态，直接在页面中渲染滚动选择列，不包含弹出层和确认栏。它适合嵌入式日期选择面板、自定义筛选区域和复杂表单场景，能够在页面布局内持续展示选择器内容。
 

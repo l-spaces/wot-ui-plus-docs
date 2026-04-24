@@ -1,6 +1,6 @@
-# Checkbox 复选框
+﻿# Checkbox 复选框
 
-## 组件概述
+## 组件概况
 
 Checkbox 复选框用于在一组选项中进行多选。由 `wd-checkbox` 和 `wd-checkbox-group` 两个组件配合使用，`wd-checkbox-group` 作为容器管理选中状态，`wd-checkbox` 作为单个选项。支持三种形状（圆形、方形、按钮）、表单模式、同行展示、自定义选中颜色、半选状态等功能。可单独使用或组合使用，单独使用时通过 `trueValue` 和 `falseValue` 控制选中/未选中的值。
 

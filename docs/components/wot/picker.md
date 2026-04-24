@@ -1,6 +1,6 @@
-# Picker 选择器
+﻿# Picker 选择器
 
-## 组件概述
+## 组件概况
 
 Picker 选择器组件用于从一组数据中选择一项或多项，由 `wd-picker` 和 `wd-picker-view` 两个组件配合使用。`wd-picker` 负责弹出式交互和表单承载，`wd-picker-view` 负责滚轮选择视图。组件支持单列、多列、级联联动、自定义展示文案和确认前校验。
 
