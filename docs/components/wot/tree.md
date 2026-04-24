@@ -1,4 +1,4 @@
-﻿# Tree 树形控件
+# Tree 树形控件
 
 ## 组件概况
 
@@ -67,6 +67,8 @@ Tree 树形控件用于展示层级结构数据，支持复选框选择、单选
 | click | 节点点击时触发 | - | - |
 | checked | 选中节点键值变化时触发 | (string / number)[] | 选中键值数组 |
 | expanded | 展开节点键值变化时触发 | (string / number)[] | 展开键值数组 |
+| update:checked-keys | 选中键值变化时触发 | `(keys: (string \| number)[])` | 用于 v-model:checked-keys 双向绑定 |
+| update:expanded-keys | 展开键值变化时触发 | `(keys: (string \| number)[])` | 用于 v-model:expanded-keys 双向绑定 |
 
 ### Slots
 

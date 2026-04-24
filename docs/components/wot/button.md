@@ -29,7 +29,7 @@ Button 按钮组件是 wot-ui-plus 中最基础的交互组件，用于触发操
 
 | 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
 |---------|------|--------|---------|------|
-| type | String | 'primary' | 否 | 按钮类型，可选值：primary / success / info / warning / error / text / icon |
+| type | String | 'primary' | 否 | 按钮类型，可选值：primary / success / info / warning / error / default / text / icon |
 | size | String | 'medium' | 否 | 按钮尺寸，可选值：small / medium / large |
 | plain | Boolean | false | 否 | 幽灵按钮，填充背景变为透明 |
 | round | Boolean | true | 否 | 圆角按钮 |
@@ -40,7 +40,7 @@ Button 按钮组件是 wot-ui-plus 中最基础的交互组件，用于触发操
 | loadingColor | String | - | 否 | 加载图标颜色，默认根据 type 自动匹配 |
 | icon | String | - | 否 | 左侧图标，使用 Icon 组件的图标类名 |
 | classPrefix | String | 'wd-icon' | 否 | 类名前缀，用于使用自定义图标 |
-| openType | String | - | 否 | 微信/支付宝小程序开放能力，可选值：feedback / share / getUserInfo / contact / getPhoneNumber / launchApp / openSetting / chooseAvatar / getAuthorize / agreePrivacyAuthorization 等 |
+| openType | String | - | 否 | 微信/支付宝小程序开放能力，可选值：feedback / share / getUserInfo / contact / getPhoneNumber / launchApp / openSetting / chooseAvatar / getAuthorize / agreePrivacyAuthorization / lifestyle / contactShare / openGroupProfile / openGuildProfile / openPublicProfile / shareMessageToFriend / addFriend / addColorSign / addGroupApp / addToFavorites / chooseAddress / chooseInvoiceTitle / login / subscribe / favorite / watchLater / openProfile 等 |
 | hoverStopPropagation | Boolean | false | 否 | 是否阻止本节点的祖先节点出现点击态 |
 | lang | String | - | 否 | 指定返回用户信息的语言，可选值：zh_CN / zh_TW / en |
 | sessionFrom | String | - | 否 | 会话来源，open-type="contact" 时有效 |

@@ -1,4 +1,4 @@
-﻿# Form 表单
+# Form 表单
 
 ## 组件概况
 
@@ -39,6 +39,12 @@ Form 表单组件由 `wd-form` 和 `wd-form-item` 两个组件配合使用，用
 | validate | (prop?: string \| string[]) | Promise<{ valid: boolean; errors: ErrorMessage[] }> | 表单校验，可传入指定字段名或字段名数组 |
 | reset | - | void | 重置表单项的验证提示 |
 
+### Form Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 表单内容，放置 wd-form-item 或其他表单组件 |
+
 ### FormItem Props
 
 | 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
@@ -60,7 +66,7 @@ Form 表单组件由 `wd-form` 和 `wd-form-item` 两个组件配合使用，用
 | required | Boolean | 是 | 是否必填 |
 | message | String | 是 | 校验失败时的提示信息 |
 | pattern | RegExp | 否 | 正则表达式校验 |
-| validator | Function | 否 | 自定义校验函数，返回 boolean / Promise\<string\> / Promise\<boolean\> |
+| validator | Function | 否 | 自定义校验函数，接收 (value, rule) 两个参数，返回 boolean / Promise\<string\> / Promise\<boolean\> / Promise\<void\> |
 
 ### FormItem Slots
 

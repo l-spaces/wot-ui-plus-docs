@@ -1,4 +1,4 @@
-﻿# Tabs 标签页
+# Tabs 标签页
 
 ## 组件概况
 
@@ -67,23 +67,23 @@ Tabs 标签页组件用于内容分类切换，由 `wd-tabs` 和 `wd-tab` 两个
 
 ### Tabs Methods
 
-| 方法名称 | 说明 | 参数 |
-|---------|------|------|
-| setActive | 设置当前激活项 | `(value: number \| string, init: boolean, setScroll: boolean)` |
-| scrollIntoView | 让当前激活标签滚动到可视区域 | - |
-| updateLineStyle | 更新底部条样式 | `(animation?: boolean)` |
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| setActive | `(value: number \| string, init: boolean, setScroll: boolean)` | void | 设置当前激活项 |
+| scrollIntoView | - | void | 让当前激活标签滚动到可视区域 |
+| updateLineStyle | `(animation?: boolean)` | void | 更新底部条样式 |
 
 ### Tabs Slots
 
-| 插槽名称 | 说明 |
-|---------|------|
-| default | `wd-tabs` 默认插槽，用于放置多个 `wd-tab` |
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | `wd-tabs` 默认插槽，用于放置多个 `wd-tab` |
 
 ### Tab Slots
 
-| 插槽名称 | 说明 |
-|---------|------|
-| default | 当前标签页内容 |
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 当前标签页内容 |
 
 ## 使用示例
 

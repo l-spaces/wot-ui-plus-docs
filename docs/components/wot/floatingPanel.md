@@ -1,4 +1,4 @@
-﻿# FloatingPanel 浮动面板
+# FloatingPanel 浮动面板
 
 ## 组件概况
 
@@ -39,6 +39,7 @@ FloatingPanel 浮动面板组件用于在页面底部展示可拖拽的浮动面
 | 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
 |---------|---------|---------|-------------|
 | height-change | 拖拽结束后面板高度变化时触发 | ({ height: number }) | 当前面板高度 |
+| update:height | 面板高度变化时触发 | `(height: number)` | 用于 v-model:height 双向绑定 |
 
 ### Slots
 

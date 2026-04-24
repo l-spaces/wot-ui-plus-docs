@@ -1,4 +1,4 @@
-﻿# Picker 选择器
+# Picker 选择器
 
 ## 组件概况
 
@@ -59,16 +59,18 @@ Picker 选择器组件用于从一组数据中选择一项或多项，由 `wd-pi
 | customLabelClass | String | `''` | 否 | 自定义标题样式类 |
 | customValueClass | String | `''` | 否 | 自定义值样式类 |
 | customViewClass | String | `''` | 否 | 自定义 `wd-picker-view` 样式类 |
+| useDefaultSlot | Boolean | false | 否 | 已废弃，可直接使用默认插槽，无需配置 |
+| useLabelSlot | Boolean | false | 否 | 已废弃，可直接使用标签插槽，无需配置 |
 | customStyle | String | `''` | 否 | 自定义根节点样式 |
 | customClass | String | `''` | 否 | 自定义根节点样式类 |
 
 ### Picker Methods
 
-| 方法名称 | 说明 | 参数 |
-|---------|------|------|
-| open | 打开选择器弹层 | - |
-| close | 关闭选择器弹层 | - |
-| setLoading | 设置内部加载状态 | `(loading: boolean)` |
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| open | - | void | 打开选择器弹层 |
+| close | - | void | 关闭选择器弹层 |
+| setLoading | `(loading: boolean)` | void | 设置内部加载状态 |
 
 ### Picker Events
 
@@ -82,26 +84,54 @@ Picker 选择器组件用于从一组数据中选择一项或多项，由 `wd-pi
 
 ### Picker Slots
 
-| 插槽名称 | 说明 |
-|---------|------|
-| default | 自定义触发区内容 |
-| label | 自定义标题内容 |
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 自定义触发区内容 |
+| label | - | 自定义标题内容 |
 
 ### PickerView 组合能力
 
-`wd-picker-view` 为 `wd-picker` 的底层滚轮视图，当前源码暴露以下方法，供 `columnChange` 或 `ref` 场景使用：
+`wd-picker-view` 为 `wd-picker` 的底层滚轮视图，当前源码暴露以下属性、事件和方法，供 `columnChange` 或 `ref` 场景使用：
 
-| 方法名称 | 说明 |
-|---------|------|
-| getSelects | 获取当前选中项对象 |
-| getValues | 获取当前选中值 |
-| setColumnData | 动态设置某一列数据 |
-| getColumnsData | 获取当前全部列数据 |
-| getColumnData | 获取指定列数据 |
-| getColumnIndex | 获取指定列当前选中下标 |
-| getLabels | 获取当前选中文案数组 |
-| getSelectedIndex | 获取所有列当前选中下标 |
-| resetColumns | 重置列数据 |
+#### PickerView Props
+
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| modelValue | String / Number / Array | `''` | 否 | 当前选中值 |
+| columns | Array | `[]` | 否 | 选择器数据 |
+| loading | Boolean | false | 否 | 加载状态 |
+| loadingColor | String | `'#4D80F0'` | 否 | 加载颜色 |
+| columnsHeight | Number | 217 | 否 | 选项总高度 |
+| itemHeight | Number | 35 | 否 | 单项高度 |
+| valueKey | String | `'value'` | 否 | 选项值字段名 |
+| labelKey | String | `'label'` | 否 | 选项文案字段名 |
+| immediateChange | Boolean | false | 否 | 是否在手指松开时立即触发变更 |
+| columnChange | Function | - | 否 | 列联动回调 |
+| customStyle | String | `''` | 否 | 自定义根节点样式 |
+| customClass | String | `''` | 否 | 自定义根节点样式类 |
+
+#### PickerView Events
+
+| 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
+|---------|---------|---------|-------------|
+| change | 滚轮选中项变化时触发 | `({ picker, value, index })` | picker 为 pickerView 实例，value 为当前选中值，index 为选中下标 |
+| pickstart | 滚轮开始滚动时触发 | - | - |
+| pickend | 滚轮停止滚动时触发 | - | - |
+| update:modelValue | 选中值变化时触发 | `(value)` | 用于同步选中值 |
+
+#### PickerView Methods
+
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| getSelects | - | object[] | 获取当前选中项对象 |
+| getValues | - | array | 获取当前选中值 |
+| setColumnData | `(index: number, data: array, rowIndex?: number)` | void | 动态设置某一列数据，`rowIndex` 为可选参数，设置后默认选中的行下标，默认为 0 |
+| getColumnsData | - | array | 获取当前全部列数据 |
+| getColumnData | `(index: number)` | array | 获取指定列数据 |
+| getColumnIndex | `(index: number)` | number | 获取指定列当前选中下标 |
+| getLabels | - | string[] | 获取当前选中文案数组 |
+| getSelectedIndex | - | number[] | 获取所有列当前选中下标 |
+| resetColumns | `(columns: array)` | void | 将列数据重置为指定数据 |
 
 ## 使用示例
 

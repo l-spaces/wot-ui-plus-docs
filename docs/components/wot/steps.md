@@ -1,4 +1,4 @@
-﻿# Steps 步骤条
+# Steps 步骤条
 
 ## 组件概况
 
@@ -42,6 +42,20 @@ Steps 步骤条组件用于展示流程步骤，由 `wd-steps` 和 `wd-step` 两
 | description | String | - | 否 | 步骤描述 |
 | icon | String | - | 否 | 自定义图标 |
 | status | String | - | 否 | 状态，可选值：finished / process / error |
+
+### Steps Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 放置多个 `wd-step` |
+
+### Step Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| icon | - | 自定义步骤图标 |
+| title | - | 自定义步骤标题 |
+| description | - | 自定义步骤描述 |
 
 ## 使用示例
 

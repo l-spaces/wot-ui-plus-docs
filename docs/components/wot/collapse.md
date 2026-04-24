@@ -1,4 +1,4 @@
-﻿# Collapse 折叠面板
+# Collapse 折叠面板
 
 ## 组件概况
 
@@ -54,6 +54,7 @@ Collapse 折叠面板组件用于内容折叠展开，由 `wd-collapse` 和 `wd-
 | 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
 |---------|---------|---------|-------------|
 | change | 展开项变化时触发 | ({ value }) | 当前展开项 |
+| update:modelValue | 展开项变化时触发 | `(value)` | 用于 v-model 双向绑定 |
 
 ### Collapse Methods
 

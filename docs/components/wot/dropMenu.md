@@ -1,4 +1,4 @@
-﻿# DropMenu 下拉菜单
+# DropMenu 下拉菜单
 
 ## 组件概况
 
@@ -64,12 +64,30 @@ DropMenu 下拉菜单组件用于向下或向上展开的菜单，由 `wd-drop-m
 | open | - | void | 打开下拉菜单 |
 | close | - | void | 关闭下拉菜单 |
 | toggle | - | void | 切换下拉菜单 |
+| getShowPop | - | boolean | 获取当前菜单是否展开 |
 
 ### DropMenuItem Events
 
 | 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
 |---------|---------|---------|-------------|
-| change | 选中项变化时触发 | ({ value }) | 当前选中值 |
+| change | 选中项变化时触发 | `({ value, selectedItem })` | 当前选中值与选中项对象 |
+| update:modelValue | 值变化时触发 | `(value: string \| number)` | 当前选中值 |
+| open | 菜单打开时触发 | - | - |
+| opened | 菜单打开动画结束后触发 | - | - |
+| close | 菜单关闭时触发 | - | - |
+| closed | 菜单关闭动画结束后触发 | - | - |
+
+### DropMenu Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 放置多个 `wd-drop-menu-item` |
+
+### DropMenuItem Slots
+
+| 插槽名称 | 作用域参数 | 使用场景 |
+|---------|-----------|---------|
+| default | - | 自定义菜单项展开内容 |
 
 ## 使用示例
 

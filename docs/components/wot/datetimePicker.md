@@ -1,4 +1,4 @@
-﻿# DatetimePicker 日期时间选择器
+# DatetimePicker 日期时间选择器
 
 ## 组件概况
 
@@ -62,6 +62,7 @@ DatetimePicker 日期时间选择器用于选择日期和时间，支持 date、
 | filter | Function | - | 否 | 自定义过滤选项的函数 |
 | formatter | Function | - | 否 | 自定义选项文案的格式化函数 |
 | displayFormat | Function | - | 否 | 自定义展示文案的格式化函数 |
+| displayFormatTabLabel | Function | - | 否 | 区域选择模式下自定义 tab 标签文案的格式化函数 |
 | beforeConfirm | Function | - | 否 | 确认前校验函数 |
 | defaultValue | String / Number / Array | - | 否 | 默认日期 |
 | zIndex | Number | 15 | 否 | 弹窗层级 |
@@ -93,6 +94,9 @@ DatetimePicker 日期时间选择器用于选择日期和时间，支持 date、
 | confirm | 点击确认按钮时触发 | ({ value }) | value 为选中值（时间戳或时间字符串） |
 | cancel | 点击取消按钮时触发 | - | - |
 | change | 选项变化时触发 | ({ value }) | 滚动选择时触发 |
+| open | 打开面板时触发 | - | - |
+| toggle | 面板切换时触发 | - | - |
+| clear | 点击清空按钮时触发 | - | - |
 
 ### Slots
 
