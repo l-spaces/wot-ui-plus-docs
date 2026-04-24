@@ -54,12 +54,23 @@ Tour 新手引导组件用于页面功能的新手引导，支持多步骤引导
 
 | 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
 |---------|---------|---------|-------------|
+| update:modelValue | 显示状态变化时触发 | (value: boolean) | 当前是否显示引导 |
+| update:current | 当前步骤变化时触发 | (value: number) | 当前步骤索引 |
 | change | 切换步骤时触发 | ({ current }) | 当前步骤索引 |
-| prev | 上一步时触发 | ({ prevCurrent, current, total }) | 上一步和当前步骤信息 |
-| next | 下一步时触发 | ({ prevCurrent, current, total }) | 上一步和当前步骤信息 |
+| prev | 上一步时触发 | ({ prevCurrent, current, total, isElementInTop }) | 上一步、当前步骤和目标元素位置信息 |
+| next | 下一步时触发 | ({ prevCurrent, current, total, isElementInTop }) | 上一步、当前步骤和目标元素位置信息 |
 | finish | 完成引导时触发 | ({ current, total }) | 完成时的步骤信息 |
 | skip | 跳过引导时触发 | ({ current, total }) | 跳过时的步骤信息 |
 | error | 错误时触发 | ({ message, element }) | 错误信息和目标元素 |
+
+### Methods
+
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| handlePrev | - | void | 手动触发上一步 |
+| handleNext | - | void | 手动触发下一步 |
+| handleFinish | - | void | 手动完成引导 |
+| handleSkip | - | void | 手动跳过引导 |
 
 ### Slots
 
@@ -168,3 +179,4 @@ const steps = [
 - `clickMaskNext` 为 true 时，点击蒙版会进入下一步
 - `mask` 为 false 时不显示蒙版，仅高亮目标元素
 - 可通过 `v-model:current` 控制当前步骤索引
+- 若需要在自定义按钮外部控制流程，可通过组件实例调用暴露出的 `handlePrev`、`handleNext`、`handleFinish`、`handleSkip`
