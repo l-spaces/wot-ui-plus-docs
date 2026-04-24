@@ -7,7 +7,7 @@
     <!-- <Contributors /> -->
     <!-- <ProjectInfo /> -->
     <HomePartners />
-    <SitePV />
+    <!-- <SitePV /> -->
     <!-- <FooterInfo /> -->
   </div>
 </template>

@@ -1,25 +1,22 @@
-# Card 卡片
-<demo-model url="/subPages/card/Index"></demo-model>
+﻿# Card 卡片
 
 ## 组件概况
 
-Card 卡片组件是一种用于承载、展示内容信息的容器组件，通过清晰的视觉边界将相关内容组织在一起。该组件支持标题、内容区域和底部操作区域三个部分，提供默认圆角阴影样式与矩形样式两种卡片形态，适用于信息展示、订单列表、服务提醒等多种业务场景。卡片组件结构灵活，支持通过插槽自定义标题、内容和底部区域，满足不同业务需求。
+Card 卡片组件用于展示信息卡片，提供标题区域、内容区域和底部区域三个分区，支持矩形卡片类型、自定义标题、丰富的插槽等功能。通过插槽可灵活自定义各区域内容，适用于商品展示、订单信息、服务通知等多种业务场景。
 
 ## 核心功能描述
 
-- **双形态卡片**：支持默认圆角卡片与矩形（rectangle）卡片两种形态，矩形卡片去除圆角和阴影，内容区域与底部区域以分割线分隔
-- **三段式布局**：提供标题区域、内容区域和底部操作区域，标题与底部区域按需显示
-- **全面插槽支持**：支持默认插槽（内容区）、title 插槽（标题区）和 footer 插槽（底部区），可实现高度自定义布局
-- **自定义样式类**：支持为标题、内容、底部区域分别设置自定义样式类名
-- **暗色模式支持**：内置 dark 主题样式，自动适配系统主题切换
-- **虚拟宿主**：开启 virtualHost，组件根节点样式不影响内部结构
+- **三区域布局**：卡片分为标题区域（title）、内容区域（default）和底部区域（footer），各区域独立控制
+- **矩形卡片**：`type` 设为 `rectangle` 启用矩形卡片样式，视觉上更紧凑
+- **自定义标题**：通过 `title` 属性设置标题文字，或通过 `title` 插槽自定义标题内容
+- **自定义样式类**：`customTitleClass`、`customContentClass`、`customFooterClass` 分别自定义三个区域的样式
+- **底部区域**：通过 `footer` 插槽添加操作按钮等内容，不使用插槽时底部区域不显示
 
 ## 适用业务场景
 
-- **信息展示卡片**：展示文本、图片、列表等内容，如文章摘要、商品详情简介等
-- **订单卡片**：在订单列表中展示商品图片、名称、数量、金额、买家信息等
-- **服务提醒卡片**：展示服务到期提醒、状态变更通知等，搭配操作按钮引导用户处理
-- **用户信息卡片**：展示用户头像、昵称、个人简介等信息
+- **商品卡片**：展示商品封面图、标题、价格、标签等信息，底部放置查看详情按钮
+- **订单信息**：展示订单商品、数量、金额等信息，底部放置操作按钮
+- **服务通知**：展示服务到期提醒、续费提示等信息，底部放置评价或使用按钮
 
 ## API
 
@@ -27,297 +24,98 @@ Card 卡片组件是一种用于承载、展示内容信息的容器组件，通
 
 | 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
 |---------|------|--------|---------|------|
-| type | string | - | 否 | 卡片类型，设置为 'rectangle' 时显示矩形卡片（去除圆角和阴影，内容区域与底部区域带分割线） |
-| title | string | - | 否 | 卡片标题，显示在卡片顶部标题区域；传入 title 或使用 title 插槽时显示标题区域 |
-| customClass | string | '' | 否 | 自定义根节点类名 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customTitleClass | string | '' | 否 | 自定义标题区域样式类名 |
-| customContentClass | string | '' | 否 | 自定义内容区域样式类名 |
-| customFooterClass | string | '' | 否 | 自定义底部区域样式类名 |
-
-### Events
-
-组件不对外暴露事件。
-
-### Methods
-
-组件不对外暴露方法。
+| type | String | - | 否 | 卡片类型，可选值：rectangle |
+| title | String | - | 否 | 卡片标题 |
+| customTitleClass | String | '' | 否 | 标题区域自定义样式类名 |
+| customContentClass | String | '' | 否 | 内容区域自定义样式类名 |
+| customFooterClass | String | '' | 否 | 底部区域自定义样式类名 |
+| customStyle | String | '' | 否 | 自定义根节点样式 |
+| customClass | String | '' | 否 | 自定义根节点样式类 |
 
 ### Slots
 
 | 插槽名称 | 作用域参数 | 使用场景 |
 |---------|-----------|---------|
-| default | - | 卡片内容区域，可插入任意内容，如文本、图片、列表等 |
-| title | - | 自定义标题区域内容，当需要复杂标题布局（如图标+文字组合）时使用；不传 title 属性时使用此插槽自定义标题 |
-| footer | - | 自定义底部操作区域内容，如按钮组、操作链接等；不传此插槽时底部区域不显示 |
+| default | - | 卡片内容区域 |
+| title | - | 自定义标题内容，优先级高于 title 属性 |
+| footer | - | 底部操作区域，如放置按钮组 |
 
 ## 使用示例
 
-### 示例 1：基础用法
-
-最基本的卡片展示，通过 `title` 属性设置标题，使用默认插槽填充内容，`footer` 插槽定义底部操作按钮。
+### 示例1：基础用法
 
 ```vue
 <template>
-  <view>
-    <wd-card title="《静夜思》">
-      {{ content }}
-      <template #footer>
-        <wd-button size="small" plain>查看详情</wd-button>
-      </template>
-    </wd-card>
-  </view>
+  <wd-card title="《静夜思》">
+    床前明月光，疑是地上霜。举头望明月，低头思故乡。
+    <template #footer>
+      <wd-button size="small" plain>查看详情</wd-button>
+    </template>
+  </wd-card>
 </template>
-<script lang="ts" setup>
-  import { ref } from 'vue'
-
-  const content = ref('床前明月光，疑是地上霜。举头望明月，低头思故乡。')
-</script>
 ```
 
-该示例展示了最基本的卡片用法，卡片带有标题、内容区域和底部操作按钮。默认样式为圆角带阴影的卡片形态。
+通过 `title` 设置卡片标题，默认插槽放置内容，`footer` 插槽放置操作按钮。
 
-### 示例 2：矩形卡片
-
-通过设置 `type="rectangle"` 显示矩形卡片，去除圆角和阴影效果，内容区域与底部区域以分割线分隔。
+### 示例2：矩形卡片与商品信息
 
 ```vue
 <template>
-  <view>
-    <wd-card title="《静夜思》" type="rectangle">
-      {{ content }}
-      <template #footer>
-        <wd-button size="small" plain>查看详情</wd-button>
-      </template>
-    </wd-card>
-  </view>
-</template>
-<script lang="ts" setup>
-  import { ref } from 'vue'
-
-  const content = ref('床前明月光，疑是地上霜。举头望明月，低头思故乡。')
-</script>
-```
-
-该示例中，矩形卡片铺满容器宽度，无圆角无阴影，标题区域、内容区域、底部区域之间使用细线分割，适用于列表式布局。
-
-### 示例 3：订单信息卡片
-
-在内容区域展示图片与文字组合的订单信息，底部搭配操作按钮。
-
-```vue
-<template>
-  <view>
-    <wd-card title="新订单">
-      <view class="content">
-        <image
-          src="/static/img/jd.png"
-          alt="商品图片"
-          style="width: 70px; height: 70px; border-radius: 4px; margin-right: 12px"
-        />
-        <view>
-          <view>蜜滋兰(mizland)新西兰进口多花种…</view>
-          <view>数量：1件</view>
-          <view>金额：29.08</view>
-          <view>买家昵称：Joy</view>
-        </view>
-      </view>
-      <template #footer>
-        <wd-button size="small" plain>查看详情</wd-button>
-      </template>
-    </wd-card>
-  </view>
-</template>
-<style lang="scss" scoped>
-  .content {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-  }
-</style>
-```
-
-该示例展示了典型的订单卡片布局，左侧为商品图片，右侧为订单详情信息，底部提供查看详情的操作按钮。
-
-### 示例 4：去除 footer 的卡片
-
-不传入 `footer` 插槽时，底部区域不会显示，适用于仅需展示内容无需操作的场景。
-
-```vue
-<template>
-  <view>
-    <wd-card title="头像" type="rectangle">
+  <wd-card title="新订单" type="rectangle">
+    <view style="display: flex; align-items: center;">
+      <image src="/static/product.jpg" style="width: 70px; height: 70px; border-radius: 4px; margin-right: 12px" />
       <view>
-        <wd-avatar src="/static/img/a1.png" />
-        <text>你好，世界！</text>
+        <view>蜜滋兰新西兰进口多花种蜂蜜</view>
+        <view>数量：1件</view>
+        <view>金额：29.08</view>
       </view>
-    </wd-card>
-  </view>
+    </view>
+    <template #footer>
+      <wd-button size="small" plain>查看详情</wd-button>
+    </template>
+  </wd-card>
 </template>
 ```
 
-该示例中没有使用 footer 插槽，卡片仅展示标题和内容区域，适用于纯信息展示场景。
+`type="rectangle"` 启用矩形卡片样式，适合展示商品订单等紧凑信息。
 
-### 示例 5：自定义标题插槽
-
-通过 `title` 插槽自定义标题区域内容，可实现复杂的标题布局，如图标、文字组合，标题与辅助信息并排等。
+### 示例3：自定义标题与多按钮
 
 ```vue
 <template>
-  <view>
-    <wd-card>
-      <template #title>
-        <view class="title">
-          <view>2025-10-01服务到期</view>
-          <view class="title-tip">
-            <wd-icon name="attention" size="14px" custom-style="vertical-align: bottom" />
-            您可以去电脑上使用该服务
-          </view>
-        </view>
-      </template>
-
-      <view style="height: 40px" class="content">
-        <image
-          src="/static/img/jd.png"
-          width="40"
-          height="40"
-          alt="商品图片"
-          style="width: 40px; height: 40px; border-radius: 4px; margin-right: 12px"
-        />
-        <view>
-          <view class="custom-main">智云好客CRM短信_催评营销</view>
-          <view class="custom-sub">高级版 - 快速吸粉</view>
+  <wd-card type="rectangle">
+    <template #title>
+      <view style="display: flex; justify-content: space-between; align-items: center;">
+        <view>2025-10-01服务到期</view>
+        <view style="color: rgba(0,0,0,0.25); font-size: 12px;">
+          <wd-icon name="attention" size="14px" />
+          您可以去电脑上使用该服务
         </view>
       </view>
-      <template #footer>
-        <view>
-          <wd-button size="small" plain custom-style="margin-right: 8px">评价</wd-button>
-          <wd-button size="small">立即使用</wd-button>
-        </view>
-      </template>
-    </wd-card>
-  </view>
-</template>
-<style lang="scss" scoped>
-  .content,
-  .title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .content {
-    justify-content: flex-start;
-  }
-
-  .title {
-    justify-content: space-between;
-  }
-
-  .title-tip {
-    color: rgba(0, 0, 0, 0.25);
-    font-size: 12px;
-  }
-
-  .custom-main {
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 16px;
-  }
-
-  .custom-sub {
-    color: rgba(0, 0, 0, 0.25);
-    font-size: 12px;
-  }
-</style>
-```
-
-该示例通过 title 插槽自定义标题布局，标题左侧显示服务到期日期，右侧显示带有提醒图标的辅助说明文字。底部提供两个操作按钮。
-
-### 示例 6：底部多按钮操作
-
-在 footer 插槽中放置多个按钮，用于提供多个操作入口。
-
-```vue
-<template>
-  <view>
-    <wd-card type="rectangle">
-      <template #title>
-        <view class="title">
-          <view>2025-10-01服务到期</view>
-          <view class="title-tip">
-            <wd-icon name="attention" size="14px" custom-style="vertical-align: bottom" />
-            您可以去电脑上使用该服务
-          </view>
-        </view>
-      </template>
-
-      <view style="height: 40px" class="content">
-        <image
-          src="/static/img/jd.png"
-          width="40"
-          height="40"
-          alt="商品图片"
-          style="width: 40px; height: 40px; border-radius: 4px; margin-right: 12px"
-        />
-        <view>
-          <view class="custom-main">智云好客CRM短信_催评营销</view>
-          <view class="custom-sub">高级版 - 快速吸粉</view>
-        </view>
+    </template>
+    <view style="display: flex; align-items: center;">
+      <image src="/static/service.jpg" style="width: 40px; height: 40px; border-radius: 4px; margin-right: 12px" />
+      <view>
+        <view style="font-size: 16px;">智云好客CRM短信</view>
+        <view style="color: rgba(0,0,0,0.25); font-size: 12px;">高级版 - 快速吸粉</view>
       </view>
-      <template #footer>
-        <view>
-          <wd-button size="small" plain custom-style="margin-right: 8px">评价</wd-button>
-          <wd-button size="small">立即使用</wd-button>
-        </view>
-      </template>
-    </wd-card>
-  </view>
+    </view>
+    <template #footer>
+      <view>
+        <wd-button size="small" plain custom-style="margin-right: 8px">评价</wd-button>
+        <wd-button size="small">立即使用</wd-button>
+      </view>
+    </template>
+  </wd-card>
 </template>
-<script lang="ts" setup>
-  // 无额外脚本逻辑
-</script>
-<style lang="scss" scoped>
-  .content,
-  .title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .content {
-    justify-content: flex-start;
-  }
-
-  .title {
-    justify-content: space-between;
-  }
-
-  .title-tip {
-    color: rgba(0, 0, 0, 0.25);
-    font-size: 12px;
-  }
-
-  .custom-main {
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 16px;
-  }
-
-  .custom-sub {
-    color: rgba(0, 0, 0, 0.25);
-    font-size: 12px;
-  }
-</style>
 ```
 
-该示例展示了矩形卡片底部放置多个按钮的用法，通过自定义样式控制按钮间距。底部区域默认右对齐。
+通过 `title` 插槽自定义标题区域，支持图标、多行文字等复杂布局；`footer` 插槽放置多个操作按钮。
 
 ## 注意事项
 
-1. **标题显示条件**：标题区域仅在传入 `title` 属性或使用 `title` 插槽时显示，两者均未设置时标题区域不会渲染
-2. **底部区域显示条件**：底部区域仅在使用 `footer` 插槽时显示，不传入 footer 插槽时底部区域不会渲染
-3. **矩形卡片形态**：设置 `type="rectangle"` 时，卡片去除圆角和阴影，左右边距归零，内容区域和底部区域上方会添加分割线
-4. **底部区域对齐**：默认样式下，底部区域内容为右对齐（text-align: right），如需左对齐或其他对齐方式可通过 `customFooterClass` 自定义
-5. **样式自定义优先级**：`customTitleClass`、`customContentClass`、`customFooterClass` 仅用于添加自定义样式类名，具体样式需自行定义
-6. **内容区域无默认分割线**：默认卡片形态下，内容区域与底部区域之间没有分割线；矩形卡片形态下，内容区域和底部区域上方均有分割线
-7. **暗色模式适配**：组件内置暗色主题样式，当父级包含 `wot-theme-dark` 类名时自动切换为暗色样式
+- `title` 插槽优先级高于 `title` 属性，同时设置时使用插槽内容
+- `footer` 插槽不使用时底部区域不会渲染，卡片仅展示标题和内容
+- `type="rectangle"` 矩形卡片与默认卡片在边框和圆角样式上有差异
+- `customTitleClass`、`customContentClass`、`customFooterClass` 可分别控制三个区域的样式
+- 不设置 `title` 属性且不使用 `title` 插槽时，标题区域不会渲染

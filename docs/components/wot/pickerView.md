@@ -1,277 +1,131 @@
-# PickerView 选择器视图
-
-<demo-model url="/subPages/pickerView/Index"></demo-model>
+﻿# PickerView 选择器视图
 
 ## 组件概况
 
-### 组件概述
-选择器视图组件是一种在页面中直接展示的选择器，用于在页面内进行选项选择，通常用于表单、设置页、数据筛选等场景。wd-picker-view 组件提供了灵活的配置选项，支持单列/多列选择、自定义数据源、加载状态、选项高度等功能。
+PickerView 选择器视图组件是 Picker 的平铺版本，直接在页面中展示滚动选择区域，不包含弹出层和工具栏。通常作为 `wd-picker` 的内部组件使用，也可以单独使用在自定义布局中。支持单列、多列和级联选择，提供丰富的实例方法用于操作列数据。
 
-### 详细功能描述
-- 支持单列和多列选择
-- 支持自定义数据源
-- 支持加载状态
-- 支持自定义选项高度
-- 支持自定义滚筒高度
-- 支持禁用选项
-- 支持立即触发change事件
-- 支持双向绑定
-- 支持丰富的方法调用
-- 支持自定义样式和类名
+## 核心功能描述
 
-### 适用业务场景
-- 页面内的选择器组件
-- 表单中的选择字段
-- 数据筛选和排序
-- 设置页面的选项选择
-- 日期和时间选择
-- 地址选择
+- **平铺展示**：直接在页面中展示滚动选择区域
+- **单列/多列**：支持一维和二维数组作为 columns
+- **级联选择**：通过 `columnChange` 回调动态更新关联列
+- **实例方法**：提供 getSelects、getValues、setColumnData 等方法操作列数据
+- **加载状态**：通过 `loading` 显示加载中状态
+- **自定义高度**：通过 `columnsHeight` 和 `itemHeight` 自定义高度
 
-## 完整API参考
+## 适用业务场景
 
-### Props属性
+- **自定义选择器**：在自定义弹窗或面板中嵌入选择器视图
+- **嵌入式选择**：在页面中直接展示选择区域，无需弹出
+- **级联数据**：配合 `columnChange` 实现省市区等级联选择
 
-| 名称 | 类型 | 默认值 | 必填 | 描述 |
-|------|------|--------|------|------|
-| loading | boolean | false | 否 | 加载状态 |
-| loadingColor | string | '#4D80F0' | 否 | 加载的颜色，只能使用十六进制的色值写法，且不能使用缩写 |
-| columnsHeight | number | 217 | 否 | picker内部滚筒高 |
-| itemHeight | number | 35 | 否 | picker item的高度 |
-| valueKey | string | 'value' | 否 | 选项对象中，value对应的 key |
-| labelKey | string | 'label' | 否 | 选项对象中，展示的文本对应的 key |
-| immediateChange | boolean | false | 否 | 是否在手指松开时立即触发picker-view的 change 事件。若不开启则会在滚动动画结束后触发 change 事件，1.2.25版本起提供，仅微信小程序和支付宝小程序支持 |
-| modelValue | string / number / boolean / array | '' | 是 | 选中项，如果为多列选择器，则其类型应为数组 |
-| columns | array | [] | 否 | 选择器数据，可以为字符串数组，也可以为对象数组，如果为二维数组，则为多列选择器 |
-| columnChange | function | - | 否 | 接收 pickerView 实例、选中项、当前修改列的下标、resolve 作为入参，根据选中项和列下标进行判断，通过 pickerView 实例暴露出来的 setColumnData 方法修改其他列的数据源 |
-| customStyle | string | '' | 否 | 自定义根节点样式 |
-| customClass | string | '' | 否 | 自定义根节点样式类 |
+## API
 
-### Events事件
+### Props
 
-| 事件名 | 触发条件 | 参数说明 |
-|--------|----------|----------|
-| change | 选择器选中项变化时 | { picker: any, value: any, index: number } - pickerView实例、选中值、变化的列下标 |
-| pickstart | 选择器开始滚动时 | - |
-| pickend | 选择器结束滚动时 | - |
-| update:modelValue | 选中值改变时 | value: any - 选中值 |
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| modelValue | String / Number / Boolean / Array | '' | 是 | 选中项的值，多列时为数组 |
+| columns | Array | [] | 否 | 选择器数据，一维或二维数组 |
+| loading | Boolean | false | 否 | 加载状态 |
+| loadingColor | String | '#4D80F0' | 否 | 加载颜色 |
+| columnsHeight | Number | 217 | 否 | 选项总高度 |
+| itemHeight | Number | 35 | 否 | 单个选项高度 |
+| valueKey | String | 'value' | 否 | 选项值对应的键名 |
+| labelKey | String | 'label' | 否 | 选项文本对应的键名 |
+| immediateChange | Boolean | false | 否 | 手指松开时立即触发 change 事件 |
+| columnChange | Function | - | 否 | 列变化回调，用于级联选择 |
+| customStyle | String | '' | 否 | 自定义根节点样式 |
+| customClass | String | '' | 否 | 自定义根节点样式类 |
 
-### Methods方法
+### Methods
 
-| 方法名 | 参数 | 返回值 | 功能说明 |
-|--------|------|--------|----------|
-| getSelects | - | Record<string, any> / Record<string, any>[] | 获取选中项 |
+| 方法名称 | 参数 | 返回值 | 说明 |
+|---------|------|--------|------|
+| getSelects | - | Record\<string, any\> / Record\<string, any\>[] | 获取选中项对象 |
 | getValues | - | string / string[] | 获取选中值 |
-| setColumnData | columnIndex: number, data: array, rowIndex: number = 0 | - | 设置列数据 |
-| getColumnsData | - | Record<string, string>[][] | 获取所有列数据 |
-| getColumnData | columnIndex: number | Record<string, string>[] | 获取某一列数据 |
-| getColumnIndex | columnIndex: number | number | 获取某一列的选中项下标 |
-| getLabels | - | string[] | 获取所有列选中项的label |
-| getSelectedIndex | - | number[] | 获取选中的索引 |
-| resetColumns | columns: array | - | 重置列数据 |
+| setColumnData | (columnIndex, data, rowIndex?) | void | 设置指定列的数据 |
+| getColumnsData | - | Record\<string, string\>[][] | 获取所有列数据 |
+| getColumnData | (columnIndex) | Record\<string, string\>[] | 获取指定列数据 |
+| getColumnIndex | (columnIndex) | number | 获取指定列当前选中索引 |
+| getLabels | - | string[] | 获取所有列选中项的标签 |
+| getSelectedIndex | - | number[] | 获取所有列选中索引 |
+| resetColumns | (columns) | void | 重置列数据 |
 
-### Slots插槽
+### Events
 
-该组件没有定义插槽。
+| 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
+|---------|---------|---------|-------------|
+| change | 选项变化时触发 | ({ value, selectedItems }) | 选中值和选中项对象 |
+| pickstart | 滚动开始时触发 | - | - |
+| pickend | 滚动结束时触发 | - | - |
 
-## 多场景使用示例代码
+## 使用示例
 
-### 1. 基础用法
+### 示例1：基础用法
 
 ```vue
 <template>
-  <view class="picker-view-demo">
-    <view class="demo-title">基础用法</view>
-    <wd-picker-view 
-      v-model="selectedValue" 
-      :columns="columns"
-      @change="onChange"
-    />
-    <view class="picker-view-info">选中值：{{ selectedValue }}</view>
-  </view>
+  <wd-picker-view v-model="value" :columns="columns" @change="handleChange" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const selectedValue = ref('')
-const columns = ['男', '女', '保密']
+const value = ref('')
+const columns = ['选项1', '选项2', '选项3']
 
-const onChange = (params: { picker: any, value: any, index: number }) => {
-  console.log('选择结果', params)
+function handleChange({ value, selectedItems }) {
+  console.log(value, selectedItems)
 }
 </script>
-
-<style scoped>
-.picker-view-demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.demo-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.picker-view-info {
-  font-size: 16px;
-  color: #666;
-}
-</style>
 ```
 
-### 2. 对象数组数据源
+### 示例2：多列选择
 
 ```vue
 <template>
-  <view class="picker-view-demo">
-    <view class="demo-title">对象数组数据源</view>
-    <wd-picker-view 
-      v-model="selectedValue" 
-      :columns="columns"
-    />
-  </view>
+  <wd-picker-view v-model="value" :columns="columns" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const selectedValue = ref('')
+const value = ref([])
 const columns = [
-  { label: '北京', value: 'beijing' },
-  { label: '上海', value: 'shanghai' },
-  { label: '广州', value: 'guangzhou' },
-  { label: '深圳', value: 'shenzhen' }
+  ['上午', '下午'],
+  ['1点', '2点', '3点']
 ]
 </script>
 ```
 
-### 3. 多列选择
+### 示例3：级联选择
 
 ```vue
 <template>
-  <view class="picker-view-demo">
-    <view class="demo-title">多列选择</view>
-    <wd-picker-view 
-      v-model="selectedValue" 
-      :columns="columns"
-    />
-  </view>
+  <wd-picker-view v-model="value" :columns="columns" :column-change="onColumnChange" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const selectedValue = ref(['red', 's'])
-const columns = [
-  [{ label: '红色', value: 'red' }, { label: '蓝色', value: 'blue' }],
-  [{ label: 'S', value: 's' }, { label: 'M', value: 'm' }, { label: 'L', value: 'l' }]
-]
-</script>
-```
+const value = ref([])
+const columns = ref([
+  { label: '广东省', value: 'gd' },
+  { label: '浙江省', value: 'zj' }
+])
 
-### 4. 自定义样式
-
-```vue
-<template>
-  <view class="picker-view-demo">
-    <view class="demo-title">自定义样式</view>
-    <wd-picker-view 
-      v-model="selectedValue" 
-      :columns="columns"
-      :columns-height="300"
-      :item-height="45"
-      custom-style="background-color: #f5f7fa; border-radius: 8px;"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const selectedValue = ref('')
-const columns = ['选项1', '选项2', '选项3', '选项4', '选项5']
-</script>
-```
-
-### 5. 带加载状态
-
-```vue
-<template>
-  <view class="picker-view-demo">
-    <view class="demo-title">带加载状态</view>
-    <wd-button @click="loading = !loading">切换加载状态</wd-button>
-    <wd-picker-view 
-      v-model="selectedValue" 
-      :columns="columns"
-      :loading="loading"
-      loading-color="#ff4d4f"
-    />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const selectedValue = ref('')
-const loading = ref(false)
-const columns = ['选项1', '选项2', '选项3', '选项4', '选项5']
-</script>
-```
-
-## 样式定制指南
-
-### customStyle 用法
-使用 customStyle 属性可以自定义选择器视图的内联样式，例如修改背景色、边框半径、阴影等。
-
-```vue
-<wd-picker-view 
-  v-model="selectedValue" 
-  :columns="columns"
-  custom-style="background-color: #f0f9ff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"
-/>
-```
-
-### customClass 用法
-使用 customClass 属性可以为选择器视图添加自定义样式类，便于在外部 CSS 中进行样式定制。
-
-```vue
-<wd-picker-view 
-  v-model="selectedValue" 
-  :columns="columns"
-  custom-class="my-picker-view"
-/>
-
-<style scoped>
-:deep(.my-picker-view) {
-  --wd-picker-view-mask-color: rgba(255, 255, 255, 0.8);
-  --wd-picker-view-roller-background: #4D80F0;
-  --wd-picker-view-item-active-color: #4D80F0;
-  --wd-picker-view-item-disabled-color: #c0c4cc;
+function onColumnChange(pickerView, selectedItems, columnIndex, resolve) {
+  if (columnIndex === 0) {
+    pickerView.setColumnData(1, getCityList(selectedItems.value))
+  }
+  resolve()
 }
-</style>
+</script>
 ```
 
 ## 注意事项
 
-1. **数据源格式**：columns 属性支持字符串数组、对象数组和二维数组，分别对应不同的选择器类型。
-
-2. **双向绑定**：组件支持使用 v-model 双向绑定选中值，也可以使用 :model-value 和 @update:model-value 手动绑定。
-
-3. **loadingColor 属性**：loadingColor 只能使用十六进制的色值写法，且不能使用缩写，例如 #4D80F0 是有效的，而 #000 或 red 是无效的。
-
-4. **immediateChange 属性**：该属性仅在微信小程序和支付宝小程序上支持，用于控制是否在手指松开时立即触发 change 事件。
-
-5. **columnChange 事件**：用于处理多列联动逻辑，接收 pickerView 实例、选中值、当前修改列的下标和 resolve 函数作为参数。
-
-6. **禁用选项**：可以在数据源中添加 disabled: true 属性来禁用某些选项。
-
-7. **方法调用**：可以通过 ref 获取 pickerView 实例，然后调用其暴露的方法，如 getSelects、setColumnData 等。
-
-8. **性能优化**：对于大数据量的场景，建议使用虚拟滚动或分页加载，避免一次性渲染过多选项。
-
-9. **兼容性**：组件在不同平台上的表现可能略有差异，特别是在 immediateChange 属性和滚动动画方面。
-
-10. **样式定制**：可以通过 CSS 变量修改选择器视图的样式，包括遮罩颜色、滚轮背景、选中项颜色等。
+- PickerView 不包含弹出层和确认/取消按钮，通常作为自定义选择器的内部组件
+- `columnChange` 回调中需调用 `resolve()` 表示异步数据加载完成
+- 使用 `setColumnData` 方法可以在级联场景中动态更新列数据

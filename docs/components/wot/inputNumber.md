@@ -1,435 +1,166 @@
-# InputNumber 数字输入框
-<demo-model url="/subPages/inputNumber/Index"></demo-model>
-
-数字输入框允许用户通过点击加减按钮或直接键盘输入来调整数值，是数量控制、金额调整等场景中最常用的交互组件之一。
+﻿# InputNumber 数字输入框
 
 ## 组件概况
 
-InputNumber 组件是一个功能丰富的数字输入框，支持加减按钮步进、数值范围限制、小数精度控制、严格步进模式、长按连续增减、异步变更拦截等功能。组件同时保留了原生输入框的灵活性，可与表单系统无缝集成。
+InputNumber 数字输入框组件用于数字的输入和调整，由减号按钮、输入框和加号按钮三部分组成。支持步进设置、精度控制、严格步进模式、最小最大值限制、长按加减、异步变更拦截等能力，适用于购物车数量调整、参数配置等场景。
 
-### 核心功能描述
+## 核心功能描述
 
-- **加减步进**：通过点击加减按钮按设定的 step 值递增/递减
-- **范围限制**：支持最小值（min）和最大值（max）边界控制
-- **精度控制**：通过 precision 属性控制小数位数
-- **严格步进**：stepStrictly 模式下，值始终为 step 的整数倍，越界时自动调整到最近的合法步进值
-- **长按手势**：开启 longPress 后，长按加减按钮可连续增减，600ms 后触发，随后每 250ms 执行一次
-- **异步变更拦截**：beforeChange 回调支持返回 Promise，可在数值变化前进行异步校验或确认
-- **更新模式控制**：immediateChange 控制输入时是否实时更新 v-model，关闭时仅在失焦或按钮点击时更新
-- **空值支持**：allowNull 允许输入框为空，配合 placeholder 实现"不限"等场景
-- **无输入框模式**：withoutInput 隐藏输入框，仅保留加减按钮
-- **按钮独立控制**：disableMinus / disablePlus 可分别禁用减号/加号按钮
-- **初始化修正控制**：updateOnInit 控制初始化时是否自动修正 v-model 为合法值
+- **步进控制**：通过 `step` 设置步进值，支持小数步进。
+- **精度控制**：通过 `precision` 设置小数位数。
+- **严格步进**：通过 `stepStrictly` 强制值按步进倍数修正。
+- **范围限制**：通过 `min` 和 `max` 限制输入范围。
+- **输入与按钮禁用**：支持整体禁用、单独禁用输入框、减号按钮、加号按钮。
+- **无输入框模式**：通过 `withoutInput` 隐藏中间输入框，仅保留加减按钮。
+- **空值支持**：通过 `allowNull` 允许组件值为空字符串。
+- **输入提交策略**：通过 `immediateChange` 控制输入时是否立即同步到 `v-model`。
+- **初始化修正**：通过 `updateOnInit` 控制是否在初始化时自动修正并同步非法初始值。
+- **变更拦截**：通过 `beforeChange` 在变更前进行同步或异步校验。
 
-### 适用业务场景
+## 适用业务场景
 
-- 购物车商品数量增减
-- 订单中规格数量的调整
-- 价格/金额的微调输入
-- 需要严格步进值的参数配置（如每次增加固定间隔）
-- 支持"不限"选项的数量输入
-
----
+- **购物车数量调整**：在购物车页面调整商品数量，并配合 `min` / `max` 控制范围。
+- **参数配置**：在设置页调整数值参数，并配合精度和步进约束。
+- **人数或份数选择**：在预订、点餐等场景中快速调整数量。
 
 ## API
 
 ### Props
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 | 最低版本 |
-|------|------|------|--------|--------|----------|
-| modelValue / v-model | 绑定值 | number \| string | - | - | - |
-| min | 最小值 | number | - | 1 | - |
-| max | 最大值 | number | - | Number.MAX_SAFE_INTEGER | - |
-| step | 步进值 | number | - | 1 | - |
-| stepStrictly | 是否严格按照步进值递增或递减 | boolean | - | false | - |
-| precision | 数值精度（小数位数） | number \| string | - | 0 | - |
-| disabled | 是否禁用整个组件 | boolean | - | false | - |
-| disableInput | 是否禁用输入框（仅可点击按钮） | boolean | - | false | - |
-| disableMinus | 是否禁用减号按钮 | boolean | - | false | - |
-| disablePlus | 是否禁用加号按钮 | boolean | - | false | - |
-| withoutInput | 是否不显示输入框 | boolean | - | false | - |
-| inputWidth | 输入框宽度 | number \| string | - | 36 | - |
-| allowNull | 是否允许为空 | boolean | - | false | - |
-| placeholder | 输入框占位符 | string | - | '' | - |
-| adjustPosition | 键盘弹起时，是否自动上推页面 | boolean | - | true | - |
-| beforeChange | 输入值变化前的回调函数，返回 `false` 可阻止输入，支持返回 `Promise` | Function | - | - | - |
-| longPress | 是否开启长按加减手势 | boolean | - | false | - |
-| immediateChange | 是否立即响应输入变化，false 时仅在失焦和按钮点击时更新 | boolean | - | true | - |
-| updateOnInit | 是否在初始化时更新 v-model 为修正后的值 | boolean | - | true | - |
-| inputType | 输入框类型 | string | number / digit | digit | - |
-| customStyle | 自定义根节点样式 | string | - | '' | - |
-| customClass | 自定义根节点类名 | string | - | '' | - |
+| 属性名称 | 类型 | 默认值 | 是否必填 | 说明 |
+|---------|------|--------|---------|------|
+| modelValue | Number / String | - | 是 | 绑定值，支持 `v-model`。 |
+| min | Number | 1 | 否 | 最小值。 |
+| max | Number | `Number.MAX_SAFE_INTEGER` | 否 | 最大值。 |
+| step | Number | 1 | 否 | 步进值。 |
+| stepStrictly | Boolean | false | 否 | 是否按步进倍数严格修正。 |
+| precision | Number / String | 0 | 否 | 小数精度。 |
+| disabled | Boolean | false | 否 | 是否整体禁用。 |
+| disableInput | Boolean | false | 否 | 是否禁用输入框。 |
+| disableMinus | Boolean | false | 否 | 是否禁用减号按钮。 |
+| disablePlus | Boolean | false | 否 | 是否禁用加号按钮。 |
+| withoutInput | Boolean | false | 否 | 是否隐藏输入框。 |
+| inputWidth | Number / String | 36 | 否 | 输入框宽度。 |
+| allowNull | Boolean | false | 否 | 是否允许空值。 |
+| placeholder | String | `''` | 否 | 输入框占位文本。 |
+| adjustPosition | Boolean | true | 否 | 键盘弹起时是否自动上推页面。 |
+| beforeChange | `(value: number \| string) => boolean \| Promise<boolean>` | - | 否 | 值变更前的拦截函数。返回 `false` 或 `Promise<false>` 时阻止更新。 |
+| longPress | Boolean | false | 否 | 是否开启长按加减。 |
+| immediateChange | Boolean | true | 否 | 是否在输入过程中立即同步变更。 |
+| updateOnInit | Boolean | true | 否 | 是否在初始化时自动修正非法初始值并同步到外部。 |
+| inputType | String | `'digit'` | 否 | 输入框类型，可选值：`number`、`digit`。 |
+| customStyle | String | `''` | 否 | 自定义根节点样式。 |
+| customClass | String | `''` | 否 | 自定义根节点样式类。 |
 
 ### Events
 
-| 事件名 | 说明 | 回调参数 | 最低版本 |
-|--------|------|----------|----------|
-| update:modelValue | 绑定值变化时触发 | 当前数值（number \| string） | - |
-| change | 数值变化时触发 | { value: 当前数值 } | - |
-| focus | 输入框聚焦时触发 | 原生 focus 事件 detail | - |
-| blur | 输入框失焦时触发 | { value: 当前输入值 } | - |
-
-### Methods
-
-通过组件 ref 可调用以下方法：
-
-| 方法名 | 说明 | 参数 | 返回值 |
-|--------|------|------|--------|
-| - | 本组件未暴露外部可调用的方法 | - | - |
-
-### Slots
-
-| 插槽名 | 说明 | 最低版本 |
-|--------|------|----------|
-| - | 本组件不支持插槽 | - |
-
----
+| 事件名称 | 触发条件 | 参数类型 | 回调数据说明 |
+|---------|---------|---------|---------|
+| change | 值变更时触发 | `({ value: number \| string })` | 当前组件值。 |
+| update:modelValue | 值变更时触发 | `(value: number \| string)` | 用于 `v-model` 双向绑定。 |
+| focus | 输入框聚焦时触发 | `(detail: any)` | 原生 `focus` 事件详情。 |
+| blur | 输入框失焦时触发 | `({ value: string \| number })` | 当前输入框值。 |
 
 ## 使用示例
 
-### 示例一：基本用法
+### 示例1：基础用法
 
-最基础的数字输入框，支持加减按钮和直接输入。
+通过 `v-model` 绑定数值。
 
 ```vue
 <template>
-  <view>
-    <!-- 基础用法 -->
-    <wd-input-number v-model="value1" @change="handleChange" />
+  <wd-input-number v-model="value" @change="handleChange" />
+</template>
 
-    <!-- 设置步长 -->
-    <wd-input-number v-model="value2" :step="2" @change="handleChange" />
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-    <!-- 限制最大最小值 -->
-    <wd-input-number v-model="value3" :min="3" :max="10" @change="handleChange" />
-  </view>
+const value = ref<number>(1)
+
+function handleChange({ value }: { value: number | string }) {
+  console.log(value)
+}
+</script>
+```
+
+### 示例2：步进、范围与精度
+
+```vue
+<template>
+  <wd-input-number v-model="value1" :step="2" />
+  <wd-input-number v-model="value2" :min="3" :max="10" />
+  <wd-input-number v-model="value3" :precision="1" :step="0.1" />
+  <wd-input-number v-model="value4" step-strictly :step="2" :min="3" :max="15" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
 const value1 = ref<number>(1)
-const value2 = ref<number>(1)
-const value3 = ref<number>(1)
-
-function handleChange({ value }: { value: number | string }) {
-  console.log('当前值：', value)
-}
+const value2 = ref<number>(3)
+const value3 = ref<string>('1.2')
+const value4 = ref<number>(4)
 </script>
 ```
 
-### 示例二：小数精度与严格步进
-
-支持小数精度控制和严格步进模式，适用于金额、规格等需要精确数值的场景。
+### 示例3：无输入框、空值与非立即更新
 
 ```vue
 <template>
-  <view>
-    <!-- 设置小数精度 -->
-    <wd-input-number
-      v-model="value1"
-      :precision="1"
-      :step="0.1"
-      @change="handleChange"
-    />
-
-    <!-- 输入严格为步数的倍数 -->
-    <wd-input-number
-      v-model="value2"
-      step-strictly
-      :step="2"
-      @change="handleChange"
-    />
-
-    <!-- 严格步进 + 边界限制 -->
-    <view class="strict-bounds-demo">
-      <view class="demo-description">
-        值：{{ value3 }}（步进值2，最小值3，最大值15，严格步进模式）
-      </view>
-      <wd-input-number
-        v-model="value3"
-        step-strictly
-        :step="2"
-        :min="3"
-        :max="15"
-        @change="handleChange"
-      />
-      <view class="demo-note">
-        尝试输入各种值：
-        <br />
-        - 输入1 -> 自动调整为4（>=3的最小2的倍数）
-        <br />
-        - 输入5 -> 自动调整为4（最接近的2的倍数）
-        <br />
-        - 输入17 -> 自动调整为14（<=15的最大2的倍数）
-      </view>
-    </view>
+  <view class="row">
+    <text>数量：{{ count }}</text>
+    <wd-input-number v-model="count" without-input />
   </view>
+
+  <wd-input-number v-model="nullableValue" allow-null placeholder="不限" input-width="70px" />
+  <wd-input-number v-model="lazyValue" :immediate-change="false" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const value1 = ref<string>('1.2')
-const value2 = ref<number>(1)
-const value3 = ref<number>(4)
-
-function handleChange({ value }: { value: number | string }) {
-  console.log('当前值：', value)
-}
+const count = ref<number>(1)
+const nullableValue = ref<string>('')
+const lazyValue = ref<number>(1)
 </script>
-
-<style lang="scss" scoped>
-.strict-bounds-demo {
-  .demo-description {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-
-  .demo-note {
-    font-size: 12px;
-    color: #999;
-    margin-top: 12px;
-    line-height: 1.4;
-    padding: 8px;
-    background: #f5f5f5;
-    border-radius: 4px;
-  }
-
-  .wd-input-number {
-    margin-bottom: 16px;
-  }
-}
-</style>
 ```
 
-### 示例三：禁用状态与无输入框模式
-
-多种禁用方式以及隐藏输入框的纯按钮模式。
+### 示例4：异步拦截与长按加减
 
 ```vue
 <template>
-  <view>
-    <!-- 完全禁用 -->
-    <wd-input-number v-model="value1" disabled @change="handleChange" />
-
-    <!-- 仅禁用输入框（只能通过按钮操作） -->
-    <wd-input-number v-model="value2" disable-input @change="handleChange" />
-
-    <!-- 仅禁用减号按钮 -->
-    <wd-input-number v-model="value3" disable-minus @change="handleChange" />
-
-    <!-- 仅禁用加号按钮 -->
-    <wd-input-number v-model="value4" disable-plus @change="handleChange" />
-
-    <!-- 无输入框模式，仅显示加减按钮 -->
-    <view class="flex">
-      <view>数量：{{ value5 }}</view>
-      <wd-input-number v-model="value5" without-input @change="handleChange" />
-    </view>
-  </view>
+  <wd-input-number v-model="value1" :before-change="beforeChange" />
+  <wd-input-number v-model="value2" long-press />
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const value1 = ref<number>(2)
-const value2 = ref<number>(1)
-const value3 = ref<number>(1)
-const value4 = ref<number>(1)
-const value5 = ref<number>(1)
-
-function handleChange({ value }: { value: number | string }) {
-  console.log('当前值：', value)
-}
-</script>
-
-<style lang="scss" scoped>
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-</style>
-```
-
-### 示例四：空值支持与长按加减
-
-支持输入框为空以及长按连续增减的交互体验。
-
-```vue
-<template>
-  <view>
-    <!-- 允许空值，并设置 placeholder -->
-    <wd-input-number
-      v-model="value1"
-      allow-null
-      placeholder="不限"
-      input-width="70px"
-      @change="handleChange"
-    />
-
-    <!-- 非允许空值但可临时删除 -->
-    <view class="temp-empty-demo">
-      <view class="demo-description">
-        值：{{ value2 }}（可以删除为空，但失焦时会自动修正为最小值）
-      </view>
-      <wd-input-number
-        v-model="value2"
-        :allow-null="false"
-        :min="1"
-        @change="handleChange"
-      />
-      <view class="demo-note">
-        尝试删除输入框中的所有内容，然后点击其他地方失焦，会自动修正为最小值1
-      </view>
-    </view>
-
-    <!-- 长按加减按钮连续增减 -->
-    <wd-input-number v-model="value3" long-press @change="handleChange" />
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const value1 = ref<string>('')
-const value2 = ref<number>(1)
-const value3 = ref<number>(1)
-
-function handleChange({ value }: { value: number | string }) {
-  console.log('当前值：', value)
-}
-</script>
-
-<style lang="scss" scoped>
-.temp-empty-demo {
-  .demo-description {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-
-  .demo-note {
-    font-size: 12px;
-    color: #999;
-    margin-top: 12px;
-    line-height: 1.4;
-    padding: 8px;
-    background: #f5f5f5;
-    border-radius: 4px;
-  }
-
-  .wd-input-number {
-    margin-bottom: 16px;
-  }
-}
-</style>
-```
-
-### 示例五：异步变更与非立即更新模式
-
-通过 beforeChange 实现异步校验，以及通过 immediateChange 控制更新时机。
-
-```vue
-<template>
-  <view>
-    <!-- 异步变更 -->
-    <wd-input-number v-model="value1" :before-change="beforeChange" />
-
-    <!-- 立即更新模式（默认）与非立即更新模式对比 -->
-    <view class="immediate-demo">
-      <view class="demo-title">立即更新模式（默认）- 值：{{ value2 }}</view>
-      <wd-input-number
-        v-model="value2"
-        :immediate-change="true"
-        @change="handleChange"
-      />
-      <view class="demo-title">非立即更新模式 - 值：{{ value3 }}</view>
-      <wd-input-number
-        v-model="value3"
-        :immediate-change="false"
-        @change="handleChange"
-      />
-      <view class="demo-note">
-        在输入框中输入内容时，上方的值会立即更新，下方的值仅在失焦或点击按钮时更新
-      </view>
-    </view>
-  </view>
-</template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
+import { useToast } from '@/uni_modules/wot-ui-plus'
 import type { InputNumberBeforeChange } from '@/uni_modules/wot-ui-plus/components/wd-input-number/types'
+import { ref } from 'vue'
+
+const { loading, close } = useToast()
 
 const value1 = ref<number>(1)
 const value2 = ref<number>(1)
-const value3 = ref<number>(1)
-
-function handleChange({ value }: { value: number | string }) {
-  console.log('当前值：', value)
-}
 
 const beforeChange: InputNumberBeforeChange = (value) => {
-  console.log('正在更新到：', value)
+  loading({ msg: '正在更新到 ' + value })
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('更新完成')
+      close()
       resolve(true)
     }, 500)
   })
 }
 </script>
-
-<style lang="scss" scoped>
-.immediate-demo {
-  .demo-title {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-
-  .demo-note {
-    font-size: 12px;
-    color: #999;
-    margin-top: 12px;
-    line-height: 1.4;
-    padding: 8px;
-    background: #f5f5f5;
-    border-radius: 4px;
-  }
-
-  .wd-input-number {
-    margin-bottom: 16px;
-  }
-}
-</style>
 ```
-
----
 
 ## 注意事项
 
-1. **modelValue 必填**：`modelValue` 为必需属性，必须通过 v-model 绑定一个初始值。
-
-2. **严格步进模式下的边界处理**：当 `stepStrictly` 为 `true` 时，组件会将超出边界的值调整到最近的合法步进值。例如步进值为 2、最小值为 3、最大值为 15 时，输入 1 会被调整为 4（>=3 的最小 2 的倍数），输入 17 会被调整为 14（<=15 的最大 2 的倍数）。
-
-3. **精度与步进的关系**：`precision` 控制小数位数，当需要小数步进时（如 0.1），需要同时设置 `:precision="1"` 和 `:step="0.1"`，否则输入的小数可能被截断。
-
-4. **allowNull 空值行为**：当 `allowNull` 为 `true` 时，用户可以清空输入框，此时 v-model 的值变为空字符串 `''`；当 `allowNull` 为 `false` 时，用户虽然可以临时删除内容，但在失焦时会自动修正为 `min` 值。
-
-5. **immediateChange 更新时机**：默认为 `true`，即每次输入都会实时更新 v-model。设置为 `false` 时，仅在输入框失焦或点击加减按钮时才更新 v-model，适用于需要在失焦后统一校验的场景。
-
-6. **beforeChange 异步拦截**：`beforeChange` 回调函数接收新值作为参数，可返回布尔值或 `Promise<boolean>`。返回 `false` 或 `Promise.resolve(false)` 时，将阻止数值变化。
-
-7. **长按手势时间**：开启 `longPress` 后，长按 600ms 触发第一次步进，之后每 250ms 触发一次。松手即停止。
-
-8. **updateOnInit 初始化修正**：默认为 `true`，初始化时会自动将 v-model 修正为合法的数值。设置为 `false` 时，不会修改原始绑定值，但仍会进行显示格式化。
-
-9. **输入框类型**：`inputType` 默认为 `digit`（整数键盘），如需支持小数输入，请设置为 `number`。同时组件会根据 `precision` 自动设置 `input-mode` 为 `decimal` 或 `numeric`。
-
-10. **自定义样式**：使用 `customStyle` 属性时，样式值应为字符串形式的内联样式，如 `"margin: 10px;"`。使用 `customClass` 属性可添加自定义 CSS 类名。
+- 默认最小值为 `1`，如需从 `0` 开始必须显式设置 `min="0"`。
+- `beforeChange` 使用返回值控制是否继续更新，不是 `resolve` 回调风格。
+- `stepStrictly` 开启后，组件会按步进倍数和边界规则自动修正输入值。
+- `allowNull` 为 `false` 时，输入框可以短暂清空，但失焦后会被修正为合法值。
+- `immediateChange` 为 `false` 时，仅在失焦或点击加减按钮后才会同步 `v-model` 和触发 `change`。
+- `updateOnInit` 为 `true` 时，初始化阶段可能主动触发一次 `update:modelValue`，用于修正非法初始值。
+- 长按加减会在按下约 `600ms` 后开始重复触发，之后按约 `250ms` 的间隔持续执行。

@@ -179,7 +179,7 @@ class Menu<T> {
             text: 'Switch 开关组件'
           },
           {
-            link: 'layout',
+            link: 'row',
             text: 'Layout 布局组件'
           },
           {
